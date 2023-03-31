@@ -1,0 +1,59 @@
+project:
+  type: website
+  output-dir: docs
+  
+website:
+  page-navigation: true
+  title: "Cho's FinBlog"
+  favicon: logo_mir.png
+  site-url: https://jo-cho.github.io/FinBlog/
+  repo-url: https://github.com/jo-cho/FinBlog
+  repo-actions: [issue]
+  description: "금융 연구 블로그"
+  navbar:
+    right:
+      - about.qmd
+      - icon: github
+        menu: 
+        - text: Source Code
+          href: https://github.com/jo-cho/FinBlog/tree/main/docs
+        - text: Report a Bug
+          href: https://github.com/jo-cho/FinBlog/issues
+  sidebar:
+    pinned: true
+    style: docked
+    collapse-level: 1
+    header: "Cho's FinBlog"
+    contents:
+      - href: index.qmd
+        text: "Home"
+      - href: listing.qmd
+        text: "모든 글 보기"
+      - section: "머신러닝을 활용한 트레이딩"
+        contents:
+          - href: posts/ml_trading/0_Introduction.ipynb
+            text: "트레이딩 개요"
+          - href: posts/ml_trading/1_Get_Market_Data.ipynb
+            text: "시장 데이터 수집"
+          - href: posts/ml_trading/2_Labeling.ipynb
+            text: "가격 모멘텀 라벨링"
+          - href: posts/ml_trading/3_Get_Features.ipynb
+            text: "피쳐 생성"
+          - href: posts/ml_trading/4_Feature_Selection.ipynb
+            text: "피쳐 선정"
+          - href: posts/ml_trading/5_Get_Trading_Signals.ipynb
+            text: "매매 시그널 분류"
+          - href: posts/ml_trading/6_Trading_Rules.ipynb
+            text: "매매 규칙"
+          - href: posts/ml_trading/7_Enhancing_and_Bet_Confidence.ipynb
+            text: "매매 신뢰도 측정과 전략 강화"
+      - section: "시스테믹 리스크 측정"
+        
+format:
+  html:
+    theme: flatly
+    css: styles.css
+    fontsize: 1.1em
+
+        
+editor: visual

@@ -1,0 +1,28 @@
+# options specified here will apply to all posts in this folder
+
+# freeze computational output
+# (see https://quarto.org/docs/projects/code-execution.html#freeze)
+freeze: true
+
+# Enable banner style title blocks
+title-block-banner: false
+
+page-navigation: true
+fig-align: center
+fig-width: 100
+
+# blog-comments
+comments: 
+  giscus: 
+    repo: jo-cho/FinBlog
+
+format:
+  html:
+    toc: true
+    toc-title: "목차"
+    smooth-scroll: true
+    page-navigation: true
+    fig-align: center
+    fig-width: 100
+    fontsize: 1.1em
+    embed-resources: false
