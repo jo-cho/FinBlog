@@ -5,11 +5,11 @@ project:
 website:
   page-navigation: true
   title: "Cho's FinBlog"
-  favicon: logo_mir.png
+  favicon: logo.png
   site-url: https://jo-cho.github.io/FinBlog/
   repo-url: https://github.com/jo-cho/FinBlog
   repo-actions: [issue]
-  description: "금융 연구 블로그"
+  description: "금융 공부 블로그"
   navbar:
     right:
       - about.qmd
@@ -23,10 +23,10 @@ website:
     pinned: true
     style: docked
     collapse-level: 1
-    header: "Cho's FinBlog"
+    header: "FinBlog"
     contents:
       - href: index.qmd
-        text: "Home"
+        text: "홈"
       - href: listing.qmd
         text: "모든 글 보기"
       - section: "머신러닝을 활용한 트레이딩"

@@ -8,7 +8,7 @@
 
 <meta name="author" content="Cheonghyo Cho">
 
-<title>Cho’s FinBlog - 머신러닝을 이용한 트레이딩: 가격 모멘텀 라벨링</title>
+<title>Cho’s FinBlog - 머신러닝을 이용한 트레이딩: (2) 가격 모멘텀 라벨링</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -93,7 +93,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../logo_mir.png" rel="icon" type="image/png">
+<link href="../../posts/ml_trading/3_Get_Features.html" rel="next">
+<link href="../../posts/ml_trading/1_Get_Market_Data.html" rel="prev">
+<link href="../../logo.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -147,7 +149,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../about.html">
- <span class="menu-text">About Me</span></a>
+ <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -173,7 +175,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">머신러닝을 이용한 트레이딩: 가격 모멘텀 라벨링</h1>
+      <h1 class="quarto-secondary-nav-title">머신러닝을 이용한 트레이딩: (2) 가격 모멘텀 라벨링</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -184,13 +186,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto"><div class="quarto-sidebar-header"><div class="sidebar-header-item">
-<p>Cho’s FinBlog</p>
+<p>FinBlog</p>
 </div></div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link">Home</a>
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">홈</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -218,7 +220,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/ml_trading/2_Labeling.ipynb" class="sidebar-item-text sidebar-link">가격 모멘텀 라벨링</a>
+  <a href="../../posts/ml_trading/2_Labeling.html" class="sidebar-item-text sidebar-link active">가격 모멘텀 라벨링</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -263,7 +265,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">머신러닝을 이용한 트레이딩: 가격 모멘텀 라벨링</h1>
+<h1 class="title d-none d-lg-block">머신러닝을 이용한 트레이딩: (2) 가격 모멘텀 라벨링</h1>
 <p class="subtitle lead">Price Momentum Labeling</p>
   <div class="quarto-categories">
     <div class="quarto-category">trading</div>
@@ -343,7 +345,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    a1.plot(y.fillna(<span class="dv">0</span>))</span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    f.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="2_Labeling _files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
+<p><img src="2_Labeling_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="cell" data-execution_count="75">
@@ -358,13 +360,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    f.savefig(<span class="st">"c:image/labeling/trend_scanning_long_pos_</span><span class="sc">{}</span><span class="st">.png"</span>.<span class="bu">format</span>(i))</span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    f.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="2_Labeling _files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
+<p><img src="2_Labeling_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="2_Labeling _files/figure-html/cell-9-output-2.png" class="img-fluid"></p>
+<p><img src="2_Labeling_files/figure-html/cell-9-output-2.png" class="img-fluid"></p>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="2_Labeling _files/figure-html/cell-9-output-3.png" class="img-fluid"></p>
+<p><img src="2_Labeling_files/figure-html/cell-9-output-3.png" class="img-fluid"></p>
 </div>
 </div>
 
@@ -504,8 +506,20 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<script src="https://giscus.app/client.js" data-repo="jo-cho/FinBlog" data-repo-id="" data-category="General" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+<script src="https://giscus.app/client.js" data-repo="jo-cho/FinBlog" data-repo-id="R_kgDOJQ80aw" data-category="General" data-category-id="DIC_kwDOJQ80a84CVb8i" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../posts/ml_trading/1_Get_Market_Data.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">시장 데이터 수집</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../posts/ml_trading/3_Get_Features.html" class="pagination-link">
+        <span class="nav-page-text">피쳐 생성</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

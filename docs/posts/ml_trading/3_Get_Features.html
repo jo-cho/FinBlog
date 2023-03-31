@@ -8,7 +8,7 @@
 
 <meta name="author" content="Cheonghyo Cho">
 
-<title>Cho’s FinBlog - 머신러닝을 이용한 트레이딩: 피쳐 생성</title>
+<title>Cho’s FinBlog - 머신러닝을 이용한 트레이딩: (3) 피쳐 생성</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -94,8 +94,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
 <link href="../../posts/ml_trading/4_Feature_Selection.html" rel="next">
-<link href="../../posts/ml_trading/2_Labeling.ipynb" rel="prev">
-<link href="../../logo_mir.png" rel="icon" type="image/png">
+<link href="../../posts/ml_trading/2_Labeling.html" rel="prev">
+<link href="../../logo.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -151,7 +151,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../about.html">
- <span class="menu-text">About Me</span></a>
+ <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -177,7 +177,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">머신러닝을 이용한 트레이딩: 피쳐 생성</h1>
+      <h1 class="quarto-secondary-nav-title">머신러닝을 이용한 트레이딩: (3) 피쳐 생성</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -188,13 +188,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto"><div class="quarto-sidebar-header"><div class="sidebar-header-item">
-<p>Cho’s FinBlog</p>
+<p>FinBlog</p>
 </div></div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link">Home</a>
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">홈</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -222,7 +222,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/ml_trading/2_Labeling.ipynb" class="sidebar-item-text sidebar-link">가격 모멘텀 라벨링</a>
+  <a href="../../posts/ml_trading/2_Labeling.html" class="sidebar-item-text sidebar-link">가격 모멘텀 라벨링</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -274,7 +274,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">머신러닝을 이용한 트레이딩: 피쳐 생성</h1>
+<h1 class="title d-none d-lg-block">머신러닝을 이용한 트레이딩: (3) 피쳐 생성</h1>
 <p class="subtitle lead">Get Market Features</p>
   <div class="quarto-categories">
     <div class="quarto-category">trading</div>
@@ -301,7 +301,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p><a href="">앞서</a> 구한 시장 데이터를 이용하여 피쳐(feature)를 생성한다.</p>
+<p><a href="https://jo-cho.github.io/FinBlog/posts/ml_trading/1_Get_Market_Data.html">앞서</a> 구한 시장 데이터를 이용하여 피쳐(feature)를 생성한다.</p>
 <p>피쳐의 종류는 아래에서 설명한다.</p>
 <div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-11-06T06:02:00.570629Z&quot;,&quot;start_time&quot;:&quot;2021-11-06T06:01:59.061085Z&quot;}" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lib</span></span>
@@ -766,11 +766,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<script src="https://giscus.app/client.js" data-repo="jo-cho/FinBlog" data-repo-id="" data-category="General" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+<script src="https://giscus.app/client.js" data-repo="jo-cho/FinBlog" data-repo-id="R_kgDOJQ80aw" data-category="General" data-category-id="DIC_kwDOJQ80a84CVb8i" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../posts/ml_trading/2_Labeling.ipynb" class="pagination-link">
+      <a href="../../posts/ml_trading/2_Labeling.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">가격 모멘텀 라벨링</span>
       </a>          
   </div>

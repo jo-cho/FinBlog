@@ -1,15 +1,16 @@
 ---
-title: "About Me"
+title: "About"
 subtitle: "Cheonghyo Cho | 조정효"
+image: logo.png
 about:
   template: jolla
   links:
     - icon: quarto
-      text: About Me
+      text: My CV
       href: https://jo-cho.github.io
     - icon: github
       text: My Github
       href: https://github.com/jo-cho
 ---
 
-Author: Cheonghyo Cho \| 조정효 (e-mail: jhcho1016\@naver.com)
+E-mail: jhcho1016\@naver.com

@@ -2,46 +2,46 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://jo-cho.github.io/FinBlog/about.html</loc>
-    <lastmod>2023-03-31T10:04:47.946Z</lastmod>
+    <lastmod>2023-03-31T10:58:32.384Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/index.html</loc>
-    <lastmod>2023-03-31T10:04:01.738Z</lastmod>
+    <lastmod>2023-03-31T10:58:33.119Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/listing.html</loc>
-    <lastmod>2023-03-31T10:04:12.192Z</lastmod>
+    <lastmod>2023-03-31T10:58:33.962Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/ml_trading/0_Introduction.html</loc>
-    <lastmod>2023-03-31T10:04:29.219Z</lastmod>
+    <lastmod>2023-03-31T10:58:35.243Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/ml_trading/1_Get_Market_Data.html</loc>
-    <lastmod>2023-03-31T10:04:34.761Z</lastmod>
+    <lastmod>2023-03-31T10:58:36.440Z</lastmod>
   </url>
   <url>
-    <loc>https://jo-cho.github.io/FinBlog/posts/ml_trading/2_Labeling .html</loc>
-    <lastmod>2023-03-31T09:59:36.047Z</lastmod>
+    <loc>https://jo-cho.github.io/FinBlog/posts/ml_trading/2_Labeling.html</loc>
+    <lastmod>2023-03-31T10:58:37.875Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/ml_trading/3_Get_Features.html</loc>
-    <lastmod>2023-03-31T10:02:06.917Z</lastmod>
+    <lastmod>2023-03-31T10:58:39.982Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/ml_trading/4_Feature_Selection.html</loc>
-    <lastmod>2023-03-31T09:58:59.749Z</lastmod>
+    <lastmod>2023-03-31T10:58:41.281Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/ml_trading/5_Get_Trading_Signals.html</loc>
-    <lastmod>2023-03-31T09:59:00.902Z</lastmod>
+    <lastmod>2023-03-31T10:58:42.622Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/ml_trading/6_Trading_Rules.html</loc>
-    <lastmod>2023-03-31T09:59:02.048Z</lastmod>
+    <lastmod>2023-03-31T10:58:44.536Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/ml_trading/7_Enhancing_and_Bet_Confidence.html</loc>
-    <lastmod>2023-03-31T09:59:03.232Z</lastmod>
+    <lastmod>2023-03-31T10:58:46.168Z</lastmod>
   </url>
 </urlset>

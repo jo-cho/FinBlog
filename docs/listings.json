@@ -1,28 +1,15 @@
 [
   {
-    "listing": "/index.html",
-    "items": [
-      "/posts/ml_trading/2_Labeling .html",
-      "/posts/ml_trading/6_Trading_Rules.html",
-      "/posts/ml_trading/5_Get_Trading_Signals.html",
-      "/posts/ml_trading/7_Enhancing_and_Bet_Confidence.html",
-      "/posts/ml_trading/1_Get_Market_Data.html",
-      "/posts/ml_trading/0_Introduction.html",
-      "/posts/ml_trading/3_Get_Features.html",
-      "/posts/ml_trading/4_Feature_Selection.html"
-    ]
-  },
-  {
     "listing": "/listing.html",
     "items": [
-      "/posts/ml_trading/2_Labeling .html",
-      "/posts/ml_trading/6_Trading_Rules.html",
-      "/posts/ml_trading/5_Get_Trading_Signals.html",
-      "/posts/ml_trading/7_Enhancing_and_Bet_Confidence.html",
-      "/posts/ml_trading/1_Get_Market_Data.html",
       "/posts/ml_trading/0_Introduction.html",
+      "/posts/ml_trading/1_Get_Market_Data.html",
+      "/posts/ml_trading/2_Labeling.html",
       "/posts/ml_trading/3_Get_Features.html",
-      "/posts/ml_trading/4_Feature_Selection.html"
+      "/posts/ml_trading/4_Feature_Selection.html",
+      "/posts/ml_trading/5_Get_Trading_Signals.html",
+      "/posts/ml_trading/6_Trading_Rules.html",
+      "/posts/ml_trading/7_Enhancing_and_Bet_Confidence.html"
     ]
   }
 ]
