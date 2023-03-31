@@ -8,7 +8,7 @@
 
 <meta name="author" content="Cheonghyo Cho">
 
-<title>Cho’s FinBlog - 머신러닝을 이용한 트레이딩: (1) 시장 데이터 수집</title>
+<title>Cho’s FinBlog - 시스템 리스크 분석: (1) 시스템 리스크 개념</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,69 +21,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -93,8 +30,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../posts/ml_trading/2_Labeling.html" rel="next">
-<link href="../../posts/ml_trading/0_Introduction.html" rel="prev">
+<link href="../../posts/ml_trading/7_Enhancing_and_Bet_Confidence.html" rel="prev">
 <link href="../../logo.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -174,7 +110,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">머신러닝을 이용한 트레이딩: (1) 시장 데이터 수집</h1>
+      <h1 class="quarto-secondary-nav-title">시스템 리스크 분석: (1) 시스템 리스크 개념</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -201,12 +137,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">머신러닝을 활용한 트레이딩</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">머신러닝을 활용한 트레이딩</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/ml_trading/0_Introduction.html" class="sidebar-item-text sidebar-link">트레이딩 개요</a>
@@ -214,7 +150,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/ml_trading/1_Get_Market_Data.html" class="sidebar-item-text sidebar-link active">시장 데이터 수집</a>
+  <a href="../../posts/ml_trading/1_Get_Market_Data.html" class="sidebar-item-text sidebar-link">시장 데이터 수집</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -251,15 +187,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">시스템 리스크 분석</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">시스템 리스크 분석</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/1_Systemic_Risk.html" class="sidebar-item-text sidebar-link">시스템 리스크 개념</a>
+  <a href="../../posts/systemic_risk/1_Systemic_Risk.html" class="sidebar-item-text sidebar-link active">시스템 리스크 개념</a>
   </div>
 </li>
       </ul>
@@ -269,18 +205,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">목차</h2>
+   
+  <ul>
+  <li><a href="#시스템-리스크" id="toc-시스템-리스크" class="nav-link active" data-scroll-target="#시스템-리스크">시스템 리스크</a></li>
+  <li><a href="#시스템-리스크의-특징" id="toc-시스템-리스크의-특징" class="nav-link" data-scroll-target="#시스템-리스크의-특징">시스템 리스크의 특징</a></li>
+  <li><a href="#시스템-리스크-요인" id="toc-시스템-리스크-요인" class="nav-link" data-scroll-target="#시스템-리스크-요인">시스템 리스크 요인</a></li>
+  <li><a href="#참고-문헌" id="toc-참고-문헌" class="nav-link" data-scroll-target="#참고-문헌">참고 문헌</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">머신러닝을 이용한 트레이딩: (1) 시장 데이터 수집</h1>
-<p class="subtitle lead">Get Market Data</p>
+<h1 class="title d-none d-lg-block">시스템 리스크 분석: (1) 시스템 리스크 개념</h1>
+<p class="subtitle lead">Systemic Risk</p>
   <div class="quarto-categories">
-    <div class="quarto-category">trading</div>
-    <div class="quarto-category">data</div>
+    <div class="quarto-category">systemic risk</div>
+    <div class="quarto-category">risk</div>
   </div>
   </div>
 
@@ -302,39 +247,77 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<ul>
-<li>기간: 2005년 7월 27일부터 2022년 1월 17일 까지</li>
-<li>삼성전자의 OHLCV(시가, 고가, 저가, 종가, 거래량)</li>
-<li>투자주체별 거래량: 개인, 외국인 기관</li>
-</ul>
-<p>파이썬 라이브러리인 <em>FinanceDataReader</em>와 <em>yfinance</em>을 이용한다. 순매수량 데이터는 대신증권 API로 받은 데이터를 이용한다.</p>
-<p>모든 시장 데이터는 일별 데이터이다.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lib</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns<span class="op">;</span>sns.<span class="bu">set</span>()</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> FinanceDataReader <span class="im">as</span> fdr</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yfinance <span class="im">as</span> yf</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>df_ohlc <span class="op">=</span> fdr.DataReader(<span class="st">'005930'</span>,<span class="st">'2005-7-27'</span>,<span class="st">'2022-1-17'</span>).iloc[:,<span class="dv">0</span>:<span class="dv">4</span>] <span class="co">#가격 수정되어 있음</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>volume_yf <span class="op">=</span> yf.download(<span class="st">'005930.KS'</span>,<span class="st">'2005-7-27'</span>,<span class="st">'2022-1-17'</span>,auto_adjust<span class="op">=</span><span class="va">True</span>).Volume <span class="co"># 수정거래량</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>df_ohlcv <span class="op">=</span> df_ohlc.join(volume_yf).dropna()</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> tautil.ohlcv(df_ohlcv)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>quantity_ <span class="op">=</span> pd.read_csv(<span class="st">'C:data/순매수량.csv'</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>quantity_ <span class="op">=</span> quantity_.iloc[:<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>:<span class="dv">5</span>]</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>quantity_.columns <span class="op">=</span> [<span class="st">'Date'</span>,<span class="st">'individual'</span>,<span class="st">'foreign'</span>,<span class="st">'institutional'</span>]</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>quantity_.index <span class="op">=</span> quantity_[<span class="st">'Date'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: pd.to_datetime(<span class="bu">str</span>(x), <span class="bu">format</span><span class="op">=</span><span class="st">'%Y%m</span><span class="sc">%d</span><span class="st">'</span>))</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>quantity_.drop(columns<span class="op">=</span><span class="st">'Date'</span>,inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.join(quantity_).dropna()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="시스템-리스크" class="level1">
+<h1>시스템 리스크</h1>
+<blockquote class="blockquote">
+<p><strong>시스템 리스크 (systemic risk):</strong> 금융중개기능이 원활히 작동하지 못하여 경제성장과 사회후생에 심각하게 손상을 줄 정도의 심각한 금융불안정을 지칭하는 시스템적 사건이 발생할 위험 - 유럽중앙은행(ECB(2010))</p>
+</blockquote>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="1_Systemic_Risk_files/figure-html/d44e2590-1-systemic_risk.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">systemic_risk.jpg</figcaption><p></p>
+</figure>
 </div>
-<p>얻은 데이터는 <a href="https://jo-cho.github.io/FinBlog/posts/ml_trading/3_Get_Features.html">뒤</a>에서 시각화하기로 한다.</p>
+<p>금융에서 시스템리스크는 <strong>금융시스템 전체 또는 한 지역이나 국가의 전체 시장, 나아가 글로벌 시장의 붕괴</strong>로 이어지는 위기를 말한다. 가장 큰 충격이었던 <strong>2008년 글로벌 금융위기</strong>의 강력한 경제 파괴력과 금융산업을 파괴하는 거대한 연쇄반응은 금융안전과 관련하여 시스템리스크의 중요성을 인식하게 했다.</p>
+<p>전통적인 금융 리스크와 다른 가장 중요한 특징은 <strong>내부 및 외부 요인의 지속적인 반응으로 인해 전체 금융 시스템에 걸친 위험 전이 및 시스템 장애의 문제</strong>이다. 따라서 시스템 리스크에 따른 결과는 “계단식” 실패로 이어지고 금융 시스템의 개인에게 영향을 미쳐 은행 시스템이 유동성 문제와 지불 불가 상태가 된다. 즉, 시스템 금융 리스크는 <strong>글로벌 또는 지역 금융 시스템의 유동성 위험을 유발하는 연쇄적 위기</strong>로 설명될 수 있다(Silva, Kimura, &amp; Sobreiro, 2017).</p>
+<p>지난 10년이 넘는 기간 동안 금융 생태계의 연구, 금융 감독, 국경 간 자본 흐름 모니터링 등 시스템적 금융 위험에 초점을 맞춘 많은 양의 연구가 있었다. 그러나 현대 금융은 이미 광범위하고 상호 연결된 네트워크를 갖춘 상호의존적 시스템으로 구성되어 있으며, 이는 점점 더 글로벌해지는 사회의 특성을 따른다.</p>
+<p>따라서 현행 금융의 시스템 리스크에 대응하기 위해서는 비정상적인 위험행위를 <strong>자동으로 탐지하고 금융시장의 대규모 금융데이터를 신속하게 처리</strong>함으로써 <strong>정보기술(IT) 기법</strong>을 활용하여 위험 단서와 목적을 신속하게 파악하고 발견할 수 있는 새로운 도구가 개발되어야 한다. <strong>지능적이고 자동화된 기계 학습 방법</strong>은 위험 성향과 함께 점점 더 복잡해지는 금융 네트워크, 금융 거래의 빅데이터, 시장 정서 등으로 인한 시스템 위험을 평가하고 탐지하는 도구가 될 수 있다.</p>
+</section>
+<section id="시스템-리스크의-특징" class="level1">
+<h1>시스템 리스크의 특징</h1>
+<p>시스템 리스크의 특징을 설명한 선행연구</p>
+<ul>
+<li><p>Cifuentes(2003): 금융시스템에 집중도(concentration)가 높아질수록 충격이 금융기관들 간에 신속하게 잘 전파되어 시스템 리스크가 높아진다고 주장</p></li>
+<li><p>De Nicolo et al.(2012): 미시적 금융불안정이 시스템리스크로 확산되는 과정에서 부의 외부성(negative externalities)이 중요한 역할을 한다고 강조</p></li>
+<li><p>BIS(2010): 시스템리스크를 특정 시점을 기준으로 위험도가 금융시스템에 어떤 모습으로 분포되어 있는지에 주목하는 횡단면 위험과 시스템리스크가 시간에 따라 증가하는지 여부에 주목하는 시계열적 위험으로 구분</p>
+<ul>
+<li>소수의 대형 금융기관에 위험이 집중되거나 금융기관들 간에 상호 연계성이 강할수록 시스템리스크는 커짐(횡다면 위험)</li>
+<li>경기호황기의 지나친 신용을 공급은 경기불황기에 나타날 수 있는 금융불안정을 더 심화시킴(시계열적 위험)</li>
+</ul></li>
+</ul>
+</section>
+<section id="시스템-리스크-요인" class="level1">
+<h1>시스템 리스크 요인</h1>
+<p>시스템 리스크를 축적시키는 요인</p>
+<ul>
+<li><p><strong>투자자, 금융기관의 집단적 협조실패(coordination failure)</strong>: 은행예금인출 쇄도(bank run), 자산 급매도(asset fire-sale)</p></li>
+<li><p><strong>정보 요인</strong>: 근시안적 행동(myopia), 정보의 비대칭성, 지나친 위험추구 성향</p></li>
+<li><p><strong>유인체계</strong>: 금융기관의 도덕적 해이, 단기 위험 추구 성향을 부추기는 보상체계</p></li>
+<li><p><strong>규제 및 감독체계 오류</strong>: 그림자 금융(shadow banking), 규제자본의 경기순응성</p></li>
+</ul>
+<p>시스템 리스크를 촉발시키는 요인</p>
+<ul>
+<li><p>금융시스템의 외부(exogenous) 또는 내부(endogenous) <strong>충격(shock)</strong></p></li>
+<li><p>신용위험이나 유동성 위험과 같은 <strong>미시적 성격의 충격</strong> 또는 공통요인의 발현과 같은 <strong>거시적 충격</strong></p></li>
+<li><p>소수의 <strong>대형 금융기관의 도산</strong> 또는 소규모이지만 <strong>다수의 금융기관들이 한꺼번에 도산</strong>하는 형태</p></li>
+</ul>
+<p>시스템 리스크의 전염과 확산</p>
+<ul>
+<li><p>금융기관들 간의 다양한 형태의 부내(balance sheet) 또는 부외(off-balance sheet) <strong>직접적 거래관계</strong></p></li>
+<li><p><strong>정보 경로</strong>: 자산급매도, 쏠림현상(herding), 비이성적 행동 등</p></li>
+<li><p>금융기관들의 <strong>투자나 위험관리 측면에서의 유사성</strong></p></li>
+<li><p><strong>해외은행의 큰 비중</strong> (해외의 외생적 충격)</p></li>
+<li><p>금융시스템의 <strong>구조적 취약성(structural vulnerabilities)</strong></p>
+<ul>
+<li>높은 단기자금조달 의존도</li>
+<li>노출 위험의 높은 유사성</li>
+<li>중앙청산체계가 마련되어 있지 않은 장외거래 시장에 대한 높은 의존도</li>
+<li>큰 비중을 차지하는 그림자 금융</li>
+<li>높은 경기순응성을 보이는 신용공급</li>
+<li>금융기관의 심각한 만기 및 통화의 불일치</li>
+</ul></li>
+</ul>
+</section>
+<section id="참고-문헌" class="level1">
+<h1>참고 문헌</h1>
+<ul>
+<li><p>Kou, G., Chao, X., Peng, Y., Alsaadi, F. E., &amp; Herrera-Viedma, E. (2019). Machine learning methods for systemic risk analysis in financial sectors. Technological and Economic Development of Economy, 25(5), 716-742.</p></li>
+<li><p>Siegmann, A. (2017). Policy Lessons from Systemic Risk Modeling and Measurement. In Systemic Risk Tomography (pp.&nbsp;239-273). Elsevier.</p></li>
+<li><p>서상원. (2018). 시스템리스크의 측정과 관리: 서베이와 제언. 금융안정연구, 19(1), 131-232.</p></li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -474,14 +457,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../posts/ml_trading/0_Introduction.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">트레이딩 개요</span>
+      <a href="../../posts/ml_trading/7_Enhancing_and_Bet_Confidence.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">매매 신뢰도 측정과 전략 강화</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../posts/ml_trading/2_Labeling.html" class="pagination-link">
-        <span class="nav-page-text">가격 모멘텀 라벨링</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

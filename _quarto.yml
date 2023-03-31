@@ -47,7 +47,11 @@ website:
             text: "매매 규칙"
           - href: posts/ml_trading/7_Enhancing_and_Bet_Confidence.ipynb
             text: "매매 신뢰도 측정과 전략 강화"
-      - section: "시스테믹 리스크 측정"
+      - section: "시스템 리스크 분석"
+        contents:
+          - href: posts/systemic_risk/1_Systemic_Risk.ipynb
+            text: "시스템 리스크 개념"
+      
         
 format:
   html:

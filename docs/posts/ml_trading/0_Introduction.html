@@ -188,7 +188,19 @@ ul.task-list li input[type="checkbox"] {
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">시스테믹 리스크 측정</span>
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">시스템 리스크 분석</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/systemic_risk/1_Systemic_Risk.html" class="sidebar-item-text sidebar-link">시스템 리스크 개념</a>
+  </div>
+</li>
+      </ul>
   </li>
     </ul>
     </div>
@@ -245,54 +257,72 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="머신러닝을-이용한-트레이딩" class="level1">
 <h1>머신러닝을 이용한 트레이딩</h1>
+<blockquote class="blockquote">
 <p>머신러닝을 이용한 모멘텀 예측과 전략 강화</p>
+</blockquote>
 <p>아래는 구체적인 트레이딩에 머신러닝을 활용하는 구조를 보여준다. 다만, 블로그에서는 이 중 일부만 다루기로 한다.</p>
 <section id="금융-데이터와-바bar" class="level3">
 <h3 class="anchored" data-anchor-id="금융-데이터와-바bar">1. 금융 데이터와 바(bar)</h3>
-<p>틱 데이터로부터 시간 기준 혹은 금액 기준 바 형성</p>
+<ul>
+<li>틱 데이터로부터 시간 기준 혹은 금액 기준 바 형성</li>
+</ul>
 </section>
 <section id="매수-매도-시그널-포착" class="level3">
 <h3 class="anchored" data-anchor-id="매수-매도-시그널-포착">2. 매수, 매도 시그널 포착</h3>
-<p>기술적분석을 이용한 기존 모멘텀 전략 (MA crossover, RSI..)</p>
-<p>추가적인 ML 분류기를 이용한 모멘텀 감지</p>
+<ul>
+<li><p>기술적분석을 이용한 기존 모멘텀 전략 (MA crossover, RSI..)</p></li>
+<li><p>추가적인 ML 분류기를 이용한 모멘텀 감지</p></li>
+</ul>
 </section>
 <section id="매매-규칙" class="level3">
 <h3 class="anchored" data-anchor-id="매매-규칙">3. 매매 규칙</h3>
-<p>위의 매매 시그널로 진입 규칙 설정</p>
-<p>이익실현, 손절, 최대보유기간 등을 고려해 청산 규칙 설정</p>
-<p>과거 시나리오를 바탕으로 각 매매 결과 기록 (뒤의 강화 전략을 위해)</p>
+<ul>
+<li><p>위의 매매 시그널로 진입 규칙 설정</p></li>
+<li><p>이익실현, 손절, 최대보유기간 등을 고려해 청산 규칙 설정</p></li>
+<li><p>과거 시나리오를 바탕으로 각 매매 결과 기록 (뒤의 강화 전략을 위해)</p></li>
+</ul>
 </section>
 <section id="전략-강화-ml-모형" class="level3">
 <h3 class="anchored" data-anchor-id="전략-강화-ml-모형">4. 전략 강화 ML 모형</h3>
 <section id="피쳐-생성-x" class="level4">
 <h4 class="anchored" data-anchor-id="피쳐-생성-x">4.1. 피쳐 생성 (<span class="math inline">\(X\)</span>)</h4>
-<p>시장 데이터(가격, 거래량 등)와 기술적 지표</p>
-<p>시장 미시구조적(microstructure) 특징</p>
-<p>거시경제 변수</p>
-<p>자산 펀더멘털</p>
-<p>SNS/뉴스 센티멘트, 분석 컨센서스 등</p>
+<ul>
+<li><p>시장 데이터(가격, 거래량 등)와 기술적 지표</p></li>
+<li><p>시장 미시구조적(microstructure) 특징</p></li>
+<li><p>거시경제 변수</p></li>
+<li><p>자산 펀더멘털</p></li>
+<li><p>SNS/뉴스 센티멘트, 분석 컨센서스 등</p></li>
+</ul>
 </section>
 <section id="머신러닝-모형-최적화" class="level4">
 <h4 class="anchored" data-anchor-id="머신러닝-모형-최적화">4.2. 머신러닝 모형 최적화</h4>
-<p>피쳐 선정</p>
-<p>Cross-validation (Purged k-fold)</p>
-<p>하이퍼파라미터(hyperparameter) 튜닝</p>
-<p>AutoML 스태킹 (혹은 각각의 Random forest, Adaboost, SVM, GBM, XGBoost, LSTM 등)</p>
-<p>성능 (accuracy, f1 score, roc-auc)</p>
+<ul>
+<li><p>피쳐 선정</p></li>
+<li><p>Cross-validation (Purged k-fold)</p></li>
+<li><p>하이퍼파라미터(hyperparameter) 튜닝</p></li>
+<li><p>AutoML 스태킹 (혹은 각각의 Random forest, Adaboost, SVM, GBM, XGBoost, LSTM 등)</p></li>
+<li><p>성능 (accuracy, f1 score, roc-auc)</p></li>
+</ul>
 </section>
 <section id="결과" class="level4">
 <h4 class="anchored" data-anchor-id="결과">4.3. 결과</h4>
-<p>매매 신뢰도 (각각의 매매 시그널에 따라 실제 매매했을 때의 성공 예측 확률)</p>
+<ul>
+<li>매매 신뢰도 (각각의 매매 시그널에 따라 실제 매매했을 때의 성공 예측 확률)</li>
+</ul>
 </section>
 </section>
 <section id="트레이딩-결정" class="level3">
 <h3 class="anchored" data-anchor-id="트레이딩-결정">5. 트레이딩 결정</h3>
-<p>모멘텀 전략으로부터의 매매 시그널에 따라 베팅할지 혹은 패스할지를 결정</p>
-<p>위의 매매 신뢰도를 바탕으로 매매 금액/비중을 고려</p>
+<ul>
+<li><p>모멘텀 전략으로부터의 매매 시그널에 따라 베팅할지 혹은 패스할지를 결정</p></li>
+<li><p>위의 매매 신뢰도를 바탕으로 매매 금액/비중을 고려</p></li>
+</ul>
 </section>
 <section id="백테스팅" class="level3">
 <h3 class="anchored" data-anchor-id="백테스팅">6. 백테스팅</h3>
-<p>Cumulative returns, Sharpe ratio, max drawdown, win ratio</p>
+<ul>
+<li>Cumulative returns, Sharpe ratio, max drawdown, win ratio</li>
+</ul>
 </section>
 </section>
 <section id="참고-문헌" class="level1">
@@ -305,7 +335,7 @@ ul.task-list li input[type="checkbox"] {
 <h1>플로우차트</h1>
 <p>Simple version <img src="flowchart_simple.jpg" class="img-fluid" alt="ML Trade Networks2"></p>
 <hr>
-<p>Complex version <img src="https://user-images.githubusercontent.com/52461409/132567663-eeead1ab-d3de-4cf3-a79f-6fea94722999.png" class="img-fluid" alt="ML Trade Networks"></p>
+<p>Detailed version <img src="https://user-images.githubusercontent.com/52461409/132567663-eeead1ab-d3de-4cf3-a79f-6fea94722999.png" class="img-fluid" alt="ML Trade Networks"></p>
 
 
 </section>
