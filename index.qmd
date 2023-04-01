@@ -1,14 +1,11 @@
 ---
-title: "Cho's FinBlog"
+title: "Welcome to Cho's FinBlog!"
 page-layout: full
 title-block-banner: false
 ---
 
-Welcome to Cho's FinBlog.
 
-Cho의 FinBlog에 오신걸 환영합니다.
-
-<img src="logo.png" width='200'>
+<img src="logo.png" width='300'>
 
 > 이 블로그는 빅데이터, AI 등을 활용한 금융 및 경제 분야를 공부하며 정리한 짧은 글이나 마저 끝내지 못한 연구 등을 올리는 개인 블로그입니다.
 
