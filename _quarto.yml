@@ -57,7 +57,8 @@ website:
             text: "시스템 리스크 측정 - 선행연구 (거시경제)"
           - href: posts/systemic_risk/2-2_Systemic_Risk_Measures_Market.ipynb
             text: "시스템 리스크 측정 - 선행연구 (시장위험)"      
-        
+          - href: posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.ipynb
+            text: "시스템 리스크 측정 - 선행연구 (금융기관 위험)"          
 format:
   html:
     theme: flatly
