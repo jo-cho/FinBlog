@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "Welcome to Cho’s FinBlog!",
     "section": "",
-    "text": "이 블로그는 빅데이터, AI 등을 활용한 금융 및 경제 분야를 공부하며 정리한 짧은 글이나 마저 끝내지 못한 연구 등을 올리는 개인 블로그입니다.\n\n\n모든 블로그 글 보기\n\n이 블로그의 모든 글은 오직 교육용 목적입니다.\nAbout Me"
+    "text": "이 블로그는 빅데이터, AI 등을 활용한 금융 및 경제 분야를 공부하며 정리한 짧은 글이나 마저 끝내지 못한 연구 등을 올리는 개인 블로그입니다.\n\n\n모든 블로그 글 보기\n\n\n주요 관심주제: 금융 머신러닝(machine learning)/딥러닝(deep learning), 가격 모멘텀(momentum) 예측, 전략 강화 모형, 메타 라벨링(meta-labeling), 금융 시스템 리스크(systemic risk) 측정 등\n\n이 블로그의 모든 글은 오직 교육용 목적입니다.\nAbout Me"
   },
   {
     "objectID": "listing.html",
@@ -221,28 +221,28 @@
     "href": "posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.html#covar-co-value-at-risk",
     "title": "시스템 리스크 분석: (2-3) 금융기관 단면적 위험 측정방법",
     "section": "CoVaR: Co-Value-at-Risk",
-    "text": "CoVaR: Co-Value-at-Risk\nAdrian & Brunnermeier (2008)"
+    "text": "CoVaR: Co-Value-at-Risk\nAdrian & Brunnermeier (2008)\nVaR(Value-at-Risk)(금융기관의 위험도를 측정하는 대표적인 지표)개념을 활용하여 시스템리스크를 측정\n\n금융기관 \\(i\\)의 \\(q\\%\\) 유의수준에서 \\(VaR\\)\n\n\\(Pr[X^i \\leq {VaR}^i_q] = q\\%\\)\n\\(X^i\\)는 금융기관 \\(i\\)의 손실규모를 나타내는 확률변수\n\n금융기관 (또는 금융기관의 그룹) \\(j\\) 의 \\(CoVaR\\)\n\n\\(Pr[X^j |C(X^i) \\leq {CoVaR}^{j|C(X^i)}_q] = q\\%\\)\n\\(C(X^i)\\)는 금융기관 i가 손실허용한도인 \\({VaR}^i_q\\)를 넘어서는 손실을 보는 사건\n\n금융기관 \\(i\\)로 인한 \\(j\\)의 위험도 변화\n\n\\(\\Delta{CoVaR}^{j|i}_q \\equiv {CoVaR}^{j|X^i={VaR}^i_q}_q - {CoVaR}^{j|X^i={VaR}^i_{50}}_q\\)\n즉, 금융기관 \\(i\\)가 큰 손실을 보는 경우와 평균적인 경우에 금융기관 \\(j\\)의 위험수준의 차이\n\n시스템리스크 관점에서 금융기관 \\(i\\)가 시스템리스크에 미치는 기여도를 측정하기 위해 \\(j\\)를 금융시스템으로 간주\n\n\\(\\Delta{CoVaR}^{system|i}_q \\equiv {CoVaR}^{system|X^i={VaR}^i_q}_q - {CoVaR}^{system|X^i={VaR}^i_{50}}_q\\)\n\n반대로 금융기관을 \\(j\\), 시스템을 \\(i\\)로 하면, 금융기관이 시스템리스크의 변동에 따라 얼마나 영향을 받는지를 측정 (Exposure-CoVaR)\n금융기관을 \\(i\\), \\(j\\)로 하면 Network-CoVaR\n\n\n\n\nAdrian, Brunnermeier (2008) Figure 4"
   },
   {
     "objectID": "posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.html#ses-systemic-expected-shortfall",
     "href": "posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.html#ses-systemic-expected-shortfall",
     "title": "시스템 리스크 분석: (2-3) 금융기관 단면적 위험 측정방법",
     "section": "SES: Systemic expected shortfall",
-    "text": "SES: Systemic expected shortfall\nAcharya et al. (2010)"
+    "text": "SES: Systemic expected shortfall\nAcharya et al. (2010)\n금융 시스템 위기가 발생한 경우에 개별 금융기관의 적정 자본수준대비 자본의 부족규모 예상치를 측정\n\nMES: 시스템리스크가 발생하였을 때 해당 금융기관의 주가 수익률 하락폭의 기댓값\n시장 주가지수의 하락폭이 하위 5%를 넘는 경우를 시스템리스크가 발생한 경우로 전제\n레버리지는 ‘주식 시가총액’ 대비 ’장부가 자산 – 장부가 부채 + 주식 시가총액’의 비율로 측정\n금융위기 기간에 금융기관별 주가수익률 하락폭을 실현된 SES로 간주하고 이 실현된 SES를 다음과 같이 MES 및 레버리지에 대해 회귀\n\n\\(SES_i = \\alpha+ \\beta MES_i + \\gamma LVG_i + \\delta'DUM\\)\n\\(DUM\\)은 은행, 증권, 보험 등 금융기관의 종류를 나타내는 더미변수 벡터\n\n이 회귀식을 통해 추정된 SES를 이용하여 미국의 100여개 금융기관에 대해 금융기관별 시스템리스크의 순위(rank)를 정함"
   },
   {
     "objectID": "posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.html#ces-component-expected-shortfall",
     "href": "posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.html#ces-component-expected-shortfall",
     "title": "시스템 리스크 분석: (2-3) 금융기관 단면적 위험 측정방법",
     "section": "CES: Component expected shortfall",
-    "text": "CES: Component expected shortfall\nBanulescu and Dumitrescu(2015)"
+    "text": "CES: Component expected shortfall\nBanulescu and Dumitrescu(2015)\nMES와 해당 금융기관의 비중의 곱\n\n금융시스템 전체의 수익률은 다음과 같이 개별 금융기관의 수익률과 금융기관별 비중의 가중합으로 표현\n\n\\(r_{mt}=\\sum^n_{i=1}w_{it}t_{it}\\)\n\n금융시스템 전체의 수익률이 일정 임계치 C를 하회하면 시스템리스크가 발생한 것으로 정의\n\n조건부 기대손실규모 ES:\n\\(ES_{mt-1}(C)=-E_{t-1}(r_{mt}|r_{mt}<C)\\)\n\n\\(MES_{it} \\equiv \\frac{\\partial ES_{mt-1}}{\\partial w_{it}} = -E_{t-1}(r_{it}|r_{mt}<C)\\)\n\\(CES_{it} = w_{it}MES_{it} = -w_{it}E_{t-1}(r_{it}|r_{mt}<C)\\)\n즉, $ES_{mt-1}= ^n_{i=1}CES_{it}\nMES 또는 SRISK 등이 금융기관의 규모를 감안하지 못하는데 반해, 이 CES 지표는 명시적으로 개별 금융기관의 중요도를 감안한다는 차이점이 있으며, SIFI의 식별 등에 유용한 정보를 제공\n\n\n\n\nBanilescu and Dumitrescu (2015) Figure 3"
   },
   {
     "objectID": "posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.html#srisk-sytemic-risk",
     "href": "posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.html#srisk-sytemic-risk",
     "title": "시스템 리스크 분석: (2-3) 금융기관 단면적 위험 측정방법",
     "section": "SRISK: Sytemic risk",
-    "text": "SRISK: Sytemic risk\nBrownlees & Engle (2010)"
+    "text": "SRISK: Sytemic risk\nBrownlees & Engle (2010)\n금융 시스템 위기가 발생한 경우에 개별 금융기관의 자본 부족규모 예상치를 측정\n\n\\(SRISK_{it}=W_{it}[kLVG_{it}+(1-k)LRMES_{it}-1]\\)\n\n\\(W_{it}\\)는 주식 시가총액\n\\(k\\)는 자산대비 적정 자기자본 비율\n\\(LVG_{it}\\)는 자산대비 자기자본 비율 \\(A_{it}/W_{it}\\)\n\\(LRMES_{it}\\)는 시스템리스크가 발생하였을 때 개별 금융기관의 다기간 주가수익률 하락폭의 기댓값\n\n금융시스템의 불안정 수준: 개별 SRISK를 합산\n\n\\(SRISK_{t} \\equiv \\sum^N_{i=1} max(SRISK_{it},0)\\)\n\n개별 금융기관의 위험수준\n\n\\(SRISK\\%_{it} = \\frac{SRISK_{it}}{SRISK_{t}}\\)\n\nLRMES 측정 방법: GARCH-DCC 모형을 이용\n\n개별 금융기관 주가수익률 \\(r_{it}\\)과 시장수익률 \\(r_{mt}\\) 간의 관계를 GARCH-DCC 모형을 이용하여 구성 \\[\\begin{equation*}\n\\begin{bmatrix}\nr_{it} \\\\\nr_{mt}\n\\end{bmatrix} \\sim\n\\begin{pmatrix}\n  0, & \\begin{bmatrix}\n  \\sigma_{it}^2 & \\rho_{it}\\sigma_{it}\\sigma_{mt} \\\\\n  \\rho_{it}\\sigma_{it}\\sigma_{mt} & \\sigma_{mt}^2\n\\end{bmatrix}\n\\end{pmatrix}\n\\end{equation*}\\]\n여기서 변동성은 GJR-GARCH 모형을 이용하여 다음과 같이 가정\n\n\\(\\sigma_{it} = \\omega_{v_i}+\\alpha_{v_i}r^2_{it-1}+\\gamma_{v_i}r^2_{it-1}\\Gamma_{it-1}+\\beta_{v_i}\\sigma^2_{it-1}\\)\n\n\\(\\sigma_{mt} = \\omega_{v_m}+\\alpha_{v_m}r^2_{mt-1}+\\gamma_{v_m}r^2_{mt-1}\\Gamma_{mt-1}+\\beta_{v_i}\\sigma^2_{mt-1}\\)\n여기서 \\(\\Gamma_{mt-1}\\)은 \\(r_{it-1}\\)이 음(-)인 경우에 1을, 아닌 경우에 0을 가지는 변수\n\n\nDCC 모형을 위해 변동성으로 표준화한 수익률을 \\(\\epsilon_{it}\\equiv \\frac{r_{it}}{\\sigma_{it}}, \\epsilon_{mt}\\equiv \\frac{r_{mt}}{\\sigma_{mt}}\\)로 정의하여 상관계수 행렬을 구하면, \\[\\begin{equation*}\n    R_t \\equiv\n    \\begin{bmatrix}\n     1 & \\rho_{it} \\\\\n     \\rho_{it} & 1\n    \\end{bmatrix} =\n    diag(Q_{it})^{-1/2}Q_{it}diag(Q_{it})^{-1/2}, \\\\\n    Q_{it} = (1-\\alpha_{C_i}-\\beta_{C_i})S_i+\\alpha_{C_i}\n    \\begin{bmatrix}\n     \\epsilon_{it-1} \\\\\n     \\epsilon_{mt-1}\n    \\end{bmatrix}\n    \\begin{bmatrix}\n     \\epsilon_{it-1} \\\\\n     \\epsilon_{mt-1}\n    \\end{bmatrix}' + \\beta_{C_i}Q_{it-1}\n\\end{equation*}\\]\n\n\\(S_i\\)는 \\(\\epsilon_{it}, \\epsilon_{mt}\\)간의 무조건부 상관계수행렬\n\n2단계 QML 방법을 이용하여 모형 추정, 시뮬레이션 방법을 이용하여 LRMES에 대한 예측치를 산출\nSES 지수는 역사적으로 시스템리스크를 경험한 사례가 있어야 추정이 가능하지만, SRISK는 시스템리스크를 경험한 사례가 없더라도 그 추정이나 예측이 가능하다는 장점이 있음\n\n\n\n\nBrownless and Engle (2010) Figure 1\n\n\n\n\n\nBrownless and Engle (2010) Figure 3"
   },
   {
     "objectID": "posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.html#structural-garch",
