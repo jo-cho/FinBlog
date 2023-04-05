@@ -332,8 +332,7 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li><span class="math inline">\(\Delta{CoVaR}^{system|i}_q \equiv {CoVaR}^{system|X^i={VaR}^i_q}_q - {CoVaR}^{system|X^i={VaR}^i_{50}}_q\)</span></li>
 </ul></li>
-<li>반대로 금융기관을 <span class="math inline">\(j\)</span>, 시스템을 <span class="math inline">\(i\)</span>로 하면, 금융기관이 시스템리스크의 변동에 따라 얼마나 영향을 받는지를 측정 (Exposure-CoVaR)</li>
-<li>금융기관을 <span class="math inline">\(i\)</span>, <span class="math inline">\(j\)</span>로 하면 Network-CoVaR</li>
+<li>반대로 금융기관을 <span class="math inline">\(j\)</span>, 시스템을 <span class="math inline">\(i\)</span>로 하면, 금융기관이 시스템리스크의 변동에 따라 얼마나 영향을 받는지를 측정 (Exposure-CoVaR)/ 금융기관을 <span class="math inline">\(i\)</span>, <span class="math inline">\(j\)</span>로 하면 Network-CoVaR</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -347,15 +346,21 @@ ul.task-list li input[type="checkbox"] {
 <p><a href="https://doi.org/10.2139/ssrn.1573171">Acharya et al.&nbsp;(2010)</a></p>
 <p>금융 시스템 위기가 발생한 경우에 개별 금융기관의 적정 자본수준대비 자본의 부족규모 예상치를 측정</p>
 <ul>
-<li><p>MES: 시스템리스크가 발생하였을 때 해당 금융기관의 주가 수익률 하락폭의 기댓값</p></li>
-<li><p>시장 주가지수의 하락폭이 하위 5%를 넘는 경우를 시스템리스크가 발생한 경우로 전제</p></li>
-<li><p>레버리지는 ‘주식 시가총액’ 대비 ’장부가 자산 – 장부가 부채 + 주식 시가총액’의 비율로 측정</p></li>
-<li><p>금융위기 기간에 금융기관별 주가수익률 하락폭을 실현된 SES로 간주하고 이 실현된 SES를 다음과 같이 MES 및 레버리지에 대해 회귀</p>
+<li>가정 및 개념
+<ul>
+<li>시스템리스크: 시장 주가지수의 하락폭이 하위 5%를 넘는 경우로 전제</li>
+<li>MES: 시스템리스크가 발생하였을 때 해당 금융기관의 주가 수익률 하락폭의 기댓값</li>
+<li>레버리지: ‘주식 시가총액’ 대비 ’장부가 자산 – 장부가 부채 + 주식 시가총액’의 비율로 측정</li>
+</ul></li>
+<li>SES 추정
+<ul>
+<li>금융위기 기간에 금융기관별 주가수익률 하락폭을 실현된 SES로 간주하고 이 실현된 SES를 다음과 같이 MES 및 레버리지에 대해 회귀
 <ul>
 <li><span class="math inline">\(SES_i = \alpha+ \beta MES_i + \gamma LVG_i + \delta'DUM\)</span></li>
 <li><span class="math inline">\(DUM\)</span>은 은행, 증권, 보험 등 금융기관의 종류를 나타내는 더미변수 벡터</li>
 </ul></li>
-<li><p>이 회귀식을 통해 추정된 SES를 이용하여 미국의 100여개 금융기관에 대해 금융기관별 시스템리스크의 순위(rank)를 정함</p></li>
+<li>이 회귀식을 통해 추정된 SES를 이용하여 미국의 100여개 금융기관에 대해 금융기관별 시스템리스크의 순위(rank)를 정함</li>
+</ul></li>
 </ul>
 </section>
 <section id="ces-component-expected-shortfall" class="level2">
@@ -363,19 +368,22 @@ ul.task-list li input[type="checkbox"] {
 <p><a href="https://www.sciencedirect.com/science/article/abs/pii/S037842661400051X">Banulescu and Dumitrescu(2015)</a></p>
 <p>MES와 해당 금융기관의 비중의 곱</p>
 <ul>
-<li><p>금융시스템 전체의 수익률은 다음과 같이 개별 금융기관의 수익률과 금융기관별 비중의 가중합으로 표현</p>
+<li>금융시스템 전체의 수익률은 다음과 같이 개별 금융기관의 수익률과 금융기관별 비중의 가중합으로 표현
 <ul>
 <li><span class="math inline">\(r_{mt}=\sum^n_{i=1}w_{it}t_{it}\)</span></li>
 </ul></li>
-<li><p>금융시스템 전체의 수익률이 일정 임계치 C를 하회하면 시스템리스크가 발생한 것으로 정의</p>
+<li>금융시스템 전체의 수익률이 일정 임계치 C를 하회하면 시스템리스크가 발생한 것으로 정의
 <ul>
-<li>조건부 기대손실규모 ES:</li>
+<li>조건부 기대손실규모 (ES):</li>
 <li><span class="math inline">\(ES_{mt-1}(C)=-E_{t-1}(r_{mt}|r_{mt}&lt;C)\)</span></li>
 </ul></li>
-<li><p><span class="math inline">\(MES_{it} \equiv \frac{\partial ES_{mt-1}}{\partial w_{it}} = -E_{t-1}(r_{it}|r_{mt}&lt;C)\)</span></p></li>
-<li><p><span class="math inline">\(CES_{it} = w_{it}MES_{it} = -w_{it}E_{t-1}(r_{it}|r_{mt}&lt;C)\)</span></p></li>
-<li><p>즉, <span class="math inline">\(ES_{mt-1}= \sum^n_{i=1}CES_{it}\)</span></p></li>
-<li><p>MES 또는 SRISK 등이 금융기관의 규모를 감안하지 못하는데 반해, 이 CES 지표는 명시적으로 개별 금융기관의 중요도를 감안한다는 차이점이 있으며, SIFI의 식별 등에 유용한 정보를 제공</p></li>
+<li>MES, CES
+<ul>
+<li><span class="math inline">\(MES_{it} \equiv \frac{\partial ES_{mt-1}}{\partial w_{it}} = -E_{t-1}(r_{it}|r_{mt}&lt;C)\)</span></li>
+<li><span class="math inline">\(CES_{it} = w_{it}MES_{it} = -w_{it}E_{t-1}(r_{it}|r_{mt}&lt;C)\)</span></li>
+<li>즉, <span class="math inline">\(ES_{mt-1}= \sum^n_{i=1}CES_{it}\)</span></li>
+</ul></li>
+<li>MES 또는 SRISK 등이 금융기관의 규모를 감안하지 못하는데 반해, 이 CES 지표는 명시적으로 개별 금융기관의 중요도를 감안한다는 차이점이 있으며, SIFI의 식별 등에 유용한 정보를 제공</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -433,6 +441,7 @@ r_{mt}
      \rho_{it} &amp; 1
     \end{bmatrix} =
     diag(Q_{it})^{-1/2}Q_{it}diag(Q_{it})^{-1/2}, \\
+\end{equation*}\]</span> <span class="math display">\[\begin{equation*}
     Q_{it} = (1-\alpha_{C_i}-\beta_{C_i})S_i+\alpha_{C_i}
     \begin{bmatrix}
      \epsilon_{it-1} \\
@@ -470,15 +479,21 @@ r_{mt}
 <ul>
 <li>금융기관의 자산수익률에 부정적인 충격이 발생하면 이로 인해 비대칭적으로 변동성이 증가할 뿐만 아니라 레버리지(즉, 자본 대비 부채 비율)가 증가하며 이 효과로 인해 자본의 수익률에 대한 변동성이 추가로 증가하기 때문</li>
 </ul></li>
-<li><p><span class="math inline">\(r_{Et}=LM_{t-1}r_{At},\)</span></p></li>
-<li><p><span class="math inline">\(r_{At}=\sqrt{h_{At}\epsilon_{At}}, \epsilon_{At} \sim (0,1)\)</span></p></li>
-<li><p><span class="math inline">\(h_{At}=\omega + \alpha \left( \frac{r_{Et-1}}{LM_{t-2}} \right)^2 + \gamma \left( \frac{r_{Et-1}}{LM_{t-2}} \right)^2 I_{r_{E_{t-1}}}+\beta h_{At-1},\)</span></p></li>
-<li><p><span class="math inline">\(LM_{t-1} = \left[\Delta_{t-1}^{BSM}\times g^{BSM}\left(\frac{E_{t-1}}{D_{t-1}},1,\sigma^{f}_{At-1},\tau\right)\times \frac{E_{t-1}}{D_{t-1}}\right]^\psi\)</span></p></li>
-<li><p><span class="math inline">\(r_{Et}\)</span>는 주식 수익률, <span class="math inline">\(r_{A}\)</span>는 관측불가능한 (시장가치) 자산 수익률</p></li>
-<li><p>변동성은 GJR GARCH 과정을 따름</p></li>
-<li><p><span class="math inline">\(LM\)</span>은 레버리지 효과</p></li>
-<li><p><span class="math inline">\(\Delta^{BSM}\)</span>은 Black-Scholes-Merton 옵션모형에 따른 옵션델타</p></li>
-<li><p><span class="math inline">\(g^{BSM}( \ \bullet \ )\)</span>은 콜옵션가격함수의 역함수</p></li>
+<li><p>주요 식</p>
+<ul>
+<li><span class="math inline">\(r_{Et}=LM_{t-1}r_{At},\)</span></li>
+<li><span class="math inline">\(r_{At}=\sqrt{h_{At}\epsilon_{At}}, \epsilon_{At} \sim (0,1)\)</span></li>
+<li><span class="math inline">\(h_{At}=\omega + \alpha \left( \frac{r_{Et-1}}{LM_{t-2}} \right)^2 + \gamma \left( \frac{r_{Et-1}}{LM_{t-2}} \right)^2 I_{r_{E_{t-1}}}+\beta h_{At-1},\)</span></li>
+<li><span class="math inline">\(LM_{t-1} = \left[\Delta_{t-1}^{BSM}\times g^{BSM}\left(\frac{E_{t-1}}{D_{t-1}},1,\sigma^{f}_{At-1},\tau\right)\times \frac{E_{t-1}}{D_{t-1}}\right]^\psi\)</span></li>
+</ul></li>
+<li><p>변수 설명</p>
+<ul>
+<li><span class="math inline">\(r_{Et}\)</span>는 주식 수익률, <span class="math inline">\(r_{A}\)</span>는 관측불가능한 (시장가치) 자산 수익률</li>
+<li>변동성은 GJR GARCH 과정을 따름</li>
+<li><span class="math inline">\(LM\)</span>은 레버리지 효과</li>
+<li><span class="math inline">\(\Delta^{BSM}\)</span>은 Black-Scholes-Merton 옵션모형에 따른 옵션델타</li>
+<li><span class="math inline">\(g^{BSM}( \ \bullet \ )\)</span>은 콜옵션가격함수의 역함수</li>
+</ul></li>
 <li><p>주가의 변동성은 자산변동성 뿐만 아니라 레버리지 효과를 나타내는 <span class="math inline">\(LM\)</span>에도 영향을 받음</p>
 <ul>
 <li><span class="math inline">\(vol_t \left( \frac{dE_t}{E_t} \right) = LM_t \sigma_{At}\)</span></li>
@@ -529,16 +544,16 @@ r_{mt}
 <li><span class="math inline">\(\mu\)</span>는 확률밀도함수의 면적이 1이라는 조건에 대한 라그랑지 승수</li>
 </ul></li>
 </ul>
+<hr>
 <p>Segoviano and Goodhart(2009)는 결합확률밀도함수를 이용하여 다양한 금융시스템 불안정 지수를 제시</p>
-<p><strong>JPoD</strong> 금융시스템 내의 모든 금융기관들에서 동시에 위험 사건이 발생할 확률</p>
-<p>(세 금융기관 X,Y,Z가 존재하는 경우) - <span class="math inline">\(JPoD\equiv \int^{d_x}_{-infty}\int^{d_y}_{-infty}\int^{d_z}_{-infty}p(x,y,z)dxdydz\)</span></p>
+<p><strong>JPoD</strong> - 금융시스템 내의 모든 금융기관들에서 동시에 위험 사건이 발생할 확률 (세 금융기관 X,Y,Z가 존재하는 경우) - <span class="math inline">\(JPoD\equiv \int^{d_x}_{-infty}\int^{d_y}_{-infty}\int^{d_z}_{-infty}p(x,y,z)dxdydz\)</span></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="2-3_Systemic_Risk_Measures_Cross-sectional_files/figure-html/ad8b07dc-1-Segoviano_Goodhart_2009_Fig4.PNG" class="img-fluid figure-img"></p>
 <p></p><figcaption class="figure-caption">Segoviano and Goodhart (2009) Figure 4</figcaption><p></p>
 </figure>
 </div>
-<p><strong>BSI(banking stability index)</strong> 적어도 하나의 금융기관이 위험할 때 위험 금융기관 수의 기댓값 (세 금융기관 X,Y,Z가 존재하는 경우) - <span class="math inline">\(BSI= \frac{P(X\leq d_x)+P(Y\leq d_y)+P(Z\leq d_z)}{1-P(X&gt;d_x,Y&gt;d_y,Z&gt;d_z)}\)</span></p>
+<p><strong>BSI(banking stability index)</strong> - 적어도 하나의 금융기관이 위험할 때 위험 금융기관 수의 기댓값 (세 금융기관 X,Y,Z가 존재하는 경우) - <span class="math inline">\(BSI= \frac{P(X\leq d_x)+P(Y\leq d_y)+P(Z\leq d_z)}{1-P(X&gt;d_x,Y&gt;d_y,Z&gt;d_z)}\)</span></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="2-3_Systemic_Risk_Measures_Cross-sectional_files/figure-html/26c6066e-1-Segoviano_Goodhart_2009_Fig5.PNG" class="img-fluid figure-img"></p>
@@ -546,7 +561,9 @@ r_{mt}
 </figure>
 </div>
 <p><strong>PAO(probability that at least one bank becomes distressed)</strong></p>
-<p>특정 금융기관이 위험한 상황일 때 다른 금융기관 중 적어도 하나의 금융기관에서 위험 사건이 발생할 확률</p>
+<ul>
+<li>특정 금융기관이 위험한 상황일 때 다른 금융기관 중 적어도 하나의 금융기관에서 위험 사건이 발생할 확률</li>
+</ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="2-3_Systemic_Risk_Measures_Cross-sectional_files/figure-html/48426e8b-1-Segoviano_Goodhart_2009_Fig7.PNG" class="img-fluid figure-img"></p>
@@ -554,7 +571,9 @@ r_{mt}
 </figure>
 </div>
 <p><strong>DDM(distress dependence matrix)</strong></p>
-<p><span class="math inline">\(N\)</span>개의 금융기관이 존재할 때 <span class="math inline">\(N\times N\)</span> 행렬로서 그 <span class="math inline">\((i,j)\)</span>번째 원소는 <span class="math inline">\(j\)</span>번째 금융기관이 위험할 때 <span class="math inline">\(i\)</span>번째 금융기관이 위험할 조건부확률로 위험 사건에 대한 금융기관간 연계성에 대한 정보를 나타냄</p>
+<ul>
+<li><span class="math inline">\(N\)</span>개의 금융기관이 존재할 때 <span class="math inline">\(N\times N\)</span> 행렬로서 그 <span class="math inline">\((i,j)\)</span>번째 원소는 <span class="math inline">\(j\)</span>번째 금융기관이 위험할 때 <span class="math inline">\(i\)</span>번째 금융기관이 위험할 조건부확률로 위험 사건에 대한 금융기관간 연계성에 대한 정보를 나타냄</li>
+</ul>
 </section>
 </section>
 <section id="참고문헌" class="level1">
