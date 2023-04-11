@@ -51,14 +51,18 @@ website:
         contents:
           - href: posts/systemic_risk/1_Systemic_Risk.ipynb
             text: "시스템 리스크 개념"
-          - href: posts/systemic_risk/2_Systemic_Risk_Measures.ipynb
-            text: "시스템 리스크 측정 - 선행연구 요약"
-          - href: posts/systemic_risk/2-1_Systemic_Risk_Measures_Macro.ipynb
-            text: "시스템 리스크 측정 - 선행연구 (거시경제)"
-          - href: posts/systemic_risk/2-2_Systemic_Risk_Measures_Market.ipynb
-            text: "시스템 리스크 측정 - 선행연구 (시장위험)"      
-          - href: posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.ipynb
-            text: "시스템 리스크 측정 - 선행연구 (금융기관 위험)"          
+          - section: "시스템 리스크 측정 - 선행연구"
+            contents:
+            - href: posts/systemic_risk/2_Systemic_Risk_Measures.ipynb
+              text: "시스템 리스크 측정 - 선행연구 요약"
+            - href: posts/systemic_risk/2-1_Systemic_Risk_Measures_Macro.ipynb
+              text: "시스템 리스크 측정 - 선행연구 (거시경제)"
+            - href: posts/systemic_risk/2-2_Systemic_Risk_Measures_Market.ipynb
+              text: "시스템 리스크 측정 - 선행연구 (시장위험)"      
+            - href: posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.ipynb
+              text: "시스템 리스크 측정 - 선행연구 (금융기관 위험)"
+            - href: posts/systemic_risk/2-4_Systemic_Risk_Measures_Probability_of_Default.ipynb
+              text: "시스템 리스크 측정 - 선행연구 (부도확률모형 위험)" 
 format:
   html:
     theme: flatly
