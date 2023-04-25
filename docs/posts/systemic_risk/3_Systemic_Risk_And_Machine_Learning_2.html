@@ -8,7 +8,7 @@
 
 <meta name="author" content="Cheonghyo Cho">
 
-<title>Cho’s FinBlog - 시스템 리스크 분석: (1) 시스템 리스크 개념</title>
+<title>Cho’s FinBlog - 시스템 리스크 분석: (3-2) 시스템 리스크와 머신러닝 - 향후 연구 방향</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../posts/systemic_risk/2_Systemic_Risk_Measures.html" rel="next">
-<link href="../../posts/ml_trading/7_Enhancing_and_Bet_Confidence.html" rel="prev">
+<link href="../../posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_1.html" rel="prev">
 <link href="../../logo.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -111,7 +110,7 @@ ul.task-list li input[type="checkbox"] {
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">시스템 리스크 분석: (1) 시스템 리스크 개념</h1>
+      <h1 class="quarto-secondary-nav-title">시스템 리스크 분석: (3-2) 시스템 리스크와 머신러닝 - 향후 연구 방향</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -196,7 +195,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/1_Systemic_Risk.html" class="sidebar-item-text sidebar-link active">시스템 리스크 개념</a>
+  <a href="../../posts/systemic_risk/1_Systemic_Risk.html" class="sidebar-item-text sidebar-link">시스템 리스크 개념</a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
@@ -241,12 +240,12 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">시스템 리스크와 머신러닝</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">시스템 리스크와 머신러닝</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_1.html" class="sidebar-item-text sidebar-link">시스템 리스크와 머신러닝 - 선행연구</a>
@@ -254,7 +253,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_2.html" class="sidebar-item-text sidebar-link">시스템 리스크와 머신러닝 - 향후 연구 방향</a>
+  <a href="../../posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_2.html" class="sidebar-item-text sidebar-link active">시스템 리스크와 머신러닝 - 향후 연구 방향</a>
   </div>
 </li>
       </ul>
@@ -270,10 +269,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">목차</h2>
    
   <ul>
-  <li><a href="#시스템-리스크" id="toc-시스템-리스크" class="nav-link active" data-scroll-target="#시스템-리스크">시스템 리스크</a></li>
-  <li><a href="#시스템-리스크의-특징" id="toc-시스템-리스크의-특징" class="nav-link" data-scroll-target="#시스템-리스크의-특징">시스템 리스크의 특징</a></li>
-  <li><a href="#시스템-리스크-요인" id="toc-시스템-리스크-요인" class="nav-link" data-scroll-target="#시스템-리스크-요인">시스템 리스크 요인</a></li>
-  <li><a href="#참고-문헌" id="toc-참고-문헌" class="nav-link" data-scroll-target="#참고-문헌">참고 문헌</a></li>
+  <li><a href="#향후-연구-방향" id="toc-향후-연구-방향" class="nav-link active" data-scroll-target="#향후-연구-방향">향후 연구 방향</a>
+  <ul class="collapse">
+  <li><a href="#빅데이터의-영향" id="toc-빅데이터의-영향" class="nav-link" data-scroll-target="#빅데이터의-영향">빅데이터의 영향</a></li>
+  <li><a href="#데이터-드리븐" id="toc-데이터-드리븐" class="nav-link" data-scroll-target="#데이터-드리븐">데이터-드리븐</a></li>
+  <li><a href="#데이터-사이언스의-최적-정책" id="toc-데이터-사이언스의-최적-정책" class="nav-link" data-scroll-target="#데이터-사이언스의-최적-정책">데이터 사이언스의 최적 정책</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -282,11 +283,13 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">시스템 리스크 분석: (1) 시스템 리스크 개념</h1>
-<p class="subtitle lead">Systemic Risk</p>
+<h1 class="title d-none d-lg-block">시스템 리스크 분석: (3-2) 시스템 리스크와 머신러닝 - 향후 연구 방향</h1>
+<p class="subtitle lead">Systemic Risk Measure and Machine Learning Future Research</p>
   <div class="quarto-categories">
     <div class="quarto-category">systemic risk</div>
-    <div class="quarto-category">risk</div>
+    <div class="quarto-category">network</div>
+    <div class="quarto-category">big data</div>
+    <div class="quarto-category">machine learning</div>
   </div>
   </div>
 
@@ -308,76 +311,32 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="시스템-리스크" class="level1">
-<h1>시스템 리스크</h1>
-<blockquote class="blockquote">
-<p><strong>시스템 리스크 (systemic risk):</strong> 금융중개기능이 원활히 작동하지 못하여 경제성장과 사회후생에 심각하게 손상을 줄 정도의 심각한 금융불안정을 지칭하는 시스템적 사건이 발생할 위험 - 유럽중앙은행(ECB(2010))</p>
-</blockquote>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="1_Systemic_Risk_files/figure-html/d44e2590-1-systemic_risk.jpg" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Systemic_Risk</figcaption><p></p>
-</figure>
-</div>
-<p>금융에서 시스템리스크는 <strong>금융시스템 전체 또는 한 지역이나 국가의 전체 시장, 나아가 글로벌 시장의 붕괴</strong>로 이어지는 위기를 말한다. 가장 큰 충격이었던 <strong>2008년 글로벌 금융위기</strong>의 강력한 경제 파괴력과 금융산업을 파괴하는 거대한 연쇄반응은 금융안전과 관련하여 시스템리스크의 중요성을 인식하게 했다.</p>
-<p>전통적인 금융 리스크와 다른 가장 중요한 특징은 <strong>내부 및 외부 요인의 지속적인 반응으로 인해 전체 금융 시스템에 걸친 위험 전이 및 시스템 장애의 문제</strong>이다. 따라서 시스템 리스크에 따른 결과는 “계단식” 실패로 이어지고 금융 시스템의 개인에게 영향을 미쳐 은행 시스템이 유동성 문제와 지불 불가 상태가 된다. 즉, 시스템 금융 리스크는 <strong>글로벌 또는 지역 금융 시스템의 유동성 위험을 유발하는 연쇄적 위기</strong>로 설명될 수 있다(Silva, Kimura, &amp; Sobreiro, 2017).</p>
-<p>지난 10년이 넘는 기간 동안 금융 생태계의 연구, 금융 감독, 국경 간 자본 흐름 모니터링 등 시스템적 금융 위험에 초점을 맞춘 많은 양의 연구가 있었다. 그러나 현대 금융은 이미 광범위하고 상호 연결된 네트워크를 갖춘 상호의존적 시스템으로 구성되어 있으며, 이는 점점 더 글로벌해지는 사회의 특성을 따른다.</p>
-<p>따라서 현행 금융의 시스템 리스크에 대응하기 위해서는 비정상적인 위험행위를 <strong>자동으로 탐지하고 금융시장의 대규모 금융데이터를 신속하게 처리</strong>함으로써 <strong>정보기술(IT) 기법</strong>을 활용하여 위험 단서와 목적을 신속하게 파악하고 발견할 수 있는 새로운 도구가 개발되어야 한다. <strong>지능적이고 자동화된 기계 학습 방법</strong>은 위험 성향과 함께 점점 더 복잡해지는 금융 네트워크, 금융 거래의 빅데이터, 시장 정서 등으로 인한 시스템 위험을 평가하고 탐지하는 도구가 될 수 있다.</p>
+<p>G. Kou <em>et al.</em> (2019)</p>
+<section id="향후-연구-방향" class="level1">
+<h1>향후 연구 방향</h1>
+<p>시스템 리스크는 금융 연구에서 매우 활발한 영역이 되었다. <a href="https://jo-cho.github.io/FinBlog/posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_1.html">앞의 포스트</a>에서 금융 시스템 리스크 연구의 현재 추세를 몇 가지 질문 및 전망과 함께 제시했다. 이를 세 가지 추세로 식별할 수 있다.</p>
+<ol type="1">
+<li>빅데이터 분석을 활용한 금융 시스템 리스크 대응</li>
+<li>데이터 드리븐(data-driven)의 시스템 리스크 분석</li>
+<li>글로벌 금융시장의 시스템 리스크에 대한 레그테크(Reg-tech)</li>
+</ol>
+<section id="빅데이터의-영향" class="level2">
+<h2 class="anchored" data-anchor-id="빅데이터의-영향">빅데이터의 영향</h2>
+<p>의심할 여지 없이 빅데이터의 발전은 산업 데이터의 응용뿐만 아니라 이론적 연구를 위한 새로운 길을 열었다. 시스템 리스크 연구에서 빅데이터를 사용하는 것은 향후 연구의 주요 방향 중 하나가 될 수밖에 없다. 현재 시스템 금융 리스크에 대한 금융규제는 주로 거시적 관점과 경기순응적 리스크의 식별 및 대응에 초점을 맞추고 있다. 시스템적으로 중요한 기관의 관리, 데이터 마이닝 및 지식 발견의 적용은 향후 추가적인 조사가 필요하다. 따라서 빅데이터 기술의 사용은 비정상적인 행동의 탐지, 미시적 대상의 분류된 관리, 전형적인 사례 모델링 및 국가 간 기업 규제 모델링을 포함하여 미시적 관리 영역을 탐색하기 위해 현재 연구 장벽을 돌파해야 한다.</p>
+<p>예를 들어, “대마불사(too big to fail)” 기관을 식별하는 것은 거시 건전성 금융 규제의 주요 작업 중 하나이다. 그러나 금융시스템이 고도로 네트워크화되고 위험전파 불확실성에 대한 연구와 금융시스템의 복잡성에 따라 ’too big to fail’의 중요성은 점차 ’too complex to fail’의 문제로 바뀌고 있다. 복잡한 금융 네트워크에서 핵심 노드를 식별하는 것은 금융 규제 조치 및 정책을 촉진하는 효과적인 방법이다. 따라서 복잡한 금융 네트워크에 대한 주류 연구는 빅데이터 분석 기술, 더 나아가 편미분방정식 등에 기반한 금융 생태계의 안정성을 포함해야 한다.</p>
 </section>
-<section id="시스템-리스크의-특징" class="level1">
-<h1>시스템 리스크의 특징</h1>
-<p>시스템 리스크의 특징을 설명한 선행연구</p>
-<ul>
-<li><p>Cifuentes(2003): 금융시스템에 집중도(concentration)가 높아질수록 충격이 금융기관들 간에 신속하게 잘 전파되어 시스템 리스크가 높아진다고 주장</p></li>
-<li><p>De Nicolo et al.(2012): 미시적 금융불안정이 시스템리스크로 확산되는 과정에서 부의 외부성(negative externalities)이 중요한 역할을 한다고 강조</p></li>
-<li><p>BIS(2010): 시스템리스크를 특정 시점을 기준으로 위험도가 금융시스템에 어떤 모습으로 분포되어 있는지에 주목하는 횡단면 위험과 시스템리스크가 시간에 따라 증가하는지 여부에 주목하는 시계열적 위험으로 구분</p>
-<ul>
-<li>소수의 대형 금융기관에 위험이 집중되거나 금융기관들 간에 상호 연계성이 강할수록 시스템리스크는 커짐(횡다면 위험)</li>
-<li>경기호황기의 지나친 신용을 공급은 경기불황기에 나타날 수 있는 금융불안정을 더 심화시킴(시계열적 위험)</li>
-</ul></li>
-</ul>
+<section id="데이터-드리븐" class="level2">
+<h2 class="anchored" data-anchor-id="데이터-드리븐">데이터-드리븐</h2>
+<p>데이터 마이닝에 사용되는 시스템 리스크의 실제 데이터는 금융 데이터가 엄격한 리소스 및 예산 제약 하에 보관되기 때문에 주요 과제 중 하나이다. 은행간 데이터 연계 등의 데이터 활용이 어렵기 때문에 시스템 리스크에 빅데이터가 아직 제대로 활용되지 못하고 있다. 따라서 국가 간 금융 통찰력을 갖춘 글로벌 금융 시장에 대한 실증적 근거 연구는 추가 주제이다. 데이터를 수집하거나 사용 가능한 데이터를 삭제하는 것은 매우 어려운 작업이다.</p>
+<p>예를 들어, 전통적인 연구에서 금융 네트워크의 위험 전염 및 시스템 리스크의 원인은 시스템적으로 중요한 금융 기관에서 발생하는 것으로 여겨졌다. 따라서 대부분의 국가는 금융 규제를 위해 이러한 기관에 의존했다. 그러나 비금융 기관과 금융 기관을 연결하는 네트워크의 안정성이 시스템 전체의 안정성에 영향을 미치지 않을 것이라고 누가 보장할 수 있는가? 금융네트워크의 다차원적 시스템 구조는 네트워크에 속한 금융기관이 비금융기관의 영향을 받아 불안정성이 커진다는 것을 의미한다. 현재 연구에서 네트워크 관계는 부채, 자본 대출 및 금융 기관 간의 현금 흐름에 집중되어 있다. 따라서 비금융 및 금융 기관, 특히 초국경 기관의 데이터 소스는 향후 연구의 주요 방향 중 하나가 될 것이다.</p>
 </section>
-<section id="시스템-리스크-요인" class="level1">
-<h1>시스템 리스크 요인</h1>
-<p>시스템 리스크를 축적시키는 요인</p>
-<ul>
-<li><p><strong>투자자, 금융기관의 집단적 협조실패(coordination failure)</strong>: 은행예금인출 쇄도(bank run), 자산 급매도(asset fire-sale)</p></li>
-<li><p><strong>정보 요인</strong>: 근시안적 행동(myopia), 정보의 비대칭성, 지나친 위험추구 성향</p></li>
-<li><p><strong>유인체계</strong>: 금융기관의 도덕적 해이, 단기 위험 추구 성향을 부추기는 보상체계</p></li>
-<li><p><strong>규제 및 감독체계 오류</strong>: 그림자 금융(shadow banking), 규제자본의 경기순응성</p></li>
-</ul>
-<p>시스템 리스크를 촉발시키는 요인</p>
-<ul>
-<li><p>금융시스템의 외부(exogenous) 또는 내부(endogenous) <strong>충격(shock)</strong></p></li>
-<li><p>신용위험이나 유동성 위험과 같은 <strong>미시적 성격의 충격</strong> 또는 공통요인의 발현과 같은 <strong>거시적 충격</strong></p></li>
-<li><p>소수의 <strong>대형 금융기관의 도산</strong> 또는 소규모이지만 <strong>다수의 금융기관들이 한꺼번에 도산</strong>하는 형태</p></li>
-</ul>
-<p>시스템 리스크의 전염과 확산</p>
-<ul>
-<li><p>금융기관들 간의 다양한 형태의 부내(balance sheet) 또는 부외(off-balance sheet) <strong>직접적 거래관계</strong></p></li>
-<li><p><strong>정보 경로</strong>: 자산급매도, 쏠림현상(herding), 비이성적 행동 등</p></li>
-<li><p>금융기관들의 <strong>투자나 위험관리 측면에서의 유사성</strong></p></li>
-<li><p><strong>해외은행의 큰 비중</strong> (해외의 외생적 충격)</p></li>
-<li><p>금융시스템의 <strong>구조적 취약성(structural vulnerabilities)</strong></p>
-<ul>
-<li>높은 단기자금조달 의존도</li>
-<li>노출 위험의 높은 유사성</li>
-<li>중앙청산체계가 마련되어 있지 않은 장외거래 시장에 대한 높은 의존도</li>
-<li>큰 비중을 차지하는 그림자 금융</li>
-<li>높은 경기순응성을 보이는 신용공급</li>
-<li>금융기관의 심각한 만기 및 통화의 불일치</li>
-</ul></li>
-</ul>
-</section>
-<section id="참고-문헌" class="level1">
-<h1>참고 문헌</h1>
-<ul>
-<li><p>Kou, G., Chao, X., Peng, Y., Alsaadi, F. E., &amp; Herrera-Viedma, E. (2019). Machine learning methods for systemic risk analysis in financial sectors. Technological and Economic Development of Economy, 25(5), 716-742.</p></li>
-<li><p>Siegmann, A. (2017). Policy Lessons from Systemic Risk Modeling and Measurement. In Systemic Risk Tomography (pp.&nbsp;239-273). Elsevier.</p></li>
-<li><p>서상원. (2018). 시스템리스크의 측정과 관리: 서베이와 제언. 금융안정연구, 19(1), 131-232.</p></li>
-</ul>
+<section id="데이터-사이언스의-최적-정책" class="level2">
+<h2 class="anchored" data-anchor-id="데이터-사이언스의-최적-정책">데이터 사이언스의 최적 정책</h2>
+<p>금융규제와 마찬가지로 시스템 리스크에 대응하는 것은 이론적 연구와 관리실무를 유기적으로 연결하는 것이 중요하다. 그것은 경영과학의 본질이자 정보기술의 본질적인 요구이다. 정보기술을 활용해 금융리스크에 대응하는 레그테크(reg-tech)가 최근 화두가 되고 있다. 시스템 리스크의 규제는 데이터 과학의 정량적 연구 측면에서 포괄적인 정책 도구를 사용해야 하는 금융 시스템 엔지니어링 문제이다.</p>
+<p>예를 들어 건전한 금융 규제 연구는 거시적 및 미시적 건전성 요소와 행동 감독을 결합해야 한다. 그러나 최선의 정책을 선택하려면 비용과 편익에 대한 포괄적인 평가가 필요하다. 따라서 정책 집행의 실효성 평가는 시스템 리스크 규제의 중요한 영역 중 하나이다. 향후 연구의 주요 방향은 비용 효율적인 분석 방법의 적용 및 다목적 방법을 포함한다.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -518,14 +477,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../posts/ml_trading/7_Enhancing_and_Bet_Confidence.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">매매 신뢰도 측정과 전략 강화</span>
+      <a href="../../posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_1.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">시스템 리스크와 머신러닝 - 선행연구</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../posts/systemic_risk/2_Systemic_Risk_Measures.html" class="pagination-link">
-        <span class="nav-page-text">시스템 리스크 측정 - 선행연구 요약</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

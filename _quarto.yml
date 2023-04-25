@@ -65,8 +65,12 @@ website:
               text: "시스템 리스크 측정 - 선행연구 (부도확률모형 위험)"
             - href: posts/systemic_risk/2-5_Systemic_Risk_Measures_Network.ipynb
               text: "시스템 리스크 측정 - 선행연구 (네트워크)"
-          - href: posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning.ipynb
-            text: "시스템 리스크과 머신러닝 - 선행연구"
+          - section: "시스템 리스크와 머신러닝"
+            contents:
+            - href: posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_1.ipynb
+              text: "시스템 리스크와 머신러닝 - 선행연구"
+            - href: posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_2.ipynb
+              text: "시스템 리스크와 머신러닝 - 향후 연구 방향"
 format:
   html:
     theme: flatly
