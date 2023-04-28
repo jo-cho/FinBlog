@@ -33,7 +33,7 @@ website:
         contents:
           - href: posts/fin_data/Fractional_difference.ipynb
             text: "분수 차분"
-      - section: "머신러닝을 활용한 트레이딩"
+      - section: "머신러닝을 활용한 알고리즘 트레이딩"
         contents:
           - href: posts/ml_trading/0_Introduction.ipynb
             text: "트레이딩 개요"
