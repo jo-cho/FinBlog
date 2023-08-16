@@ -72,7 +72,9 @@ website:
           - section: "시스템 리스크와 머신러닝"
             contents:
             - href: posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_1.ipynb
-              text: "시스템 리스크와 머신러닝 - 선행연구"
+              text: "시스템 리스크와 머신러닝 - 선행연구1"
+            - href: posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_1_2.ipynb
+              text: "시스템 리스크와 머신러닝 - 선행연구2"
             - href: posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_2.ipynb
               text: "시스템 리스크와 머신러닝 - 향후 연구 방향"
 format:

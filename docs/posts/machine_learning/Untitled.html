@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Cheonghyo Cho">
 
-<title>Cho’s FinBlog - 분수 차분 (fractional differentiation)</title>
+<title>Cho's FinBlog – untitled</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -64,8 +29,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../posts/ml_trading/0_Introduction.html" rel="next">
-<link href="../../listing.html" rel="prev">
 <link href="../../logo.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -98,8 +61,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -153,7 +114,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../posts/fin_data/Fractional_difference.html">금융 데이터 처리</a></li><li class="breadcrumb-item"><a href="../../posts/fin_data/Fractional_difference.html">분수 차분</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -181,16 +142,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
  <span class="menu-text">금융 데이터 처리</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/fin_data/Fractional_difference.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../posts/fin_data/Fractional_difference.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">분수 차분</span></a>
   </div>
 </li>
@@ -354,177 +315,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">목차</h2>
-   
-  <ul>
-  <li><a href="#fractional-differentiation" id="toc-fractional-differentiation" class="nav-link active" data-scroll-target="#fractional-differentiation">Fractional Differentiation</a>
-  <ul class="collapse">
-  <li><a href="#방법" id="toc-방법" class="nav-link" data-scroll-target="#방법">방법</a></li>
-  <li><a href="#예시" id="toc-예시" class="nav-link" data-scroll-target="#예시">예시</a></li>
-  <li><a href="#참고문헌" id="toc-참고문헌" class="nav-link" data-scroll-target="#참고문헌">참고문헌</a></li>
-  </ul></li>
-  </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">분수 차분 (fractional differentiation)</h1>
-<p class="subtitle lead">Fractional Differentiation</p>
-  <div class="quarto-categories">
-    <div class="quarto-category">fractional differentiation</div>
-    <div class="quarto-category">data</div>
-    <div class="quarto-category">stationarity</div>
-  </div>
-  </div>
 
 
 
-<div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Cheonghyo Cho </p>
-          </div>
-  </div>
-    
-  
-    
-  </div>
-  
-
-</header>
-
-<section id="fractional-differentiation" class="level1">
-<h1>Fractional Differentiation</h1>
-<ul>
-<li><p>가격과 같은 비정상성의(non-stationary) 시계열 자료는 통계모형 등의 분석에 적합하지 않다. 따라서 보통 시계열 자료를 (정수 단위로; 1차, 2차 …) 차분하여 정상적(stationary) 상태로 만들어 분석에 사용한다.</p></li>
-<li><p>시계열이 비정상성이라는 것은 그만큼 메모리(memory)를 보존하고 있다는 것이다. 따라서 과도하게 차분을 하여 시계열을 정상적으로 만들면 기존의 시계열 자료가 가지고 있는 정보는 사라지게 된다.</p></li>
-<li><p>이를 방지하기 위한 방법이 분수 차분(fractional differentiation)이다. “fractional differentiation”은 M.DePrado의 저서 “Advances in Financial Machine Learning”에 소개된 방법으로 시계열의 메모리를 어느정도 보존하면서 정상성을 만족하도록 차분해주는 것을 의미한다.</p></li>
-</ul>
-<section id="방법" class="level2">
-<h2 class="anchored" data-anchor-id="방법">방법</h2>
-<p>다음과 같은 Backshift 연산자 <span class="math inline">\(B\)</span>가 있다고 하자</p>
-<p>실수 행렬 <span class="math inline">\({Xt}\)</span>에 대해</p>
-<ul>
-<li><p><span class="math inline">\(B^k X_t = X_{t−k}\)</span> (<span class="math inline">\(k \geq 0\)</span>)</p></li>
-<li><p><span class="math inline">\((1-B)^{d} = \sum^{\infty}_{k=0}{\left( \begin{array}{c}  n \\  r  \end{array}\right)} (-B)^k\)</span> (formal binomial series expansion)</p></li>
-<li><p><span class="math inline">\((1-B)^{d}X_t\)</span>: d차 차분 시계열 (d는 실수)</p></li>
-</ul>
-<p>따라서 d차 차분에 대해 다음과 같이 시계열이 생성된다.</p>
-<ul>
-<li><span class="math inline">\(\tilde{X}_t = \sum^{\infty}_{k=0}w_kX_{t-k}\)</span></li>
-<li><span class="math inline">\(w = \{ 1, -d, \frac{d(d-1)}{2!}, -\frac{d(d-1)(d-2)}{3!}, \cdots, (-1)^k \prod_{i=1}^{k-1}(\frac{d-i}{k!}) , \cdots \}\)</span></li>
-</ul>
-<p>하지만 실제로 차분을 구할 때 위와 같은 계산은 무한급수가 되므로 이를 처리해야 한다.</p>
-<p>또한 위의 식에서의 계수(혹은 weight)를 <span class="math inline">\(w\)</span>(예: <span class="math inline">\(0.2, 0.08 \cdots\)</span>)라고 했을 때, 정수가 아닌 <span class="math inline">\(d\)</span>에 대해 <span class="math inline">\(k \geq d+1\)</span>가 되면 <span class="math inline">\(\text{int}[d]\)</span>가 짝수일 때 <span class="math inline">\(w\)</span>가 음수가 된다.</p>
-<p>즉, <span class="math inline">\(\text{int}[d]\)</span>가 짝수일 때, <span class="math inline">\(\lim\limits_{k\to \infty} w_k = 0^-\)</span>이고, <span class="math inline">\(\text{int}[d]\)</span>가 홀수일 때, <span class="math inline">\(\lim\limits_{k\to \infty} w_k = 0^+\)</span>이다.</p>
-<p>따라서 <span class="math inline">\(w_k\)</span>의 <span class="math inline">\(k\)</span>에 대한 window를 정해주거나, 상대적 weight-loss (<span class="math inline">\(\frac{\sum_{j=T-1}^{T}|w_j|}{\sum_{i=0}^{T-1}|w_i|}\)</span>)에 대해 threshold를 설정하여 계산을 제한할 수 있다.</p>
-<p>예를 들어 다음과 같이 생각할 수 있다.</p>
-<ul>
-<li><span class="math inline">\((1-B)^{0.2} X_t = X_t - 0.2 X_{t-1} - 0.08 X_{t-2} - 0.048 X_{t-3} \cdots\)</span></li>
-<li><span class="math inline">\((1-B)^{0.4} X_t = X_t - 0.4 X_{t-1} - 0.12 X_{t-2} - 0.064 X_{t-3} \cdots\)</span></li>
-<li><span class="math inline">\((1-B)^{0.8} X_t = X_t - 0.8 X_{t-1} - 0.08 X_{t-2} - 0.032 X_{t-3} \cdots\)</span></li>
-<li><span class="math inline">\((1-B)^{1} X_t = X_t - 1.0 X_{t-1} - 0 X_{t-2} - 0 X_{t-3} \cdots\)</span></li>
-</ul>
-</section>
-<section id="예시" class="level2">
-<h2 class="anchored" data-anchor-id="예시">예시</h2>
-<div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yfinance <span class="im">as</span> yf</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> fracdiff <span class="co"># https://github.com/fracdiff/fracdiff를 사용</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># S&amp;P500 지수를 가져와본다</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>sp500 <span class="op">=</span> yf.download(<span class="st">'^GSPC'</span>, start<span class="op">=</span><span class="st">'2001-1-1'</span>, end<span class="op">=</span><span class="st">'2023-1-1'</span>).Close</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[*********************100%***********************]  1 of 1 completed</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sp500</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
-<pre><code>Date
-2001-01-02    1283.270020
-2001-01-03    1347.560059
-2001-01-04    1333.339966
-2001-01-05    1298.349976
-2001-01-08    1295.859985
-                 ...     
-2022-12-23    3844.820068
-2022-12-27    3829.250000
-2022-12-28    3783.219971
-2022-12-29    3849.280029
-2022-12-30    3839.500000
-Name: Close, Length: 5535, dtype: float64</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">3</span>))</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"S&amp;P500"</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>plt.plot(sp500)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="Fractional_difference_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
-</div>
-</div>
-<div class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fraction difference (n=1)은 np.diff()와 같다.</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>diff <span class="op">=</span> sp500.diff()[<span class="dv">1</span>:]</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>f_diff_1 <span class="op">=</span> fracdiff.fdiff(sp500, n<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>np.<span class="bu">all</span>(diff <span class="op">==</span> f_diff_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
-<pre><code>True</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>diff <span class="op">=</span> sp500.diff()</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">3</span>))</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"S&amp;P500 difference"</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>plt.plot(diff)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="Fractional_difference_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
-</div>
-</div>
-<div class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>n_s<span class="op">=</span>[<span class="fl">.2</span>,<span class="fl">.4</span>,<span class="fl">.6</span>,<span class="fl">.8</span>,<span class="fl">1.</span>]</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>w<span class="op">=</span><span class="dv">10</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">16</span>,<span class="dv">8</span>))</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f"S&amp;P500 nth fractional differences"</span>)</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>plt.plot(sp500)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> n_s:</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    diff <span class="op">=</span> fracdiff.fdiff(sp500, n<span class="op">=</span>n, window<span class="op">=</span>w)[w:]</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    diff <span class="op">=</span> pd.Series(diff,index<span class="op">=</span>sp500.index[<span class="bu">int</span>(n)<span class="op">+</span>w:])</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    plt.plot(diff)</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>plt.legend([<span class="st">'0 (original)'</span>]<span class="op">+</span>n_s, title<span class="op">=</span><span class="st">'nth'</span>)</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"fdiff_thumbnail.jpg"</span>)</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="Fractional_difference_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
-</div>
-</div>
-</section>
-<section id="참고문헌" class="level2">
-<h2 class="anchored" data-anchor-id="참고문헌">참고문헌</h2>
-<ul>
-<li>De Prado, M. L. (2018). Advances in financial machine learning. John Wiley &amp; Sons.</li>
-<li>https://fracdiff.github.io/fracdiff/</li>
-</ul>
-
-
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -762,21 +561,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <script src="https://giscus.app/client.js" data-repo="jo-cho/FinBlog" data-repo-id="R_kgDOJQ80aw" data-category="General" data-category-id="DIC_kwDOJQ80a84CVb8i" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../../listing.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">모든 글 보기</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../../posts/ml_trading/0_Introduction.html" class="pagination-link">
-        <span class="nav-page-text">트레이딩 개요</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 
 
 
-<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></div></div></footer><script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
