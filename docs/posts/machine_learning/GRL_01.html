@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Cheonghyo Cho">
 
-<title>Cho's FinBlog – untitled</title>
+<title>Cho’s FinBlog - 그래프 머신러닝: (1) 들어가며</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -29,6 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
+<link href="../../posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_2.html" rel="prev">
 <link href="../../logo.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -61,6 +63,8 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -114,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../posts/machine_learning/GRL_01.html">그래프 머신러닝</a></li><li class="breadcrumb-item"><a href="../../posts/machine_learning/GRL_01.html">들어가며</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -160,7 +164,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
- <span class="menu-text">머신러닝을 활용한 알고리즘 트레이딩</span></a>
+ <span class="menu-text">알고리즘 트레이딩</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -309,21 +313,176 @@ ul.task-list li input[type="checkbox"] {
   </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+ <span class="menu-text">그래프 머신러닝</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/machine_learning/GRL_01.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">들어가며</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">목차</h2>
+   
+  <ul>
+  <li><a href="#들어가며" id="toc-들어가며" class="nav-link active" data-scroll-target="#들어가며">들어가며</a>
+  <ul class="collapse">
+  <li><a href="#그래프란" id="toc-그래프란" class="nav-link" data-scroll-target="#그래프란">그래프란?</a>
+  <ul class="collapse">
+  <li><a href="#multi-relational-그래프" id="toc-multi-relational-그래프" class="nav-link" data-scroll-target="#multi-relational-그래프">Multi-relational 그래프</a></li>
+  <li><a href="#feature-information" id="toc-feature-information" class="nav-link" data-scroll-target="#feature-information">Feature information</a></li>
+  </ul></li>
+  <li><a href="#머신러닝과-그래프" id="toc-머신러닝과-그래프" class="nav-link" data-scroll-target="#머신러닝과-그래프">머신러닝과 그래프</a>
+  <ul class="collapse">
+  <li><a href="#노드-분류node-classification" id="toc-노드-분류node-classification" class="nav-link" data-scroll-target="#노드-분류node-classification">노드 분류(node classification)</a></li>
+  <li><a href="#관계-예측relation-prediction" id="toc-관계-예측relation-prediction" class="nav-link" data-scroll-target="#관계-예측relation-prediction">관계 예측(relation prediction)</a></li>
+  <li><a href="#커뮤니티-감지community-detection" id="toc-커뮤니티-감지community-detection" class="nav-link" data-scroll-target="#커뮤니티-감지community-detection">커뮤니티 감지(community detection)</a></li>
+  <li><a href="#그래프-분류-회귀-클러스터링-graph-classification-regression-clustering" id="toc-그래프-분류-회귀-클러스터링-graph-classification-regression-clustering" class="nav-link" data-scroll-target="#그래프-분류-회귀-클러스터링-graph-classification-regression-clustering">그래프 분류, 회귀, 클러스터링 (graph classification, regression, clustering)</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#참고자료" id="toc-참고자료" class="nav-link" data-scroll-target="#참고자료">참고자료</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">그래프 머신러닝: (1) 들어가며</h1>
+<p class="subtitle lead">Graph Representation Learning: Introduction</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">graph</div>
+  </div>
+  </div>
 
 
 
+<div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Cheonghyo Cho </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Hamilton,W.L. <em>Graph Representation Learning</em>. 2020</p>
+<section id="들어가며" class="level1">
+<h1>들어가며</h1>
+<p>그래프(graph)는 복잡한 시스템을 나타내는 보편적인 수단이다.</p>
+<ul>
+<li>그래프는 <strong>노드</strong>(node)와 그들 사이의 <strong>엣지</strong>(edge)로 이루어져 있다. 예를 들어, 소셜 네트워크는 개인을 나타내는 노드와 친구 관계를 나타내는 엣지로 표현될 수 있다.</li>
+</ul>
+<section id="그래프란" class="level2">
+<h2 class="anchored" data-anchor-id="그래프란">그래프란?</h2>
+<p>그래프: <span class="math inline">\(\mathcal{G} = (\mathcal{V},\mathcal{E})\)</span></p>
+<ul>
+<li>그래프는 노드 집합 <span class="math inline">\(V\)</span>와 엣지 집합 <span class="math inline">\(\mathcal{E}\)</span>로 정의된다. 노드 <span class="math inline">\(u \in \mathcal{V}\)</span>에서 노드 <span class="math inline">\(v \in \mathcal{V}\)</span>로 가는 엣지를 <span class="math inline">\((u,v) \in \mathcal{E}\)</span>로 나타낸다.</li>
+</ul>
+<p><em>단순그래프(simple graph</em>): 두 노드 간 최대 하나의 엣지를 가지고, 노드 스스로 연결하는 엣지가 없으며, 방향이 없는(undirected) 그래프</p>
+<p>인접행렬(adjacency matrix): <span class="math inline">\(A \in \mathbb{R}^{|\mathcal{V}| \times |\mathcal{V}|}\)</span></p>
+<ul>
+<li><p><span class="math inline">\(A[u,v] = \begin{cases}  1 &amp; \quad \text{if } (u,v) \in \mathcal{E} \\  0 &amp; \quad \text{otherwise}  \end{cases}\)</span></p></li>
+<li><p>만약, 그래프가 방향이 없는 엣지로 이루어져 있다면 <span class="math inline">\(A\)</span>는 symmetric matrix가 된다.</p></li>
+<li><p><em>weighted</em> 엣지를 가지는 경우 <span class="math inline">\(0, 1\)</span>이 아닌 실수 원소를 가지는 인접행렬이 된다.</p></li>
+</ul>
+<section id="multi-relational-그래프" class="level3">
+<h3 class="anchored" data-anchor-id="multi-relational-그래프">Multi-relational 그래프</h3>
+<p><span class="math inline">\((u,\tau,v) \in \mathcal{E}\)</span> - 두 종류 이상의 관계에 대한 연결성을 나타낼 수 있는 그래프 - 관계 <span class="math inline">\(\tau \in R\)</span>가 있으며, 각 종류의 관계 <span class="math inline">\(\tau\)</span>마다 인접행렬 <span class="math inline">\(A_\tau\)</span>가 있다. - 이때 인접행렬은 다음과 같은 3차원이다: <span class="math inline">\(A \in \mathbb{R}^{|\mathcal{V}| \times |\mathcal{R}| \times |\mathcal{V}|}\)</span> - multi-relational 그래프에는 <em>heterogeneous</em>와 <em>multiplex</em> 그래프가 있다.</p>
+<p>Heterogeneous 그래프:</p>
+<ul>
+<li><span class="math inline">\(\mathcal{V}=\mathcal{V_1} \cup \mathcal{V_2} \cup \cdots \cup \mathcal{V_3}\)</span> where <span class="math inline">\(\mathcal{V_i} \cap \mathcal{V_j} = \emptyset\)</span> for all <span class="math inline">\(i \neq j\)</span></li>
+<li>즉, disjoint한 노드 부분집합으로 구성된 노드 집합
+<ul>
+<li>예시: 노드(약 노드집합, 질병 노드집합), 엣지(약-약:다약부작용, 약-질병:치료)</li>
+</ul></li>
+<li>관계 <span class="math inline">\(\tau_i\)</span>는 두 노드 부분집합 사이 연결: <span class="math inline">\((u,\tau_i, v) \in \mathcal{E} \rightarrow u \in V_j, v \in V_k\)</span></li>
+<li>이 때 <span class="math inline">\(j \neq k\)</span>이면 <em>multipartite</em> 그래프라고 한다. (즉, 다른 부분집합 간의 엣지만 존재)</li>
+</ul>
+<p>Multiplex 그래프</p>
+<ul>
+<li><span class="math inline">\(k\)</span>개의 층(layers)의 집합으로 이루어진 그래프</li>
+<li>intra-layer 엣지와 inter-layer 엣지가 있다.</li>
+</ul>
+<p><img src="img/multiplex_graph.png" width="500"></p>
+<p>출처: Hammoud &amp; Kramer (2020)</p>
+</section>
+<section id="feature-information" class="level3">
+<h3 class="anchored" data-anchor-id="feature-information">Feature information</h3>
+<ul>
+<li>노드의 특징(feature or attribute) (예: 소셜 네트워크에서 한 사람(노드)의 프로필 사진 등 특징) 정보</li>
+<li>feature는 실수 행렬로 나타냄: <span class="math inline">\(X \in \mathbb{R}^{|V| \times m}\)</span></li>
+<li>heterogeneous 그래프에서 각 노드는 고유의 특징을 가진다.</li>
+</ul>
+</section>
+</section>
+<section id="머신러닝과-그래프" class="level2">
+<h2 class="anchored" data-anchor-id="머신러닝과-그래프">머신러닝과 그래프</h2>
+<section id="노드-분류node-classification" class="level3">
+<h3 class="anchored" data-anchor-id="노드-분류node-classification">노드 분류(node classification)</h3>
+<ul>
+<li><p>레이블된 노드를 학습하여, 레이블되지 않은 노드를 분류</p></li>
+<li><p>기존의 i.i.d.(independent and identically distributed)를 가정하는 지도학습 모형과 달리 <strong>i.i.d.를 가정하지 않는다</strong>. 대신, 노드 간 연결 집합을 모델링 한다.</p></li>
+<li><p>homophily: 그래프의 이웃 노드 간에 유사한 feature를 공유한다는 개념</p></li>
+<li><p>structural equivalence: 유사한 이웃 구조를 가진 노드가 유사한 레이블을 가진다는 개념</p></li>
+<li><p>heterophily: 한 노드가 다른 레이블의 노드와 우선적으로 연결될 것을 가정</p></li>
+</ul>
+</section>
+<section id="관계-예측relation-prediction" class="level3">
+<h3 class="anchored" data-anchor-id="관계-예측relation-prediction">관계 예측(relation prediction)</h3>
+<ul>
+<li>주어진 노드 집합과 부분적인 엣지 집합을 활용하여 누락된 엣지를 예측하는 작업</li>
+<li>작업의 복잡성은 그래프 유형에 따라 다르며, 단순한 그래프에서는 이웃을 공유하는 노드 쌍을 기반으로 하는 간단한 방법으로 성능을 높일 수 있지만, 복잡한 다중 관계 그래프에서는 복잡한 추론이 필요하다.</li>
+<li>관계 예측은 지도 및 비지도 학습 개념을 혼합하며 그래프 도메인에 특화된 inductive bias가 필요하다.</li>
+<li>또한 단일 그래프 내에서 예측하는 경우와 여러 겹치지 않는 그래프 간 예측을 하는 경우 등 다양한 변형이 있다.</li>
+</ul>
+</section>
+<section id="커뮤니티-감지community-detection" class="level3">
+<h3 class="anchored" data-anchor-id="커뮤니티-감지community-detection">커뮤니티 감지(community detection)</h3>
+<ul>
+<li>위의 노드 분류와 관계 예측은 지도학습에 대응되는 작업이었다면, community detection은 비지도학습/클러스터링에 대응된다.</li>
+<li>community detection은 주어진 <span class="math inline">\(\mathcal{G}=(\mathcal{V},\mathcal{E})\)</span>로 잠재적인 커뮤니티 구조를 추론한다.</li>
+</ul>
+</section>
+<section id="그래프-분류-회귀-클러스터링-graph-classification-regression-clustering" class="level3">
+<h3 class="anchored" data-anchor-id="그래프-분류-회귀-클러스터링-graph-classification-regression-clustering">그래프 분류, 회귀, 클러스터링 (graph classification, regression, clustering)</h3>
+<ul>
+<li>그래프 하나하나를 대상으로 분류하거나, 그래프 특성을 예측하거나, 클러스터링한다.</li>
+<li>여러 그래프로 구성된 데이터를 가지고 특정 그래프에 대해 작업한다.</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="참고자료" class="level1">
+<h1>참고자료</h1>
+<p>[1] Hamilton, W. L. (2020). <em>Graph Representation Learning.</em> Morgan &amp; Claypool Publishers.</p>
+<p>[2] Hammoud, Z., &amp; Kramer, F. (2020). Multilayer networks: aspects, implementations, and application in biomedicine. Big Data Analytics, 5(1), 2.</p>
+
+
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -561,9 +720,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <script src="https://giscus.app/client.js" data-repo="jo-cho/FinBlog" data-repo-id="R_kgDOJQ80aw" data-category="General" data-category-id="DIC_kwDOJQ80a84CVb8i" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_2.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">시스템 리스크와 머신러닝 - 향후 연구 방향</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
 </div> <!-- /content -->
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></div></div></footer><script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

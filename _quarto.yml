@@ -33,7 +33,7 @@ website:
         contents:
           - href: posts/fin_data/Fractional_difference.ipynb
             text: "분수 차분"
-      - section: "머신러닝을 활용한 알고리즘 트레이딩"
+      - section: "알고리즘 트레이딩"
         contents:
           - href: posts/ml_trading/0_Introduction.ipynb
             text: "트레이딩 개요"
@@ -77,6 +77,10 @@ website:
               text: "시스템 리스크와 머신러닝 - 선행연구2"
             - href: posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_2.ipynb
               text: "시스템 리스크와 머신러닝 - 향후 연구 방향"
+      - section: "그래프 머신러닝"
+        contents:
+          - href: posts/machine_learning/GRL_01.ipynb
+            text: "들어가며"
 format:
   html:
     theme: flatly
