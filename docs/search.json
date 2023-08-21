@@ -53,7 +53,7 @@
     "href": "posts/systemic_risk/2-5_Systemic_Risk_Measures_Network.html",
     "title": "시스템 리스크 분석: (2-5) 네트워크 측정방법",
     "section": "",
-    "text": "금융기관들간의 직접적인 연계성이 존재하는 경우에 시스템리스크 측면에서 어떤 영향을 미치는지 효과적으로 분석한다."
+    "text": "서상원 (2018)\n금융기관들간의 직접적인 연계성이 존재하는 경우에 시스템리스크 측면에서 어떤 영향을 미치는지 효과적으로 분석한다."
   },
   {
     "objectID": "posts/systemic_risk/2-5_Systemic_Risk_Measures_Network.html#모형-설정",
@@ -88,7 +88,7 @@
     "href": "posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.html",
     "title": "시스템 리스크 분석: (2-3) 금융기관 단면적 위험 측정방법",
     "section": "",
-    "text": "시스템리스크 측정 방법 중 다수의 금융기관이 동시에 위험에 처하게 되는 위험을 직접적으로 측정하는 법을 알아본다. 금융기관의 부도사건에 대한 다변수 확률분포에 대한 정보를 추출하고 이를 이용하여 시스템리스크를 측정한다."
+    "text": "서상원 (2018)\n시스템리스크 측정 방법 중 다수의 금융기관이 동시에 위험에 처하게 되는 위험을 직접적으로 측정하는 법을 알아본다. 금융기관의 부도사건에 대한 다변수 확률분포에 대한 정보를 추출하고 이를 이용하여 시스템리스크를 측정한다."
   },
   {
     "objectID": "posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.html#pcas-principal-component-analysis-based-systemic-risk-indicator",
@@ -144,7 +144,7 @@
     "href": "posts/systemic_risk/2-1_Systemic_Risk_Measures_Macro.html",
     "title": "시스템 리스크 분석: (2-1) 거시경제지표를 활용한 경제전체 위험도 측정 방법",
     "section": "",
-    "text": "시스템리스크 측정 방법 중 거시경제지표를 활용한 경제전체 위험도를 살펴본다."
+    "text": "서상원 (2018)\n시스템리스크 측정 방법 중 거시경제지표를 활용한 경제전체 위험도를 살펴본다."
   },
   {
     "objectID": "posts/systemic_risk/2-1_Systemic_Risk_Measures_Macro.html#fcycl-financial-cycle",
@@ -210,18 +210,67 @@
     "text": "기간: 2005년 7월 27일부터 2022년 1월 17일 까지\n삼성전자의 OHLCV(시가, 고가, 저가, 종가, 거래량)\n투자주체별 거래량: 개인, 외국인 기관\n\n파이썬 라이브러리인 FinanceDataReader와 yfinance을 이용한다. 순매수량 데이터는 대신증권 API로 받은 데이터를 이용한다.\n모든 시장 데이터는 일별 데이터이다.\n\n# lib\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns;sns.set()\n\nimport FinanceDataReader as fdr\nimport yfinance as yf\ndf_ohlc = fdr.DataReader('005930','2005-7-27','2022-1-17').iloc[:,0:4] #가격 수정되어 있음\nvolume_yf = yf.download('005930.KS','2005-7-27','2022-1-17',auto_adjust=True).Volume # 수정거래량\n\ndf_ohlcv = df_ohlc.join(volume_yf).dropna()\ndf = tautil.ohlcv(df_ohlcv)\n\nquantity_ = pd.read_csv('C:data/순매수량.csv')\nquantity_ = quantity_.iloc[:-1,1:5]\nquantity_.columns = ['Date','individual','foreign','institutional']\nquantity_.index = quantity_['Date'].apply(lambda x: pd.to_datetime(str(x), format='%Y%m%d'))\nquantity_.drop(columns='Date',inplace=True)\n\ndf = df.join(quantity_).dropna()\n\n얻은 데이터는 뒤에서 시각화하기로 한다."
   },
   {
-    "objectID": "posts/machine_learning/GRL_02_1.html",
-    "href": "posts/machine_learning/GRL_02_1.html",
-    "title": "그래프 머신러닝: (2-1) 그래프 통계량과 커널 방법",
+    "objectID": "posts/machine_learning/GRL_02_2.html",
+    "href": "posts/machine_learning/GRL_02_2.html",
+    "title": "그래프 머신러닝: (2-2) 이웃 중복 감지",
     "section": "",
     "text": "Hamilton,W.L. Graph Representation Learning. 2020"
   },
   {
-    "objectID": "posts/machine_learning/GRL_02_1.html#node-level-통계량과-특징",
-    "href": "posts/machine_learning/GRL_02_1.html#node-level-통계량과-특징",
-    "title": "그래프 머신러닝: (2-1) 그래프 통계량과 커널 방법",
-    "section": "Node-level 통계량과 특징",
-    "text": "Node-level 통계량과 특징\n\nNode degree\n한 노드에 연결된 엣지 수\n\\(d_u = \\sum_{v \\in V}A[u,v]\\) for \\(u \\in \\mathcal{V}\\)\n\nnode degree는 고려해야 할 필수적 요소이며 전통적 기계학습 모델에서 가장 유익한 정보 중 하나이다.\n하지만, 연결된 노드들의 중요성 등은 degree에 반영되지 않는다. 같은 degree더라도 이웃에 따라 중요도가 다를 수 있다.\n\n\n\nNode centrality"
+    "objectID": "posts/machine_learning/GRL_02_2.html#local-overlap-measures",
+    "href": "posts/machine_learning/GRL_02_2.html#local-overlap-measures",
+    "title": "그래프 머신러닝: (2-2) 이웃 중복 감지",
+    "section": "Local Overlap Measures",
+    "text": "Local Overlap Measures"
+  },
+  {
+    "objectID": "posts/machine_learning/GRL_02_2.html#global-overlap-measures",
+    "href": "posts/machine_learning/GRL_02_2.html#global-overlap-measures",
+    "title": "그래프 머신러닝: (2-2) 이웃 중복 감지",
+    "section": "Global Overlap Measures",
+    "text": "Global Overlap Measures"
+  },
+  {
+    "objectID": "posts/machine_learning/GRL_01.html",
+    "href": "posts/machine_learning/GRL_01.html",
+    "title": "그래프 머신러닝: (1) 들어가며",
+    "section": "",
+    "text": "Hamilton,W.L. Graph Representation Learning. 2020\n그래프(graph)는 복잡한 시스템을 나타내는 보편적인 수단이다."
+  },
+  {
+    "objectID": "posts/machine_learning/GRL_01.html#그래프란",
+    "href": "posts/machine_learning/GRL_01.html#그래프란",
+    "title": "그래프 머신러닝: (1) 들어가며",
+    "section": "그래프란?",
+    "text": "그래프란?\n그래프: \\(\\mathcal{G} = (\\mathcal{V},\\mathcal{E})\\)\n\n그래프는 노드 집합 \\(V\\)와 엣지 집합 \\(\\mathcal{E}\\)로 정의된다. 노드 \\(u \\in \\mathcal{V}\\)에서 노드 \\(v \\in \\mathcal{V}\\)로 가는 엣지를 \\((u,v) \\in \\mathcal{E}\\)로 나타낸다.\n\n단순그래프(simple graph): 두 노드 간 최대 하나의 엣지를 가지고, 노드 스스로 연결하는 엣지가 없으며, 방향이 없는(undirected) 그래프\n인접행렬(adjacency matrix): \\(A \\in \\mathbb{R}^{|\\mathcal{V}| \\times |\\mathcal{V}|}\\)\n\n\\(A[u,v] = \\begin{cases}  1 & \\quad \\text{if } (u,v) \\in \\mathcal{E} \\\\  0 & \\quad \\text{otherwise}  \\end{cases}\\)\n만약, 그래프가 방향이 없는 엣지로 이루어져 있다면 \\(A\\)는 symmetric matrix가 된다.\nweighted 엣지를 가지는 경우 \\(0, 1\\)이 아닌 실수 원소를 가지는 인접행렬이 된다.\n\n\nMulti-relational 그래프\n\\((u,\\tau,v) \\in \\mathcal{E}\\) - 두 종류 이상의 관계에 대한 연결성을 나타낼 수 있는 그래프 - 관계 \\(\\tau \\in R\\)가 있으며, 각 종류의 관계 \\(\\tau\\)마다 인접행렬 \\(A_\\tau\\)가 있다. - 이때 인접행렬은 다음과 같은 3차원이다: \\(A \\in \\mathbb{R}^{|\\mathcal{V}| \\times |\\mathcal{R}| \\times |\\mathcal{V}|}\\) - multi-relational 그래프에는 heterogeneous와 multiplex 그래프가 있다.\n\nHeterogeneous 그래프:\n\n\\(\\mathcal{V}=\\mathcal{V_1} \\cup \\mathcal{V_2} \\cup \\cdots \\cup \\mathcal{V_3}\\) where \\(\\mathcal{V_i} \\cap \\mathcal{V_j} = \\emptyset\\) for all \\(i \\neq j\\)\n즉, disjoint한 노드 부분집합으로 구성된 노드 집합\n\n예시: 노드(약 노드집합, 질병 노드집합), 엣지(약-약:다약부작용, 약-질병:치료)\n\n관계 \\(\\tau_i\\)는 두 노드 부분집합 사이 연결: \\((u,\\tau_i, v) \\in \\mathcal{E} \\rightarrow u \\in V_j, v \\in V_k\\)\n이 때 \\(j \\neq k\\)이면 multipartite 그래프라고 한다. (즉, 다른 부분집합 간의 엣지만 존재)\n\n\n\nMultiplex 그래프\n\n\\(k\\)개의 층(layers)의 집합으로 이루어진 그래프\nintra-layer 엣지와 inter-layer 엣지가 있다.\n\n\n출처: Hammoud & Kramer (2020)\n\n\n\nFeature information\n\n노드의 특징(feature or attribute) (예: 소셜 네트워크에서 한 사람(노드)의 프로필 사진 등 특징) 정보\nfeature는 실수 행렬로 나타냄: \\(X \\in \\mathbb{R}^{|V| \\times m}\\)\nheterogeneous 그래프에서 각 노드는 고유의 특징을 가진다."
+  },
+  {
+    "objectID": "posts/machine_learning/GRL_01.html#머신러닝과-그래프",
+    "href": "posts/machine_learning/GRL_01.html#머신러닝과-그래프",
+    "title": "그래프 머신러닝: (1) 들어가며",
+    "section": "머신러닝과 그래프",
+    "text": "머신러닝과 그래프\n\n노드 분류(node classification)\n\n레이블된 노드를 학습하여, 레이블되지 않은 노드를 분류\n기존의 i.i.d.(independent and identically distributed)를 가정하는 지도학습 모형과 달리 i.i.d.를 가정하지 않는다. 대신, 노드 간 연결 집합을 모델링 한다.\nhomophily: 그래프의 이웃 노드 간에 유사한 feature를 공유한다는 개념\nstructural equivalence: 유사한 이웃 구조를 가진 노드가 유사한 레이블을 가진다는 개념\nheterophily: 한 노드가 다른 레이블의 노드와 우선적으로 연결될 것을 가정\n\n\n\n관계 예측(relation prediction)\n\n주어진 노드 집합과 부분적인 엣지 집합을 활용하여 누락된 엣지를 예측하는 작업\n작업의 복잡성은 그래프 유형에 따라 다르며, 단순한 그래프에서는 이웃을 공유하는 노드 쌍을 기반으로 하는 간단한 방법으로 성능을 높일 수 있지만, 복잡한 다중 관계 그래프에서는 복잡한 추론이 필요하다.\n관계 예측은 지도 및 비지도 학습 개념을 혼합하며 그래프 도메인에 특화된 inductive bias가 필요하다.\n또한 단일 그래프 내에서 예측하는 경우와 여러 겹치지 않는 그래프 간 예측을 하는 경우 등 다양한 변형이 있다.\n\n\n\n커뮤니티 감지(community detection)\n\n위의 노드 분류와 관계 예측은 지도학습에 대응되는 작업이었다면, community detection은 비지도학습/클러스터링에 대응된다.\ncommunity detection은 주어진 \\(\\mathcal{G}=(\\mathcal{V},\\mathcal{E})\\)로 잠재적인 커뮤니티 구조를 추론한다.\n\n\n\n그래프 분류, 회귀, 클러스터링 (graph classification, regression, clustering)\n\n그래프 하나하나를 대상으로 분류하거나, 그래프 특성을 예측하거나, 클러스터링한다.\n여러 그래프로 구성된 데이터를 가지고 특정 그래프에 대해 작업한다."
+  },
+  {
+    "objectID": "listing.html",
+    "href": "listing.html",
+    "title": "",
+    "section": "",
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\n그래프 머신러닝: (1) 들어가며\n\n\n\ngraph\n\n\nnetwork\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n그래프 머신러닝: (2-1) 그래프 통계량과 커널 방법\n\n\n\ngraph\n\n\nnetwork\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n그래프 머신러닝: (2-2) 이웃 중복 감지\n\n\n\ngraph\n\n\nnetwork\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (0) 트레이딩 개요\n\n\n\ntrading\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (1) 시장 데이터 수집\n\n\n\ntrading\n\n\ndata\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (2) 가격 모멘텀 라벨링\n\n\n\ntrading\n\n\nlabeling\n\n\nmomentum\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (3) 피쳐 생성\n\n\n\ntrading\n\n\nfeature\n\n\nmomentum\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (4) 피쳐 선정\n\n\n\ntrading\n\n\nfeature selection\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (5) 매매 시그널 분류\n\n\n\ntrading\n\n\nsignals\n\n\nclassification\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (6) 매매 규칙\n\n\n\ntrading\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (7) 매매 신뢰도 측정과 전략 강화\n\n\n\ntrading\n\n\nenhancing\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n분수 차분 (fractional differentiation)\n\n\n\nfractional differentiation\n\n\ndata\n\n\nstationarity\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (1) 시스템 리스크 개념\n\n\n\nsystemic risk\n\n\nrisk\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (2) 시스템 리스크 측정 방법 - 선행연구 요약\n\n\n\nsystemic risk\n\n\nmeasures\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (2-1) 거시경제지표를 활용한 경제전체 위험도 측정 방법\n\n\n\nsystemic risk\n\n\ncycle\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (2-2) 시장위험 측정 방법\n\n\n\nsystemic risk\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (2-3) 금융기관 단면적 위험 측정방법\n\n\n\nsystemic risk\n\n\nfinancial institution\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (2-4) 금융기관 부도확률 위험 측정방법\n\n\n\nsystemic risk\n\n\nfinancial institution\n\n\ndefault\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (2-5) 네트워크 측정방법\n\n\n\nsystemic risk\n\n\nfinancial institution\n\n\nnetwork\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (3-1) 시스템 리스크와 머신러닝 - 네트워크 기반 및 빅데이터 분석\n\n\n\nsystemic risk\n\n\nmeasures\n\n\nnetwork\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (3-2) 시스템 리스크와 머신러닝 - 계량경제학, 미시구조, 금융규제\n\n\n\nsystemic risk\n\n\nmeasures\n\n\nnetwork\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (3-3) 시스템 리스크와 머신러닝 - 향후 연구 방향\n\n\n\nsystemic risk\n\n\nnetwork\n\n\nbig data\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "E-mail: jhcho1016@naver.com"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome to Cho’s FinBlog!",
+    "section": "",
+    "text": "이 블로그는 빅데이터, AI를 활용한 금융 및 경제 분야를 공부하며 정리한 짧은 글이나 마저 끝내지 못한 연구 등을 올리는 개인 블로그입니다.\n\n\n모든 블로그 글 보기\n\n\n주요 관심주제: 금융 머신러닝(machine learning)/딥러닝(deep learning), 자산가격 모멘텀 예측, 금융 시스템 리스크(systemic risk), 네트워크 분석 등\n\n이 블로그의 모든 글은 오직 교육용 목적입니다.\nAbout Me"
   },
   {
     "objectID": "posts/fin_data/Fractional_difference.html",
@@ -252,46 +301,25 @@
     "text": "De Prado, M. L. (2018). Advances in financial machine learning. John Wiley & Sons.\nhttps://fracdiff.github.io/fracdiff/"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Welcome to Cho’s FinBlog!",
+    "objectID": "posts/machine_learning/GRL_02_1.html",
+    "href": "posts/machine_learning/GRL_02_1.html",
+    "title": "그래프 머신러닝: (2-1) 그래프 통계량과 커널 방법",
     "section": "",
-    "text": "이 블로그는 빅데이터, AI를 활용한 금융 및 경제 분야를 공부하며 정리한 짧은 글이나 마저 끝내지 못한 연구 등을 올리는 개인 블로그입니다.\n\n\n모든 블로그 글 보기\n\n\n주요 관심주제: 금융 머신러닝(machine learning)/딥러닝(deep learning), 자산가격 모멘텀 예측, 금융 시스템 리스크(systemic risk), 네트워크 분석 등\n\n이 블로그의 모든 글은 오직 교육용 목적입니다.\nAbout Me"
+    "text": "Hamilton,W.L. Graph Representation Learning. 2020"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "E-mail: jhcho1016@naver.com"
+    "objectID": "posts/machine_learning/GRL_02_1.html#node-level-통계량과-특징",
+    "href": "posts/machine_learning/GRL_02_1.html#node-level-통계량과-특징",
+    "title": "그래프 머신러닝: (2-1) 그래프 통계량과 커널 방법",
+    "section": "Node-level 통계량과 특징",
+    "text": "Node-level 통계량과 특징\n\nNode degree\n한 노드에 연결된 엣지 수\n\\[d_u = \\sum_{v \\in V}A[u,v] \\quad \\text{for } u \\in \\mathcal{V}\\]\n\nnode degree는 고려해야 할 필수적 요소이며 전통적 기계학습 모델에서 가장 유익한 정보 중 하나이다.\n하지만, 한 노드와 연결된 다른 노드들의 중요성은 노드의 degree에 반영되지 않는다. 즉, 두 노드가 같은 degree를 갖더라도 이웃의 중요도에 따라 중요도가 다를 수 있다.\n\n\n\nNode centrality\neigenvector centrality\n\nnode degree와 달리, 노드의 이웃들의 중요도까지 고려하는 방법이다.\n\n\\[e_u = \\frac{1}{\\lambda}\\sum_{v \\in V}A[u,v] e_v, \\quad \\forall u \\in \\mathcal{V}\\]\n\n식처럼 recursive한 성질을 가진다.\n단, 위의 식을 다시 쓰면 벡터 \\(\\mathbf{e}\\)에 대해 \\(\\lambda \\mathbf{e} = A \\mathbf{e}\\)와 같다. 즉, centrality는 인접행렬의 eigenvector이다. 양의 centrality 값을 가정하면, Perron-Frobenius Theorem을 적용하여 \\(\\mathbf{e}\\)를 구할 수 있다.\n또한, eigenvector centrality느 그래프에서 무한 랜덤워킹할 때 해당 노드에 도착할 확률이라고도 볼 수 있다.\n\n\\(\\mathbf{e}^{(t+1)} = A \\mathbf{e}^{(t)}\\) : power iteration\n\n\n다른 centrality\n\nbetweenness centrality: 한 노드가 다른 두 노드 사이의 최단 경로에 있을 빈도\ncloseness centrality: 한 노드와 다른 모든 노드 사이 최단거리들의 평균\n\n\n\nClustering Coefficient\n\n한 노드의 로컬(local) 이웃에서의 closed triangle의 비율\nclustering coefficient의 변형 중 ‘local’ variant를 보자. \\[c_u = \\frac{|(v_1,v_2) \\in \\mathcal{E}: v_1, v_2 \\in \\mathcal{N}(u)|}{\\binom{d_u}{2}}\\]\n\n분자는 노드 \\(u\\)의 이웃 간 엣지 수이고, 분모는 \\(u\\)의 이웃에 있는 노드 쌍의 수\n\n노드의 이웃이 얼마나 tight하게 클러스터되어 있는지를 측정한다.\nclustering coefficient가 1이면, \\(u\\)의 모든 이웃은 서로의 이웃이기도 하게 된다.\n\n\n\nClosed Triangles, Ego Graphs, and Motif\n\n(Closed Triangles) clustering coefficient는 노드의 로컬 이웃 사이에 있는 closed triangle의 수라고 볼 수도 있다.\n(Ego graphs) clustering coefficient는 실제 triangle의 수와 노드의 ’ego graph’의 총 가능 triangle 수의 비이기도 하다.\n\nego graph: 노드, 이웃, 이웃 간 모든 엣지를 포함하는 subgraph\n\n노드의 ego graph 내 임의의 motif나 graphlet을 세는 개념으로 일반화될 수 있다. 즉, 단순히 triangle을 세는 것보다는 특정 길이의 순환과 같은 복잡한 구조를 고려할 수 있고, 이러한 서로 다른 motif가 ego graph에서 얼마나 자주 발생하는지 세는 것으로 노드를 특성화할 수 있다.\n이러한 방식으로 노드의 ego graph를 조사하여 노드 레벨의 통계량을 계산하는 작업을 그래프 레벨로 근본적으로 변환할 수 있다."
   },
   {
-    "objectID": "listing.html",
-    "href": "listing.html",
-    "title": "",
-    "section": "",
-    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\n그래프 머신러닝: (1) 들어가며\n\n\n\ngraph\n\n\nnetwork\n\n\nnode classification\n\n\nrelation prediction\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n그래프 머신러닝: (2-1) 그래프 통계량과 커널 방법\n\n\n\ngraph\n\n\nnetwork\n\n\ngraph statistics\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (0) 트레이딩 개요\n\n\n\ntrading\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (1) 시장 데이터 수집\n\n\n\ntrading\n\n\ndata\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (2) 가격 모멘텀 라벨링\n\n\n\ntrading\n\n\nlabeling\n\n\nmomentum\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (3) 피쳐 생성\n\n\n\ntrading\n\n\nfeature\n\n\nmomentum\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (4) 피쳐 선정\n\n\n\ntrading\n\n\nfeature selection\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (5) 매매 시그널 분류\n\n\n\ntrading\n\n\nsignals\n\n\nclassification\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (6) 매매 규칙\n\n\n\ntrading\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (7) 매매 신뢰도 측정과 전략 강화\n\n\n\ntrading\n\n\nenhancing\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n분수 차분 (fractional differentiation)\n\n\n\nfractional differentiation\n\n\ndata\n\n\nstationarity\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (1) 시스템 리스크 개념\n\n\n\nsystemic risk\n\n\nrisk\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (2) 시스템 리스크 측정 방법 - 선행연구 요약\n\n\n\nsystemic risk\n\n\nmeasures\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (2-1) 거시경제지표를 활용한 경제전체 위험도 측정 방법\n\n\n\nsystemic risk\n\n\ncycle\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (2-2) 시장위험 측정 방법\n\n\n\nsystemic risk\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (2-3) 금융기관 단면적 위험 측정방법\n\n\n\nsystemic risk\n\n\nfinancial institution\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (2-4) 금융기관 부도확률 위험 측정방법\n\n\n\nsystemic risk\n\n\nfinancial institution\n\n\ndefault\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (2-5) 네트워크 측정방법\n\n\n\nsystemic risk\n\n\nfinancial institution\n\n\nnetwork\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (3-1) 시스템 리스크와 머신러닝 - 네트워크 기반 및 빅데이터 분석\n\n\n\nsystemic risk\n\n\nmeasures\n\n\nnetwork\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (3-2) 시스템 리스크와 머신러닝 - 계량경제학, 미시구조, 금융규제\n\n\n\nsystemic risk\n\n\nmeasures\n\n\nnetwork\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (3-3) 시스템 리스크와 머신러닝 - 향후 연구 방향\n\n\n\nsystemic risk\n\n\nnetwork\n\n\nbig data\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "posts/machine_learning/GRL_01.html",
-    "href": "posts/machine_learning/GRL_01.html",
-    "title": "그래프 머신러닝: (1) 들어가며",
-    "section": "",
-    "text": "Hamilton,W.L. Graph Representation Learning. 2020\n그래프(graph)는 복잡한 시스템을 나타내는 보편적인 수단이다."
-  },
-  {
-    "objectID": "posts/machine_learning/GRL_01.html#그래프란",
-    "href": "posts/machine_learning/GRL_01.html#그래프란",
-    "title": "그래프 머신러닝: (1) 들어가며",
-    "section": "그래프란?",
-    "text": "그래프란?\n그래프: \\(\\mathcal{G} = (\\mathcal{V},\\mathcal{E})\\)\n\n그래프는 노드 집합 \\(V\\)와 엣지 집합 \\(\\mathcal{E}\\)로 정의된다. 노드 \\(u \\in \\mathcal{V}\\)에서 노드 \\(v \\in \\mathcal{V}\\)로 가는 엣지를 \\((u,v) \\in \\mathcal{E}\\)로 나타낸다.\n\n단순그래프(simple graph): 두 노드 간 최대 하나의 엣지를 가지고, 노드 스스로 연결하는 엣지가 없으며, 방향이 없는(undirected) 그래프\n인접행렬(adjacency matrix): \\(A \\in \\mathbb{R}^{|\\mathcal{V}| \\times |\\mathcal{V}|}\\)\n\n\\(A[u,v] = \\begin{cases}  1 & \\quad \\text{if } (u,v) \\in \\mathcal{E} \\\\  0 & \\quad \\text{otherwise}  \\end{cases}\\)\n만약, 그래프가 방향이 없는 엣지로 이루어져 있다면 \\(A\\)는 symmetric matrix가 된다.\nweighted 엣지를 가지는 경우 \\(0, 1\\)이 아닌 실수 원소를 가지는 인접행렬이 된다.\n\n\nMulti-relational 그래프\n\\((u,\\tau,v) \\in \\mathcal{E}\\) - 두 종류 이상의 관계에 대한 연결성을 나타낼 수 있는 그래프 - 관계 \\(\\tau \\in R\\)가 있으며, 각 종류의 관계 \\(\\tau\\)마다 인접행렬 \\(A_\\tau\\)가 있다. - 이때 인접행렬은 다음과 같은 3차원이다: \\(A \\in \\mathbb{R}^{|\\mathcal{V}| \\times |\\mathcal{R}| \\times |\\mathcal{V}|}\\) - multi-relational 그래프에는 heterogeneous와 multiplex 그래프가 있다.\n\nHeterogeneous 그래프:\n\n\\(\\mathcal{V}=\\mathcal{V_1} \\cup \\mathcal{V_2} \\cup \\cdots \\cup \\mathcal{V_3}\\) where \\(\\mathcal{V_i} \\cap \\mathcal{V_j} = \\emptyset\\) for all \\(i \\neq j\\)\n즉, disjoint한 노드 부분집합으로 구성된 노드 집합\n\n예시: 노드(약 노드집합, 질병 노드집합), 엣지(약-약:다약부작용, 약-질병:치료)\n\n관계 \\(\\tau_i\\)는 두 노드 부분집합 사이 연결: \\((u,\\tau_i, v) \\in \\mathcal{E} \\rightarrow u \\in V_j, v \\in V_k\\)\n이 때 \\(j \\neq k\\)이면 multipartite 그래프라고 한다. (즉, 다른 부분집합 간의 엣지만 존재)\n\n\n\nMultiplex 그래프\n\n\\(k\\)개의 층(layers)의 집합으로 이루어진 그래프\nintra-layer 엣지와 inter-layer 엣지가 있다.\n\n\n출처: Hammoud & Kramer (2020)\n\n\n\nFeature information\n\n노드의 특징(feature or attribute) (예: 소셜 네트워크에서 한 사람(노드)의 프로필 사진 등 특징) 정보\nfeature는 실수 행렬로 나타냄: \\(X \\in \\mathbb{R}^{|V| \\times m}\\)\nheterogeneous 그래프에서 각 노드는 고유의 특징을 가진다."
-  },
-  {
-    "objectID": "posts/machine_learning/GRL_01.html#머신러닝과-그래프",
-    "href": "posts/machine_learning/GRL_01.html#머신러닝과-그래프",
-    "title": "그래프 머신러닝: (1) 들어가며",
-    "section": "머신러닝과 그래프",
-    "text": "머신러닝과 그래프\n\n노드 분류(node classification)\n\n레이블된 노드를 학습하여, 레이블되지 않은 노드를 분류\n기존의 i.i.d.(independent and identically distributed)를 가정하는 지도학습 모형과 달리 i.i.d.를 가정하지 않는다. 대신, 노드 간 연결 집합을 모델링 한다.\nhomophily: 그래프의 이웃 노드 간에 유사한 feature를 공유한다는 개념\nstructural equivalence: 유사한 이웃 구조를 가진 노드가 유사한 레이블을 가진다는 개념\nheterophily: 한 노드가 다른 레이블의 노드와 우선적으로 연결될 것을 가정\n\n\n\n관계 예측(relation prediction)\n\n주어진 노드 집합과 부분적인 엣지 집합을 활용하여 누락된 엣지를 예측하는 작업\n작업의 복잡성은 그래프 유형에 따라 다르며, 단순한 그래프에서는 이웃을 공유하는 노드 쌍을 기반으로 하는 간단한 방법으로 성능을 높일 수 있지만, 복잡한 다중 관계 그래프에서는 복잡한 추론이 필요하다.\n관계 예측은 지도 및 비지도 학습 개념을 혼합하며 그래프 도메인에 특화된 inductive bias가 필요하다.\n또한 단일 그래프 내에서 예측하는 경우와 여러 겹치지 않는 그래프 간 예측을 하는 경우 등 다양한 변형이 있다.\n\n\n\n커뮤니티 감지(community detection)\n\n위의 노드 분류와 관계 예측은 지도학습에 대응되는 작업이었다면, community detection은 비지도학습/클러스터링에 대응된다.\ncommunity detection은 주어진 \\(\\mathcal{G}=(\\mathcal{V},\\mathcal{E})\\)로 잠재적인 커뮤니티 구조를 추론한다.\n\n\n\n그래프 분류, 회귀, 클러스터링 (graph classification, regression, clustering)\n\n그래프 하나하나를 대상으로 분류하거나, 그래프 특성을 예측하거나, 클러스터링한다.\n여러 그래프로 구성된 데이터를 가지고 특정 그래프에 대해 작업한다."
+    "objectID": "posts/machine_learning/GRL_02_1.html#graph-level-특징과-graph-kernels",
+    "href": "posts/machine_learning/GRL_02_1.html#graph-level-특징과-graph-kernels",
+    "title": "그래프 머신러닝: (2-1) 그래프 통계량과 커널 방법",
+    "section": "Graph-level 특징과 Graph Kernels",
+    "text": "Graph-level 특징과 Graph Kernels\n\nBag of Nodes\n\n단순히 node-level의 통계량을 집계하여 graph-level 피쳐로 만든다.\n하지만, 로컬(local) node-level의 정보만에 기반하기 때문에 글로벌(global)한 속성을 놓칠 수 있다.\n\n\n\nThe Weisfieler-Lehman Kernel\n\n노드-레벨 피처를 더 풍성하게 만들고나서 집계하는 방법 중 하나이다.\nWL 알고리즘은 다음과 같다.\n\n\n각 노드에 초기 레이블 값을 준다. 보통 degree로 한다.: \\(l^{(0)}(v) = d_v\\)\n\n\n노드의 이웃에서 현재 레이블의 multi-set을 hashing하여 새로운 레이블을 할당하며, 이를 반복한다.: \\[l^{(i)}(v) = \\text{HASH}(\\{ \\{ l^{(i)}(v) \\quad \\forall u \\in \\mathcal{N}(v) \\} \\} )\\]\n\n\n{{ }}는 mult-set을 뜻한다. multi-set은 원소의 중복을 허용한다.\n\n\n이를 \\(K\\)번 반복하면 각 노드마다 \\(l^{(K)}(v)\\)가 생기며, 이는 \\(K\\)-hop 이웃의 구조를 요약한다고 볼 수 있다. 다시 말해, WL kernel은 두 그래프의 결과 레이블 집합 간의 차이를 측정하는 것이다.\n\n\n이러한 WL kernel은 그래프 동형(isomorphism)을 확인하는 데 쓰인다: 두 그래프가 \\(K\\)번 WL알고리즘 반복 뒤 생기는 레이블 집합이 같은지를 확인한다.\n\n\n\nGraphlets, Path-Based Methods\ngraphlets\n\nFigure 2.2 in Hamilton,Graph Representation Learning. 2020: 크기가 3인 graphlet들\n\n그래프에 있는 graphlets (서로 다른 작은 subgraph 구조) 수\ngraphlet kernel은 전체 그래프에서 특정한 크기의 그래프 구조가 얼마나 나타나는지 세는 방식이다. 하지만 모든 graphlet을 세는 것은 번거로운 일이다.\n\npath-based 방법\n\ngraphlet을 세는 방법 대신 그래프에서 서로 다른 경로(path)의 종류가 얼마나 있는지를 본다.\n예를 들어 그래프에서 랜덤워크를 가정할때 발생하는 서로 다른 degree 시퀀스를 카운팅하는 random walk kernel(Kashima et al.(2003)), 또는 가장짧은 경로만을 카운팅하는 shortest-path kernel(Borgwardt and Kriegel (2005)) 등이 있다."
   },
   {
     "objectID": "posts/ml_trading/0_Introduction.html",
@@ -375,7 +403,7 @@
     "href": "posts/systemic_risk/2-2_Systemic_Risk_Measures_Market.html",
     "title": "시스템 리스크 분석: (2-2) 시장위험 측정 방법",
     "section": "",
-    "text": "시스템리스크 측정 방법 중 시장위험을 측정하는 방법들을 살펴본다."
+    "text": "서상원 (2018)\n시스템리스크 측정 방법 중 시장위험을 측정하는 방법들을 살펴본다."
   },
   {
     "objectID": "posts/systemic_risk/2-2_Systemic_Risk_Measures_Market.html#turb-turbulence-index",
@@ -410,7 +438,7 @@
     "href": "posts/systemic_risk/2-4_Systemic_Risk_Measures_Probability_of_Default.html",
     "title": "시스템 리스크 분석: (2-4) 금융기관 부도확률 위험 측정방법",
     "section": "",
-    "text": "시스템리스크 측정 방법 중 금융기관의 부도와 같은 위험사건을 명시적으로 정의하는 측정하는 법을 알아본다."
+    "text": "서상원 (2018)\n시스템리스크 측정 방법 중 금융기관의 부도와 같은 위험사건을 명시적으로 정의하는 측정하는 법을 알아본다."
   },
   {
     "objectID": "posts/systemic_risk/2-4_Systemic_Risk_Measures_Probability_of_Default.html#cds-dip-credit-default-swap-distress-insurance-premium",

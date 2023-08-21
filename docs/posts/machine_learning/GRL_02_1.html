@@ -30,6 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
+<link href="../../posts/machine_learning/GRL_01.html" rel="prev">
 <link href="../../logo.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -117,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">그래프 머신러닝: (2-1) 그래프 통계량과 커널 방법</li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../posts/machine_learning/GRL_01.html">그래프 머신러닝</a></li><li class="breadcrumb-item"><a href="../../posts/machine_learning/GRL_02_1.html">그래프 통계량과 커널 방법</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -314,17 +315,23 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
  <span class="menu-text">그래프 머신러닝</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/machine_learning/GRL_01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">들어가며</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/machine_learning/GRL_02_1.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">그래프 통계량과 커널 방법</span></a>
   </div>
 </li>
       </ul>
@@ -345,8 +352,17 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#node-degree" id="toc-node-degree" class="nav-link" data-scroll-target="#node-degree">Node degree</a></li>
   <li><a href="#node-centrality" id="toc-node-centrality" class="nav-link" data-scroll-target="#node-centrality">Node centrality</a></li>
+  <li><a href="#clustering-coefficient" id="toc-clustering-coefficient" class="nav-link" data-scroll-target="#clustering-coefficient">Clustering Coefficient</a></li>
+  <li><a href="#closed-triangles-ego-graphs-and-motif" id="toc-closed-triangles-ego-graphs-and-motif" class="nav-link" data-scroll-target="#closed-triangles-ego-graphs-and-motif">Closed Triangles, Ego Graphs, and Motif</a></li>
+  </ul></li>
+  <li><a href="#graph-level-특징과-graph-kernels" id="toc-graph-level-특징과-graph-kernels" class="nav-link" data-scroll-target="#graph-level-특징과-graph-kernels">Graph-level 특징과 Graph Kernels</a>
+  <ul class="collapse">
+  <li><a href="#bag-of-nodes" id="toc-bag-of-nodes" class="nav-link" data-scroll-target="#bag-of-nodes">Bag of Nodes</a></li>
+  <li><a href="#the-weisfieler-lehman-kernel" id="toc-the-weisfieler-lehman-kernel" class="nav-link" data-scroll-target="#the-weisfieler-lehman-kernel">The Weisfieler-Lehman Kernel</a></li>
+  <li><a href="#graphlets-path-based-methods" id="toc-graphlets-path-based-methods" class="nav-link" data-scroll-target="#graphlets-path-based-methods">Graphlets, Path-Based Methods</a></li>
   </ul></li>
   </ul></li>
+  <li><a href="#참고자료" id="toc-참고자료" class="nav-link" data-scroll-target="#참고자료">참고자료</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -360,7 +376,7 @@ ul.task-list li input[type="checkbox"] {
   <div class="quarto-categories">
     <div class="quarto-category">graph</div>
     <div class="quarto-category">network</div>
-    <div class="quarto-category">graph statistics</div>
+    <div class="quarto-category">machine learning</div>
   </div>
   </div>
 
@@ -385,25 +401,120 @@ ul.task-list li input[type="checkbox"] {
 <p>Hamilton,W.L. <em>Graph Representation Learning</em>. 2020</p>
 <section id="그래프-통계량과-커널-방법" class="level1">
 <h1>그래프 통계량과 커널 방법</h1>
-<p>그래프 데이터를 사용한 전통적인 분류 접근법은 딥러닝 등장 이전의 기계 학습 패러다임을 따른다. 몇 가지 통계량 또는 특징을 추출한 다음, 기계 학습 분류기(예: 로지스틱 회귀)의 입력으로 사용한다.</p>
-<p>이 섹션에서는 먼저 중요한 노드 수준의 특징과 통계량을 소개한 다음, 이러한 노드 수준 통계량이 그래프 수준 통계량으로 일반화되고 그래프 상에서의 커널 방법을 설계하는 방법에 대해 논의한다.</p>
+<p><strong>Graph Statistics and Kernel Methods</strong></p>
+<p>딥러닝과 관련된 그래프(GNN 등)를 알아보기 전에 전통적인 방식의 그래프 통계량을 알아보자.</p>
+<p>그래프 데이터를 사용하는 전통적인 분류는 딥러닝 등장 이전의 머신러닝 패러다임을 따른다. 몇 가지 통계량 또는 특징을 추출한 다음, 머신러닝 분류기(예: 로지스틱 회귀)의 입력으로 사용한다.</p>
+<p>이 섹션에서는 먼저 중요한 <strong>노드 수준의 특징과 통계량</strong>을 소개한 다음, 이러한 노드 수준 통계량이 그래프 수준 통계량으로 일반화되고 그래프 상에서의 <strong>커널 방법</strong>을 설계하는 방법에 대해 논의한다.</p>
 <section id="node-level-통계량과-특징" class="level2">
 <h2 class="anchored" data-anchor-id="node-level-통계량과-특징">Node-level 통계량과 특징</h2>
 <section id="node-degree" class="level3">
 <h3 class="anchored" data-anchor-id="node-degree">Node degree</h3>
-<p><strong>한 노드에 연결된 엣지 수</strong></p>
-<p><span class="math inline">\(d_u = \sum_{v \in V}A[u,v]\)</span> for <span class="math inline">\(u \in \mathcal{V}\)</span></p>
+<p>한 노드에 연결된 엣지 수</p>
+<p><span class="math display">\[d_u = \sum_{v \in V}A[u,v] \quad \text{for } u \in \mathcal{V}\]</span></p>
 <ul>
 <li>node degree는 고려해야 할 필수적 요소이며 전통적 기계학습 모델에서 가장 유익한 정보 중 하나이다.</li>
-<li>하지만, 연결된 노드들의 중요성 등은 degree에 반영되지 않는다. 같은 degree더라도 이웃에 따라 중요도가 다를 수 있다.</li>
+<li>하지만, 한 노드와 연결된 다른 노드들의 중요성은 노드의 degree에 반영되지 않는다. 즉, 두 노드가 같은 degree를 갖더라도 이웃의 중요도에 따라 중요도가 다를 수 있다.</li>
 </ul>
 </section>
 <section id="node-centrality" class="level3">
 <h3 class="anchored" data-anchor-id="node-centrality">Node centrality</h3>
-
-
+<p><em>eigenvector centrality</em></p>
+<ul>
+<li>node degree와 달리, 노드의 이웃들의 중요도까지 고려하는 방법이다.</li>
+</ul>
+<p><span class="math display">\[e_u = \frac{1}{\lambda}\sum_{v \in V}A[u,v] e_v, \quad \forall u \in \mathcal{V}\]</span></p>
+<ul>
+<li><p>식처럼 recursive한 성질을 가진다.</p></li>
+<li><p>단, 위의 식을 다시 쓰면 벡터 <span class="math inline">\(\mathbf{e}\)</span>에 대해 <span class="math inline">\(\lambda \mathbf{e} = A \mathbf{e}\)</span>와 같다. 즉, centrality는 인접행렬의 eigenvector이다. 양의 centrality 값을 가정하면, Perron-Frobenius Theorem을 적용하여 <span class="math inline">\(\mathbf{e}\)</span>를 구할 수 있다.</p></li>
+<li><p>또한, eigenvector centrality느 그래프에서 무한 랜덤워킹할 때 해당 노드에 도착할 확률이라고도 볼 수 있다.</p>
+<ul>
+<li><span class="math inline">\(\mathbf{e}^{(t+1)} = A \mathbf{e}^{(t)}\)</span> : power iteration</li>
+</ul></li>
+</ul>
+<p>다른 centrality</p>
+<ul>
+<li><p><em>betweenness centrality</em>: 한 노드가 다른 두 노드 사이의 최단 경로에 있을 빈도</p></li>
+<li><p><em>closeness centrality</em>: 한 노드와 다른 모든 노드 사이 최단거리들의 평균</p></li>
+</ul>
+</section>
+<section id="clustering-coefficient" class="level3">
+<h3 class="anchored" data-anchor-id="clustering-coefficient">Clustering Coefficient</h3>
+<ul>
+<li><p>한 노드의 로컬(local) 이웃에서의 closed triangle의 비율</p></li>
+<li><p>clustering coefficient의 변형 중 ‘local’ variant를 보자. <span class="math display">\[c_u = \frac{|(v_1,v_2) \in \mathcal{E}: v_1, v_2 \in \mathcal{N}(u)|}{\binom{d_u}{2}}\]</span></p>
+<ul>
+<li>분자는 노드 <span class="math inline">\(u\)</span>의 이웃 간 엣지 수이고, 분모는 <span class="math inline">\(u\)</span>의 이웃에 있는 노드 쌍의 수</li>
+</ul></li>
+<li><p>노드의 이웃이 얼마나 tight하게 클러스터되어 있는지를 측정한다.</p></li>
+<li><p>clustering coefficient가 1이면, <span class="math inline">\(u\)</span>의 모든 이웃은 서로의 이웃이기도 하게 된다.</p></li>
+</ul>
+</section>
+<section id="closed-triangles-ego-graphs-and-motif" class="level3">
+<h3 class="anchored" data-anchor-id="closed-triangles-ego-graphs-and-motif">Closed Triangles, Ego Graphs, and Motif</h3>
+<ul>
+<li><p>(Closed Triangles) clustering coefficient는 노드의 로컬 이웃 사이에 있는 closed triangle의 수라고 볼 수도 있다.</p></li>
+<li><p>(Ego graphs) clustering coefficient는 실제 triangle의 수와 노드의 ’ego graph’의 총 가능 triangle 수의 비이기도 하다.</p>
+<ul>
+<li>ego graph: 노드, 이웃, 이웃 간 모든 엣지를 포함하는 subgraph</li>
+</ul></li>
+<li><p>노드의 ego graph 내 임의의 motif나 graphlet을 세는 개념으로 일반화될 수 있다. 즉, 단순히 triangle을 세는 것보다는 특정 길이의 순환과 같은 복잡한 구조를 고려할 수 있고, 이러한 서로 다른 motif가 ego graph에서 얼마나 자주 발생하는지 세는 것으로 노드를 특성화할 수 있다.</p></li>
+<li><p>이러한 방식으로 노드의 ego graph를 조사하여 노드 레벨의 통계량을 계산하는 작업을 그래프 레벨로 근본적으로 변환할 수 있다.</p></li>
+</ul>
 </section>
 </section>
+<section id="graph-level-특징과-graph-kernels" class="level2">
+<h2 class="anchored" data-anchor-id="graph-level-특징과-graph-kernels">Graph-level 특징과 Graph Kernels</h2>
+<section id="bag-of-nodes" class="level3">
+<h3 class="anchored" data-anchor-id="bag-of-nodes">Bag of Nodes</h3>
+<ul>
+<li>단순히 node-level의 통계량을 집계하여 graph-level 피쳐로 만든다.</li>
+<li>하지만, 로컬(local) node-level의 정보만에 기반하기 때문에 글로벌(global)한 속성을 놓칠 수 있다.</li>
+</ul>
+</section>
+<section id="the-weisfieler-lehman-kernel" class="level3">
+<h3 class="anchored" data-anchor-id="the-weisfieler-lehman-kernel">The Weisfieler-Lehman Kernel</h3>
+<ul>
+<li><p>노드-레벨 피처를 더 풍성하게 만들고나서 집계하는 방법 중 하나이다.</p></li>
+<li><p>WL 알고리즘은 다음과 같다.</p>
+<ul>
+<li><ol type="1">
+<li>각 노드에 초기 레이블 값을 준다. 보통 degree로 한다.: <span class="math inline">\(l^{(0)}(v) = d_v\)</span></li>
+</ol></li>
+<li><ol start="2" type="1">
+<li>노드의 이웃에서 현재 레이블의 multi-set을 hashing하여 새로운 레이블을 할당하며, 이를 반복한다.: <span class="math display">\[l^{(i)}(v) = \text{HASH}(\{ \{ l^{(i)}(v) \quad \forall u \in \mathcal{N}(v) \} \} )\]</span></li>
+</ol>
+<ul>
+<li>{{ }}는 mult-set을 뜻한다. multi-set은 원소의 중복을 허용한다.</li>
+</ul></li>
+<li><ol start="3" type="1">
+<li>이를 <span class="math inline">\(K\)</span>번 반복하면 각 노드마다 <span class="math inline">\(l^{(K)}(v)\)</span>가 생기며, 이는 <span class="math inline">\(K\)</span>-hop 이웃의 구조를 요약한다고 볼 수 있다. 다시 말해, WL kernel은 두 그래프의 결과 레이블 집합 간의 차이를 측정하는 것이다.</li>
+</ol></li>
+</ul></li>
+<li><p>이러한 WL kernel은 그래프 동형(isomorphism)을 확인하는 데 쓰인다: 두 그래프가 <span class="math inline">\(K\)</span>번 WL알고리즘 반복 뒤 생기는 레이블 집합이 같은지를 확인한다.</p></li>
+</ul>
+</section>
+<section id="graphlets-path-based-methods" class="level3">
+<h3 class="anchored" data-anchor-id="graphlets-path-based-methods">Graphlets, Path-Based Methods</h3>
+<p><strong>graphlets</strong></p>
+<p><img src="img/fig2_2.png" width="500"></p>
+<p>Figure 2.2 in Hamilton,<em>Graph Representation Learning</em>. 2020: 크기가 3인 graphlet들</p>
+<ul>
+<li>그래프에 있는 graphlets (서로 다른 작은 subgraph 구조) 수</li>
+<li>graphlet kernel은 전체 그래프에서 특정한 크기의 그래프 구조가 얼마나 나타나는지 세는 방식이다. 하지만 모든 graphlet을 세는 것은 번거로운 일이다.</li>
+</ul>
+<p><em>path-based 방법</em></p>
+<ul>
+<li>graphlet을 세는 방법 대신 그래프에서 서로 다른 경로(path)의 종류가 얼마나 있는지를 본다.</li>
+<li>예를 들어 그래프에서 랜덤워크를 가정할때 발생하는 서로 다른 degree 시퀀스를 카운팅하는 random walk kernel(Kashima et al.(2003)), 또는 가장짧은 경로만을 카운팅하는 shortest-path kernel(Borgwardt and Kriegel (2005)) 등이 있다.</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="참고자료" class="level1">
+<h1>참고자료</h1>
+<p>[1] Hamilton, W. L. (2020). <em>Graph Representation Learning.</em> Morgan &amp; Claypool Publishers.</p>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -642,6 +753,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <script src="https://giscus.app/client.js" data-repo="jo-cho/FinBlog" data-repo-id="R_kgDOJQ80aw" data-category="General" data-category-id="DIC_kwDOJQ80a84CVb8i" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../posts/machine_learning/GRL_01.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">들어가며</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
 </div> <!-- /content -->
 
 
