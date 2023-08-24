@@ -30,6 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
+<link href="../../posts/machine_learning/GRL_02_2.html" rel="next">
 <link href="../../posts/machine_learning/GRL_01.html" rel="prev">
 <link href="../../logo.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
@@ -334,6 +335,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">그래프 통계량과 커널 방법</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/machine_learning/GRL_02_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">이웃중복 감지</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -420,7 +427,7 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="node-centrality">Node centrality</h3>
 <p><em>eigenvector centrality</em></p>
 <ul>
-<li>node degree와 달리, 노드의 이웃들의 중요도까지 고려하는 방법이다.</li>
+<li>node degree와 달리, <strong>노드의 이웃들의 중요도</strong>까지 고려하는 방법이다.</li>
 </ul>
 <p><span class="math display">\[e_u = \frac{1}{\lambda}\sum_{v \in V}A[u,v] e_v, \quad \forall u \in \mathcal{V}\]</span></p>
 <ul>
@@ -439,21 +446,21 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="clustering-coefficient" class="level3">
 <h3 class="anchored" data-anchor-id="clustering-coefficient">Clustering Coefficient</h3>
+<p>한 노드의 로컬(local) 이웃에서의 closed triangle의 비율</p>
 <ul>
-<li><p>한 노드의 로컬(local) 이웃에서의 closed triangle의 비율</p></li>
-<li><p>clustering coefficient의 변형 중 ‘local’ variant를 보자. <span class="math display">\[c_u = \frac{|(v_1,v_2) \in \mathcal{E}: v_1, v_2 \in \mathcal{N}(u)|}{\binom{d_u}{2}}\]</span></p>
+<li>clustering coefficient의 변형 중 ‘local’ variant를 보자. <span class="math display">\[c_u = \frac{|(v_1,v_2) \in \mathcal{E}: v_1, v_2 \in \mathcal{N}(u)|}{\binom{d_u}{2}}\]</span>
 <ul>
-<li>분자는 노드 <span class="math inline">\(u\)</span>의 이웃 간 엣지 수이고, 분모는 <span class="math inline">\(u\)</span>의 이웃에 있는 노드 쌍의 수</li>
+<li>분자는 노드 <span class="math inline">\(u\)</span>의 이웃 간 엣지 수이고, 분모는 <span class="math inline">\(u\)</span>의 이웃에 있는 노드 쌍의 수이다.</li>
 </ul></li>
-<li><p>노드의 이웃이 얼마나 tight하게 클러스터되어 있는지를 측정한다.</p></li>
-<li><p>clustering coefficient가 1이면, <span class="math inline">\(u\)</span>의 모든 이웃은 서로의 이웃이기도 하게 된다.</p></li>
+<li>노드의 이웃이 얼마나 tight하게 클러스터되어 있는지를 측정한다.</li>
+<li>clustering coefficient가 1이면, <span class="math inline">\(u\)</span>의 모든 이웃은 서로의 이웃이기도 하게 된다.</li>
 </ul>
 </section>
 <section id="closed-triangles-ego-graphs-and-motif" class="level3">
 <h3 class="anchored" data-anchor-id="closed-triangles-ego-graphs-and-motif">Closed Triangles, Ego Graphs, and Motif</h3>
 <ul>
-<li><p>(Closed Triangles) clustering coefficient는 노드의 로컬 이웃 사이에 있는 closed triangle의 수라고 볼 수도 있다.</p></li>
-<li><p>(Ego graphs) clustering coefficient는 실제 triangle의 수와 노드의 ’ego graph’의 총 가능 triangle 수의 비이기도 하다.</p>
+<li><p>clustering coefficient는 노드의 로컬 이웃 사이에 있는 <strong>closed triangle</strong>의 수라고 볼 수도 있다.</p></li>
+<li><p>clustering coefficient는 실제 triangle의 수와 노드의 ’<strong>ego graph</strong>’의 총 가능 triangle 수의 비이기도 하다.</p>
 <ul>
 <li>ego graph: 노드, 이웃, 이웃 간 모든 엣지를 포함하는 subgraph</li>
 </ul></li>
@@ -760,6 +767,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../../posts/machine_learning/GRL_02_2.html" class="pagination-link">
+        <span class="nav-page-text">이웃중복 감지</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

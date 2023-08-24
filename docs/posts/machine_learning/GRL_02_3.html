@@ -8,7 +8,7 @@
 
 <meta name="author" content="Cheonghyo Cho">
 
-<title>Cho’s FinBlog - 시스템 리스크 분석: (2-4) 금융기관 부도확률 위험 측정방법</title>
+<title>Cho’s FinBlog - 그래프 머신러닝: (2-3) 그래프 라플라시안과 스펙트럴 방법</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../posts/systemic_risk/2-5_Systemic_Risk_Measures_Network.html" rel="next">
-<link href="../../posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.html" rel="prev">
 <link href="../../logo.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -119,7 +117,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../posts/systemic_risk/1_Systemic_Risk.html">시스템 리스크 분석</a></li><li class="breadcrumb-item"><a href="../../posts/systemic_risk/2_Systemic_Risk_Measures.html">시스템 리스크 측정 - 선행연구</a></li><li class="breadcrumb-item"><a href="../../posts/systemic_risk/2-4_Systemic_Risk_Measures_Probability_of_Default.html">시스템 리스크 측정 - 선행연구 (부도확률모형 위험)</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">그래프 머신러닝: (2-3) 그래프 라플라시안과 스펙트럴 방법</li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -223,13 +221,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
  <span class="menu-text">시스템 리스크 분석</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/systemic_risk/1_Systemic_Risk.html" class="sidebar-item-text sidebar-link">
@@ -238,13 +236,13 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
  <span class="menu-text">시스템 리스크 측정 - 선행연구</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/systemic_risk/2_Systemic_Risk_Measures.html" class="sidebar-item-text sidebar-link">
@@ -271,7 +269,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/2-4_Systemic_Risk_Measures_Probability_of_Default.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../posts/systemic_risk/2-4_Systemic_Risk_Measures_Probability_of_Default.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">시스템 리스크 측정 - 선행연구 (부도확률모형 위험)</span></a>
   </div>
 </li>
@@ -353,14 +351,17 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">목차</h2>
    
   <ul>
-  <li><a href="#부도확률모형-위험-측정방법" id="toc-부도확률모형-위험-측정방법" class="nav-link active" data-scroll-target="#부도확률모형-위험-측정방법">부도확률모형 위험 측정방법</a>
+  <li><a href="#그래프-라플라시안과-스펙트럼-방법" id="toc-그래프-라플라시안과-스펙트럼-방법" class="nav-link active" data-scroll-target="#그래프-라플라시안과-스펙트럼-방법">그래프 라플라시안과 스펙트럼 방법</a>
   <ul class="collapse">
-  <li><a href="#cds-dip-credit-default-swap-distress-insurance-premium" id="toc-cds-dip-credit-default-swap-distress-insurance-premium" class="nav-link" data-scroll-target="#cds-dip-credit-default-swap-distress-insurance-premium">CDS-DIP : Credit default swap-distress insurance premium</a></li>
-  <li><a href="#cds-corisk-credit-default-swap-corisk" id="toc-cds-corisk-credit-default-swap-corisk" class="nav-link" data-scroll-target="#cds-corisk-credit-default-swap-corisk">CDS-CoRisk: Credit default swap-CoRisk</a></li>
-  <li><a href="#option-ipod-option-implied-probability-of-default" id="toc-option-ipod-option-implied-probability-of-default" class="nav-link" data-scroll-target="#option-ipod-option-implied-probability-of-default">Option-iPoD : Option-implied probability of default</a></li>
-  <li><a href="#cca-contingent-claim-approach" id="toc-cca-contingent-claim-approach" class="nav-link" data-scroll-target="#cca-contingent-claim-approach">CCA: Contingent claim approach</a></li>
+  <li><a href="#graph-laplacians" id="toc-graph-laplacians" class="nav-link" data-scroll-target="#graph-laplacians">Graph Laplacians</a>
+  <ul class="collapse">
+  <li><a href="#unnormalized-laplacian" id="toc-unnormalized-laplacian" class="nav-link" data-scroll-target="#unnormalized-laplacian">Unnormalized Laplacian</a></li>
+  <li><a href="#normalized-laplacian" id="toc-normalized-laplacian" class="nav-link" data-scroll-target="#normalized-laplacian">Normalized Laplacian</a></li>
   </ul></li>
-  <li><a href="#참고문헌" id="toc-참고문헌" class="nav-link" data-scroll-target="#참고문헌">참고문헌</a></li>
+  <li><a href="#graph-cuts-and-clustering" id="toc-graph-cuts-and-clustering" class="nav-link" data-scroll-target="#graph-cuts-and-clustering">Graph Cuts and Clustering</a></li>
+  <li><a href="#generalized-spectral-clustering" id="toc-generalized-spectral-clustering" class="nav-link" data-scroll-target="#generalized-spectral-clustering">Generalized Spectral Clustering</a></li>
+  </ul></li>
+  <li><a href="#참고자료" id="toc-참고자료" class="nav-link" data-scroll-target="#참고자료">참고자료</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -369,12 +370,13 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">시스템 리스크 분석: (2-4) 금융기관 부도확률 위험 측정방법</h1>
-<p class="subtitle lead">Systemic Risk Measure - Probability of Default Model</p>
+<h1 class="title">그래프 머신러닝: (2-3) 그래프 라플라시안과 스펙트럴 방법</h1>
+<p class="subtitle lead">(GRL) Background and Traditional Approaches: Graph Laplacians and Spectral Methods</p>
   <div class="quarto-categories">
-    <div class="quarto-category">systemic risk</div>
-    <div class="quarto-category">financial institution</div>
-    <div class="quarto-category">default</div>
+    <div class="quarto-category">graph</div>
+    <div class="quarto-category">network</div>
+    <div class="quarto-category">machine learning</div>
+    <div class="quarto-category">spectral</div>
   </div>
   </div>
 
@@ -396,147 +398,54 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>서상원 (2018)</p>
-<p>시스템리스크 측정 방법 중 금융기관의 부도와 같은 위험사건을 명시적으로 정의하는 측정하는 법을 알아본다.</p>
-<section id="부도확률모형-위험-측정방법" class="level1">
-<h1>부도확률모형 위험 측정방법</h1>
-<section id="cds-dip-credit-default-swap-distress-insurance-premium" class="level2">
-<h2 class="anchored" data-anchor-id="cds-dip-credit-default-swap-distress-insurance-premium">CDS-DIP : Credit default swap-distress insurance premium</h2>
-<p><a href="https://www.sciencedirect.com/science/article/abs/pii/S0378426609001216?via%3Dihub">Huang et al.(2009)</a></p>
+<p>Hamilton,W.L. <em>Graph Representation Learning</em>. 2020</p>
+<section id="그래프-라플라시안과-스펙트럼-방법" class="level1">
+<h1>그래프 라플라시안과 스펙트럼 방법</h1>
+<p><strong>Graph Laplacians and Spectral Methods</strong></p>
+<p>그래프 데이터로 분류 작업 유용한 피쳐와 관계예측을 위한 방법을 이전의 두 포스트에서 확인했다. 이제 그래프에서 노드들을 클러스터하는 법에 대해 다루어보자. 또한 노드의 저차원 임베딩에 대해 다룬다.</p>
+<section id="graph-laplacians" class="level2">
+<h2 class="anchored" data-anchor-id="graph-laplacians">Graph Laplacians</h2>
+<p>인접 행렬 다양한 변형으로 나타내며 유용한 수학적 속성들을 가진다.</p>
+<section id="unnormalized-laplacian" class="level3">
+<h3 class="anchored" data-anchor-id="unnormalized-laplacian">Unnormalized Laplacian</h3>
+<p>가장 기본적인 라플라시안(Laplacian) 행렬</p>
+<p><span class="math display">\[L=D-A\]</span></p>
 <ul>
-<li><p>DIP(distress insurance premium): CDS 시장가격을 이용하여 금융시스템내에 개별 금융기관들이 발행한 CDS들의 가상 포트폴리오(가중치: 금융기관의 부채규모)에 대해서 금융 위험(financial distress) 사건이 발생할 경우 보호받기 위해서 지불하여야 하는 프리미엄을 산출</p></li>
-<li><p>CDS 스프레드:</p>
+<li><span class="math inline">\(A\)</span>는 인접 행렬, <span class="math inline">\(D\)</span>는 degree 행렬</li>
+<li>라플라시안 행렬의 속성
 <ul>
-<li>금융기관 <span class="math inline">\(i\)</span>의 신용사건을 기초자산으로 하는 CDS 스프레드 <span class="math inline">\(s_{it}\)</span>는 해당 금융기관이 위험상황에 처할 경우 발생하는 금융손실의 위험을 보장받을 것을 대가로 ‘보장’ 매입자가 일정기간마다 지불하여야 하는 (원금 대비) 프리미엄 비율</li>
-<li>금융기관의 위험확률이 증가하면 CDS 스프레드도 같이 증가하므로 CDS 스프레드 시장가격은 금융기관의 위험도에 대해 시장에서 평가하는 정보를 가짐</li>
-</ul></li>
-<li><p><span class="math inline">\(PD_{it} = \frac{a_{t}s_{it}}{a_t LGD_{it}+b_t s_{it}}\)</span></p></li>
-<li><p><span class="math inline">\(a_t \equiv \int^{t+T}_{t}{e^{-r\tau}d\tau}\)</span></p></li>
-<li><p><span class="math inline">\(b_t \equiv \int^{t+T}_{t}{\tau^{-r\tau}d\tau}\)</span></p></li>
-<li><p><span class="math inline">\(r\)</span>은 무위험수익률, <span class="math inline">\(T\)</span>는 CDS 계약의 잔존만기, <span class="math inline">\(LGD\)</span>는 부도시손실률(loss given default)을 나타냄</p></li>
-<li><p>이렇게 추정된 부도확률은 위험중립 확률(risk-neutral probability)이므로 이를 이용하여 산출한 DIP을 금융상품의 가격 즉, 프리미엄으로 간주</p></li>
-<li><p>또한 여러 금융기관간 위험 사건의 종속성을 시변하는 상관계수를 이용하여 측정 (향후 12주 후에 대한 상관계수 예측식)</p>
-<ul>
-<li><span class="math inline">\(\rho_{t,t+12}=c+k_{1}\rho_{t-12,t}+\sum^{l}_{i=1}k_{2i}\rho_{t-i,t-1+1}+\eta X_t+v_t\)</span></li>
-<li><span class="math inline">\(\rho\)</span>는 하첨자로 표시된 (일주일 단위의) 두 기간간 평균 자산수익률 상관계수, <span class="math inline">\(X_t\)</span>는 예측변수로 사용되는 금융시장 변수</li>
-</ul></li>
-<li><p>예측된 상관계수를 이용하여 DIP을 추정</p></li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="2-4_Systemic_Risk_Measures_Probability_of_Default_files/figure-html/b4d8af1e-1-Huang_et_al_2009_Fig1.PNG" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Huang et al.&nbsp;(2009) Figure 1</figcaption>
-</figure>
-</div>
-</section>
-<section id="cds-corisk-credit-default-swap-corisk" class="level2">
-<h2 class="anchored" data-anchor-id="cds-corisk-credit-default-swap-corisk">CDS-CoRisk: Credit default swap-CoRisk</h2>
-<p><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1417920">IMF(2009)</a></p>
-<p>금융기관간 위험도의 상호연계성을 CDS 스프레드를 이용하여 측정</p>
-<ul>
-<li><p>CoRisk는 quantile regression 기법을 사용하여 한 금융기관의 위험 사건 여부가 다른 금융기관에 미치는 영향을 측정</p>
-<ul>
-<li><span class="math inline">\(CDS_{it}=\alpha_{\tau}+\sum^{K}_{k=1}\beta_{\tau k}R_{kt}+\gamma_{\tau j}CDS_{jt}+\epsilon_{it}\)</span></li>
-<li><span class="math inline">\(\tau\)</span>는 백분위수, <span class="math inline">\(R\)</span>은 <span class="math inline">\(K\)</span>개의 위험요인</li>
-<li>위험요인: 일반적인 리스크 프리미엄, 수익률곡선의 기울기, LIBOR 스프레드, 단기자금시장의 유동성 상황, VIX 등</li>
-</ul></li>
-<li><p>CDS 스프레드가 높을수록 고위험도를 나타내며, 95 percentile을 상회하는 경우를 위험 사건이 발생한 것으로 간주</p></li>
-<li><p>CoRisk (금융기관 <span class="math inline">\(j\)</span>에 대한 <span class="math inline">\(i\)</span>의 조건부)</p>
-<ul>
-<li><span class="math inline">\(Conditional CoRisk_t(i,j) = 100 \times (\frac{CDS(95|j)}{CDS_i(95)}-1 )\)</span></li>
-<li><span class="math inline">\(CDS(95|j)=\alpha_{95}+\sum^{K}_{k=1}\beta_{95k}R_{kt}+\gamma_{95j}CDS_j(95)\)</span></li>
-<li>CoRisk는 한 금융기관의 CDS 스프레드의 무조건부 95 percentile과 다른 금융기관에서 위험 사건이 발생한 경우에 대한 조건부 95 percentile간의 상대적 차이를 나타냄</li>
-</ul></li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="2-4_Systemic_Risk_Measures_Probability_of_Default_files/figure-html/a7e4eac8-1-IMF_2009_Fig2.5.PNG" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">IMF(2009) Fig2.5.</figcaption>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="2-4_Systemic_Risk_Measures_Probability_of_Default_files/figure-html/a7e4eac8-2-IMF_2009_Fig2.6.PNG" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">IMF(2009) Fig2.6.</figcaption>
-</figure>
-</div>
-</section>
-<section id="option-ipod-option-implied-probability-of-default" class="level2">
-<h2 class="anchored" data-anchor-id="option-ipod-option-implied-probability-of-default">Option-iPoD : Option-implied probability of default</h2>
-<p><a href="https://doi.org/10.5089/9781451870527.001">Capuano(2008)</a></p>
-<p>옵션가격으로부터 부도확률을 추정</p>
-<ul>
-<li>Merton(1974)의 구조모형을 이용
-<ul>
-<li>금융기관의 (시장가치 기준) 자산을 <span class="math inline">\(V\)</span>, 부채를 <span class="math inline">\(D\)</span>, 자본을 <span class="math inline">\(E\)</span>라고 하면, 금융기관의 부도사건은 <span class="math inline">\(V&lt;D\)</span>로 정의</li>
-<li>자본은 부채를 먼저 상환하고 남는 부분에 대한 청구권으로서 <span class="math inline">\(E=\max(V-D,0)\)</span></li>
-<li>이는 마치 기초자산을 <span class="math inline">\(V\)</span>로, 행사가격을 <span class="math inline">\(D\)</span>로 하는 콜옵션과 동일한 구조</li>
-</ul></li>
-<li>부도확률(PoD):
-<ul>
-<li><span class="math inline">\(PoD = \int^{D}_0 fdV\)</span></li>
-</ul></li>
-<li>확률밀도함수 <span class="math inline">\(f\)</span> 는 CIMDO 방법을 이용하여 다음과 같이 추정
-<ul>
-<li><span class="math inline">\(\min \int^{\infty}_0 f(V)ln(\frac{f(V)}{f^0(V)})dV\)</span></li>
-<li>사후 (posterior) 밀도함수 <span class="math inline">\(f\)</span>는 사전(prior) 밀도함수 <span class="math inline">\(f^0\)</span> 와의 cross-entropy를 최소화</li>
-</ul></li>
-<li>사후 밀도함수의 조건
-<ul>
-<li>자본이 콜옵션 가치로 평가됨
-<ul>
-<li><span class="math inline">\(E=\int^{\infty}_{D}(V-D)f(V)dV\)</span></li>
-</ul></li>
-<li>행사가격이 <span class="math inline">\(K\)</span>인 주식옵션의 가격이 <span class="math inline">\(C\)</span>일 때 이 옵션가격과 일치성의 가짐
-<ul>
-<li><span class="math inline">\(C=\int^{\infty}_{D+K}(V-D-K)f(V)dV\)</span></li>
-</ul></li>
-<li>확률밀도함수의 면적은 1
-<ul>
-<li><span class="math inline">\(1=\int^{\infty}_{0}f(V)dV\)</span></li>
-</ul></li>
-</ul></li>
-<li>사후 밀도함수
-<ul>
-<li><span class="math inline">\(f(V) = f^0(V)\exp [ \lambda_0-1+\lambda_1e^{-rT}I_{V&gt;D}(V-D)+\lambda_2e^{-rT}I_{V&gt;D+K}(V-D-K) ]\)</span></li>
-<li><span class="math inline">\(\lambda_0\)</span>는 확률밀도함수의 면적이 1이라는 조건에 대한 라그랑지 승수, <span class="math inline">\(\lambda_1\)</span>는 자본이 콜옵션의 가치로 평가된다는 조건에 대한 라그랑지 승수, <span class="math inline">\(\lambda_2\)</span>는 주식옵션의 가격이 만족하여야 하는 조건에 대한 라그랑지 승수</li>
+<li>symmetric, positive semi-definite</li>
+<li><span class="math inline">\(\forall \mathbf{x} \in \mathbb{R}^{|\mathcal{V}|}\)</span> , <span class="math inline">\(\mathbf{x}^{T}L\mathbf{x} = \sum_{(u,v)\in \mathcal{E}}(\mathbf{x}[u]-\mathbf{x}[v])^2\)</span></li>
+<li><span class="math inline">\(L\)</span>은 <span class="math inline">\(|V|\)</span>개의 비음수 eigenvalue를 가짐</li>
 </ul></li>
 </ul>
 </section>
-<section id="cca-contingent-claim-approach" class="level2">
-<h2 class="anchored" data-anchor-id="cca-contingent-claim-approach">CCA: Contingent claim approach</h2>
-<p><a href="https://doi.org/10.1016/j.jbankfin.2004.09.007">Lehar(2005)</a></p>
-<p>주가에 기업의 부도확률에 대한 정보가 내재되어 있다는 점에 기반하여 주가 정보를 이용하여 내재된 부도확률에 대한 정보를 얻는 방법</p>
-<ul>
-<li><p>Merton(1974)의 콜옵션 구조모형(<span class="math inline">\(E=\max(V-D,0)\)</span>)에서 주식이 일종의 콜옵션과 같은 조건부 증권(contingent claim)으로 봄</p></li>
-<li><p>금융기관의 자산 <span class="math inline">\(V\)</span>가 다음과 같이 geometric 브라운 운동으로 따른다고 가정</p>
-<ul>
-<li><span class="math inline">\(dV=\mu Vdt+\sigma Vdz\)</span></li>
-<li>주가 <span class="math inline">\(E\)</span> 는 행사가격이 <span class="math inline">\(D_t\)</span>, 기초자산 가격이 <span class="math inline">\(V_t\)</span>인 BSM(Black-Scholes-Merton) 콜옵션가격과 동일</li>
-</ul></li>
-<li><p>금융기관의 자산에 대한 확률과정의 모수 <span class="math inline">\(\mu, \sigma\)</span>를 금융기관의 주가에 대한 정보를 이용하여 추정</p>
-<ul>
-<li>다음의 우도함수를 극대화하도록 추정</li>
-<li><span class="math inline">\(L(\mu,\sigma)=-\frac{m-1}{2}\ln(2\pi)-\frac{m-1}{2}\ln\sigma^2 - \sum^{m}_{t=2}\ln \hat{V}_t(\sigma) - \sum^{m}_{t=2}\ln N(\hat{d}_t) - \frac{1}{2\sigma^2}\sum^{m}_{t=2}[\ln\frac{\hat{V}_t(\sigma)}{\hat{V}_{t-1}(\sigma)}]^2\)</span></li>
-<li><span class="math inline">\(\hat{V}_t(\sigma)\)</span>는 BSM의 콜옵션가격 공식에서 구해지는 해</li>
-</ul></li>
-<li><p>금융기관간의 연계성을 다음과 같이 지수가중 이동평균 방법을 이용하여 모형화</p>
-<ul>
-<li>금융기관 <span class="math inline">\(i, j\)</span>의 공분산: <span class="math inline">\(\sigma_{ij,t} = \lambda\sigma_{ij,t-1}+(1-\lambda)\ln(\frac{V^i_t}{V^i_{t-1}})\ln(\frac{V^j_t}{V^j_{t-1}})\)</span></li>
-</ul></li>
-<li><p>Lehar(2005)는 시스템리스크 측정지표로서 전체 금융시스템 내에 금융기관중 부실금융기관의 수가 일정 비율 (예를 들어, 10%) 이상일 확률을 나타내는 SIN과 자산기준 부실금융기관의 비중이 일정 비율 이상일 확률을 나타내는 SIV 등을 제시</p></li>
-</ul>
+<section id="normalized-laplacian" class="level3">
+<h3 class="anchored" data-anchor-id="normalized-laplacian">Normalized Laplacian</h3>
+<p>대칭 라플라시안:</p>
+<p><span class="math display">\[L_{sym}=D^{-\frac{1}{2}}LD^{-\frac{1}{2}}\]</span></p>
+<p>랜덤워크 라플라시안:</p>
+<p><span class="math display">\[L_{RW}=D^{-1}L\]</span></p>
 </section>
 </section>
-<section id="참고문헌" class="level1">
-<h1>참고문헌</h1>
+<section id="graph-cuts-and-clustering" class="level2">
+<h2 class="anchored" data-anchor-id="graph-cuts-and-clustering">Graph Cuts and Clustering</h2>
+<p>fully connected 그래프에서 라플라시안이 노드의 최적 클러스터링을 하는데 사용되는 방법을 알아보자.</p>
+<p><strong>graph cuts</strong></p>
+<p><span class="math inline">\(\mathcal{A} \subset \mathcal{V}\)</span>은 그래프의 노드의 하위집합을 나타내고 <span class="math inline">\(\bar{\mathcal{A}}\)</span>은 이 집합의 여집합이라고 하자.</p>
+<p>그래프를 <span class="math inline">\(K\)</span>개 중복되지 않는 하위집합으로 나누면 ’cut value’를 다음과 같이 정의할 수 있다:</p>
+<p><span class="math display">\[\text{cut}(\mathcal{A}_1, \dots, \mathcal{A}_K) = \frac{1}{2}\sum^{K}_{k=1}|(u,v) \in \mathcal{E} : u \in \mathcal{A}_k, v \in \bar{\mathcal{A}}_k|\]</span></p>
 <ul>
-<li><p>서상원. (2018). 시스템리스크의 측정과 관리: 서베이와 제언. 금융안정연구, 19(1), 131-232.</p></li>
-<li><p>Capuano, C. (2008). The option-iPoD. International Monetary Fund.</p></li>
-<li><p>Chan-Lau, J. A., Espinosa, M., Giesecke, K., &amp; Solé, J. A. (2009). Assessing the systemic implications of financial linkages. IMF global financial stability report, 2.</p></li>
-<li><p>Huang, X., Zhou, H., &amp; Zhu, H. (2009). A framework for assessing the systemic risk of major financial institutions. Journal of Banking &amp; Finance, 33(11), 2036-2049.</p></li>
-<li><p>Lehar, A. (2005). Measuring systemic risk: A risk management approach. Journal of Banking &amp; Finance, 29(10), 2577-2603.</p></li>
+<li>cut은 노드의 파티션 사이 경계에 얼마나 많은 엣지가 있냐를 나타낸다.</li>
 </ul>
+</section>
+<section id="generalized-spectral-clustering" class="level2">
+<h2 class="anchored" data-anchor-id="generalized-spectral-clustering">Generalized Spectral Clustering</h2>
+</section>
+</section>
+<section id="참고자료" class="level1">
+<h1>참고자료</h1>
+<p>[1] Hamilton, W. L. (2020). <em>Graph Representation Learning.</em> Morgan &amp; Claypool Publishers.</p>
 
 
 </section>
@@ -777,18 +686,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <script src="https://giscus.app/client.js" data-repo="jo-cho/FinBlog" data-repo-id="R_kgDOJQ80aw" data-category="General" data-category-id="DIC_kwDOJQ80a84CVb8i" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../../posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">시스템 리스크 측정 - 선행연구 (금융기관 위험)</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../../posts/systemic_risk/2-5_Systemic_Risk_Measures_Network.html" class="pagination-link">
-        <span class="nav-page-text">시스템 리스크 측정 - 선행연구 (네트워크)</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 
 
