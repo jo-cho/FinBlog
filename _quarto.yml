@@ -85,6 +85,8 @@ website:
             text: "그래프 통계량과 커널 방법"
           - href: posts/machine_learning/GRL_02_2.ipynb
             text: "이웃중복 감지"
+          - href: posts/machine_learning/GRL_02_3.ipynb
+            text: "그래프 라플라시안과 스펙트럼 방법"
 format:
   html:
     theme: flatly

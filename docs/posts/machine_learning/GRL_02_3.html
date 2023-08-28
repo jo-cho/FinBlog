@@ -30,6 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
+<link href="../../posts/machine_learning/GRL_02_2.html" rel="prev">
 <link href="../../logo.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -117,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">그래프 머신러닝: (2-3) 그래프 라플라시안과 스펙트럴 방법</li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../posts/machine_learning/GRL_01.html">그래프 머신러닝</a></li><li class="breadcrumb-item"><a href="../../posts/machine_learning/GRL_02_3.html">그래프 라플라시안과 스펙트럼 방법</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -314,13 +315,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
  <span class="menu-text">그래프 머신러닝</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/machine_learning/GRL_01.html" class="sidebar-item-text sidebar-link">
@@ -337,6 +338,12 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="../../posts/machine_learning/GRL_02_2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">이웃중복 감지</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/machine_learning/GRL_02_3.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">그래프 라플라시안과 스펙트럼 방법</span></a>
   </div>
 </li>
       </ul>
@@ -358,7 +365,11 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#unnormalized-laplacian" id="toc-unnormalized-laplacian" class="nav-link" data-scroll-target="#unnormalized-laplacian">Unnormalized Laplacian</a></li>
   <li><a href="#normalized-laplacian" id="toc-normalized-laplacian" class="nav-link" data-scroll-target="#normalized-laplacian">Normalized Laplacian</a></li>
   </ul></li>
-  <li><a href="#graph-cuts-and-clustering" id="toc-graph-cuts-and-clustering" class="nav-link" data-scroll-target="#graph-cuts-and-clustering">Graph Cuts and Clustering</a></li>
+  <li><a href="#graph-cuts-and-clustering" id="toc-graph-cuts-and-clustering" class="nav-link" data-scroll-target="#graph-cuts-and-clustering">Graph Cuts and Clustering</a>
+  <ul class="collapse">
+  <li><a href="#graph-cuts" id="toc-graph-cuts" class="nav-link" data-scroll-target="#graph-cuts">graph cuts</a></li>
+  <li><a href="#approximating-the-ratiocut-with-the-laplacian-spectrum" id="toc-approximating-the-ratiocut-with-the-laplacian-spectrum" class="nav-link" data-scroll-target="#approximating-the-ratiocut-with-the-laplacian-spectrum">Approximating the RatioCut with the Laplacian Spectrum</a></li>
+  </ul></li>
   <li><a href="#generalized-spectral-clustering" id="toc-generalized-spectral-clustering" class="nav-link" data-scroll-target="#generalized-spectral-clustering">Generalized Spectral Clustering</a></li>
   </ul></li>
   <li><a href="#참고자료" id="toc-참고자료" class="nav-link" data-scroll-target="#참고자료">참고자료</a></li>
@@ -415,7 +426,7 @@ ul.task-list li input[type="checkbox"] {
 <li>라플라시안 행렬의 속성
 <ul>
 <li>symmetric, positive semi-definite</li>
-<li><span class="math inline">\(\forall \mathbf{x} \in \mathbb{R}^{|\mathcal{V}|}\)</span> , <span class="math inline">\(\mathbf{x}^{T}L\mathbf{x} = \sum_{(u,v)\in \mathcal{E}}(\mathbf{x}[u]-\mathbf{x}[v])^2\)</span></li>
+<li><span class="math inline">\(\forall \mathbf{x} \in \mathbb{R}^{|\mathcal{V}|}\)</span> , <span class="math inline">\(\mathbf{x}^{\top}L\mathbf{x} = \sum_{(u,v)\in \mathcal{E}}(\mathbf{x}[u]-\mathbf{x}[v])^2\)</span></li>
 <li><span class="math inline">\(L\)</span>은 <span class="math inline">\(|V|\)</span>개의 비음수 eigenvalue를 가짐</li>
 </ul></li>
 </ul>
@@ -431,16 +442,53 @@ ul.task-list li input[type="checkbox"] {
 <section id="graph-cuts-and-clustering" class="level2">
 <h2 class="anchored" data-anchor-id="graph-cuts-and-clustering">Graph Cuts and Clustering</h2>
 <p>fully connected 그래프에서 라플라시안이 노드의 최적 클러스터링을 하는데 사용되는 방법을 알아보자.</p>
-<p><strong>graph cuts</strong></p>
-<p><span class="math inline">\(\mathcal{A} \subset \mathcal{V}\)</span>은 그래프의 노드의 하위집합을 나타내고 <span class="math inline">\(\bar{\mathcal{A}}\)</span>은 이 집합의 여집합이라고 하자.</p>
-<p>그래프를 <span class="math inline">\(K\)</span>개 중복되지 않는 하위집합으로 나누면 ’cut value’를 다음과 같이 정의할 수 있다:</p>
+<section id="graph-cuts" class="level3">
+<h3 class="anchored" data-anchor-id="graph-cuts">graph cuts</h3>
+<p><span class="math inline">\(\mathcal{A} \subset \mathcal{V}\)</span>은 그래프의 노드의 부분집합을 나타내고 <span class="math inline">\(\bar{\mathcal{A}}\)</span>은 이 집합의 여집합이라고 하자.</p>
+<p>그래프를 <span class="math inline">\(K\)</span>개 중복되지 않는 부분집합으로 나누면(파티셔닝) ’cut value’를 다음과 같이 정의할 수 있다:</p>
 <p><span class="math display">\[\text{cut}(\mathcal{A}_1, \dots, \mathcal{A}_K) = \frac{1}{2}\sum^{K}_{k=1}|(u,v) \in \mathcal{E} : u \in \mathcal{A}_k, v \in \bar{\mathcal{A}}_k|\]</span></p>
 <ul>
-<li>cut은 노드의 파티션 사이 경계에 얼마나 많은 엣지가 있냐를 나타낸다.</li>
+<li>cut은 노드 파티션 사이 경계에 엣지의 개수를 나타낸다.</li>
+<li>노드를 <span class="math inline">\(K\)</span>개 클러스터로 나누는 최적 방법은 이 cut value를 최소화하는 파티션을 결정하는 것이다.</li>
+<li>하지만 이 경우 하나의 노드로 구성된 클러스터를 만드는 경향이 있다.</li>
 </ul>
+<p>대신 파티션의 크기를 적당히 크게 하면서 cut을 최소화하는 방법을 사용한다:</p>
+<p><span class="math display">\[\text{RatioCut}(\mathcal{A}_1, \dots, \mathcal{A}_K) = \frac{1}{2} \frac{\sum^{K}_{k=1}|(u,v) \in \mathcal{E} : u \in \mathcal{A}_k, v \in \bar{\mathcal{A}}_k|}{{|\mathcal{A}}_k|}\]</span>,</p>
+<p><span class="math display">\[\text{NormalizedCut}(\mathcal{A}_1, \dots, \mathcal{A}_K) = \frac{1}{2} \frac{\sum^{K}_{k=1}|(u,v) \in \mathcal{E} : u \in \mathcal{A}_k, v \in \bar{\mathcal{A}}_k|}{\text{vol}(\mathcal{A}_k)}\]</span> where <span class="math inline">\(\text{vol}(\mathcal{A}_k) = \sum_{u \in \mathcal{A}} d_u\)</span></p>
+</section>
+<section id="approximating-the-ratiocut-with-the-laplacian-spectrum" class="level3">
+<h3 class="anchored" data-anchor-id="approximating-the-ratiocut-with-the-laplacian-spectrum">Approximating the RatioCut with the Laplacian Spectrum</h3>
+<p>라플라시안 스펙트럼(Laplacian spectrum)을 사용하여 RatioCut을 최소화시키는 방법을 도출해보자. <span class="math inline">\(K=2\)</span>인 경우를 보자.</p>
+<p><span class="math display">\[\min_{\mathcal{A} \in \mathcal{V}}\text{RatioCut}(\mathcal{A}, \bar{\mathcal{A}}) \]</span></p>
+<p>벡터 <span class="math inline">\(\mathbf{a}\in \mathbb{R}^{|\mathcal{V}|}\)</span>를 다음과 같이 정의한다.</p>
+<p><span class="math display">\[\mathbf{a}[u] =
+\begin{cases}
+\sqrt{\frac{|\bar{\mathcal{A}}|}{|\mathcal{A}|}} \quad \text{if} \ u \in \mathcal{A}\\
+- \sqrt{\frac{|\mathcal{A}|}{|\bar{\mathcal{A}}|}} \quad \text{if} \ u \in \bar{\mathcal{A}}
+\end{cases}\]</span></p>
+<p>그래프 라플라시안의 속성을 이용하면,</p>
+<p><span class="math display">\[\mathbf{a}^{\top}L\mathbf{a}=\sum_{(u,v) \in \mathcal{E}}(\mathbf{a}[u]-\mathbf{a}[v])^2\\
+=\cdots^{\text{*}} \\
+=|\mathcal{V}|\text{RatioCut}(\mathcal{A},\bar{\mathcal{A}})\]</span></p>
+<ul>
+<li>*(중간 단계는 생략)</li>
+</ul>
+<p>또한 <span class="math inline">\(\mathbf{a}\)</span>의 속성인 <span class="math inline">\(\mathbf{a} \perp \mathbf{1}\)</span> 그리고 <span class="math inline">\({\parallel\mathbf{a}\parallel}^2 = |\mathcal{V}|\)</span>을 고려,</p>
+<p><span class="math display">\[\min_{\mathbf{a} \in \mathbb{R}^{|\mathcal{V}|}}\mathbf{a}^{\top}L\mathbf{a} \\ s.t. \quad \mathbf{a} \perp \mathbf{1},\ {\parallel\mathbf{a}\parallel}^2 = |\mathcal{V}|\]</span></p>
+<p>벡터 a를 라플라시안 행렬의 두번째로 작은 eigenvector로 설정하여 RatioCut 최소화를 근사할 수 있다. 다음 <span class="math inline">\(\mathbf{a}[u]\)</span>의 부호로 클러스터링을 할 수 있다.</p>
+<p>즉, 라플라시안의 두번째로 작은 eigenvector는 최적 클러스터를 (RatioCut에 대해) 수행하는 이산(discrete) 벡터에 연속적 근사치이다.</p>
+</section>
 </section>
 <section id="generalized-spectral-clustering" class="level2">
 <h2 class="anchored" data-anchor-id="generalized-spectral-clustering">Generalized Spectral Clustering</h2>
+<p>위에서 라플라시안의 스펙트럼을 이용하여 그래프를 두 클러스터로 나누는 방법에 대해 알 수 있었다.이제 일반화시켜 <span class="math inline">\(K\)</span>개 클러스터링을 해보자.</p>
+<ol type="1">
+<li><p><span class="math inline">\(K\)</span>개의 최소 <span class="math inline">\(L\)</span> eigenvector들을 찾는다(단, 가장 작은 eigenvector 제외): <span class="math inline">\(\mathbf{e}_{|\mathcal{V}|-1},\mathbf{e}_{|\mathcal{V}|-2},\cdots,\mathbf{e}_{|\mathcal{V}|-K}\)</span></p></li>
+<li><p>이 eigenvetor를 행으로 하여 행렬 <span class="math inline">\(U \in \mathbb{R}^{|\mathcal{V}| \times (K-1)}\)</span>를 형성한다.</p></li>
+<li><p><span class="math inline">\(U\)</span>에 있는 각 노드를 대응하는 열로 표현한다: <span class="math inline">\(\mathbf{z}_u = U[u] \quad \forall u \in \mathcal{V}\)</span></p></li>
+<li><p>임베딩(embedding) <span class="math inline">\(\mathbf{z}_u\)</span>에 K-means 클러스터링을 돌린다.</p></li>
+</ol>
+<p>스펙트럼 클러스터링의 일반적인 원리는 강력하다. 그래프 라플라시안의 스펙트럼을 사용하여 노드를 그래프로 표현할 수 있으며, 이 표현은 최적의 그래프 클러스터링에 대한 원칙적 근사로 볼 수 있다.</p>
 </section>
 </section>
 <section id="참고자료" class="level1">
@@ -686,6 +734,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <script src="https://giscus.app/client.js" data-repo="jo-cho/FinBlog" data-repo-id="R_kgDOJQ80aw" data-category="General" data-category-id="DIC_kwDOJQ80a84CVb8i" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../posts/machine_learning/GRL_02_2.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">이웃중복 감지</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

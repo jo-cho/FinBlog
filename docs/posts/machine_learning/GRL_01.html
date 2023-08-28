@@ -341,6 +341,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">이웃중복 감지</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/machine_learning/GRL_02_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">그래프 라플라시안과 스펙트럼 방법</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -402,13 +408,16 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <p>Hamilton,W.L. <em>Graph Representation Learning</em>. 2020</p>
-<p>그래프(graph)는 복잡한 시스템을 나타내는 보편적인 수단이다.</p>
+<blockquote class="blockquote">
+<p>그래프의 머신러닝 방법에 대해 공부해보고자 한다. Hamilton,W.L.의 책 <em>Graph Representation Learning</em>. 2020을 바탕으로 내용을 정리하였다. 그래프(혹은 네트워크) 이론이나 그래프를 이용한 머신러닝 기법에 관심이 있는 (나를 포함한) 사람들에게 조금의 도움이 되기를 바란다.</p>
+</blockquote>
+<p><strong>그래프</strong>(<strong>graph</strong>)는 복잡한 시스템을 나타내는 보편적인 수단이다.</p>
 <ul>
 <li>그래프는 <strong>노드</strong>(node)와 그들 사이의 <strong>엣지</strong>(edge)로 이루어져 있다. 예를 들어, 소셜 네트워크는 개인을 나타내는 노드와 친구 관계를 나타내는 엣지로 표현될 수 있다.</li>
 </ul>
 <section id="그래프란" class="level2">
 <h2 class="anchored" data-anchor-id="그래프란">그래프란?</h2>
-<p>그래프: <span class="math inline">\(\mathcal{G} = (\mathcal{V},\mathcal{E})\)</span></p>
+<p><strong>그래프: <span class="math inline">\(\mathcal{G} = (\mathcal{V},\mathcal{E})\)</span></strong></p>
 <ul>
 <li>그래프는 노드 집합 <span class="math inline">\(V\)</span>와 엣지 집합 <span class="math inline">\(\mathcal{E}\)</span>로 정의된다. 노드 <span class="math inline">\(u \in \mathcal{V}\)</span>에서 노드 <span class="math inline">\(v \in \mathcal{V}\)</span>로 가는 엣지를 <span class="math inline">\((u,v) \in \mathcal{E}\)</span>로 나타낸다.</li>
 </ul>
@@ -421,7 +430,13 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <section id="multi-relational-그래프" class="level3">
 <h3 class="anchored" data-anchor-id="multi-relational-그래프">Multi-relational 그래프</h3>
-<p><span class="math inline">\((u,\tau,v) \in \mathcal{E}\)</span> - 두 종류 이상의 관계에 대한 연결성을 나타낼 수 있는 그래프 - 관계 <span class="math inline">\(\tau \in R\)</span>가 있으며, 각 종류의 관계 <span class="math inline">\(\tau\)</span>마다 인접행렬 <span class="math inline">\(A_\tau\)</span>가 있다. - 이때 인접행렬은 다음과 같은 3차원이다: <span class="math inline">\(A \in \mathbb{R}^{|\mathcal{V}| \times |\mathcal{R}| \times |\mathcal{V}|}\)</span> - multi-relational 그래프에는 <em>heterogeneous</em>와 <em>multiplex</em> 그래프가 있다.</p>
+<p><span class="math inline">\((u,\tau,v) \in \mathcal{E}\)</span></p>
+<ul>
+<li><p>두 종류 이상의 관계에 대한 연결성을 나타낼 수 있는 그래프</p></li>
+<li><p>관계 <span class="math inline">\(\tau \in R\)</span>가 있으며, 각 종류의 관계 <span class="math inline">\(\tau\)</span>마다 인접행렬 <span class="math inline">\(A_\tau\)</span>가 있다.</p></li>
+<li><p>이때 인접행렬은 다음과 같은 3차원이다: <span class="math inline">\(A \in \mathbb{R}^{|\mathcal{V}| \times |\mathcal{R}| \times |\mathcal{V}|}\)</span></p></li>
+<li><p>multi-relational 그래프에는 <em>heterogeneous</em>와 <em>multiplex</em> 그래프가 있다.</p></li>
+</ul>
 <section id="heterogeneous-그래프" class="level4">
 <h4 class="anchored" data-anchor-id="heterogeneous-그래프">Heterogeneous 그래프:</h4>
 <ul>
