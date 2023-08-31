@@ -87,6 +87,8 @@ website:
             text: "이웃중복 감지"
           - href: posts/machine_learning/GRL_02_3.ipynb
             text: "그래프 라플라시안과 스펙트럼 방법"
+          - href: posts/machine_learning/GRL_03_1.ipynb
+            text: "인코더 디코더 사용"
 format:
   html:
     theme: flatly
