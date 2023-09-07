@@ -36,21 +36,21 @@ website:
       - section: "알고리즘 트레이딩"
         contents:
           - href: posts/ml_trading/0_Introduction.ipynb
-            text: "트레이딩 개요"
+            text: "1. 트레이딩 개요"
           - href: posts/ml_trading/1_Get_Market_Data.ipynb
-            text: "시장 데이터 수집"
+            text: "2. 시장 데이터 수집"
           - href: posts/ml_trading/2_Labeling.ipynb
-            text: "가격 모멘텀 라벨링"
+            text: "3. 가격 모멘텀 라벨링"
           - href: posts/ml_trading/3_Get_Features.ipynb
-            text: "피쳐 생성"
+            text: "4. 피쳐 생성"
           - href: posts/ml_trading/4_Feature_Selection.ipynb
-            text: "피쳐 선정"
+            text: "5. 피쳐 선정"
           - href: posts/ml_trading/5_Get_Trading_Signals.ipynb
-            text: "매매 시그널 분류"
+            text: "6. 매매 시그널 분류"
           - href: posts/ml_trading/6_Trading_Rules.ipynb
-            text: "매매 규칙"
+            text: "7. 매매 규칙"
           - href: posts/ml_trading/7_Enhancing_and_Bet_Confidence.ipynb
-            text: "매매 신뢰도 측정과 전략 강화"
+            text: "8. 매매 신뢰도 측정과 전략 강화"
       - section: "시스템 리스크 분석"
         contents:
           - href: posts/systemic_risk/1_Systemic_Risk.ipynb
@@ -82,13 +82,15 @@ website:
           - href: posts/machine_learning/GRL_01.ipynb
             text: "들어가며"
           - href: posts/machine_learning/GRL_02_1.ipynb
-            text: "그래프 통계량과 커널 방법"
+            text: "그래프 통계량과 커널"
           - href: posts/machine_learning/GRL_02_2.ipynb
             text: "이웃중복 감지"
           - href: posts/machine_learning/GRL_02_3.ipynb
-            text: "그래프 라플라시안과 스펙트럼 방법"
+            text: "라플라시안과 스펙트럼"
           - href: posts/machine_learning/GRL_03_1.ipynb
-            text: "인코더 디코더 사용"
+            text: "인코더-디코더"
+          - href: posts/machine_learning/GRL_03_2.ipynb
+            text: "랜덤워크 임베딩"
 format:
   html:
     theme: flatly

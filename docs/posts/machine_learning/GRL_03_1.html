@@ -8,7 +8,7 @@
 
 <meta name="author" content="Cheonghyo Cho">
 
-<title>Cho’s FinBlog - 그래프 머신러닝: (3-1) 인코더 디코더 사용</title>
+<title>Cho’s FinBlog - 그래프 머신러닝: (3-1) 이웃 재구성: 인코더-디코더</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,6 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
+<link href="../../posts/machine_learning/GRL_03_2.html" rel="next">
 <link href="../../posts/machine_learning/GRL_02_3.html" rel="prev">
 <link href="../../logo.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
@@ -118,7 +119,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../posts/machine_learning/GRL_01.html">그래프 머신러닝</a></li><li class="breadcrumb-item"><a href="../../posts/machine_learning/GRL_03_1.html">인코더 디코더 사용</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../posts/machine_learning/GRL_01.html">그래프 머신러닝</a></li><li class="breadcrumb-item"><a href="../../posts/machine_learning/GRL_03_1.html">인코더-디코더</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -173,49 +174,49 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/ml_trading/0_Introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">트레이딩 개요</span></a>
+ <span class="menu-text">1. 트레이딩 개요</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/ml_trading/1_Get_Market_Data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">시장 데이터 수집</span></a>
+ <span class="menu-text">2. 시장 데이터 수집</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/ml_trading/2_Labeling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">가격 모멘텀 라벨링</span></a>
+ <span class="menu-text">3. 가격 모멘텀 라벨링</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/ml_trading/3_Get_Features.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">피쳐 생성</span></a>
+ <span class="menu-text">4. 피쳐 생성</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/ml_trading/4_Feature_Selection.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">피쳐 선정</span></a>
+ <span class="menu-text">5. 피쳐 선정</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/ml_trading/5_Get_Trading_Signals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">매매 시그널 분류</span></a>
+ <span class="menu-text">6. 매매 시그널 분류</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/ml_trading/6_Trading_Rules.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">매매 규칙</span></a>
+ <span class="menu-text">7. 매매 규칙</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/ml_trading/7_Enhancing_and_Bet_Confidence.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">매매 신뢰도 측정과 전략 강화</span></a>
+ <span class="menu-text">8. 매매 신뢰도 측정과 전략 강화</span></a>
   </div>
 </li>
       </ul>
@@ -331,7 +332,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/machine_learning/GRL_02_1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">그래프 통계량과 커널 방법</span></a>
+ <span class="menu-text">그래프 통계량과 커널</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -343,13 +344,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/machine_learning/GRL_02_3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">그래프 라플라시안과 스펙트럼 방법</span></a>
+ <span class="menu-text">라플라시안과 스펙트럼</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/machine_learning/GRL_03_1.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">인코더 디코더 사용</span></a>
+ <span class="menu-text">인코더-디코더</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/machine_learning/GRL_03_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">랜덤워크 임베딩</span></a>
   </div>
 </li>
       </ul>
@@ -381,7 +388,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">그래프 머신러닝: (3-1) 인코더 디코더 사용</h1>
+<h1 class="title">그래프 머신러닝: (3-1) 이웃 재구성: 인코더-디코더</h1>
 <p class="subtitle lead">(GRL) Neighborhood Reconstruction Methods: An Encoder-Decoder Perspective</p>
   <div class="quarto-categories">
     <div class="quarto-category">graph</div>
@@ -449,9 +456,9 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="factorization-based-approaches" class="level1">
 <h1>Factorization-based Approaches</h1>
-<p>인코더-디코더를 보는 또다른 관점으로 matrix factorization이 있다. 노드 임베딩으로부터 local 이웃 구조를 디코딩하는 것은 그래프 인접행렬의 항목을 재구성하는 것과 관련이 깊다. 즉, matrix factorization을 이용하여 인접행렬 <span class="math inline">\(S\)</span>을 저차원에서 추정하는 것이다.</p>
+<p><a href="https://jo-cho.github.io/FinBlog/posts/machine_learning/GRL_03_1.html">인코더-디코더</a>를 보는 또다른 관점으로 matrix factorization이 있다. 노드 임베딩으로부터 local 이웃 구조를 디코딩하는 것은 그래프 인접행렬의 항목을 재구성하는 것과 관련이 깊다. 즉, matrix factorization을 이용하여 인접행렬 <span class="math inline">\(S\)</span>을 저차원에서 추정하는 것이다.</p>
 <p><strong>Laplacian eigenmaps</strong></p>
-<p>가장 초기의 factorization 기반 방법인 LE(Laplacian eignemap) 기법은 스펙트럼 클러스터링 아이디어를 사용한다(관련 내용: <a href="https://jo-cho.github.io/FinBlog/posts/machine_learning/GRL_02_3.html">이전 포스트</a>). 이 방법에서는 노드 임베딩 사이 L2-distance 기반으로 디코더를 정의한다:</p>
+<p>가장 초기의 factorization 기반 방법인 LE(Laplacian eignemap) 기법은 스펙트럼 클러스터링 아이디어를 사용한다(관련 내용: <a href="https://jo-cho.github.io/FinBlog/posts/machine_learning/GRL_02_3.html">그래프 라플라시안과 스펙트럼 방법</a>). 이 방법에서는 노드 임베딩 사이 L2-distance 기반으로 디코더를 정의한다:</p>
 <p><span class="math display">\[\text{DEC}(\mathbf{z}_u,\mathbf{z}_v) = \parallel \mathbf{z}_u-\mathbf{z}_v \parallel_2^2\]</span></p>
 <p>loss function은 유사성으로 노드 쌍에 가중치를 둔다:</p>
 <p><span class="math display">\[\mathcal{L} = \sum_{(u,v)\in \mathcal{D}} \text{DEC}(\mathbf{z}_u,\mathbf{z}_v) \cdot S[u,v]\]</span></p>
@@ -464,7 +471,7 @@ ul.task-list li input[type="checkbox"] {
 <p><span class="math display">\[\mathcal{L} = \sum_{(u,v)\in \mathcal{D}} {\parallel \text{DEC}(\mathbf{z}_u,\mathbf{z}_v) - S[u,v] \parallel}^2_2\]</span></p>
 <p>하지만 <span class="math inline">\(S[u,v]\)</span>를 어떻게 정의하냐에 따라 다르다. GF는 인접행렬을 그대로 사용(<span class="math inline">\(S=A\)</span>)하고, GraRep은 인접행렬의 power로, HOPE는 이웃 중복 척도(neighborhood overlap)를 사용한다.</p>
 <p>이러한 방법을 matrix-factorization 방법이라고 한다. 손실 함수를 SVD같은 factorization 알고리즘으로 최소화한다.</p>
-<p>노드 임베딩 <span class="math inline">\(\mathbf{z}_u \in \mathbb{R}^d\)</span>을 행렬 <span class="math inline">\(Z \in \mathbb{R}^{|\mathcal{V}| \times d}\)</span>에 쌓으면, 재구성 타켓은 <span class="math inline">\(\mathcal{L} \sim {\parallel ZZ^\top - S \parallel}^2_2\)</span>로 쓸 수 있으며, 노드-노드 유사성 행렬 <span class="math inline">\(S\)</span>의 저차원 factorization에 대응한다.</p>
+<p>노드 임베딩 <span class="math inline">\(\mathbf{z}_u \in \mathbb{R}^d\)</span>을 행렬 <span class="math inline">\(Z \in \mathbb{R}^{|\mathcal{V}| \times d}\)</span>에 쌓으면, 재구성 타켓은 <span class="math inline">\(\mathcal{L} \approx {\parallel ZZ^\top - S \parallel}^2_2\)</span>로 쓸 수 있으며, 노드-노드 유사성 행렬 <span class="math inline">\(S\)</span>의 저차원 factorization에 대응한다.</p>
 <p>즉, 이 방법의 목표는 각 노드에 대한 임베딩을 학습하여 학습된 임베딩 벡터 사이의 내적이 노드 유사성에 근사하도록 하는 것이다.</p>
 </section>
 <section id="참고자료" class="level1">
@@ -713,10 +720,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../../posts/machine_learning/GRL_02_3.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">그래프 라플라시안과 스펙트럼 방법</span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">라플라시안과 스펙트럼</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../../posts/machine_learning/GRL_03_2.html" class="pagination-link">
+        <span class="nav-page-text">랜덤워크 임베딩</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
