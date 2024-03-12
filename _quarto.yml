@@ -91,6 +91,8 @@ website:
             text: "인코더-디코더"
           - href: posts/machine_learning/GRL_03_2.ipynb
             text: "랜덤워크 임베딩"
+          - href: posts/machine_learning/GRL_04_1.ipynb
+            text: "다중 관계 데이터와 지식 그래프"
 format:
   html:
     theme: flatly

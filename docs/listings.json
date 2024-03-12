@@ -2,6 +2,7 @@
   {
     "listing": "/listing.html",
     "items": [
+      "/posts/nlp/literature_review_finance_llm.html",
       "/posts/machine_learning/GRL_01.html",
       "/posts/machine_learning/GRL_02_1.html",
       "/posts/machine_learning/GRL_02_2.html",

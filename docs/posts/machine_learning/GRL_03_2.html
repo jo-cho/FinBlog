@@ -30,6 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
+<link href="../../posts/machine_learning/GRL_04_1.html" rel="next">
 <link href="../../posts/machine_learning/GRL_03_1.html" rel="prev">
 <link href="../../logo.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
@@ -358,6 +359,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">랜덤워크 임베딩</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/machine_learning/GRL_04_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">다중 관계 데이터와 지식 그래프</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -416,7 +423,7 @@ ul.task-list li input[type="checkbox"] {
 <h1>랜덤워크 임베딩</h1>
 <p><strong>Random Walk Embeddings</strong></p>
 <p><strong>DeepWalk and node2vec</strong></p>
-<p>DeepWalk와 node2vec은 전에서 소개한 <a href="https://jo-cho.github.io/FinBlog/posts/machine_learning/GRL_03_1.html">방법들</a>과 마찬가지로 shallow 임베딩 방법과 내적 디코더를 사용한다. 단, 노드 유사성과 이웃 재구성의 개념을 정의하는 방법에서 차이를 가진다.</p>
+<p>DeepWalk와 node2vec은 전에서 소개한 <a href="https://jo-cho.github.io/FinBlog/posts/machine_learning/GRL_03_1.html#factorization-based-approaches">방법들</a>과 마찬가지로 shallow 임베딩 방법과 내적 디코더를 사용한다. 단, 노드 유사성과 이웃 재구성의 개념을 정의하는 방법에서 차이를 가진다.</p>
 <p>인접행렬 <span class="math inline">\(A\)</span>를 직접 재구성하는 대신 랜덤워크 통계량을 인코딩하는 최적화 임베딩을 구한다. 수학적으로 말하면 아래가 성립하도록 임베딩을 학습하는 것이다:</p>
 <p><span class="math display">\[\text{DEC}(\mathbf{z}_u,\mathbf{z}_v) = \frac{e^{\mathbf{z}_u^{\top}\mathbf{z}_v}}{\sum_{v_k \in \mathcal{V}} e^{\mathbf{z}_u^{\top}\mathbf{z}_k}} \approx p_{\mathcal{G},T}(v|u).\]</span></p>
 <p><span class="math inline">\(p_{\mathcal{G},T}(v|u)\)</span>는 <span class="math inline">\(u\)</span>에서 시작해서 길이 <span class="math inline">\(T(\in \{2, \dots, 10 \})\)</span>의 랜덤워크로 <span class="math inline">\(v\)</span>에 도착하는 확률을 말한다. factorization-based approach와 다른 가장 중요한 점은 유사도 측정이 stochastic, asymmetric하다는 것이다.</p>
@@ -448,7 +455,7 @@ ul.task-list li input[type="checkbox"] {
 <li><p>섈로우 임베딩 접근법들은 인코더에서의 <strong>노드 피처(feature)들을 활용하지 않는다</strong>. 많은 그래프 데이터 세트들은 풍부한 피처 정보를 가지며, 이는 인코딩 프로세스에서 잠재적으로 정보가 될 수 있다.</p></li>
 <li><p>섈로우 임베딩 방법은 본질적으로 <em>transductive</em>하다. 훈련 단계 동안 존재했던 노드에 대한 임베딩만 생성할 수 있으며, 훈련 단계 이후 관찰되는 새로운 노드에 대한 임베딩을 생성하는 것은 추가 최적화를 수행하지 않는 한 불가능하다.</p></li>
 </ol>
-<p>이러한 한계점들을 보완하기 위해서 그래프의 구조와 특성에 의존한 조금 더 정교한 인코더로 대체하고는 한다. 이러한 인코더를 정의하는 유명한 패러다임-GNN-을 다음 포스트에서 살펴보기로 하자.</p>
+<p>이러한 한계점들을 보완하기 위해서 그래프의 구조와 특성에 의존한 조금 더 정교한 인코더로 대체하고는 한다. 이러한 인코더를 정의하는 유명한 패러다임(ie.GNN)을 다음 포스트에서 살펴보기로 하자.</p>
 </section>
 </section>
 <section id="참고자료" class="level1">
@@ -702,6 +709,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../../posts/machine_learning/GRL_04_1.html" class="pagination-link">
+        <span class="nav-page-text">다중 관계 데이터와 지식 그래프</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
