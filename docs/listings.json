@@ -2,7 +2,6 @@
   {
     "listing": "/listing.html",
     "items": [
-      "/posts/nlp/literature_review_finance_llm.html",
       "/posts/machine_learning/GRL_01.html",
       "/posts/machine_learning/GRL_02_1.html",
       "/posts/machine_learning/GRL_02_2.html",
@@ -10,6 +9,7 @@
       "/posts/machine_learning/GRL_03_1.html",
       "/posts/machine_learning/GRL_03_2.html",
       "/posts/machine_learning/GRL_04_1.html",
+      "/posts/nlp/literature_review_finance_llm.html",
       "/posts/ml_trading/0_Introduction.html",
       "/posts/ml_trading/1_Get_Market_Data.html",
       "/posts/ml_trading/2_Labeling.html",

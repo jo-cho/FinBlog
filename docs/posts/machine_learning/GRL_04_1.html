@@ -8,7 +8,7 @@
 
 <meta name="author" content="Cheonghyo Cho">
 
-<title>Cho’s FinBlog - 그래프 머신러닝: (4) 다중 관계 데이터와 지식 그래프</title>
+<title>Cho’s FinBlog - 그래프 머신러닝: (4) 다중관계 데이터와 지식 그래프</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -118,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../posts/machine_learning/GRL_01.html">그래프 머신러닝</a></li><li class="breadcrumb-item"><a href="../../posts/machine_learning/GRL_04_1.html">다중 관계 데이터와 지식 그래프</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../posts/machine_learning/GRL_01.html">그래프 머신러닝</a></li><li class="breadcrumb-item"><a href="../../posts/machine_learning/GRL_04_1.html">다중관계 데이터와 지식 그래프</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -361,7 +361,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/machine_learning/GRL_04_1.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">다중 관계 데이터와 지식 그래프</span></a>
+ <span class="menu-text">다중관계 데이터와 지식 그래프</span></a>
   </div>
 </li>
       </ul>
@@ -398,7 +398,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">그래프 머신러닝: (4) 다중 관계 데이터와 지식 그래프</h1>
+<h1 class="title">그래프 머신러닝: (4) 다중관계 데이터와 지식 그래프</h1>
 <p class="subtitle lead">(GRL) Multi-Relational Data and Knowledge Graphs</p>
   <div class="quarto-categories">
     <div class="quarto-category">graph</div>
@@ -472,7 +472,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="cross-entropy-with-negative-sampling" class="level2">
 <h2 class="anchored" data-anchor-id="cross-entropy-with-negative-sampling">Cross-Entropy with Negative Sampling</h2>
 <p><span class="math display">\[\mathcal{L} = \sum_{(u,\tau,v)\in\mathcal{E}} - \log(\sigma (\text{DEC}(\mathbf{z}_u,\tau,\mathbf{z}_v)) - \gamma \mathbb{E}_{v_n ~ P_{n,u}(v)}[-\log(\sigma (\text{DEC}(\mathbf{z}_u,\tau,\mathbf{z}_{v_n}))]\]</span></p>
-<p><span class="math inline">\(\sigma\)</span>는 로지스틱 함수, <span class="math inline">\(P_{n,u}(\mathcal{V})\)</span>는 (<span class="math inline">\(u\)</span>에 의존하는)<span class="math inline">\(V\)</span>에 대한 “negative sampling” 분포 , <span class="math inline">\(\gamma &gt; 0\)</span>는 하이퍼파라미터</p>
+<p><span class="math inline">\(\sigma\)</span>는 로지스틱 함수, <span class="math inline">\(P_{n,u}(\mathcal{V})\)</span>는 (<span class="math inline">\(u\)</span>에 의존하는) <span class="math inline">\(V\)</span>에 대한 “negative sampling” 분포 , <span class="math inline">\(\gamma &gt; 0\)</span>는 하이퍼파라미터</p>
 <p>여기서 네거티브 샘플링은 엣지가 없는(엣지 집합에 없는) <span class="math inline">\((u_n, \tau, v_n) \notin \mathcal{E}\)</span>로 볼 수 있다.</p>
 </section>
 <section id="max-margin-loss" class="level2">
@@ -489,32 +489,38 @@ ul.task-list li input[type="checkbox"] {
 <h1>다중관계 디코더</h1>
 <p>위에서는 다중 학습 노드 임베딩을 학습하는 데 가장 많이 사용되는 두 가지 손실 함수를 소개했다. 이러한 손실은 다양한 디코더 함수와 결합될 수 있다.</p>
 <p>지금까지는 RESCAL 디코더만 다루었다.</p>
-<p><img src="img/t4_1.png" width="600"></p>
+<p><img src="img/t4_1.png" width="700"></p>
 <p>Table 4.1 in Hamilton,<em>Graph Representation Learning</em>. 2020: 다중관계 디코더에 사용되는 디코더들</p>
-<p>RESCAL 디코더에서는 trainable matrix <span class="math inline">\(R_\tau\)</span>를 각 관계와 연결한다. 하지만, 이 방식은 높은 계산 비용 <span class="math inline">\(O(d^2)\)</span>가 들어 자주 사용되지 않는다.</p>
+<p>RESCAL 디코더에서는 trainable matrix <span class="math inline">\(R_\tau\)</span>를 각 관계와 연결한다. 하지만, 이 방식은 높은 계산 비용 (<span class="math inline">\(O(d^2)\)</span> 파라미터)가 들어 자주 사용되지 않는다.</p>
 <p>최근 디코더는 <span class="math inline">\(O(d)\)</span>의 파라미터를 사용한다. 아래에서 살펴보자.</p>
 <section id="translational-decoders" class="level3">
 <h3 class="anchored" data-anchor-id="translational-decoders">Translational Decoders</h3>
-<p>널리 사용되는 디코더의 클래스 중 하나로 임베딩 공간에서의 관계를 변환(translations)으로 나타내는 방식이다. 이러한 방식의 시작은 Bordes et al.(2013)의 <em>TransE</em> 모델이다.</p>
+<p>널리 사용되는 디코더의 클래스 중 하나로 임베딩 공간에서의 관계를 변환(translations)으로 나타내는 방식이다. Bordes et al.(2013)의 <strong><em>TransE</em></strong> 모델이 있다.</p>
 <ul>
 <li>d차원 임베딩을 사용하여 각 관계를 나타낸다.</li>
 <li>엣지의 likelihood는 관계 임베딩에 따라 헤드 노드를 변환(translate)한 후의 헤드 노드의 임베딩과 꼬리 노드 사이의 거리에 비례한다.</li>
 </ul>
-<p><em>TransE</em>의 한계점은 단순하다는 것이며, 많은 연구에서 이 translate 아이디어의 확장을 제안했다: <em>TransX</em> 모델</p>
+<p><em>TransE</em>의 한계점은 단순하다는 것이며, 많은 연구에서 이 translate 아이디어의 확장을 제안했다: <strong><em>TransX</em></strong> 모델</p>
 </section>
 <section id="multi-linear-dot-products" class="level3">
 <h3 class="anchored" data-anchor-id="multi-linear-dot-products">Multi-Linear Dot Products</h3>
-<p>임베딩 변환(translate) 기반의 디코더 대신, 간단한 그래프에서 내적 디코더를 일반화한 다중관계 디코더도 있다. 이 방식은 <em>DistMult</em>(Yang et al.)라고 지칭한다. - 이 방식은 3개의 벡터에 대한 내적의 일반화로 정의된다.</p>
+<p>임베딩 변환(translate) 기반의 디코더 대신, 간단한 그래프에서 내적 디코더를 일반화한 다중관계 디코더도 있다. 이 방식은 <em>DistMult</em>(Yang et al.)라고 지칭한다.</p>
+<ul>
+<li>이 방식은 3개의 벡터에 대한 내적의 일반화로 정의된다.</li>
+</ul>
 </section>
 <section id="complex-decoders" class="level3">
 <h3 class="anchored" data-anchor-id="complex-decoders">Complex Decoders</h3>
-<p>위의 <em>DistMult</em>는 대칭적인 관계만 인코딩할 수 있다. 따라서 복소값(complex-valued) 임베딩으로 DisMult인코더를 증강한 <em>ComplEx</em>가 고안되었다(Trouillon et al.(2016)). - 식의 Re는 복소수 벡터의 실수 성분을 나타냄r</p>
-<p>또 다른 방식으로 디코더를 복소 평면에서의 회전으로 정의하는 <em>RotatE</em>(Sun et al., 2009)도 있다.</p>
+<p>위의 <strong><em>DistMult</em></strong>는 대칭적인 관계만 인코딩할 수 있다. 따라서 복소값(complex-valued) 임베딩으로 DisMult인코더를 증강한 <em>ComplEx</em>가 고안되었다(Trouillon et al.(2016)).</p>
+<ul>
+<li>식의 Re는 복소수 벡터의 실수 성분을 나타냄</li>
+</ul>
+<p>또 다른 방식으로 디코더를 복소 평면에서의 회전으로 정의하는 <strong><em>RotatE</em></strong> (Sun et al., 2009)도 있다.</p>
 </section>
 <section id="representational-abilities" class="level2">
 <h2 class="anchored" data-anchor-id="representational-abilities">Representational Abilities</h2>
 <p>다양한 다중 관계형 디코더를 특성화하는 한 가지 방법은 관계에 대한 다양한 논리적 패턴을 표현(represent)하는 능력이다.</p>
-<p><img src="img/t4_2.png" width="500"></p>
+<p><img src="img/t4_2.png" width="600"></p>
 <p>Table 4.2 in Hamilton,<em>Graph Representation Learning</em>. 2020: 다중관계 디코더에 사용되는 디코더의 능력 비교</p>
 <p>대칭과 반대칭(anti-symmetry)</p>
 <ul>
