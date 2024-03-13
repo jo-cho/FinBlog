@@ -10,7 +10,7 @@ title-block-banner: false
 
 > <b>[[**모든 블로그 글 보기**](listing.html)]{style="background-color:ivory; font-size:130%"}</b>
 
-> 주요 관심주제: 금융 머신러닝(machine learning)/딥러닝(deep learning), 자산가격 모멘텀 예측, 금융 시스템 리스크(systemic risk), 네트워크 분석 등
+> 주요 관심주제: 금융 머신러닝, 자산가격 모멘텀, 시스템 리스크(systemic risk), 네트워크 분석, 자연어 처리 등
 
 이 블로그의 모든 글은 오직 교육용 목적입니다.
 

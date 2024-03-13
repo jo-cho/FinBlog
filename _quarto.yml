@@ -55,44 +55,46 @@ website:
         contents:
           - href: posts/systemic_risk/1_Systemic_Risk.ipynb
             text: "시스템 리스크 개념"
-          - section: "시스템 리스크 측정 - 선행연구"
+          - section: "시스템 리스크 측정"
             contents:
             - href: posts/systemic_risk/2_Systemic_Risk_Measures.ipynb
-              text: "시스템 리스크 측정 - 선행연구 요약"
+              text: "선행연구 요약"
             - href: posts/systemic_risk/2-1_Systemic_Risk_Measures_Macro.ipynb
-              text: "시스템 리스크 측정 - 선행연구 (거시경제)"
+              text: "선행연구 (거시경제)"
             - href: posts/systemic_risk/2-2_Systemic_Risk_Measures_Market.ipynb
-              text: "시스템 리스크 측정 - 선행연구 (시장위험)"      
+              text: "선행연구 (시장위험)"      
             - href: posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.ipynb
-              text: "시스템 리스크 측정 - 선행연구 (금융기관 위험)"
+              text: "선행연구 (금융기관 위험)"
             - href: posts/systemic_risk/2-4_Systemic_Risk_Measures_Probability_of_Default.ipynb
-              text: "시스템 리스크 측정 - 선행연구 (부도확률모형 위험)"
+              text: "선행연구 (부도확률모형 위험)"
             - href: posts/systemic_risk/2-5_Systemic_Risk_Measures_Network.ipynb
-              text: "시스템 리스크 측정 - 선행연구 (네트워크)"
+              text: "선행연구 (네트워크)"
           - section: "시스템 리스크와 머신러닝"
             contents:
             - href: posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_1.ipynb
-              text: "시스템 리스크와 머신러닝 - 선행연구1"
+              text: "선행연구1"
             - href: posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_1_2.ipynb
-              text: "시스템 리스크와 머신러닝 - 선행연구2"
+              text: "선행연구2"
             - href: posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_2.ipynb
-              text: "시스템 리스크와 머신러닝 - 향후 연구 방향"
+              text: "향후 연구 방향"
       - section: "그래프 머신러닝"
         contents:
           - href: posts/machine_learning/GRL_01.ipynb
-            text: "들어가며"
+            text: "1. 들어가며"
           - href: posts/machine_learning/GRL_02_1.ipynb
-            text: "그래프 통계량과 커널"
+            text: "2-1. 그래프 통계량과 커널"
           - href: posts/machine_learning/GRL_02_2.ipynb
-            text: "이웃중복 감지"
+            text: "2-2. 이웃중복 감지"
           - href: posts/machine_learning/GRL_02_3.ipynb
-            text: "라플라시안과 스펙트럼"
+            text: "2-3. 라플라시안과 스펙트럼"
           - href: posts/machine_learning/GRL_03_1.ipynb
-            text: "인코더-디코더"
+            text: "3-1. 인코더-디코더"
           - href: posts/machine_learning/GRL_03_2.ipynb
-            text: "랜덤워크 임베딩"
+            text: "3-2. 랜덤워크 임베딩"
           - href: posts/machine_learning/GRL_04_1.ipynb
-            text: "다중관계 데이터와 지식 그래프"
+            text: "4. 다중관계 데이터"
+          - href: posts/machine_learning/GRL_05_1.ipynb
+            text: "5-1. 신경망 메시지 전달"
 format:
   html:
     theme: flatly
