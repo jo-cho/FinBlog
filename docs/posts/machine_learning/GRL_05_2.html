@@ -8,7 +8,7 @@
 
 <meta name="author" content="Cheonghyo Cho">
 
-<title>Cho’s FinBlog - 금융 분야의 LLM</title>
+<title>Cho’s FinBlog - 그래프 머신러닝: (5-2) GNN: 신경망 메시지 전달</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -62,6 +62,8 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -115,7 +117,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">금융 분야의 LLM</li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">그래프 머신러닝: (5-2) GNN: 신경망 메시지 전달</li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -379,12 +381,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">목차</h2>
    
   <ul>
-  <li><a href="#llm의-적용" id="toc-llm의-적용" class="nav-link active" data-scroll-target="#llm의-적용">LLM의 적용</a></li>
-  <li><a href="#llm-솔루션" id="toc-llm-솔루션" class="nav-link" data-scroll-target="#llm-솔루션">LLM 솔루션</a>
+  <li><a href="#neural-message-passing" id="toc-neural-message-passing" class="nav-link active" data-scroll-target="#neural-message-passing">Neural Message Passing</a>
   <ul class="collapse">
-  <li><a href="#미세-조정fine-tuning" id="toc-미세-조정fine-tuning" class="nav-link" data-scroll-target="#미세-조정fine-tuning">미세 조정(fine-tuning)</a></li>
-  <li><a href="#미세조정된-llm" id="toc-미세조정된-llm" class="nav-link" data-scroll-target="#미세조정된-llm">미세조정된 LLM</a></li>
-  <li><a href="#pretrain-from-scratch" id="toc-pretrain-from-scratch" class="nav-link" data-scroll-target="#pretrain-from-scratch">Pretrain from scratch</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#motivation-and-institutions" id="toc-motivation-and-institutions" class="nav-link" data-scroll-target="#motivation-and-institutions">Motivation and Institutions</a></li>
+  <li><a href="#the-basic-gnn" id="toc-the-basic-gnn" class="nav-link" data-scroll-target="#the-basic-gnn">The Basic GNN</a></li>
+  <li><a href="#message-passing-with-self-loops" id="toc-message-passing-with-self-loops" class="nav-link" data-scroll-target="#message-passing-with-self-loops">Message Passing with Self-Loops</a></li>
   </ul></li>
   <li><a href="#참고자료" id="toc-참고자료" class="nav-link" data-scroll-target="#참고자료">참고자료</a></li>
   </ul>
@@ -395,11 +397,13 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">금융 분야의 LLM</h1>
-<p class="subtitle lead">LLM in Finance</p>
+<h1 class="title">그래프 머신러닝: (5-2) GNN: 신경망 메시지 전달</h1>
+<p class="subtitle lead">(GRL) GNN: Neural Message Passing</p>
   <div class="quarto-categories">
-    <div class="quarto-category">llm</div>
-    <div class="quarto-category">nlp</div>
+    <div class="quarto-category">graph</div>
+    <div class="quarto-category">network</div>
+    <div class="quarto-category">GNN</div>
+    <div class="quarto-category">deep learning</div>
   </div>
   </div>
 
@@ -421,98 +425,74 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>최근 몇 년 동안 인공지능(AI)은 금융 분야 여러 영역에서 광범위하게 도입되고 있다.</p>
-<ul>
-<li><p>(매매 및 포트폴리오 관리) 통계적 머신러닝 방법( SVM, Xgboost, 트리 기반 알고리즘들), 딥러닝 방법(RNN, LSTM, CNN 및 transformers)으로 이익과 손실 추정, 강화 학습은 자동 매매와 포트폴리오 최적화에 적용</p></li>
-<li><p>(리스크 모델링) 사용자 이력 데이터와 실시간 거래 데이터를 활용하여 금융 사기 탐지를 위한 딥 러닝 기반 솔루션 개발, 신용 점수 스코어링 및 파산 또는 채무 불이행 예측</p></li>
-<li><p>(텍스트 마이닝) 대규모 비정형 데이터에서 가치있는 정보를 추출하여 실시간으로 더 나은 거래 및 리스크 모델링에 도움을 줌. (예: <a href="https://doi.org/10.3390/math10132156">Bledar Fazlija and Pedro Harder (2022)</a>는 뉴스 기사에서 추출한 금융 시장 감성을 사용하여 주식 시장 지수의 방향을 예측)</p></li>
-<li><p>(금융 자문 및 고객 서비스) AI 기반 챗봇으로 전자 상거래 및 전자 서비스에서 지원 기능 제공, 인력 비용 절감, 투자 자문 제공</p></li>
-</ul>
-<p>현재의 딥 러닝 모델은 짧은 시간 동안 방대한 양의 데이터에서 가치 있는 통찰력을 효과적으로 추출하는 능력을 가지고 있어, 금융 산업에서 매우 중요한 역할을 하고 있다. 더욱이 <strong>거대 언어모형(Large Language Model, 이하 LLM)의 등장</strong>으로 이전에 해결하기 어려웠던 작업들도 가능해지며, 인공지능이 금융 산업에서의 응용 분야를 더욱 확장시키고 있다.</p>
-<section id="llm의-적용" class="level3">
-<h3 class="anchored" data-anchor-id="llm의-적용">LLM의 적용</h3>
-<p>금융 분야에서 LLM은 기존 모델에 비해 다양한 장점이 있다.</p>
-<ul>
-<li><p>LLM은 광범위한 사전 학습 데이터를 활용하기에 자연어 명령을 이해할 수 있음.</p></li>
-<li><p>금융 데이터의 레이블이 부족하거나 문서에 대한 접근이 제한적인 지도 학습이 어려운 상황에서 유용함.</p></li>
-<li><p>LLM은 제로샷 학습(zero-shot)을 통해 작업 수행 가능함.</p></li>
-<li><p>LLM은 다른 지도 학습 모델에 비해 적응성과 유연성이 뛰어나며, 특정 작업을 위해 별도의 모델을 훈련시키는 대신 서로 다른 작업 지시에 따라 프롬프트를 수정함으로써 여러 작업을 처리할 수 있음.</p></li>
-<li><p>LLM은 모호하고 복잡한 작업을 실행 가능한 계획으로 세분화하는 데에 탁월함.</p>
-<ul>
-<li>이러한 능력을 보여주는 응용 프로그램으로 Auto-GPT, Semantic Kernel, LangChain 등이 있으며, 이러한 과정을 <strong>Tool Augmented Generation</strong>이라고 부름.</li>
-<li>예를 들어, Auto-GPT는 사용자가 설정한 목표를 바탕으로 글로벌 주식 ETF와 채권 ETF 포트폴리오를 최적화할 수 있음.</li>
-<li>이 과정에는 금융 데이터를 확보하고, 샤프 비율 최적화를 위해 파이썬 패키지를 사용하며, 최종 결과를 사용자에게 제공하는 등의 상세한 계획이 포함됨.</li>
-</ul></li>
-</ul>
-</section>
-<section id="llm-솔루션" class="level2">
-<h2 class="anchored" data-anchor-id="llm-솔루션">LLM 솔루션</h2>
-<p>LLM 솔루션에 접근하는 방법은 두 가지이다. 첫 번째는 LLM 서비스 제공 업체의 API를 활용하는 것이고, 두 번째는 오픈 소스 LLM을 사용하는 것이다.</p>
-<ul>
-<li>(<strong>API 활용</strong>) OpenAI, Google 및 Microsoft와 같은 회사들의 API 사용.
-<ul>
-<li>이러한 서비스는 기본 언어 모델 능력뿐만 아니라 특정 사용 사례에 맞춤화된 추가 기능도 제공.</li>
-<li>예를 들어, OpenAI의 API에는 채팅, SQL 생성, 코드 완성 및 코드 해석과 같은 기능이 포함되어 있음.</li>
-</ul></li>
-<li>(<strong>오픈 소스 LLM</strong>) LLaMA, BLOOM, Flan-T5 등과 같은 모델을 Hugging Face 모델 저장소에서 다운로드
-<ul>
-<li>API를 사용하는 것과 달리, 오픈 소스 모델을 호스팅하고 실행하기 위해 자체 호스팅이 필요</li>
-<li>오픈 소스 모델을 활용하면 모델의 가중치에 접근할 수 있으며, 모델의 출력을 하위 작업에 맞게 사용자 정의할 수 있음.</li>
-<li>그러나, 특정 하위 작업에 대해서는 zero-shot 또는 few-shot 학습이 최적의 성능을 내지 못할 수 있으며, 이러한 경우에는 레이블이 지정된 데이터, 전문 지식 및 계산 자원을 사용하여 모델을 미세 조정하여야 함.</li>
-</ul></li>
-</ul>
-<section id="미세-조정fine-tuning" class="level3">
-<h3 class="anchored" data-anchor-id="미세-조정fine-tuning">미세 조정(fine-tuning)</h3>
-<p>금융 분야에서 LLM을 미세 조정(fine-tuning)하면 도메인 특화 언어 이해와 문맥 이해가 향상되어, 금융 관련 작업에서 성능이 향상되고 더 정확하고 맞춤화된 결과를 생성할 수 있다.</p>
-<p>LLM 미세 조정은 표준(standard) 미세 조정과 지시(instructional) 미세 조정으로 나눌 수 있다.</p>
-<ul>
-<li>(표준 미세 조정)에서는 모델이 raw 데이터셋에서 수정 없이 학습됨
-<ul>
-<li>LLM에 직접 주요 문맥, 질문 및 원하는 답변을 입력하고, 학습 중에 답변이 마스킹되어 모델이 이를 생성하는 방법을 학습</li>
-<li>이 접근 방식은 간단하면서도 효과적임</li>
-</ul></li>
-<li>(지시 미세 조정) 작업별로 특화된 데이터셋을 생성하여 모델의 학습 프로세스를 조정
-<ul>
-<li>이 방법은 예제와 지침을 제공하여 모델이 특정 작업에서 우수하게 최적화되거나 원하는 결과물을 생성하도록 도움</li>
-<li>지시 미세 조정은 표준 미세 조정보다 구현이 덜 간단하지만, 모델을 보다 정확하게 안내할 수 있음</li>
-</ul></li>
-</ul>
-<p>LLM 미세 조정을 위해 Low-Rank Adaptation(LoRA) 및 양자화(quantization)와 같은 기법을 사용할 수도 있다. - LoRA 사용: 전체 행렬 대신 원래 가중치 행렬의 low-rank(낮은 순위) 분해 인자를 미세 조정할 수 있음. 이 접근 방식은 학습 가능한 매개 변수의 수를 크게 줄여 총 학습 시간을 단축. - float32 대신 bfloat16 또는 float16과 같은 낮은 수치 정밀 사용 비트 너비를 반으로 줄이면 메모리 사용량이 50% 감소하고, 연산 속도도 2배 빨라짐.</p>
-</section>
-<section id="미세조정된-llm" class="level3">
-<h3 class="anchored" data-anchor-id="미세조정된-llm">미세조정된 LLM</h3>
-<p>미세조정된 금융 LLM의 성능은 금융 분류 작업과 금융 생성 작업 두 가지 범주로 평가될 수 있다.</p>
-<ul>
-<li>금융 분류(finance classification)는 감성 분석과 뉴스 제목 분류 등</li>
-<li>금융 생성 작업(finance generative task)은 질문 답변, 뉴스 요약 및 개체명 인식 등</li>
-</ul>
-<p><img src="./img/lr_t_1.PNG" width="900"></p>
+<p>Hamilton,W.L. <em>Graph Representation Learning</em>. 2020</p>
+<p>그래프 데이터에서 심층 신경망(deep neural network)을 정의하기 위한 프레임워크인 그래프 신경망(Grpah Neural Network, GNN) 형식을 살펴보자. 핵심 아이디어는 그래프의 구조와 모든 feature에 의존하는 노드의 표현을 생성하려는 것이다.</p>
+<p>그래프 구조 데이터에 대한 복잡한 인코더를 개발할 때 가장 큰 문제는 일반적인 딥러닝 방법이 적용되지 않는다는 것이다. 예를 들어, CNN은 그리드 구조 입력(예: 이미지)에 대해서만 잘 정의되는 반면, RNN은 시퀀스(예: 텍스트)에 대해서만 잘 정의된다.</p>
+<p>일반 그래프에 대한 심층 신경망을 정의하려면 새로운 종류의 딥 러닝 아키텍처를 정의해야 한다.</p>
+<section id="neural-message-passing" class="level1">
+<h1>Neural Message Passing</h1>
+<p>GNN은 노드 간에 벡터 메시지(vector message)가 교환되고 신경망을 사용하여 업데이트되는 neural message passing(신경망 메시지 전달)을 사용한다[Gilmer et al., 2017].</p>
+<p>이 챕터에서는 노드 특징의 집합 <span class="math inline">\(\mathbf{X} \in \mathbb{R}^{d\times|\mathcal{V}|}\)</span>와 함께, 입력 그래프 <span class="math inline">\(\mathcal{G}=(\mathcal{V},\mathcal{E})\)</span>를 취하고, 이 정보를 이용해 노드 임베딩 <span class="math inline">\(\mathbf{z}_u, u \in \mathcal{V}\)</span>을 생성하는 방법에 대해 다룬다.</p>
+<p>또한, GNN 프레임워크가 subgraph와 전체 graph에 대한 임베딩을 생성하는데에 어떻게 사용되는지도 다룬다.</p>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>GNN에서 각 message-passing(메시지 전달)의 반복 중에 각 노드 <span class="math inline">\(u\in \mathcal{V}\)</span>에 해당하는 은닉(hidden) 임베딩 <span class="math inline">\(\mathbf{h}_u^{(k)}\)</span>는 <span class="math inline">\(u\)</span>의 그래프 이웃 <span class="math inline">\(\mathcal{N}(u)\)</span>에서 aggregated(집계된) 정보에 따라 업데이트된다.</p>
+<p><img src="img/fig5_1.png" width="700"></p>
 <blockquote class="blockquote">
-<p>Table 1 in Li et al.&nbsp;(2023): Quick Overview of Finetuned Finance LLM</p>
+<p>Figure 5.1 in Hamilton,<em>Graph Representation Learning</em>. 2020: 단일 노드가 로컬 이웃의 메시지를 집계하는 방법</p>
 </blockquote>
-<p>표1: - (FinMA), 136,000개의 작업별 지시 샘플로 LLaMA를 미세조정 - (FinGPT) 금융 산업에서 FinLLM을 훈련하고 적용하기 위한 end-to-end 프레임워크를 제시. 경량화된 LoRA 기술을 사용하여 LLaMA 및 ChatGLM과 같은 오픈 소스 LLM을 약 50,000개의 샘플을 사용하여 미세조정(그러나 FinGPT의 평가는 오직 금융 분류 작업에만 한정) - (Instruct-FinGPT)는 두 금융 감성 분석 데이터셋에서 유도된 10,000개의 지시 샘플로 LLaMA를 미세조정하며, 금융 분류 작업의 성능만을 평가</p>
-<p>각 논문에 따르면:</p>
+<p>message-passing 업데이트는 다음과 같이 표현할 수 있다.</p>
+<p><span class="math display">\[ \mathbf{h}_u^{(k+1)} = \text{UPDATE}^{(k)} ( \mathbf{h}_u^{(k)}, \text{AGGREGATE}^{(k)}(\{\mathbf{h}_v^{(k)}, \forall v \in \mathcal{N}(u)\})) = \text{UPDATE}^{(k)}( \mathbf{h}_u^{(k)}, \mathbf{m}_{\mathcal{N}(u)}^{(k)} ) \]</span></p>
+<p>여기서 <code>UPDATE</code>와 <code>AGGREGATE</code>는 임의의 미분가능 함수(i.e.&nbsp;신경망)이고, <span class="math inline">\(\mathbf{m}_{\mathcal{N}(u)}\)</span>는 <span class="math inline">\(u\)</span>의 그래프 이웃 <span class="math inline">\(\mathcal{N}(u)\)</span>로부터 집계된 “message” 벡터이다.</p>
+<p>GNN의 각 반복 <span class="math inline">\(k\)</span>에서 <code>AGGREGATE</code> 함수는 <span class="math inline">\(u\)</span>의 그래프 이웃 <span class="math inline">\(\mathcal{N}(u)\)</span>에 있는 노드의 임베딩 집합을 입력으로 받고, 이 집계된 이웃 정보를 기반으로 message <span class="math inline">\(\mathbf{m}_{\mathcal{N}(u)}^{(k)}\)</span>를 생성한다.</p>
+<p><code>UPDATE</code> 함수는 메시지 <span class="math inline">\(\mathbf{m}_{\mathcal{N}(u)}^{(k)}\)</span>를 노드 <span class="math inline">\(u\)</span>의 이전 임베딩 <span class="math inline">\(\mathbf{h}^{(k-1)}_u\)</span>와 합쳐, 업데이트한다.</p>
+<p>초기 임베딩 (<span class="math inline">\(k=0\)</span>)은 모든 노드의 입력 feature로 하며: <span class="math inline">\(\mathbf{h}_u^{(0)}=\mathbf{x}_u , \forall u \in \mathcal{V}\)</span></p>
+<p>GNN 메시지 전달의 <span class="math inline">\(K\)</span>번의 반복 후 각 노드에 대한 임베딩을 정의하기 위해 마지막 층의 출력을 사용한다: <span class="math inline">\(\mathbf{z}_u = \mathbf{h}_u^{(K)},\forall u \in \mathcal{V}\)</span></p>
+<p><strong>노드 피쳐(node features)</strong></p>
 <ul>
-<li>모든 미세조정된 금융 LLM은 원래의 기본 LLM (LLaMA) 및 다른 오픈 소스 LLM (BLOOM, OPT, ChatGLM)에 비해 금융 도메인 작업에서 훨씬 우수한 성능을 보임</li>
-<li>대부분의 금융 작업에서 <a href="https://arxiv.org/abs/2303.17564">BloombergGPT</a>보다 우수한 성능을 보임</li>
-<li>ChatGPT 및 GPT-4와 같은 강력한 일반 LLM과 비교했을 때, 미세조정된 금융 LLM은 대부분의 금융 분류 작업에서 우수한 성능을 보임. 그러나 금융 생성 작업에서는 파인튠된 LLM이 유사하거나 더 나쁜 성능을 보여주며, 생성 능력을 향상시키기 위해 더 많은 고품질 도메인 특화 데이터셋이 필요함을 시사함.</li>
+<li>지난 포스트에서 논의된 shallow 임베딩 방법과 달리 GNN 프레임워크는 모델에 대한 입력으로 노드 feature <span class="math inline">\(\mathbf{x}_u\)</span>를 필요로 한다.</li>
+<li>노드 feature을 사용할 수 없는 경우, 노드 통계를 사용하여 feature을 정의하거나, identify features(각 노드를 해당 노드를 고유하게 식별하는 원-핫 indicator feature와 연결)을 사용한다.</li>
 </ul>
 </section>
-<section id="pretrain-from-scratch" class="level3">
-<h3 class="anchored" data-anchor-id="pretrain-from-scratch">Pretrain from scratch</h3>
-<p><img src="img/lr_t_2.PNG" width="800"></p>
-<blockquote class="blockquote">
-<p>Table 2 in Li et al.&nbsp;(2023): Quick Overview of from scratch trained Finance LLMs</p>
-</blockquote>
-<p>표 2:</p>
-<p>… 작성중입니다 …</p>
+<section id="motivation-and-institutions" class="level2">
+<h2 class="anchored" data-anchor-id="motivation-and-institutions">Motivation and Institutions</h2>
+<p>GNN message-passing 프레임워크의 직관은 간단하다: 각 반복에서 모든 노드는 로컬 이웃의 정보를 집계하고, 이러한 반복이 진행됨에 따라 각 노드 임베딩은 그래프의 더 먼 범위에서 점점 더 많은 정보를 포함한다.</p>
+<p>조금 더 정확히 말하자면, 첫 번째 반복 <span class="math inline">\((k = 1)\)</span> 이후, 모든 노드 임베딩은 <span class="math inline">\(1\)</span>-hop 이웃의 정보를 포함한다. 즉, 모든 노드 임베딩은 그래프에서 길이 1의 경로로 도달 할 수 있는 인접 그래프 이웃의 feature에 대한 정보를 포함한다. 일반화하면 <span class="math inline">\(k\)</span> 반복 후 모든 노드 임베딩에는 <span class="math inline">\(k\)</span>-hop 이웃에 대한 정보가 포함된다.</p>
+<p>그러나 이러한 노드 임베딩은 실제로 어떤 종류의 “정보”를 인코딩할까? 일반적으로 이 정보는 두 가지 형태로 제공된다.</p>
+<ul>
+<li>그래프에 대한 구조적(structural) 정보가 있다. 예를 들어, GNN 메시지 전달의 <span class="math inline">\(k\)</span> 반복 후, 노드 <span class="math inline">\(u\)</span>의 임베딩 <span class="math inline">\(\mathbf{h}_u^{(k)}\)</span>는 <span class="math inline">\(u\)</span>의 <span class="math inline">\(k\)</span>-hop 이웃에 있는 모든 노드의 degree에 대한 정보를 인코딩할 수 있다.</li>
+<li>다른 종류는 feature 기반 정보이다. GNN message-passing <span class="math inline">\(k\)</span>반복 후 각 노드에 대한 임베딩은 <span class="math inline">\(k\)</span>-hop 이웃의 모든 feature에 대한 정보도 인코딩한다.</li>
+</ul>
+<p>GNN의 이러한 로컬 feature 집계는 CNN의 convolutional kernel과 유사하다. 그러나 CNN은 이미지에서 공간적으로 정의된 패치의 특징 정보를 집계하는 반면, GNN은 로컬 그래프 이웃을 기반으로 정보를 집계한다.</p>
+</section>
+<section id="the-basic-gnn" class="level2">
+<h2 class="anchored" data-anchor-id="the-basic-gnn">The Basic GNN</h2>
+<p>지금까지 GNN 프레임워크는 <code>AGGREGATION</code> 및 <code>UPDATE</code> 함수를 사용하는 일련의 message-passing 반복으로 비교적 추상적인 방식으로 논의했다. 추상 GNN 프레임워크를 구현할 수 있는 것으로 변환하려면 <code>AGGREGATION</code> 및 <code>UPDATE</code> 함수에 구체적인 인스턴스화(instantiation)를 제공해야 한다.</p>
+<p>여기서는 Merkwirth and Lengauer[2005]와 Scarselli et al.[2009]이 제안한 원래 GNN 모델을 단순화한 가장 기본적인 GNN 프레임워크부터 시작한다.</p>
+<p><span class="math display">\[h_u^{(k)} = \sigma\left(W_{self}^{(k)}h_u^{(k-1)} + W_{neigh}^{(k)} \sum_{v \in N(u)}h_v^{(k-1)} + b^{(k)}\right)\]</span></p>
+<p><span class="math inline">\(W_{self}^{(k)}, W_{self}^{(k)} \in \mathbb{R}^{d^{(k)} \times d^{(k-1)}}\)</span>는 학습가능 파라미터 행렬, <span class="math inline">\(\sigma\)</span>는 요소별 비선형성(tanh, ReLU 등), <span class="math inline">\(\mathbf{b}^{(k)} \in \mathbb{R}^{d^{(k)}}\)</span>는 bias term.</p>
+<p>기본 GNN 프레임워크에서 message passing은 선형 연산에 이어 단일 요소별 비선형성에 의존하기 때문에 다층 퍼셉트론(MLP) 또는 Elman RNN[Elman, 1990]과 유사하다. 먼저 이웃에서 들어오는 message를 합산하고, 선형 조합을 사용하여 이웃 정보를 노드의 이전 임베딩과 결합한다. 마지막으로 요소별 비선형성을 적용한다.</p>
+<p>위 방정식에서 hidden state를 합산하는 것은 <code>AGGREGATE</code>함수이며, 노드의 이전 hidden state 벡터와 메세지 벡터를 각각 변환해주고 편향 벡터를 더해 비선형 함수를 적용시키는 것은 <code>UPDATE</code>함수라고 할 수 있다.</p>
+<p><span class="math display">\[\mathbf{m}^{(k)}_{N(v)} = \text{AGGREGATE}^{(k)} \left( \left\{ \mathbf{h}^{(k-1)}_u : u \in N(v) \right\} \right) = \sum_{u \in N(v)} \mathbf{h}^{(k-1)}_u\]</span></p>
+<p><span class="math display">\[\text{UPDATE}^{(k)} \left( \mathbf{h}^{(k)}_u, \mathbf{m}^{(k)}_{N(v)} \right) = \sigma \left( W^{(k)}_{\text{self}} \mathbf{h}^{(k-1)}_u + W^{(k)}_{\text{neigh}} \mathbf{m}^{(k)}_{N(v)} + \mathbf{b}^{(k)} \right)\]</span></p>
+<p>방정식을 행렬로 묶어 표현할 수도 있다. 즉, graph-level의 방정식이다.</p>
+<p><span class="math display">\[\mathbf{H}^{(k)} = \sigma \left( \mathbf{H}^{(k-1)} W^{(k)}_{\text{self}} + \mathbf{A} \mathbf{H}^{(k-1)} W^{(k)}_{\text{neigh}} \right)\]</span></p>
+</section>
+<section id="message-passing-with-self-loops" class="level2">
+<h2 class="anchored" data-anchor-id="message-passing-with-self-loops">Message Passing with Self-Loops</h2>
+<p>neural message passing 접근 방식을 단순화하기 위해 입력 그래프에 self-loop를 추가하고 명시적 업데이트 단계를 생략하는 것이 일반적이다. 따라서 message passing을 단순히 다음과 같이 정의한다:</p>
+<p><span class="math display">\[h_u^{(k)} = \text{AGGREGATE}\left(\left\{ h_v^{(k-1)}, \forall v \in \mathcal{N}(u) \cup \{u\} \right\}\right)\]</span></p>
+<p><span class="math inline">\(\mathcal{N}(u) \cup \{u\}\)</span> 집합 대상으로 aggregate하겠다는 것은 노드의 이웃뿐아니라 자기 자신도 포함한다는 것이다.</p>
+<p>이 방법의 장점은 업데이트가 aggregation 방법을 통해 암시적으로 정의되기 때문에 더 이상 명시적 업데이트 함수를 정의할 필요가 없다는 것이다. 이러한 방식으로 전달되는 메시지를 단순화하면 종종 과적합을 완화할 수 있지만 노드의 이웃에서 오는 정보를 노드 자체의 정보와 구별할 수 없기 때문에 GNN의 표현성을 제한하기도 한다.</p>
+<p>Basic GNN의 경우, self-loops를 추가하는 것은 <span class="math inline">\(\mathbf{W}_{self}\)</span> 행렬과 <span class="math inline">\(\mathbf{W}_{neigh}\)</span> 행렬 간에 매개변수를 공유하는 것과 동일하며, 다음과 같은 graph-level 업데이트를 제공한다.</p>
+<p><span class="math display">\[\mathbf{H}^{(t)} = \sigma \left( (\mathbf{A} + \mathbf{I})\mathbf{H}^{(t-1)}\mathbf{W}^{(t)} \right)
+\]</span></p>
+<p>다음 포스트에서는 <code>AGGREGATE</code>, <code>UPDATE</code> 함수에 대해 더 알아보도록 하자.</p>
 </section>
 </section>
 <section id="참고자료" class="level1">
 <h1>참고자료</h1>
-<ul>
-<li>Li, Y., Wang, S., Ding, H., &amp; Chen, H. (2023). Large language models in finance: A survey. In Proceedings of the Fourth ACM International Conference on AI in Finance (pp.&nbsp;374-382).</li>
-</ul>
+<p>[1] Hamilton, W. L. (2020). <em>Graph Representation Learning.</em> Morgan &amp; Claypool Publishers.</p>
 
 
 </section>
