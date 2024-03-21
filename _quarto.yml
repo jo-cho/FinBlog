@@ -9,7 +9,7 @@ website:
   site-url: https://jo-cho.github.io/FinBlog/
   repo-url: https://github.com/jo-cho/FinBlog
   repo-actions: [issue]
-  description: "금융 공부 블로그"
+  description: "경제 금융 공부 블로그"
   navbar:
     right:
       - about.qmd
@@ -79,22 +79,30 @@ website:
               text: "향후 연구 방향"
       - section: "그래프 머신러닝"
         contents:
-          - href: posts/machine_learning/GRL_01.ipynb
-            text: "1. 들어가며"
-          - href: posts/machine_learning/GRL_02_1.ipynb
-            text: "2-1. 그래프 통계량과 커널"
-          - href: posts/machine_learning/GRL_02_2.ipynb
-            text: "2-2. 이웃중복 감지"
-          - href: posts/machine_learning/GRL_02_3.ipynb
-            text: "2-3. 라플라시안과 스펙트럼"
-          - href: posts/machine_learning/GRL_03_1.ipynb
-            text: "3-1. 인코더-디코더"
-          - href: posts/machine_learning/GRL_03_2.ipynb
-            text: "3-2. 랜덤워크 임베딩"
-          - href: posts/machine_learning/GRL_04_1.ipynb
-            text: "4. 다중관계 데이터"
-          - href: posts/machine_learning/GRL_05_1.ipynb
-            text: "5-1. 신경망 메시지 전달"
+          - section: "그래프 머신러닝 이론"
+            contents:
+            - href: posts/machine_learning/GRL_01.ipynb
+              text: "1. 들어가며"
+            - href: posts/machine_learning/GRL_02_1.ipynb
+              text: "2-1. 그래프 통계량과 커널"
+            - href: posts/machine_learning/GRL_02_2.ipynb
+              text: "2-2. 이웃중복 감지"
+            - href: posts/machine_learning/GRL_02_3.ipynb
+              text: "2-3. 라플라시안과 스펙트럼"
+            - href: posts/machine_learning/GRL_03_1.ipynb
+              text: "3-1. 인코더-디코더"
+            - href: posts/machine_learning/GRL_03_2.ipynb
+              text: "3-2. 랜덤워크 임베딩"
+            - href: posts/machine_learning/GRL_04_1.ipynb
+              text: "4. 다중관계 데이터"
+            - href: posts/machine_learning/GRL_05_1.ipynb
+              text: "5-1. 신경망 메시지 전달"
+      - section: "자연어 처리"
+        contents:
+          - section: "선행연구"
+            contents:
+            - href: posts/nlp/finance_llm_survey.ipynb
+              text: "금융분야의 LLM (2023)"
 format:
   html:
     theme: flatly

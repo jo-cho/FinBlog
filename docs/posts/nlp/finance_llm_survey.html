@@ -8,7 +8,7 @@
 
 <meta name="author" content="Cheonghyo Cho">
 
-<title>Cho’s FinBlog - 금융 분야의 LLM</title>
+<title>Cho’s FinBlog - 금융 분야의 LLM (2023)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,6 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
+<link href="../../posts/machine_learning/GRL_05_1.html" rel="prev">
 <link href="../../logo.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -115,7 +116,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">금융 분야의 LLM</li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">자연어 처리</li><li class="breadcrumb-item"><a href="../../posts/nlp/finance_llm_survey.html">선행연구</a></li><li class="breadcrumb-item"><a href="../../posts/nlp/finance_llm_survey.html">금융분야의 LLM (2023)</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -319,6 +320,15 @@ ul.task-list li input[type="checkbox"] {
           </a> 
       </div>
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+ <span class="menu-text">그래프 머신러닝 이론</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/machine_learning/GRL_01.html" class="sidebar-item-text sidebar-link">
@@ -369,6 +379,36 @@ ul.task-list li input[type="checkbox"] {
 </li>
       </ul>
   </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
+ <span class="menu-text">자연어 처리</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
+ <span class="menu-text">선행연구</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/nlp/finance_llm_survey.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">금융분야의 LLM (2023)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -383,9 +423,10 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#llm-솔루션" id="toc-llm-솔루션" class="nav-link" data-scroll-target="#llm-솔루션">LLM 솔루션</a>
   <ul class="collapse">
   <li><a href="#미세-조정fine-tuning" id="toc-미세-조정fine-tuning" class="nav-link" data-scroll-target="#미세-조정fine-tuning">미세 조정(fine-tuning)</a></li>
-  <li><a href="#미세조정된-llm" id="toc-미세조정된-llm" class="nav-link" data-scroll-target="#미세조정된-llm">미세조정된 LLM</a></li>
-  <li><a href="#pretrain-from-scratch" id="toc-pretrain-from-scratch" class="nav-link" data-scroll-target="#pretrain-from-scratch">Pretrain from scratch</a></li>
+  <li><a href="#미세조정된fine-tuned-llm" id="toc-미세조정된fine-tuned-llm" class="nav-link" data-scroll-target="#미세조정된fine-tuned-llm">미세조정된(Fine-tuned) LLM</a></li>
+  <li><a href="#스크래치로부터-사전학습pretrain-from-scratch" id="toc-스크래치로부터-사전학습pretrain-from-scratch" class="nav-link" data-scroll-target="#스크래치로부터-사전학습pretrain-from-scratch">스크래치로부터 사전학습(Pretrain from scratch)</a></li>
   </ul></li>
+  <li><a href="#decision-process" id="toc-decision-process" class="nav-link" data-scroll-target="#decision-process">Decision Process</a></li>
   <li><a href="#참고자료" id="toc-참고자료" class="nav-link" data-scroll-target="#참고자료">참고자료</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -395,7 +436,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">금융 분야의 LLM</h1>
+<h1 class="title">금융 분야의 LLM (2023)</h1>
 <p class="subtitle lead">LLM in Finance</p>
   <div class="quarto-categories">
     <div class="quarto-category">llm</div>
@@ -429,13 +470,17 @@ ul.task-list li input[type="checkbox"] {
 <li><p>(금융 자문 및 고객 서비스) AI 기반 챗봇으로 전자 상거래 및 전자 서비스에서 지원 기능 제공, 인력 비용 절감, 투자 자문 제공</p></li>
 </ul>
 <p>현재의 딥 러닝 모델은 짧은 시간 동안 방대한 양의 데이터에서 가치 있는 통찰력을 효과적으로 추출하는 능력을 가지고 있어, 금융 산업에서 매우 중요한 역할을 하고 있다. 더욱이 <strong>거대 언어모형(Large Language Model, 이하 LLM)의 등장</strong>으로 이전에 해결하기 어려웠던 작업들도 가능해지며, 인공지능이 금융 산업에서의 응용 분야를 더욱 확장시키고 있다.</p>
+<p><img src="./img/ghosh_f_1.PNG" width="900"></p>
+<blockquote class="blockquote">
+<p>Figure 1 in Ghosh and Naskar (2023): Evolution of financial NLP in terms of conferences, workshops, and language models</p>
+</blockquote>
 <section id="llm의-적용" class="level3">
 <h3 class="anchored" data-anchor-id="llm의-적용">LLM의 적용</h3>
 <p>금융 분야에서 LLM은 기존 모델에 비해 다양한 장점이 있다.</p>
 <ul>
-<li><p>LLM은 광범위한 사전 학습 데이터를 활용하기에 자연어 명령을 이해할 수 있음.</p></li>
-<li><p>금융 데이터의 레이블이 부족하거나 문서에 대한 접근이 제한적인 지도 학습이 어려운 상황에서 유용함.</p></li>
-<li><p>LLM은 제로샷 학습(zero-shot)을 통해 작업 수행 가능함.</p></li>
+<li><p>LLM은 광범위한 사전 학습 데이터를 활용하기에 자연어 명령을 이해할 수 있음</p></li>
+<li><p>금융 데이터의 레이블이 부족하거나 문서에 대한 접근이 제한적인 지도 학습이 어려운 상황에서 유용</p></li>
+<li><p>LLM은 제로샷 학습(zero-shot)을 통해 작업 수행 가능</p></li>
 <li><p>LLM은 다른 지도 학습 모델에 비해 적응성과 유연성이 뛰어나며, 특정 작업을 위해 별도의 모델을 훈련시키는 대신 서로 다른 작업 지시에 따라 프롬프트를 수정함으로써 여러 작업을 처리할 수 있음.</p></li>
 <li><p>LLM은 모호하고 복잡한 작업을 실행 가능한 계획으로 세분화하는 데에 탁월함.</p>
 <ul>
@@ -479,9 +524,9 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <p>LLM 미세 조정을 위해 Low-Rank Adaptation(LoRA) 및 양자화(quantization)와 같은 기법을 사용할 수도 있다. - LoRA 사용: 전체 행렬 대신 원래 가중치 행렬의 low-rank(낮은 순위) 분해 인자를 미세 조정할 수 있음. 이 접근 방식은 학습 가능한 매개 변수의 수를 크게 줄여 총 학습 시간을 단축. - float32 대신 bfloat16 또는 float16과 같은 낮은 수치 정밀 사용 비트 너비를 반으로 줄이면 메모리 사용량이 50% 감소하고, 연산 속도도 2배 빨라짐.</p>
 </section>
-<section id="미세조정된-llm" class="level3">
-<h3 class="anchored" data-anchor-id="미세조정된-llm">미세조정된 LLM</h3>
-<p>미세조정된 금융 LLM의 성능은 금융 분류 작업과 금융 생성 작업 두 가지 범주로 평가될 수 있다.</p>
+<section id="미세조정된fine-tuned-llm" class="level3">
+<h3 class="anchored" data-anchor-id="미세조정된fine-tuned-llm">미세조정된(Fine-tuned) LLM</h3>
+<p>Fine-tuned 금융 LLM의 성능은 금융 분류 작업과 금융 생성 작업 두 가지 범주로 평가될 수 있다.</p>
 <ul>
 <li>금융 분류(finance classification)는 감성 분석과 뉴스 제목 분류 등</li>
 <li>금융 생성 작업(finance generative task)은 질문 답변, 뉴스 요약 및 개체명 인식 등</li>
@@ -490,28 +535,67 @@ ul.task-list li input[type="checkbox"] {
 <blockquote class="blockquote">
 <p>Table 1 in Li et al.&nbsp;(2023): Quick Overview of Finetuned Finance LLM</p>
 </blockquote>
-<p>표1: - (FinMA), 136,000개의 작업별 지시 샘플로 LLaMA를 미세조정 - (FinGPT) 금융 산업에서 FinLLM을 훈련하고 적용하기 위한 end-to-end 프레임워크를 제시. 경량화된 LoRA 기술을 사용하여 LLaMA 및 ChatGLM과 같은 오픈 소스 LLM을 약 50,000개의 샘플을 사용하여 미세조정(그러나 FinGPT의 평가는 오직 금융 분류 작업에만 한정) - (Instruct-FinGPT)는 두 금융 감성 분석 데이터셋에서 유도된 10,000개의 지시 샘플로 LLaMA를 미세조정하며, 금융 분류 작업의 성능만을 평가</p>
-<p>각 논문에 따르면:</p>
+<p>표1:</p>
 <ul>
-<li>모든 미세조정된 금융 LLM은 원래의 기본 LLM (LLaMA) 및 다른 오픈 소스 LLM (BLOOM, OPT, ChatGLM)에 비해 금융 도메인 작업에서 훨씬 우수한 성능을 보임</li>
-<li>대부분의 금융 작업에서 <a href="https://arxiv.org/abs/2303.17564">BloombergGPT</a>보다 우수한 성능을 보임</li>
-<li>ChatGPT 및 GPT-4와 같은 강력한 일반 LLM과 비교했을 때, 미세조정된 금융 LLM은 대부분의 금융 분류 작업에서 우수한 성능을 보임. 그러나 금융 생성 작업에서는 파인튠된 LLM이 유사하거나 더 나쁜 성능을 보여주며, 생성 능력을 향상시키기 위해 더 많은 고품질 도메인 특화 데이터셋이 필요함을 시사함.</li>
+<li>(FinMA), 136,000개의 작업별 지시 샘플로 LLaMA를 미세조정</li>
+<li>(FinGPT) 금융 산업에서 FinLLM을 훈련하고 적용하기 위한 end-to-end 프레임워크를 제시. 경량화된 LoRA 기술을 사용하여 LLaMA 및 ChatGLM과 같은 오픈 소스 LLM을 약 50,000개의 샘플을 사용하여 미세조정(그러나 FinGPT의 평가는 오직 금융 분류 작업에만 한정)</li>
+<li>(Instruct-FinGPT)는 두 금융 감성 분석 데이터셋에서 유도된 10,000개의 지시 샘플로 LLaMA를 미세조정하며, 금융 분류 작업의 성능만을 평가</li>
+</ul>
+<p>성능 평가:</p>
+<ul>
+<li>모든 fine-tuned 금융 LLM은 원래의 기본 LLM (LLaMA) 및 다른 오픈 소스 LLM (BLOOM, OPT, ChatGLM)에 비해 금융 도메인에서 훨씬 우수한 성능을 보임</li>
+<li>또한, 대부분의 금융 작업에서 <a href="https://arxiv.org/abs/2303.17564">BloombergGPT</a>보다 우수한 성능을 보임</li>
+<li>ChatGPT 및 GPT-4와 같은 강력한 일반 LLM과 비교했을 때, fine-tuned 금융 LLM은 대부분의 금융 분류 작업에서 우수한 성능을 보임. 그러나 금융 생성 작업에서는 fine-tuned LLM이 유사하거나 더 나쁜 성능을 보이며, 생성 능력을 향상시키기 위해서는 더 많은 고품질 도메인 특화 데이터셋이 필요함</li>
 </ul>
 </section>
-<section id="pretrain-from-scratch" class="level3">
-<h3 class="anchored" data-anchor-id="pretrain-from-scratch">Pretrain from scratch</h3>
+<section id="스크래치로부터-사전학습pretrain-from-scratch" class="level3">
+<h3 class="anchored" data-anchor-id="스크래치로부터-사전학습pretrain-from-scratch">스크래치로부터 사전학습(Pretrain from scratch)</h3>
 <p><img src="img/lr_t_2.PNG" width="800"></p>
 <blockquote class="blockquote">
 <p>Table 2 in Li et al.&nbsp;(2023): Quick Overview of from scratch trained Finance LLMs</p>
 </blockquote>
 <p>표 2:</p>
-<p>… 작성중입니다 …</p>
+<ul>
+<li>주로, 사전 훈련(pretraining) 단계에서 공공 데이터셋과 금융 특화 데이터셋을 결합</li>
+<li>BloombergGPT는 일반 텍스트와 금융 관련 텍스트가 균형을 이루는 말뭉치로 구성
+<ul>
+<li>BloombergGPT는 주로 Bloomberg에 관련된 50억 토큰의 하위 집합에 의존하는데, 이는 전체 훈련 말뭉치의 0.7%에 불과함. 이 목표 말뭉치는 금융 벤치마크에서의 성능 향상에 기여함</li>
+</ul></li>
+</ul>
+<p>성능 평가:</p>
+<ul>
+<li>BloombergGPT와 Fin-T5는 각각 BLOOM176B와 T5 같은 원래 모델들과 비교하여 우수한 성능을 보임</li>
+<li>내부 private 훈련 말뭉치가 전체 훈련 말뭉치의 1% 미만을 구성하더라도, 동일한 도메인 및 분포 내 작업을 평가하는 데 상당한 향상을 이끌어낼 수 있음</li>
+<li>이러한 모델들은 GPT-3나 PaLM만큼 강력하지는 않지만, 유사한 규모의 공개 모델들과 비교하여 유사하거나 우수한 성능을 보임</li>
+<li>모델의 금융 관련 작업에서의 향상된 능력이 일반 능력에 영향을 미치지 않음</li>
+</ul>
 </section>
+</section>
+<section id="decision-process" class="level2">
+<h2 class="anchored" data-anchor-id="decision-process">Decision Process</h2>
+<p>LLM을 선택하면:</p>
+<ul>
+<li><p>(사전 훈련 지식 활용) 충분한 훈련 데이터나 주석이 달린 데이터가 부족하지만 상식적인 지식이 필요한 경우 유리함</p></li>
+<li><p>(추론 및 신흥 능력) 금융 자문 분야에서 고객 요청은 종종 높은 변동성과 복잡한 대화를 나타내는 경우 유리함</p></li>
+<li><p>(모델 협업 조정) LLM은 다양한 모델과 도구 사이에서 조정자 역할</p></li>
+</ul>
+<p>의 장점이 있다.</p>
+<p>LLM은 뛰어난 능력을 가지고 있지만, API를 활용하거나 오픈소스 LLM을 세밀하게 조정하는 경우에 <strong>상당한 비용</strong>이 발생한다. 따라서 작업이 명확하게 정의되어 있거나(예: 회귀, 분류, 순위 매기기), 주석이 달린 훈련 데이터가 풍부하다면 기존의 작은 모형을 사용하는게 적합할 수 있다.</p>
+<p>아래 그림과 표를 통해 LLM 사용에 대한 decision process와 비용을 가늠해볼 수 있다.</p>
+<p><img src="img/lr_f_1.PNG" width="900"></p>
+<blockquote class="blockquote">
+<p>Figure 1 in Li et al.&nbsp;(2023): Decision Process Flowchart</p>
+</blockquote>
+<p><img src="img/lr_t_3.PNG" width="700"></p>
+<blockquote class="blockquote">
+<p>Table 3 in Li et al.&nbsp;(2023): Costs of Different LLM Options</p>
+</blockquote>
 </section>
 <section id="참고자료" class="level1">
 <h1>참고자료</h1>
 <ul>
-<li>Li, Y., Wang, S., Ding, H., &amp; Chen, H. (2023). Large language models in finance: A survey. In Proceedings of the Fourth ACM International Conference on AI in Finance (pp.&nbsp;374-382).</li>
+<li><p>Li, Y., Wang, S., Ding, H., &amp; Chen, H. (2023). Large language models in finance: A survey. In Proceedings of the Fourth ACM International Conference on AI in Finance (pp.&nbsp;374-382).</p></li>
+<li><p>Ghosh, S., &amp; Naskar, S. K. (2023). Recent trends in financial natural language processing research. Science Talks, 8.</p></li>
 </ul>
 
 
@@ -753,6 +837,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <script src="https://giscus.app/client.js" data-repo="jo-cho/FinBlog" data-repo-id="R_kgDOJQ80aw" data-category="General" data-category-id="DIC_kwDOJQ80a84CVb8i" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../posts/machine_learning/GRL_05_1.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">5-1. 신경망 메시지 전달</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
 </div> <!-- /content -->
 
 
