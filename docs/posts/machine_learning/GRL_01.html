@@ -424,7 +424,7 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#그래프란" id="toc-그래프란" class="nav-link active" data-scroll-target="#그래프란">그래프란?</a>
   <ul class="collapse">
-  <li><a href="#multi-relational-그래프" id="toc-multi-relational-그래프" class="nav-link" data-scroll-target="#multi-relational-그래프">Multi-relational 그래프</a></li>
+  <li><a href="#다중관계multi-relational-그래프" id="toc-다중관계multi-relational-그래프" class="nav-link" data-scroll-target="#다중관계multi-relational-그래프">다중관계(Multi-relational) 그래프</a></li>
   <li><a href="#feature-information" id="toc-feature-information" class="nav-link" data-scroll-target="#feature-information">Feature information</a></li>
   </ul></li>
   <li><a href="#머신러닝과-그래프" id="toc-머신러닝과-그래프" class="nav-link" data-scroll-target="#머신러닝과-그래프">머신러닝과 그래프</a>
@@ -491,8 +491,12 @@ ul.task-list li input[type="checkbox"] {
 <li><p>만약, 그래프가 방향이 없는 엣지로 이루어져 있다면 <span class="math inline">\(A\)</span>는 symmetric matrix가 된다.</p></li>
 <li><p><em>weighted</em> 엣지를 가지는 경우 <span class="math inline">\(0, 1\)</span>이 아닌 실수 원소를 가지는 인접행렬이 된다.</p></li>
 </ul>
-<section id="multi-relational-그래프" class="level3">
-<h3 class="anchored" data-anchor-id="multi-relational-그래프">Multi-relational 그래프</h3>
+<p><img src="img/adjmatrix_0.png" width="600"></p>
+<blockquote class="blockquote">
+<p>Figure 2 in Xu (2021) Different types of graphs and their corresponding adjacency matrix representations</p>
+</blockquote>
+<section id="다중관계multi-relational-그래프" class="level3">
+<h3 class="anchored" data-anchor-id="다중관계multi-relational-그래프">다중관계(Multi-relational) 그래프</h3>
 <p><span class="math inline">\((u,\tau,v) \in \mathcal{E}\)</span></p>
 <ul>
 <li><p>두 종류 이상의 관계에 대한 연결성을 나타낼 수 있는 그래프</p></li>
@@ -501,12 +505,12 @@ ul.task-list li input[type="checkbox"] {
 <li><p>multi-relational 그래프에는 <em>heterogeneous</em>와 <em>multiplex</em> 그래프가 있다.</p></li>
 </ul>
 <section id="heterogeneous-그래프" class="level4">
-<h4 class="anchored" data-anchor-id="heterogeneous-그래프">Heterogeneous 그래프:</h4>
+<h4 class="anchored" data-anchor-id="heterogeneous-그래프">Heterogeneous 그래프</h4>
 <ul>
 <li><span class="math inline">\(\mathcal{V}=\mathcal{V_1} \cup \mathcal{V_2} \cup \cdots \cup \mathcal{V_3}\)</span> where <span class="math inline">\(\mathcal{V_i} \cap \mathcal{V_j} = \emptyset\)</span> for all <span class="math inline">\(i \neq j\)</span></li>
 <li>즉, disjoint한 노드 부분집합으로 구성된 노드 집합
 <ul>
-<li>예시: 노드(약 노드집합, 질병 노드집합), 엣지(약-약:다약부작용, 약-질병:치료)</li>
+<li>예시: 노드(약 노드집합, 질병 노드집합), 엣지(약-약: 다약부작용, 약-질병: 치료)</li>
 </ul></li>
 <li>관계 <span class="math inline">\(\tau_i\)</span>는 두 노드 부분집합 사이 연결: <span class="math inline">\((u,\tau_i, v) \in \mathcal{E} \rightarrow u \in V_j, v \in V_k\)</span></li>
 <li>이 때 <span class="math inline">\(j \neq k\)</span>이면 <em>multipartite</em> 그래프라고 한다. (즉, 다른 부분집합 간의 엣지만 존재)</li>
@@ -516,7 +520,7 @@ ul.task-list li input[type="checkbox"] {
 <h4 class="anchored" data-anchor-id="multiplex-그래프">Multiplex 그래프</h4>
 <ul>
 <li><span class="math inline">\(k\)</span>개의 층(layers)의 집합으로 이루어진 그래프</li>
-<li>intra-layer 엣지와 inter-layer 엣지가 있다.</li>
+<li>intra-layer 엣지(같은 layer 안)와 inter-layer 엣지(서로 다른 layer 사이)가 있다.</li>
 </ul>
 <p><img src="img/multiplex_graph.png" width="500"></p>
 <blockquote class="blockquote">
@@ -529,7 +533,8 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li>노드의 특징(feature or attribute) (예: 소셜 네트워크에서 한 사람(노드)의 프로필 사진 등 특징) 정보</li>
 <li>feature는 실수 행렬로 나타냄: <span class="math inline">\(X \in \mathbb{R}^{|V| \times m}\)</span></li>
-<li>heterogeneous 그래프에서 각 노드는 고유의 특징을 가진다.</li>
+<li>각 노드 <span class="math inline">\(u \in V\)</span>에 대해 <span class="math inline">\(m\)</span>개의 feature</li>
+<li>heterogeneous 그래프에서는 보통 각 종류의 노드는 각각의 특징 set을 가진다.</li>
 </ul>
 </section>
 </section>
@@ -540,31 +545,38 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li><p>레이블된 노드를 학습하여, 레이블되지 않은 노드를 분류</p></li>
 <li><p>기존의 i.i.d.(independent and identically distributed)를 가정하는 지도학습 모형과 달리 <strong>i.i.d.를 가정하지 않는다</strong>. 대신, 노드 간 연결 집합을 모델링 한다.</p></li>
-<li><p>homophily: 그래프의 이웃 노드 간에 유사한 feature를 공유한다는 개념</p></li>
-<li><p>structural equivalence: 유사한 이웃 구조를 가진 노드가 유사한 레이블을 가진다는 개념</p></li>
-<li><p>heterophily: 한 노드가 다른 레이블의 노드와 우선적으로 연결될 것을 가정</p></li>
+<li><p>접근방법</p>
+<ul>
+<li>homophily(동종선호): 그래프의 이웃 노드 간에 유사한 feature를 공유한다는 개념</li>
+<li>structural equivalence: 유사한 이웃 구조를 가진 노드가 유사한 레이블을 가진다는 개념</li>
+<li>heterophily(이종선호): 한 노드가 다른 레이블의 노드와 우선적으로 연결될 것을 가정</li>
+</ul></li>
 </ul>
 </section>
 <section id="관계-예측relation-prediction" class="level3">
 <h3 class="anchored" data-anchor-id="관계-예측relation-prediction">관계 예측(relation prediction)</h3>
 <ul>
-<li>주어진 노드 집합과 부분적인 엣지 집합을 활용하여 누락된 엣지를 예측하는 작업</li>
+<li>주어진 노드 집합과 부분적인 엣지 집합을 활용하여 <strong>누락된 엣지를 예측</strong>하는 작업</li>
 <li>작업의 복잡성은 그래프 유형에 따라 다르며, 단순한 그래프에서는 이웃을 공유하는 노드 쌍을 기반으로 하는 간단한 방법으로 성능을 높일 수 있지만, 복잡한 다중 관계 그래프에서는 복잡한 추론이 필요하다.</li>
-<li>관계 예측은 지도 및 비지도 학습 개념을 혼합하며 그래프 도메인에 특화된 inductive bias가 필요하다.</li>
+<li>관계 예측은 지도 및 비지도 학습 개념을 혼합하며 그래프 도메인에 특화된 inductive bias가 필요하다.
+<ul>
+<li>inductive bias: 귀납적 추론을 수행하기 위한 학습 모델이 갖고 있는 가정들의 집합</li>
+</ul></li>
 <li>또한 단일 그래프 내에서 예측하는 경우와 여러 겹치지 않는 그래프 간 예측을 하는 경우 등 다양한 변형이 있다.</li>
 </ul>
 </section>
 <section id="커뮤니티-감지community-detection" class="level3">
 <h3 class="anchored" data-anchor-id="커뮤니티-감지community-detection">커뮤니티 감지(community detection)</h3>
 <ul>
-<li>위의 노드 분류와 관계 예측은 지도학습에 대응되는 작업이었다면, community detection은 비지도학습/클러스터링에 대응된다.</li>
+<li>위의 노드 분류와 관계 예측은 지도학습에 대응되는 작업이었다면, community detection은 <strong>비지도학습/클러스터링</strong>에 대응된다.</li>
 <li>community detection은 주어진 <span class="math inline">\(\mathcal{G}=(\mathcal{V},\mathcal{E})\)</span>로 잠재적인 커뮤니티 구조를 추론한다.</li>
+<li>ex. Louvain 알고리즘, Girvan-Newman 알고리즘, Label Propagation 등</li>
 </ul>
 </section>
 <section id="그래프-분류-회귀-클러스터링-graph-classification-regression-clustering" class="level3">
 <h3 class="anchored" data-anchor-id="그래프-분류-회귀-클러스터링-graph-classification-regression-clustering">그래프 분류, 회귀, 클러스터링 (graph classification, regression, clustering)</h3>
 <ul>
-<li>그래프 하나하나를 대상으로 분류하거나, 그래프 특성을 예측하거나, 클러스터링한다.</li>
+<li><strong>그래프 하나하나를 대상</strong>으로 분류하거나, 그래프 특성을 예측하거나, 클러스터링한다.</li>
 <li>여러 그래프로 구성된 데이터를 가지고 특정 그래프에 대해 작업한다.</li>
 </ul>
 </section>
@@ -573,6 +585,7 @@ ul.task-list li input[type="checkbox"] {
 <h1>참고자료</h1>
 <p>[1] Hamilton, W. L. (2020). <em>Graph Representation Learning.</em> Morgan &amp; Claypool Publishers.</p>
 <p>[2] Hammoud, Z., &amp; Kramer, F. (2020). Multilayer networks: aspects, implementations, and application in biomedicine. Big Data Analytics, 5(1), 2.</p>
+<p>[3] Xu, M. (2021). Understanding graph embedding methods and their applications. SIAM Review, 63(4), 825-853.</p>
 
 
 </section>

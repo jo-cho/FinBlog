@@ -477,7 +477,8 @@ ul.task-list li input[type="checkbox"] {
 <section id="그래프-라플라시안과-스펙트럼-방법" class="level1">
 <h1>그래프 라플라시안과 스펙트럼 방법</h1>
 <p><strong>Graph Laplacians and Spectral Methods</strong></p>
-<p>그래프 데이터로 분류 작업 유용한 피쳐와 관계예측을 위한 방법을 이전의 두 포스트에서 확인했다. 이제 그래프에서 노드들을 클러스터하는 법에 대해 다루어보자. 또한 노드의 저차원 임베딩에 대해 다룬다.</p>
+<p>그래프 데이터로 <strong>노드 분류 작업</strong>에 유용한 피쳐와 <strong>관계예측</strong>을 위한 방법을 이전의 두 포스트 <a href="https://jo-cho.github.io/FinBlog/posts/machine_learning/GRL_02_1.html">(1)</a> <a href="https://jo-cho.github.io/FinBlog/posts/machine_learning/GRL_02_2.html">(2)</a>에서 확인했다.</p>
+<p>이제 그래프에서 노드들을 <strong>클러스터</strong>하는 법에 대해 다루어보자. 또한 노드의 저차원 임베딩에 대해 다룬다.</p>
 <section id="graph-laplacians" class="level2">
 <h2 class="anchored" data-anchor-id="graph-laplacians">Graph Laplacians</h2>
 <p>인접 행렬의 다양한 변형으로 나타내며 유용한 수학적 속성들을 가진다.</p>
@@ -538,7 +539,7 @@ ul.task-list li input[type="checkbox"] {
 <li>*(중간 단계는 생략)</li>
 </ul>
 <p>또한 <span class="math inline">\(\mathbf{a}\)</span>의 속성인 <span class="math inline">\(\mathbf{a} \perp \mathbf{1}\)</span> 그리고 <span class="math inline">\({\parallel\mathbf{a}\parallel}^2 = |\mathcal{V}|\)</span>을 고려,</p>
-<p><span class="math display">\[\min_{\mathbf{a} \in \mathbb{R}^{|\mathcal{V}|}}\mathbf{a}^{\top}L\mathbf{a} \\ s.t. \quad \mathbf{a} \perp \mathbf{1},\ {\parallel\mathbf{a}\parallel}^2 = |\mathcal{V}|\]</span></p>
+<p><span class="math display">\[\min_{\mathbf{a} \in \mathbb{R}^{|\mathcal{V}|}}\mathbf{a}^{\top}L\mathbf{a} \quad s.t. \quad \mathbf{a} \perp \mathbf{1},\ {\parallel\mathbf{a}\parallel}^2 = |\mathcal{V}|\]</span></p>
 <p>벡터 a를 라플라시안 행렬의 두번째로 작은 eigenvector로 설정하여 RatioCut 최소화를 근사할 수 있다. 다음 <span class="math inline">\(\mathbf{a}[u]\)</span>의 부호로 클러스터링을 할 수 있다.</p>
 <p>즉, 라플라시안의 두번째로 작은 eigenvector는 최적 클러스터를 (RatioCut에 대해) 수행하는 이산(discrete) 벡터에 연속적 근사치이다.</p>
 </section>
