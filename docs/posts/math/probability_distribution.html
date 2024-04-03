@@ -8,7 +8,7 @@
 
 <meta name="author" content="Cheonghyo Cho">
 
-<title>Cho’s FinBlog - 기초통계: 확률 분포</title>
+<title>Cho’s FinBlog - 기초통계: 확률 분포, 적률, 엔트로피</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -117,7 +151,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">기초통계: 확률 분포</li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">기초통계: 확률 분포, 적률, 엔트로피</li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -406,6 +440,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">금융분야의 LLM (2023)</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/nlp/news_sentiment_index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">뉴스심리지수(NSI) - 한국은행</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -422,14 +462,44 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#확률-분포" id="toc-확률-분포" class="nav-link active" data-scroll-target="#확률-분포">확률 분포</a>
   <ul class="collapse">
-  <li><a href="#확률-분포의-종류" id="toc-확률-분포의-종류" class="nav-link" data-scroll-target="#확률-분포의-종류">확률 분포의 종류</a>
+  <li><a href="#이산-확률-분포-discrete-probability-distributions" id="toc-이산-확률-분포-discrete-probability-distributions" class="nav-link" data-scroll-target="#이산-확률-분포-discrete-probability-distributions">이산 확률 분포 (Discrete probability distributions)</a>
   <ul class="collapse">
-  <li><a href="#이산-확률-분포-discrete-probability-distributions" id="toc-이산-확률-분포-discrete-probability-distributions" class="nav-link" data-scroll-target="#이산-확률-분포-discrete-probability-distributions">이산 확률 분포 (Discrete probability distributions)</a></li>
-  <li><a href="#연속확률분포-continuous-probability-distributions" id="toc-연속확률분포-continuous-probability-distributions" class="nav-link" data-scroll-target="#연속확률분포-continuous-probability-distributions">연속확률분포 (Continuous probability distributions)</a></li>
+  <li><a href="#bernouille-distribution" id="toc-bernouille-distribution" class="nav-link" data-scroll-target="#bernouille-distribution">Bernouille distribution</a></li>
+  <li><a href="#binomial-distribution" id="toc-binomial-distribution" class="nav-link" data-scroll-target="#binomial-distribution">Binomial distribution</a></li>
+  <li><a href="#poisson-distribution" id="toc-poisson-distribution" class="nav-link" data-scroll-target="#poisson-distribution">Poisson distribution</a></li>
+  <li><a href="#negative-binomial-distribution" id="toc-negative-binomial-distribution" class="nav-link" data-scroll-target="#negative-binomial-distribution">Negative binomial distribution</a></li>
+  <li><a href="#hypergeometric-distribution" id="toc-hypergeometric-distribution" class="nav-link" data-scroll-target="#hypergeometric-distribution">Hypergeometric distribution</a></li>
+  <li><a href="#geometric-distribution" id="toc-geometric-distribution" class="nav-link" data-scroll-target="#geometric-distribution">Geometric distribution</a></li>
+  </ul></li>
+  <li><a href="#연속확률분포-continuous-probability-distributions" id="toc-연속확률분포-continuous-probability-distributions" class="nav-link" data-scroll-target="#연속확률분포-continuous-probability-distributions">연속확률분포 (Continuous probability distributions)</a>
+  <ul class="collapse">
+  <li><a href="#normal-distribution" id="toc-normal-distribution" class="nav-link" data-scroll-target="#normal-distribution">Normal distribution</a></li>
+  <li><a href="#studentt-t-distribution" id="toc-studentt-t-distribution" class="nav-link" data-scroll-target="#studentt-t-distribution">Student’t t-distribution</a></li>
+  <li><a href="#chi-squared-distribution" id="toc-chi-squared-distribution" class="nav-link" data-scroll-target="#chi-squared-distribution">Chi-squared Distribution</a></li>
+  <li><a href="#uniform-distribution" id="toc-uniform-distribution" class="nav-link" data-scroll-target="#uniform-distribution">Uniform distribution</a></li>
+  <li><a href="#exponential-distribution" id="toc-exponential-distribution" class="nav-link" data-scroll-target="#exponential-distribution">Exponential distribution</a></li>
+  <li><a href="#weibul-distribution" id="toc-weibul-distribution" class="nav-link" data-scroll-target="#weibul-distribution">Weibul distribution</a></li>
+  <li><a href="#gamma-distribution" id="toc-gamma-distribution" class="nav-link" data-scroll-target="#gamma-distribution">Gamma Distribution</a></li>
+  <li><a href="#beta-distribution" id="toc-beta-distribution" class="nav-link" data-scroll-target="#beta-distribution">Beta Distribution</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#적률moments" id="toc-적률moments" class="nav-link" data-scroll-target="#적률moments">적률(moments)</a></li>
-  <li><a href="#엔트로피" id="toc-엔트로피" class="nav-link" data-scroll-target="#엔트로피">엔트로피</a></li>
+  <li><a href="#적률" id="toc-적률" class="nav-link" data-scroll-target="#적률">적률</a>
+  <ul class="collapse">
+  <li><a href="#적률moments이란" id="toc-적률moments이란" class="nav-link" data-scroll-target="#적률moments이란">적률(moments)이란</a></li>
+  <li><a href="#평균-분산-왜도-첨도" id="toc-평균-분산-왜도-첨도" class="nav-link" data-scroll-target="#평균-분산-왜도-첨도">평균, 분산, 왜도, 첨도</a></li>
+  <li><a href="#적률-생성-함수mgf" id="toc-적률-생성-함수mgf" class="nav-link" data-scroll-target="#적률-생성-함수mgf">적률 생성 함수(MGF)</a></li>
+  <li><a href="#적률-생성-함수의-특징" id="toc-적률-생성-함수의-특징" class="nav-link" data-scroll-target="#적률-생성-함수의-특징">적률 생성 함수의 특징</a>
+  <ul class="collapse">
+  <li><a href="#정규분포의-적률생성함수" id="toc-정규분포의-적률생성함수" class="nav-link" data-scroll-target="#정규분포의-적률생성함수">정규분포의 적률생성함수</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#엔트로피" id="toc-엔트로피" class="nav-link" data-scroll-target="#엔트로피">엔트로피</a>
+  <ul class="collapse">
+  <li><a href="#엔트로피entropy란" id="toc-엔트로피entropy란" class="nav-link" data-scroll-target="#엔트로피entropy란">엔트로피(entropy)란</a></li>
+  <li><a href="#지니-불순도gini-impurity" id="toc-지니-불순도gini-impurity" class="nav-link" data-scroll-target="#지니-불순도gini-impurity">지니 불순도(gini impurity)</a></li>
+  <li><a href="#크로스-엔트로피" id="toc-크로스-엔트로피" class="nav-link" data-scroll-target="#크로스-엔트로피">크로스-엔트로피</a></li>
+  </ul></li>
+  <li><a href="#참고자료" id="toc-참고자료" class="nav-link" data-scroll-target="#참고자료">참고자료</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -438,10 +508,12 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">기초통계: 확률 분포</h1>
-<p class="subtitle lead">Probability Distribution</p>
+<h1 class="title">기초통계: 확률 분포, 적률, 엔트로피</h1>
+<p class="subtitle lead">Probability Distribution, Moments</p>
   <div class="quarto-categories">
     <div class="quarto-category">probability distribution</div>
+    <div class="quarto-category">moments</div>
+    <div class="quarto-category">entropy</div>
   </div>
   </div>
 
@@ -464,25 +536,36 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <blockquote class="blockquote">
-<p>AI 연구는 확률, 통계에 대한 기초적인 지식을 필요로 한다. 하지만, 확률, 통계를 공부했다고 하더라도, 잠시 관심을 꺼둔다면, 기초적인 지식조차도 금방 잊어버리기 마련이다. 물론, 할 수 있을 때 완벽히 해놓아야 했던 확률 통계 공부가 애초에 미흡했을 가능성이 높다. 어쨋든 필요할 때 마다 찾아볼 수 있도록, 확률, 통계에 대한 간단한 기본 지식을 정리했다.</p>
+<p>AI 연구는 확률, 통계에 대한 기초적인 지식을 필요로 한다. 하지만, 확률, 통계를 공부했다고 하더라도, 잠시 관심을 꺼둔다면, 기초적인 지식조차도 금방 잊어버리기 마련이다. 필요할 때마다 찾아볼 수 있도록, 확률, 통계에 대한 간단한 기본 지식을 정리했다.</p>
 </blockquote>
 <section id="확률-분포" class="level1">
 <h1>확률 분포</h1>
 <p>확률 분포는 특정 사건이 발생할 가능성을 설명하는 수학적 모델</p>
 <p><img src="./img/prob_dists.png" width="700"></p>
-<section id="확률-분포의-종류" class="level2">
-<h2 class="anchored" data-anchor-id="확률-분포의-종류">확률 분포의 종류</h2>
-<section id="이산-확률-분포-discrete-probability-distributions" class="level3">
-<h3 class="anchored" data-anchor-id="이산-확률-분포-discrete-probability-distributions">이산 확률 분포 (Discrete probability distributions)</h3>
-<p><strong>Bernouille distribution</strong> - 단일 시행에서 두 가지 결과(성공 1 /실패 0) 실험 모델링 - 예: 동전 한번 던지기</p>
+<section id="이산-확률-분포-discrete-probability-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="이산-확률-분포-discrete-probability-distributions">이산 확률 분포 (Discrete probability distributions)</h2>
+<section id="bernouille-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="bernouille-distribution">Bernouille distribution</h3>
+<ul>
+<li>단일 시행에서 두 가지 결과(성공 1 /실패 0) 실험 모델링</li>
+<li>예: 동전 한번 던지기</li>
+</ul>
 <p><span class="math inline">\(P(X=k) = p^k (1-p)^{1-k} \quad \text{for} \ k \in \{0,1\}\)</span></p>
 <p><span class="math inline">\(E(x) = p\)</span></p>
 <p><span class="math inline">\(V(x) = p(1-p)\)</span></p>
-<p><strong>Binomial distribution</strong> - 고정된 수(<span class="math inline">\(n\)</span>)의 독립 시행에서 성공 횟수(<span class="math inline">\(k\)</span>)의 분포 (즉, 여러 베르누이 시행) - 사용 예시: 동전 던지기</p>
+</section>
+<section id="binomial-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="binomial-distribution">Binomial distribution</h3>
+<ul>
+<li>고정된 수(<span class="math inline">\(n\)</span>)의 독립 시행에서 성공 횟수(<span class="math inline">\(k\)</span>)의 분포 (즉, 여러 베르누이 시행)</li>
+<li>사용 예시: 동전 던지기</li>
+</ul>
 <p><span class="math inline">\(P(X=k) = \binom{n}{k} p^k (1-p)^{n-k}\)</span></p>
 <p><span class="math inline">\(E(x) = np\)</span></p>
 <p><span class="math inline">\(V(x) = np(1-p)\)</span></p>
-<p><strong>Poisson distribution</strong></p>
+</section>
+<section id="poisson-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="poisson-distribution">Poisson distribution</h3>
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/1/16/Poisson_pmf.svg" width="300"></p>
 <ul>
 <li>단위 시간 또는 공간에서 발생하는 사건의 수</li>
@@ -492,7 +575,9 @@ ul.task-list li input[type="checkbox"] {
 <p><span class="math inline">\(P(X \leq K) = 1 - \sum^{K}_{k=0}\frac{\lambda^k e^{-\lambda}}{k!}\)</span></p>
 <p><span class="math inline">\(E(x) = \lambda\)</span></p>
 <p><span class="math inline">\(V(x) = \lambda\)</span></p>
-<p><strong>Negative binomial distribution</strong></p>
+</section>
+<section id="negative-binomial-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="negative-binomial-distribution">Negative binomial distribution</h3>
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Negbinomial.gif" width="300"></p>
 <ul>
 <li>베르누이 시행에서 성공 <span class="math inline">\(r\)</span>회가 나타나기까지의 실패 횟수를 모델링</li>
@@ -501,7 +586,9 @@ ul.task-list li input[type="checkbox"] {
 <p><span class="math inline">\(P(X = k) = \binom{k + r - 1}{k} (1-p)^k p^r\)</span></p>
 <p><span class="math inline">\(E(X) = \frac{r(1-p)}{p}\)</span></p>
 <p><span class="math inline">\(V(X) = \frac{r(1-p)}{p^2}\)</span></p>
-<p><strong>Hypergeometric distribution</strong></p>
+</section>
+<section id="hypergeometric-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="hypergeometric-distribution">Hypergeometric distribution</h3>
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/HypergeometricPDF.png" width="300"></p>
 <ul>
 <li>한정된 특정 수(<span class="math inline">\(N\)</span>)의 모집단에서 교체없이(without replacement) 특정 성공 사건이 몇 번 발생했는지 모델링</li>
@@ -511,7 +598,9 @@ ul.task-list li input[type="checkbox"] {
 <p><span class="math inline">\(F(x) = 1 - (1-p)^{x} \quad \text{for} \ x \geq 1\)</span></p>
 <p><span class="math inline">\(E(X) = n\frac{K}{N}\)</span></p>
 <p><span class="math inline">\(V(X) = n\frac{K}{N}\frac{N-K}{N}\frac{N-n}{N-1}\)</span></p>
-<p><strong>Geometric distribution</strong></p>
+</section>
+<section id="geometric-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="geometric-distribution">Geometric distribution</h3>
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Geometric_pmf.svg/1920px-Geometric_pmf.svg.png" width="500"></p>
 <ul>
 <li>베르누이 시행에서 처음 성공까지 시도한 횟수 <span class="math inline">\(X\)</span>의 분포</li>
@@ -522,9 +611,11 @@ ul.task-list li input[type="checkbox"] {
 <p><span class="math inline">\(E(x) = \frac{1}{p}\)</span></p>
 <p><span class="math inline">\(V(x) = \frac{1-p}{p^2}\)</span></p>
 </section>
-<section id="연속확률분포-continuous-probability-distributions" class="level3">
-<h3 class="anchored" data-anchor-id="연속확률분포-continuous-probability-distributions">연속확률분포 (Continuous probability distributions)</h3>
-<p><strong>Normal distribution</strong></p>
+</section>
+<section id="연속확률분포-continuous-probability-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="연속확률분포-continuous-probability-distributions">연속확률분포 (Continuous probability distributions)</h2>
+<section id="normal-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="normal-distribution">Normal distribution</h3>
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Normal_Distribution_PDF.svg/400px-Normal_Distribution_PDF.svg.png" width="300"></p>
 <ul>
 <li>자연 현상에서 발생하는 많은 데이터의 분포를 모델링 (aka 가우시안 분포)</li>
@@ -534,7 +625,9 @@ ul.task-list li input[type="checkbox"] {
 <p><span class="math inline">\(F(x|\mu,\sigma) = \frac{1}{2} \left[1 + \text{erf}\left(\frac{x-\mu}{\sigma\sqrt{2}}\right)\right]\)</span>, <span class="math inline">\(\text{erf}(z) = \frac{2}{\sqrt{\pi}} \int_{0}^{z} e^{-t^2} dt\)</span></p>
 <p><span class="math inline">\(E(x) = \mu\)</span></p>
 <p><span class="math inline">\(V(x) = \sigma^2\)</span></p>
-<p><strong>Student’t t-distribution</strong></p>
+</section>
+<section id="studentt-t-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="studentt-t-distribution">Student’t t-distribution</h3>
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Student_t_pdf.svg/325px-Student_t_pdf.svg.png" width="300"></p>
 <ul>
 <li>작은 표본 크기에서 정규 분포의 평균을 추정할 때 사용되는 분포</li>
@@ -544,7 +637,9 @@ ul.task-list li input[type="checkbox"] {
 <p><span class="math inline">\(F(x|\mu,\sigma) = \frac{1}{2} \left[1 + \text{erf}\left(\frac{x-\mu}{\sigma\sqrt{2}}\right)\right]\)</span>, <span class="math inline">\(\text{erf}(z) = \frac{2}{\sqrt{\pi}} \int_{0}^{z} e^{-t^2} dt\)</span></p>
 <p><span class="math inline">\(E(x) = \mu\)</span></p>
 <p><span class="math inline">\(V(x) = \sigma^2\)</span></p>
-<p><strong>Chi-squared Distribution</strong></p>
+</section>
+<section id="chi-squared-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="chi-squared-distribution">Chi-squared Distribution</h3>
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Chi-square_pdf.svg/321px-Chi-square_pdf.svg.png" width="300"></p>
 <ul>
 <li>독립적인 표준 정규 분포를 따르는 변수들의 제곱 합의 분포</li>
@@ -553,12 +648,20 @@ ul.task-list li input[type="checkbox"] {
 <p><span class="math inline">\(f(x; k) = \frac{1}{2^{\frac{k}{2}}\Gamma\left(\frac{k}{2}\right)}x^{\frac{k}{2}-1}e^{-\frac{x}{2}}\)</span></p>
 <p><span class="math inline">\(E(x) = k\)</span></p>
 <p><span class="math inline">\(V(x) = 2k\)</span></p>
-<p><strong>Uniform distribution</strong> - 모든 사건이 동일한 확률로 발생하는 분포 - 사용 예시: 랜덤 숫자 생성</p>
+</section>
+<section id="uniform-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="uniform-distribution">Uniform distribution</h3>
+<ul>
+<li>모든 사건이 동일한 확률로 발생하는 분포</li>
+<li>사용 예시: 랜덤 숫자 생성</li>
+</ul>
 <p><span class="math inline">\(f(x) = \begin{cases} \frac{1}{b-a} &amp; \text{for } a \leq x \leq b \\ 0 &amp; \text{else } \end{cases}\)</span></p>
 <p><span class="math inline">\(F(x) = \begin{cases} 0 &amp; \text{if } x &lt; a \\ \frac{x-a}{b-a} &amp; \text{if } a \leq x \leq b \\ 1 &amp; \text{if } x &gt; b \end{cases}\)</span></p>
 <p><span class="math inline">\(\mu = \frac{a+b}{2}\)</span></p>
 <p><span class="math inline">\(\sigma^2 = \frac{(b-a)^2}{12}\)</span></p>
-<p><strong>Exponential distribution</strong></p>
+</section>
+<section id="exponential-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="exponential-distribution">Exponential distribution</h3>
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Exponential_distribution_pdf_-_public_domain.svg/1280px-Exponential_distribution_pdf_-_public_domain.svg.png" width="320"></p>
 <ul>
 <li>일정한 평균 속도(<span class="math inline">\(\lambda\)</span>)로 발생하는 독립적인 사건 사이의 시간을 모델링</li>
@@ -568,7 +671,9 @@ ul.task-list li input[type="checkbox"] {
 <p><span class="math inline">\(F(x) = 1 - e^{-\lambda x} \quad \text{for} \ x \geq 0\)</span></p>
 <p><span class="math inline">\(E(x) = \frac{1}{\lambda}\)</span></p>
 <p><span class="math inline">\(V(x) = \frac{1}{\lambda^2}\)</span></p>
-<p><strong>Weibul distribution</strong></p>
+</section>
+<section id="weibul-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="weibul-distribution">Weibul distribution</h3>
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Weibull_PDF.svg/325px-Weibull_PDF.svg.png" width="320"></p>
 <ul>
 <li>모양 매개변수(<span class="math inline">\(\lambda\)</span>)와 스케일 매개변수(<span class="math inline">\(k\)</span>)에 의해 정의</li>
@@ -578,7 +683,9 @@ ul.task-list li input[type="checkbox"] {
 <p><span class="math inline">\(F(x) = 1 - e^{-(x/\lambda)^k}\)</span></p>
 <p><span class="math inline">\(E(x) = \lambda \Gamma\left(1 + \frac{1}{k}\right)\)</span></p>
 <p><span class="math inline">\(V(x) = \lambda^2 \left[ \Gamma\left(1 + \frac{2}{k}\right) - \left(\Gamma\left(1 + \frac{1}{k}\right)\right)^2 \right]\)</span></p>
-<p><strong>Gamma Distribution</strong></p>
+</section>
+<section id="gamma-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="gamma-distribution">Gamma Distribution</h3>
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Gamma_distribution_pdf.png/270px-Gamma_distribution_pdf.png" width="300"></p>
 <ul>
 <li>지수분포에서 한 번의 사건이 아닌 여러 개의 사건으로 확장</li>
@@ -588,7 +695,9 @@ ul.task-list li input[type="checkbox"] {
 <p><span class="math inline">\(f(x) = \frac{x^{\alpha-1}e^{-x/\beta}}{\Gamma(\alpha)\beta^\alpha} \quad \text{for } x &gt; 0\)</span></p>
 <p><span class="math inline">\(E(x) = \alpha\beta\)</span></p>
 <p><span class="math inline">\(V(x) = \alpha\beta^2\)</span></p>
-<p><strong>Beta Distribution</strong></p>
+</section>
+<section id="beta-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="beta-distribution">Beta Distribution</h3>
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Beta_distribution_pdf.svg/325px-Beta_distribution_pdf.svg.png" width="300"></p>
 <ul>
 <li>0과 1 사이의 값에 대한 확률 분포로, 성공 확률의 불확실성을 모델링할 때 사용</li>
@@ -599,15 +708,106 @@ ul.task-list li input[type="checkbox"] {
 <p><span class="math inline">\(B(\alpha, \beta) = \int_{0}^{1} t^{\alpha-1}(1-t)^{\beta-1} dt\)</span> (베타함수)</p>
 <p><span class="math inline">\(E(x) = \frac{\alpha}{\alpha + \beta}\)</span></p>
 <p><span class="math inline">\(V(x) = \frac{\alpha\beta}{(\alpha + \beta)^2(\alpha + \beta + 1)}\)</span></p>
-<p>..작성중..</p>
 </section>
 </section>
 </section>
-<section id="적률moments" class="level1">
-<h1>적률(moments)</h1>
+<section id="적률" class="level1">
+<h1>적률</h1>
+<section id="적률moments이란" class="level2">
+<h2 class="anchored" data-anchor-id="적률moments이란">적률(moments)이란</h2>
+<ul>
+<li><p>k차 원점 적률: <span class="math inline">\(\mu'_k = \int_{-\infty}^{\infty} x^k f(x) dx = E[X^k]\)</span></p></li>
+<li><p>k차 중심 적률: <span class="math inline">\(\mu_k = \int_{-\infty}^{\infty} (x-\mu)^k f(x) dx = E[(X-\mu)^k]\)</span></p></li>
+<li><p>k차 표준화 적률: <span class="math inline">\(\tilde{\mu}_k = \frac{\mu_k}{\sigma^k} = E[{(\frac{X-\mu}{\sigma})}^k]\)</span></p></li>
+</ul>
+</section>
+<section id="평균-분산-왜도-첨도" class="level2">
+<h2 class="anchored" data-anchor-id="평균-분산-왜도-첨도">평균, 분산, 왜도, 첨도</h2>
+<ul>
+<li><p>1차 원점 적률(평균): 데이터의 평균 값을 나타냄 <span class="math inline">\(\mu = E[X]\)</span></p></li>
+<li><p>1차 중심 적률: 0</p></li>
+<li><p>2차 중심 적률(분산): 데이터의 분산을 나타냄 <span class="math inline">\(E[(X-\mu)^2]\)</span></p></li>
+<li><p>3차 중심 표준화 적률(왜도): 데이터 분포의 비대칭도를 나타냄 <span class="math inline">\(E[{(\frac{X-\mu}{\sigma})}^3]\)</span></p></li>
+<li><p>4차 중심 표준화 적률(첨도): 데이터 분포의 뾰족함을 나타냄 <span class="math inline">\(E[{(\frac{X-\mu}{\sigma})}^4]\)</span></p></li>
+</ul>
+</section>
+<section id="적률-생성-함수mgf" class="level2">
+<h2 class="anchored" data-anchor-id="적률-생성-함수mgf">적률 생성 함수(MGF)</h2>
+<p>적률 생성 함수는 확률변수의 모든 적률을 유도하기 위한 방법으로 사용</p>
+<p><span class="math display">\[M_X(t) = E[e^{tX}] = \int_{-\infty}^{\infty} e^{tx} f(x) dx\]</span></p>
+<p>이때, 확률변수 <span class="math inline">\(X\)</span>의 <span class="math inline">\(n\)</span>번째 적률은 <span class="math inline">\(M(t)\)</span>를 <span class="math inline">\(t\)</span>에 대해 <span class="math inline">\(n\)</span>번 미분하고 <span class="math inline">\(t=0\)</span>을 대입하여 얻을 수 있음</p>
+<p><span class="math display">\[\mu_n' = E[X^n] = \left. \frac{d^n M(t)}{dt^n} \right|_{t=0}\]</span></p>
+<p><span class="math inline">\(e^{tX}\)</span>를 테일러 전개하여, 적률 생성 함수에 대입하면,</p>
+<p><span class="math inline">\(M_X(t) = E[e^{tX}] = E\left[1 + Xt + \frac{X^2t^2}{2!} + \frac{X^3t^3}{3!} + \ldots \right]\)</span></p>
+<p><span class="math inline">\(M_X(t) = E[e^{tX}] = 1 + E[X]t + \frac{E[X^2]t^2}{2!} + \frac{E[X^3]t^3}{3!} + \ldots\)</span></p>
+<p><span class="math inline">\(n\)</span>차 미분하여 <span class="math inline">\(t=0\)</span>을 대입하면, <span class="math inline">\(n\)</span>차 적률이 되는 것을 알 수 있다.</p>
+</section>
+<section id="적률-생성-함수의-특징" class="level2">
+<h2 class="anchored" data-anchor-id="적률-생성-함수의-특징">적률 생성 함수의 특징</h2>
+<ul>
+<li>존재성: 모든 적률이 존재하는 확률변수는 MGF가 적어도 <span class="math inline">\(t=0\)</span>을 중심으로 한 작은 주변에서 존재</li>
+<li>유일성: 두 확률변수의 MGF가 존재하고 같다면, 그 확률변수들은 동일한 확률분포를 가짐</li>
+<li>선형성: 확률변수 <span class="math inline">\(X\)</span>와 <span class="math inline">\(Y\)</span>가 독립이고 <span class="math inline">\(M_X(t)\)</span>, <span class="math inline">\(M_Y(t)\)</span>의 MGF를 가진다면 <span class="math inline">\(X+Y\)</span>의 MGF는 <span class="math inline">\(M_X(t) \times M_Y(t)\)</span></li>
+</ul>
+<section id="정규분포의-적률생성함수" class="level3">
+<h3 class="anchored" data-anchor-id="정규분포의-적률생성함수">정규분포의 적률생성함수</h3>
+<ul>
+<li><span class="math inline">\(M_X(t) = \int_{-\infty}^{\infty} e^{tx} \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2} dx\)</span></li>
+<li><span class="math inline">\(...\)</span></li>
+<li><span class="math inline">\(M_X(t) = e^{\mu t + \frac{1}{2}\sigma^2 t^2}\)</span></li>
+</ul>
+</section>
+</section>
 </section>
 <section id="엔트로피" class="level1">
 <h1>엔트로피</h1>
+<section id="엔트로피entropy란" class="level2">
+<h2 class="anchored" data-anchor-id="엔트로피entropy란">엔트로피(entropy)란</h2>
+<p>엔트로피(entropy)는 확률분포가 가지는 정보의 확신도 혹은 정보량을 수치로 표현한 것이다. 확률분포에서 특정한 값이 나올 확률이 높아지고 나머지 값의 확률은 낮아진다면 엔트로피가 작아진다.</p>
+<ul>
+<li><p>이산확률분포: <span class="math display">\[H(X) = -\sum_{i} p(x_i) \log p(x_i)\]</span></p></li>
+<li><p>연속확률분포: <span class="math display">\[h(X) = -\int f(x) \log f(x) \, dx\]</span></p></li>
+</ul>
+</section>
+<section id="지니-불순도gini-impurity" class="level2">
+<h2 class="anchored" data-anchor-id="지니-불순도gini-impurity">지니 불순도(gini impurity)</h2>
+<p>지니 불순도(Gini impurity)는 데이터 집합 내에서 랜덤으로 선택한 요소가 잘못 분류될 확률을 측정, 주어진 데이터 집합이 얼마나 “혼합”되어 있는지를 나타냄</p>
+<p><span class="math display">\[G(Y) = \sum_{k=1}^{K} P(y_k) (1 - P(y_k))\]</span></p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 예시: 베르누이 분포의 엔트로피, 지니 불순도</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>P0 <span class="op">=</span> np.linspace(<span class="fl">0.001</span>, <span class="dv">1</span> <span class="op">-</span> <span class="fl">0.001</span>, <span class="dv">1000</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>P1 <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> P0</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>H <span class="op">=</span> <span class="op">-</span> P0 <span class="op">*</span> np.log2(P0) <span class="op">-</span> P1 <span class="op">*</span> np.log2(P1)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> (P0 <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> P0) <span class="op">+</span> P1 <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> P1))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>plt.plot(P1, H, <span class="st">"-"</span>, label<span class="op">=</span><span class="st">"entropy"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>plt.plot(P1, G, <span class="st">"--"</span>, label<span class="op">=</span><span class="st">"gini"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"P(Y=1)"</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="probability_distribution_files/figure-html/cell-2-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="크로스-엔트로피" class="level2">
+<h2 class="anchored" data-anchor-id="크로스-엔트로피">크로스-엔트로피</h2>
+<p>크로스-엔트로피(cross-entropy)는 두 확률분포 간의 차이를 측정하는 데 사용</p>
+<p>Cross-entropy는 머신러닝과 딥러닝에서 손실 함수(loss function)로 널리 사용되며, 특히 분류 문제에서 예측 분포 <span class="math inline">\(Q\)</span>가 실제 분포 <span class="math inline">\(P\)</span>를 얼마나 잘 추정하는지를 평가할 때 중요함</p>
+<p>이때 낮은 cross-entropy 값은 모델의 예측이 실제 분포에 더 가깝다는 것을 의미</p>
+<p><span class="math inline">\(H(P, Q) = -\sum_{x} P(x) \log Q(x)\)</span> (이산)</p>
+<p><span class="math inline">\(H(P, Q) = -\int p(x) \log q(x) \, dx\)</span> (연속)</p>
+</section>
+</section>
+<section id="참고자료" class="level1">
+<h1>참고자료</h1>
+<ul>
+<li>Wikipedia(https://www.wikipedia.org/)</li>
+</ul>
 
 
 </section>
