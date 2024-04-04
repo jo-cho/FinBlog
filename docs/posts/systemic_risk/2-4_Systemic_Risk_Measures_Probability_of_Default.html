@@ -8,7 +8,7 @@
 
 <meta name="author" content="Cheonghyo Cho">
 
-<title>Cho’s FinBlog - 뉴스심리지수 (한국은행)</title>
+<title>Cho’s FinBlog - 시스템 리스크 분석: (2-4) 금융기관 부도확률 위험 측정방법</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../posts/nlp/finance_llm_survey.html" rel="prev">
+<link href="../../posts/systemic_risk/2-5_Systemic_Risk_Measures_Network.html" rel="next">
+<link href="../../posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.html" rel="prev">
 <link href="../../logo.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -118,7 +119,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">자연어 처리</li><li class="breadcrumb-item"><a href="../../posts/nlp/finance_llm_survey.html">선행연구</a></li><li class="breadcrumb-item"><a href="../../posts/nlp/news_sentiment_index.html">뉴스심리지수(NSI) - 한국은행</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../posts/systemic_risk/1_Systemic_Risk.html">시스템 리스크 분석</a></li><li class="breadcrumb-item"><a href="../../posts/systemic_risk/2_Systemic_Risk_Measures.html">시스템 리스크 측정</a></li><li class="breadcrumb-item"><a href="../../posts/systemic_risk/2-4_Systemic_Risk_Measures_Probability_of_Default.html">선행연구 (부도확률모형 위험)</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -222,13 +223,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
  <span class="menu-text">시스템 리스크 분석</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/systemic_risk/1_Systemic_Risk.html" class="sidebar-item-text sidebar-link">
@@ -237,13 +238,13 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
  <span class="menu-text">시스템 리스크 측정</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/systemic_risk/2_Systemic_Risk_Measures.html" class="sidebar-item-text sidebar-link">
@@ -270,7 +271,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/2-4_Systemic_Risk_Measures_Probability_of_Default.html" class="sidebar-item-text sidebar-link">
+  <a href="../../posts/systemic_risk/2-4_Systemic_Risk_Measures_Probability_of_Default.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">선행연구 (부도확률모형 위험)</span></a>
   </div>
 </li>
@@ -385,22 +386,22 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
  <span class="menu-text">자연어 처리</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
  <span class="menu-text">선행연구</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/nlp/finance_llm_survey.html" class="sidebar-item-text sidebar-link">
@@ -409,7 +410,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/nlp/news_sentiment_index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../posts/nlp/news_sentiment_index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">뉴스심리지수(NSI) - 한국은행</span></a>
   </div>
 </li>
@@ -427,26 +428,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">목차</h2>
    
   <ul>
-  <li><a href="#데이터" id="toc-데이터" class="nav-link active" data-scroll-target="#데이터">데이터</a></li>
-  <li><a href="#작성-방법" id="toc-작성-방법" class="nav-link" data-scroll-target="#작성-방법">작성 방법</a>
+  <li><a href="#부도확률모형-위험-측정방법" id="toc-부도확률모형-위험-측정방법" class="nav-link active" data-scroll-target="#부도확률모형-위험-측정방법">부도확률모형 위험 측정방법</a>
   <ul class="collapse">
-  <li><a href="#개요" id="toc-개요" class="nav-link" data-scroll-target="#개요">개요</a></li>
-  <li><a href="#전처리" id="toc-전처리" class="nav-link" data-scroll-target="#전처리">전처리</a>
-  <ul class="collapse">
-  <li><a href="#입력-데이터의-구조" id="toc-입력-데이터의-구조" class="nav-link" data-scroll-target="#입력-데이터의-구조">입력 데이터의 구조</a></li>
-  <li><a href="#토큰화tokenzing" id="toc-토큰화tokenzing" class="nav-link" data-scroll-target="#토큰화tokenzing">토큰화(tokenzing)</a></li>
-  </ul></li>
-  <li><a href="#모형" id="toc-모형" class="nav-link" data-scroll-target="#모형">모형</a>
-  <ul class="collapse">
-  <li><a href="#트랜스포머transformer" id="toc-트랜스포머transformer" class="nav-link" data-scroll-target="#트랜스포머transformer">트랜스포머(transformer)</a></li>
-  </ul></li>
-  <li><a href="#학습데이터-구축-및-학습" id="toc-학습데이터-구축-및-학습" class="nav-link" data-scroll-target="#학습데이터-구축-및-학습">학습데이터 구축 및 학습</a></li>
-  <li><a href="#일별-뉴스데이터-구축" id="toc-일별-뉴스데이터-구축" class="nav-link" data-scroll-target="#일별-뉴스데이터-구축">일별 뉴스데이터 구축</a></li>
-  <li><a href="#뉴스심리-지수-작성-및-표준화" id="toc-뉴스심리-지수-작성-및-표준화" class="nav-link" data-scroll-target="#뉴스심리-지수-작성-및-표준화">뉴스심리 지수 작성 및 표준화</a>
-  <ul class="collapse">
-  <li><a href="#일별심리지수" id="toc-일별심리지수" class="nav-link" data-scroll-target="#일별심리지수">일별심리지수:</a></li>
-  <li><a href="#월별심리지수" id="toc-월별심리지수" class="nav-link" data-scroll-target="#월별심리지수">월별심리지수:</a></li>
-  </ul></li>
+  <li><a href="#cds-dip-credit-default-swap-distress-insurance-premium" id="toc-cds-dip-credit-default-swap-distress-insurance-premium" class="nav-link" data-scroll-target="#cds-dip-credit-default-swap-distress-insurance-premium">CDS-DIP : Credit default swap-distress insurance premium</a></li>
+  <li><a href="#cds-corisk-credit-default-swap-corisk" id="toc-cds-corisk-credit-default-swap-corisk" class="nav-link" data-scroll-target="#cds-corisk-credit-default-swap-corisk">CDS-CoRisk: Credit default swap-CoRisk</a></li>
+  <li><a href="#option-ipod-option-implied-probability-of-default" id="toc-option-ipod-option-implied-probability-of-default" class="nav-link" data-scroll-target="#option-ipod-option-implied-probability-of-default">Option-iPoD : Option-implied probability of default</a></li>
+  <li><a href="#cca-contingent-claim-approach" id="toc-cca-contingent-claim-approach" class="nav-link" data-scroll-target="#cca-contingent-claim-approach">CCA: Contingent claim approach</a></li>
   </ul></li>
   <li><a href="#참고문헌" id="toc-참고문헌" class="nav-link" data-scroll-target="#참고문헌">참고문헌</a></li>
   </ul>
@@ -457,13 +444,12 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">뉴스심리지수 (한국은행)</h1>
-<p class="subtitle lead">Measuring News Sentiment</p>
+<h1 class="title">시스템 리스크 분석: (2-4) 금융기관 부도확률 위험 측정방법</h1>
+<p class="subtitle lead">Systemic Risk Measure - Probability of Default Model</p>
   <div class="quarto-categories">
-    <div class="quarto-category">sentiment</div>
-    <div class="quarto-category">nlp</div>
-    <div class="quarto-category">transformer</div>
-    <div class="quarto-category">paper</div>
+    <div class="quarto-category">systemic risk</div>
+    <div class="quarto-category">financial institution</div>
+    <div class="quarto-category">default</div>
   </div>
   </div>
 
@@ -485,132 +471,146 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<blockquote class="blockquote">
-<p>한국은행에서 발표한 통계치인 뉴스심리지수(NSI)를 소개한다. 트랜스포머(tranformer)를 사용하여 감성분석을 한다.</p>
-</blockquote>
-<p><strong>논문 요약</strong></p>
-<section id="데이터" class="level1">
-<h1>데이터</h1>
-<p>뉴스기사 텍스트 데이터의 웹크롤링(web crawling) - 경제분야로 한정하여 인터넷 포털사이트(약 50여개 언론사)에서 뉴스기사 수집 - 수집 대상기간: 2005년 이후</p>
-<p>데이터 무결성(data integrity) 처리 - 중복된 뉴스기사 또는 광고성 기사 등 - 새로 수집한 뉴스기사 원문이 직전 30일 내에 한번이라도 동일하게 데이터베이스에 등장하는 경우, 이 뉴스기사를 배제제 년 이후이후</p>
-<p><img src="img/nsi_f1.png" width="500"></p>
-</section>
-<section id="작성-방법" class="level1">
-<h1>작성 방법</h1>
-<section id="개요" class="level2">
-<h2 class="anchored" data-anchor-id="개요">개요</h2>
-<p>뉴스기사에 나타난 긍정문장과 부정문장을 카운트한 뒤 지수화</p>
-<p>기계학습(machine learning) 사용 (감성분류 모형)</p>
+<p>서상원 (2018)</p>
+<p>시스템리스크 측정 방법 중 금융기관의 부도와 같은 위험사건을 명시적으로 정의하는 측정하는 법을 알아본다.</p>
+<section id="부도확률모형-위험-측정방법" class="level1">
+<h1>부도확률모형 위험 측정방법</h1>
+<section id="cds-dip-credit-default-swap-distress-insurance-premium" class="level2">
+<h2 class="anchored" data-anchor-id="cds-dip-credit-default-swap-distress-insurance-premium">CDS-DIP : Credit default swap-distress insurance premium</h2>
+<p><a href="https://www.sciencedirect.com/science/article/abs/pii/S0378426609001216?via%3Dihub">Huang et al.(2009)</a></p>
 <ul>
-<li>뉴스 문장(<span class="math inline">\(s\in S\)</span>)과</li>
-<li>논조 (<span class="math inline">\(l \in {(p_0,p_1,p_2)|p_0=P(Positive),p_1=P(Negative),p_2=P(Neutral)}\)</span>)로 구성된</li>
-<li>데이터 쌍(data pair, <span class="math inline">\({(s,l)_i}^N_{i=1}\)</span>)을 이용하여</li>
-<li>데이터에 가장 잘 부합하는 다음과 같은 감성분류 함수 <span class="math inline">\(f_\theta\)</span>를 찾는 것</li>
-</ul>
-<p><span class="math display">\[f_\theta : S \rightarrow \{(p_0, p_1, p_2) \mid p_0 = P(\text{Positive}), p_1 = P(\text{Negative}), p_2 = P(\text{Neutral})\}\]</span></p>
-</section>
-<section id="전처리" class="level2">
-<h2 class="anchored" data-anchor-id="전처리">전처리</h2>
-<section id="입력-데이터의-구조" class="level3">
-<h3 class="anchored" data-anchor-id="입력-데이터의-구조">입력 데이터의 구조</h3>
-<p>기사가 아닌 <strong>문장</strong> 기준으로 논조를 분류</p>
-</section>
-<section id="토큰화tokenzing" class="level3">
-<h3 class="anchored" data-anchor-id="토큰화tokenzing">토큰화(tokenzing)</h3>
-<p>형태소(POS, part-of-speech) 단위 분해 <span class="math display">\[g: S \rightarrow C\]</span></p>
+<li><p>DIP(distress insurance premium): CDS 시장가격을 이용하여 금융시스템내에 개별 금융기관들이 발행한 CDS들의 가상 포트폴리오(가중치: 금융기관의 부채규모)에 대해서 금융 위험(financial distress) 사건이 발생할 경우 보호받기 위해서 지불하여야 하는 프리미엄을 산출</p></li>
+<li><p>CDS 스프레드:</p>
 <ul>
-<li>각 문장 (<span class="math inline">\(s \in S\)</span>)을 형태소 단위로 분해함</li>
-<li>말뭉치 토큰의 수열 모임(a collection of sequences of tokens), <span class="math inline">\(C\)</span></li>
-</ul>
-<p>정수 변환(integer encoding)으로 수치화 <span class="math display">\[h:C \rightarrow \mathbb{R}^m\]</span></p>
-<p>최대 길이(<span class="math inline">\(m\)</span>=0)로 제로 패딩(zero padding) 사용</p>
-<p><img src="img/nsi_f2.png" width="500"></p>
-</section>
-</section>
-<section id="모형" class="level2">
-<h2 class="anchored" data-anchor-id="모형">모형</h2>
-<section id="트랜스포머transformer" class="level3">
-<h3 class="anchored" data-anchor-id="트랜스포머transformer">트랜스포머(transformer)</h3>
-<p>감성분류 모형으로 트랜스포머(transformer) 사용</p>
+<li>금융기관 <span class="math inline">\(i\)</span>의 신용사건을 기초자산으로 하는 CDS 스프레드 <span class="math inline">\(s_{it}\)</span>는 해당 금융기관이 위험상황에 처할 경우 발생하는 금융손실의 위험을 보장받을 것을 대가로 ‘보장’ 매입자가 일정기간마다 지불하여야 하는 (원금 대비) 프리미엄 비율</li>
+<li>금융기관의 위험확률이 증가하면 CDS 스프레드도 같이 증가하므로 CDS 스프레드 시장가격은 금융기관의 위험도에 대해 시장에서 평가하는 정보를 가짐</li>
+</ul></li>
+<li><p><span class="math inline">\(PD_{it} = \frac{a_{t}s_{it}}{a_t LGD_{it}+b_t s_{it}}\)</span></p></li>
+<li><p><span class="math inline">\(a_t \equiv \int^{t+T}_{t}{e^{-r\tau}d\tau}\)</span></p></li>
+<li><p><span class="math inline">\(b_t \equiv \int^{t+T}_{t}{\tau^{-r\tau}d\tau}\)</span></p></li>
+<li><p><span class="math inline">\(r\)</span>은 무위험수익률, <span class="math inline">\(T\)</span>는 CDS 계약의 잔존만기, <span class="math inline">\(LGD\)</span>는 부도시손실률(loss given default)을 나타냄</p></li>
+<li><p>이렇게 추정된 부도확률은 위험중립 확률(risk-neutral probability)이므로 이를 이용하여 산출한 DIP을 금융상품의 가격 즉, 프리미엄으로 간주</p></li>
+<li><p>또한 여러 금융기관간 위험 사건의 종속성을 시변하는 상관계수를 이용하여 측정 (향후 12주 후에 대한 상관계수 예측식)</p>
 <ul>
-<li>트랜스포머 모형은 여러 개(multiple-head)의 Attention 구조를 갖는 인공신경망 모형으로 텍스트 분석을 위해 널리 이용되던 RNN및 LSTM 모형에 비해 입력 벡터 전체의 맥락(context)을 더 잘 파악</li>
-<li>여기서 Attention 구조란 벡터를 입력데이터로 하는 예측 모형에서 입력 벡터의 값들 중 집중(attention)적으로 학습할 필요가 있는 값에 더 높은 가중치를 부여</li>
+<li><span class="math inline">\(\rho_{t,t+12}=c+k_{1}\rho_{t-12,t}+\sum^{l}_{i=1}k_{2i}\rho_{t-i,t-1+1}+\eta X_t+v_t\)</span></li>
+<li><span class="math inline">\(\rho\)</span>는 하첨자로 표시된 (일주일 단위의) 두 기간간 평균 자산수익률 상관계수, <span class="math inline">\(X_t\)</span>는 예측변수로 사용되는 금융시장 변수</li>
+</ul></li>
+<li><p>예측된 상관계수를 이용하여 DIP을 추정</p></li>
 </ul>
-<p>감성분류모형은 뉴스문장을 입력변수로 받으며, 해당 문장의 감성이 긍정/부정/중립일 확률을 출력변수로 출력</p>
-<p>전체 과정을 포함한 감성분류모형 <span class="math inline">\(f_\theta\)</span>는 다음과 같음</p>
-<p><img src="img/nsi_f3.png" width="500"></p>
-<p><span class="math inline">\(f_{\theta} : S \rightarrow \{ (p_0, p_1, p_2) \},\)</span></p>
-<p><span class="math inline">\(f_{\theta}(s_i) = k_{\theta} \circ h \circ g(s_i) \equiv \hat{i},\)</span></p>
-<p><span class="math inline">\(\text{where} \quad s_i \in S, \, \hat{i} \in \{ (p_0, p_1, p_2) \}\)</span></p>
-<ul>
-<li><p>뉴스문장은 먼저 전처리 과정을 거쳐 수치형 벡터로 치환됨.</p></li>
-<li><p>수치형 벡터로 치환된 문장은 각 단어 토큰의 연관도를 학습하여 다시 다차원 공간으로 배치하는 Embedding 과정을 거침 (Embedding을 위해 32차원을 고려).</p></li>
-<li><p>따라서 하나의 뉴스문장은 전처리와 Embedding 과정을 거치면서 80×32 차원의 수치행렬 값으로 치환됨.</p></li>
-<li><p>이후 트랜스포머 블록과 이어지는 Feed Forward 네트워크는 입력 문장의 논조를 잘 예측하는 비선형 함수를 찾아 뉴스문장의 감성을 긍정/부정/중립 중 하나로 분류하게 됨.</p></li>
-<li><p>마지막으로 Softmax 함수는 실수값의 출력변수를 0과 1사이의 확률값으로 변환하는 역할을 함.</p></li>
-</ul>
-<p>파라미터 <span class="math inline">\(\theta\)</span>값은 데이터쌍 <span class="math inline">\((\{(s, l)_i\}_{i=1}^N)\)</span>의 관측 레이블 <span class="math inline">\((l_i=(p_0^i,p_1^i,p_2^i))\)</span>과 모형의 예측치<span class="math inline">\((\hat{l}_i =(\hat{p}_0^i, \hat{p}_1^i,\hat{p}_2^i)\)</span> 분포가 비슷해지도록 다음의 Cross-entropy 손실함수(<span class="math inline">\(L\)</span>)를 최소화하는 과정(optimization)을 통해 추정(estimate or train)한다.</p>
-<p><span class="math display">\[L(\theta|\{s_{i},l_{i}\}_{i=1}^{N})=-\sum_{i=1}^{N}\sum_{c=0}^{N}p_{c}^{(i)}\log\hat{p}_{c}^{(i)}\]</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="2-4_Systemic_Risk_Measures_Probability_of_Default_files/figure-html/b4d8af1e-1-Huang_et_al_2009_Fig1.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Huang et al.&nbsp;(2009) Figure 1</figcaption>
+</figure>
+</div>
 </section>
+<section id="cds-corisk-credit-default-swap-corisk" class="level2">
+<h2 class="anchored" data-anchor-id="cds-corisk-credit-default-swap-corisk">CDS-CoRisk: Credit default swap-CoRisk</h2>
+<p><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1417920">IMF(2009)</a></p>
+<p>금융기관간 위험도의 상호연계성을 CDS 스프레드를 이용하여 측정</p>
+<ul>
+<li><p>CoRisk는 quantile regression 기법을 사용하여 한 금융기관의 위험 사건 여부가 다른 금융기관에 미치는 영향을 측정</p>
+<ul>
+<li><span class="math inline">\(CDS_{it}=\alpha_{\tau}+\sum^{K}_{k=1}\beta_{\tau k}R_{kt}+\gamma_{\tau j}CDS_{jt}+\epsilon_{it}\)</span></li>
+<li><span class="math inline">\(\tau\)</span>는 백분위수, <span class="math inline">\(R\)</span>은 <span class="math inline">\(K\)</span>개의 위험요인</li>
+<li>위험요인: 일반적인 리스크 프리미엄, 수익률곡선의 기울기, LIBOR 스프레드, 단기자금시장의 유동성 상황, VIX 등</li>
+</ul></li>
+<li><p>CDS 스프레드가 높을수록 고위험도를 나타내며, 95 percentile을 상회하는 경우를 위험 사건이 발생한 것으로 간주</p></li>
+<li><p>CoRisk (금융기관 <span class="math inline">\(j\)</span>에 대한 <span class="math inline">\(i\)</span>의 조건부)</p>
+<ul>
+<li><span class="math inline">\(Conditional CoRisk_t(i,j) = 100 \times (\frac{CDS(95|j)}{CDS_i(95)}-1 )\)</span></li>
+<li><span class="math inline">\(CDS(95|j)=\alpha_{95}+\sum^{K}_{k=1}\beta_{95k}R_{kt}+\gamma_{95j}CDS_j(95)\)</span></li>
+<li>CoRisk는 한 금융기관의 CDS 스프레드의 무조건부 95 percentile과 다른 금융기관에서 위험 사건이 발생한 경우에 대한 조건부 95 percentile간의 상대적 차이를 나타냄</li>
+</ul></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="2-4_Systemic_Risk_Measures_Probability_of_Default_files/figure-html/a7e4eac8-1-IMF_2009_Fig2.5.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">IMF(2009) Fig2.5.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="2-4_Systemic_Risk_Measures_Probability_of_Default_files/figure-html/a7e4eac8-2-IMF_2009_Fig2.6.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">IMF(2009) Fig2.6.</figcaption>
+</figure>
+</div>
 </section>
-<section id="학습데이터-구축-및-학습" class="level2">
-<h2 class="anchored" data-anchor-id="학습데이터-구축-및-학습">학습데이터 구축 및 학습</h2>
-<p>학습데이터는 <strong>2005년 1월 ~ 2021년 6월 경제 뉴스기사의 약 44만개 문장</strong></p>
-<p>16명의 통계조사원이 <strong>직접</strong> ‘긍정’, ‘부정’, ’중립’으로 분류하여 각 문장별로 <strong>감성 레이블</strong>을 작성</p>
+<section id="option-ipod-option-implied-probability-of-default" class="level2">
+<h2 class="anchored" data-anchor-id="option-ipod-option-implied-probability-of-default">Option-iPoD : Option-implied probability of default</h2>
+<p><a href="https://doi.org/10.5089/9781451870527.001">Capuano(2008)</a></p>
+<p>옵션가격으로부터 부도확률을 추정</p>
 <ul>
-<li><p>감성 레이블은 사람이 작성함에 따라 발생할 수 있는 측정오류를 최소화하기 위해 최초 분류 이후 검토자의 검토를 거쳐 최종 레이블을 확정</p></li>
-<li><p>약 80%가 중립, 나머지 약 20% 중 절반이 긍정, 다른 절반이 부정 <span class="math inline">\(\rightarrow\)</span> <strong>불균형</strong> 데이터의 조정을 위해 <strong>레이블 가중치</strong>를 모형 학습에 반영</p></li>
-</ul>
-<p>지리적 범위를 기준으로 ‘국내’, ‘국외’, ‘국내·국외 모두 해당’ 등 세 가지로 분류하여, 국외 뉴스기사 제외함.</p>
+<li>Merton(1974)의 구조모형을 이용
 <ul>
-<li>Random Forest, Support Vector Machine (SVM), Single-head Attention 모형 등을 함께 고려</li>
-<li>5000개 문장으로 구성한 검증 데이터(validation data) 비교 결과 <strong>트랜스포머 모형</strong> 가장 우수</li>
-<li>가중치 조정 여부 결과 ’미조정’이 성능이 더 높으나, 심리지수 작성 시 변동성 확대 문제로, 가중치를 고려하기로 함</li>
+<li>금융기관의 (시장가치 기준) 자산을 <span class="math inline">\(V\)</span>, 부채를 <span class="math inline">\(D\)</span>, 자본을 <span class="math inline">\(E\)</span>라고 하면, 금융기관의 부도사건은 <span class="math inline">\(V&lt;D\)</span>로 정의</li>
+<li>자본은 부채를 먼저 상환하고 남는 부분에 대한 청구권으로서 <span class="math inline">\(E=\max(V-D,0)\)</span></li>
+<li>이는 마치 기초자산을 <span class="math inline">\(V\)</span>로, 행사가격을 <span class="math inline">\(D\)</span>로 하는 콜옵션과 동일한 구조</li>
+</ul></li>
+<li>부도확률(PoD):
+<ul>
+<li><span class="math inline">\(PoD = \int^{D}_0 fdV\)</span></li>
+</ul></li>
+<li>확률밀도함수 <span class="math inline">\(f\)</span> 는 CIMDO 방법을 이용하여 다음과 같이 추정
+<ul>
+<li><span class="math inline">\(\min \int^{\infty}_0 f(V)ln(\frac{f(V)}{f^0(V)})dV\)</span></li>
+<li>사후 (posterior) 밀도함수 <span class="math inline">\(f\)</span>는 사전(prior) 밀도함수 <span class="math inline">\(f^0\)</span> 와의 cross-entropy를 최소화</li>
+</ul></li>
+<li>사후 밀도함수의 조건
+<ul>
+<li>자본이 콜옵션 가치로 평가됨
+<ul>
+<li><span class="math inline">\(E=\int^{\infty}_{D}(V-D)f(V)dV\)</span></li>
+</ul></li>
+<li>행사가격이 <span class="math inline">\(K\)</span>인 주식옵션의 가격이 <span class="math inline">\(C\)</span>일 때 이 옵션가격과 일치성의 가짐
+<ul>
+<li><span class="math inline">\(C=\int^{\infty}_{D+K}(V-D-K)f(V)dV\)</span></li>
+</ul></li>
+<li>확률밀도함수의 면적은 1
+<ul>
+<li><span class="math inline">\(1=\int^{\infty}_{0}f(V)dV\)</span></li>
+</ul></li>
+</ul></li>
+<li>사후 밀도함수
+<ul>
+<li><span class="math inline">\(f(V) = f^0(V)\exp [ \lambda_0-1+\lambda_1e^{-rT}I_{V&gt;D}(V-D)+\lambda_2e^{-rT}I_{V&gt;D+K}(V-D-K) ]\)</span></li>
+<li><span class="math inline">\(\lambda_0\)</span>는 확률밀도함수의 면적이 1이라는 조건에 대한 라그랑지 승수, <span class="math inline">\(\lambda_1\)</span>는 자본이 콜옵션의 가치로 평가된다는 조건에 대한 라그랑지 승수, <span class="math inline">\(\lambda_2\)</span>는 주식옵션의 가격이 만족하여야 하는 조건에 대한 라그랑지 승수</li>
+</ul></li>
 </ul>
-<p><img src="img/nsi_t1.png" width="500"></p>
 </section>
-<section id="일별-뉴스데이터-구축" class="level2">
-<h2 class="anchored" data-anchor-id="일별-뉴스데이터-구축">일별 뉴스데이터 구축</h2>
-<p>모든 문장에 대해 전처리, 모형 적용은 막대한 컴퓨터 비용 초래</p>
+<section id="cca-contingent-claim-approach" class="level2">
+<h2 class="anchored" data-anchor-id="cca-contingent-claim-approach">CCA: Contingent claim approach</h2>
+<p><a href="https://doi.org/10.1016/j.jbankfin.2004.09.007">Lehar(2005)</a></p>
+<p>주가에 기업의 부도확률에 대한 정보가 내재되어 있다는 점에 기반하여 주가 정보를 이용하여 내재된 부도확률에 대한 정보를 얻는 방법</p>
 <ul>
-<li>입수되는 뉴스기사의 수는 2021년 기준 일평균 약 4000개이며, 이를 문장으로 환산할 경우 약 7만 문장</li>
-</ul>
-<p>뉴스심리지수는 입수한 뉴스기사 문장 중 일부를 <strong>표본추출</strong>(<strong>sampling</strong>)하여 작성</p>
+<li><p>Merton(1974)의 콜옵션 구조모형(<span class="math inline">\(E=\max(V-D,0)\)</span>)에서 주식이 일종의 콜옵션과 같은 조건부 증권(contingent claim)으로 봄</p></li>
+<li><p>금융기관의 자산 <span class="math inline">\(V\)</span>가 다음과 같이 geometric 브라운 운동으로 따른다고 가정</p>
 <ul>
-<li>입수한 뉴스기사를 문장 단위로 분해하여 일별 데이터 모집단을 구성, 다음 일별 모집단에서 1만 개의 표본문장을 임의로 추출</li>
-</ul>
-</section>
-<section id="뉴스심리-지수-작성-및-표준화" class="level2">
-<h2 class="anchored" data-anchor-id="뉴스심리-지수-작성-및-표준화">뉴스심리 지수 작성 및 표준화</h2>
-<p>뉴스심리지수는 일별로 입수한 뉴스기사의 표본문장들을 앞에서 설명한 과정을 거쳐 ’국내 긍정문장’과 ’국내 부정문장’으로 분류한 뒤, 두 분류(class)의 문장 개수를 카운트하여 작성.</p>
+<li><span class="math inline">\(dV=\mu Vdt+\sigma Vdz\)</span></li>
+<li>주가 <span class="math inline">\(E\)</span> 는 행사가격이 <span class="math inline">\(D_t\)</span>, 기초자산 가격이 <span class="math inline">\(V_t\)</span>인 BSM(Black-Scholes-Merton) 콜옵션가격과 동일</li>
+</ul></li>
+<li><p>금융기관의 자산에 대한 확률과정의 모수 <span class="math inline">\(\mu, \sigma\)</span>를 금융기관의 주가에 대한 정보를 이용하여 추정</p>
 <ul>
-<li>일별 뉴스심리지수의 경우 변동성을 고려하여 <strong>해당일 기준 직전 7일간</strong> 발간된 뉴스기사를 기준으로 작성</li>
-<li>월별 뉴스심리지수의 경우 <strong>해당월</strong> 중 발간된 뉴스기사를 기준으로 작성</li>
-</ul>
-<p>뉴스심리지수는 2005년부터 해당일 기준 직전 연도까지를 표준화 구간으로 설정하고 이 기간중 지수의 평균과 분산을 이용하여 <strong>평균이 100, 표준편차가 10</strong>이 되도록 표준화하여 산출</p>
+<li>다음의 우도함수를 극대화하도록 추정</li>
+<li><span class="math inline">\(L(\mu,\sigma)=-\frac{m-1}{2}\ln(2\pi)-\frac{m-1}{2}\ln\sigma^2 - \sum^{m}_{t=2}\ln \hat{V}_t(\sigma) - \sum^{m}_{t=2}\ln N(\hat{d}_t) - \frac{1}{2\sigma^2}\sum^{m}_{t=2}[\ln\frac{\hat{V}_t(\sigma)}{\hat{V}_{t-1}(\sigma)}]^2\)</span></li>
+<li><span class="math inline">\(\hat{V}_t(\sigma)\)</span>는 BSM의 콜옵션가격 공식에서 구해지는 해</li>
+</ul></li>
+<li><p>금융기관간의 연계성을 다음과 같이 지수가중 이동평균 방법을 이용하여 모형화</p>
 <ul>
-<li>표준화한 뉴스심리지수는 지수가 100보다 크면 뉴스기사에 나타난 경제심리가 과거 평균보다 낙관적, 100보다 작으면 비관적인 것으로 해석</li>
+<li>금융기관 <span class="math inline">\(i, j\)</span>의 공분산: <span class="math inline">\(\sigma_{ij,t} = \lambda\sigma_{ij,t-1}+(1-\lambda)\ln(\frac{V^i_t}{V^i_{t-1}})\ln(\frac{V^j_t}{V^j_{t-1}})\)</span></li>
+</ul></li>
+<li><p>Lehar(2005)는 시스템리스크 측정지표로서 전체 금융시스템 내에 금융기관중 부실금융기관의 수가 일정 비율 (예를 들어, 10%) 이상일 확률을 나타내는 SIN과 자산기준 부실금융기관의 비중이 일정 비율 이상일 확률을 나타내는 SIV 등을 제시</p></li>
 </ul>
-<section id="일별심리지수" class="level3">
-<h3 class="anchored" data-anchor-id="일별심리지수">일별심리지수:</h3>
-<p><span class="math inline">\(NSI(\text{daily}) = \frac{X_t - \overline{X}}{S}\times 10 + 100,\)</span></p>
-<p><span class="math inline">\(\text{where } X_t = \frac{\sum_{\tau=1}^{7} P_{t-\tau} - \sum_{\tau=1}^{7} N_{t-\tau}} {\sum_{\tau=1}^{7} P_{t-\tau} + \sum_{\tau=1}^{7} N_{t-\tau}}\)</span></p>
-<p><span class="math inline">\(\overline{X} = \frac{1}{|T|} \sum_{t \in T} X_t,\)</span></p>
-<p><span class="math inline">\(S = \sqrt{\frac{1}{|T|-1} \sum_{t \in T} (X_t - \overline{X})^2}.\)</span></p>
-</section>
-<section id="월별심리지수" class="level3">
-<h3 class="anchored" data-anchor-id="월별심리지수">월별심리지수:</h3>
-<p><span class="math inline">\(NSI(\text{monthly}) = \frac{X_t - \overline{X}}{S}\times 10 + 100,\)</span></p>
-<p><span class="math inline">\(\text{where } X_t = \frac{\sum_{\tau \in M_\mu} P_{t-\tau} - \sum_{\tau \in M_\mu} N_{t-\tau}} {\sum_{\tau \in M_\mu} P_{t-\tau} + \sum_{\tau \in M_\mu} N_{t-\tau}}\)</span></p>
-<p><span class="math inline">\(\overline{X} = \frac{1}{|T|} \sum_{t \in T} X_t,\)</span></p>
-<p><span class="math inline">\(S = \sqrt{\frac{1}{|T|-1} \sum_{t \in T} (X_t - \overline{X})^2}.\)</span></p>
-</section>
 </section>
 </section>
 <section id="참고문헌" class="level1">
 <h1>참고문헌</h1>
 <ul>
-<li><a href="https://www.bok.or.kr/portal/bbs/B0000233/view.do?nttId=10070681&amp;menuNo=200707">서범석·이영환·조형배 (2022 b)</a>. 기계학습을 이용한 뉴스심리지수(NSI)의 작성과 활용. 국민계정리뷰, 2022(1), 68-90.</li>
+<li><p>서상원. (2018). 시스템리스크의 측정과 관리: 서베이와 제언. 금융안정연구, 19(1), 131-232.</p></li>
+<li><p>Capuano, C. (2008). The option-iPoD. International Monetary Fund.</p></li>
+<li><p>Chan-Lau, J. A., Espinosa, M., Giesecke, K., &amp; Solé, J. A. (2009). Assessing the systemic implications of financial linkages. IMF global financial stability report, 2.</p></li>
+<li><p>Huang, X., Zhou, H., &amp; Zhu, H. (2009). A framework for assessing the systemic risk of major financial institutions. Journal of Banking &amp; Finance, 33(11), 2036-2049.</p></li>
+<li><p>Lehar, A. (2005). Measuring systemic risk: A risk management approach. Journal of Banking &amp; Finance, 29(10), 2577-2603.</p></li>
 </ul>
 
 
@@ -854,11 +854,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../posts/nlp/finance_llm_survey.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">금융분야의 LLM (2023)</span>
+      <a href="../../posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">선행연구 (금융기관 위험)</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../../posts/systemic_risk/2-5_Systemic_Risk_Measures_Network.html" class="pagination-link">
+        <span class="nav-page-text">선행연구 (네트워크)</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

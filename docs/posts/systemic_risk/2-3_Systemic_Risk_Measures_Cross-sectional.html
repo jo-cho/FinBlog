@@ -8,7 +8,7 @@
 
 <meta name="author" content="Cheonghyo Cho">
 
-<title>Cho’s FinBlog - 뉴스심리지수 (한국은행)</title>
+<title>Cho’s FinBlog - 시스템 리스크 분석: (2-3) 금융기관 단면적 위험 측정방법</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../posts/nlp/finance_llm_survey.html" rel="prev">
+<link href="../../posts/systemic_risk/2-4_Systemic_Risk_Measures_Probability_of_Default.html" rel="next">
+<link href="../../posts/systemic_risk/2-2_Systemic_Risk_Measures_Market.html" rel="prev">
 <link href="../../logo.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -118,7 +119,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">자연어 처리</li><li class="breadcrumb-item"><a href="../../posts/nlp/finance_llm_survey.html">선행연구</a></li><li class="breadcrumb-item"><a href="../../posts/nlp/news_sentiment_index.html">뉴스심리지수(NSI) - 한국은행</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../posts/systemic_risk/1_Systemic_Risk.html">시스템 리스크 분석</a></li><li class="breadcrumb-item"><a href="../../posts/systemic_risk/2_Systemic_Risk_Measures.html">시스템 리스크 측정</a></li><li class="breadcrumb-item"><a href="../../posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.html">선행연구 (금융기관 위험)</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -222,13 +223,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
  <span class="menu-text">시스템 리스크 분석</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/systemic_risk/1_Systemic_Risk.html" class="sidebar-item-text sidebar-link">
@@ -237,13 +238,13 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
  <span class="menu-text">시스템 리스크 측정</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/systemic_risk/2_Systemic_Risk_Measures.html" class="sidebar-item-text sidebar-link">
@@ -264,7 +265,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.html" class="sidebar-item-text sidebar-link">
+  <a href="../../posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">선행연구 (금융기관 위험)</span></a>
   </div>
 </li>
@@ -385,22 +386,22 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
  <span class="menu-text">자연어 처리</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
  <span class="menu-text">선행연구</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/nlp/finance_llm_survey.html" class="sidebar-item-text sidebar-link">
@@ -409,7 +410,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/nlp/news_sentiment_index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../posts/nlp/news_sentiment_index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">뉴스심리지수(NSI) - 한국은행</span></a>
   </div>
 </li>
@@ -427,26 +428,15 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">목차</h2>
    
   <ul>
-  <li><a href="#데이터" id="toc-데이터" class="nav-link active" data-scroll-target="#데이터">데이터</a></li>
-  <li><a href="#작성-방법" id="toc-작성-방법" class="nav-link" data-scroll-target="#작성-방법">작성 방법</a>
+  <li><a href="#금융기관-위험-측정방법" id="toc-금융기관-위험-측정방법" class="nav-link active" data-scroll-target="#금융기관-위험-측정방법">금융기관 위험 측정방법</a>
   <ul class="collapse">
-  <li><a href="#개요" id="toc-개요" class="nav-link" data-scroll-target="#개요">개요</a></li>
-  <li><a href="#전처리" id="toc-전처리" class="nav-link" data-scroll-target="#전처리">전처리</a>
-  <ul class="collapse">
-  <li><a href="#입력-데이터의-구조" id="toc-입력-데이터의-구조" class="nav-link" data-scroll-target="#입력-데이터의-구조">입력 데이터의 구조</a></li>
-  <li><a href="#토큰화tokenzing" id="toc-토큰화tokenzing" class="nav-link" data-scroll-target="#토큰화tokenzing">토큰화(tokenzing)</a></li>
-  </ul></li>
-  <li><a href="#모형" id="toc-모형" class="nav-link" data-scroll-target="#모형">모형</a>
-  <ul class="collapse">
-  <li><a href="#트랜스포머transformer" id="toc-트랜스포머transformer" class="nav-link" data-scroll-target="#트랜스포머transformer">트랜스포머(transformer)</a></li>
-  </ul></li>
-  <li><a href="#학습데이터-구축-및-학습" id="toc-학습데이터-구축-및-학습" class="nav-link" data-scroll-target="#학습데이터-구축-및-학습">학습데이터 구축 및 학습</a></li>
-  <li><a href="#일별-뉴스데이터-구축" id="toc-일별-뉴스데이터-구축" class="nav-link" data-scroll-target="#일별-뉴스데이터-구축">일별 뉴스데이터 구축</a></li>
-  <li><a href="#뉴스심리-지수-작성-및-표준화" id="toc-뉴스심리-지수-작성-및-표준화" class="nav-link" data-scroll-target="#뉴스심리-지수-작성-및-표준화">뉴스심리 지수 작성 및 표준화</a>
-  <ul class="collapse">
-  <li><a href="#일별심리지수" id="toc-일별심리지수" class="nav-link" data-scroll-target="#일별심리지수">일별심리지수:</a></li>
-  <li><a href="#월별심리지수" id="toc-월별심리지수" class="nav-link" data-scroll-target="#월별심리지수">월별심리지수:</a></li>
-  </ul></li>
+  <li><a href="#pcas-principal-component-analysis-based-systemic-risk-indicator" id="toc-pcas-principal-component-analysis-based-systemic-risk-indicator" class="nav-link" data-scroll-target="#pcas-principal-component-analysis-based-systemic-risk-indicator">PCAS : Principal component analysis-based systemic risk indicator</a></li>
+  <li><a href="#covar-co-value-at-risk" id="toc-covar-co-value-at-risk" class="nav-link" data-scroll-target="#covar-co-value-at-risk">CoVaR: Co-Value-at-Risk</a></li>
+  <li><a href="#ses-systemic-expected-shortfall" id="toc-ses-systemic-expected-shortfall" class="nav-link" data-scroll-target="#ses-systemic-expected-shortfall">SES: Systemic expected shortfall</a></li>
+  <li><a href="#ces-component-expected-shortfall" id="toc-ces-component-expected-shortfall" class="nav-link" data-scroll-target="#ces-component-expected-shortfall">CES: Component expected shortfall</a></li>
+  <li><a href="#srisk-sytemic-risk" id="toc-srisk-sytemic-risk" class="nav-link" data-scroll-target="#srisk-sytemic-risk">SRISK: Sytemic risk</a></li>
+  <li><a href="#structural-garch" id="toc-structural-garch" class="nav-link" data-scroll-target="#structural-garch">Structural GARCH</a></li>
+  <li><a href="#cimdo-consistent-multivariate-density-optimizing" id="toc-cimdo-consistent-multivariate-density-optimizing" class="nav-link" data-scroll-target="#cimdo-consistent-multivariate-density-optimizing">CIMDO: Consistent multivariate density optimizing</a></li>
   </ul></li>
   <li><a href="#참고문헌" id="toc-참고문헌" class="nav-link" data-scroll-target="#참고문헌">참고문헌</a></li>
   </ul>
@@ -457,13 +447,11 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">뉴스심리지수 (한국은행)</h1>
-<p class="subtitle lead">Measuring News Sentiment</p>
+<h1 class="title">시스템 리스크 분석: (2-3) 금융기관 단면적 위험 측정방법</h1>
+<p class="subtitle lead">Systemic Risk Measure - Financial Institutions Cross-sectional Risk</p>
   <div class="quarto-categories">
-    <div class="quarto-category">sentiment</div>
-    <div class="quarto-category">nlp</div>
-    <div class="quarto-category">transformer</div>
-    <div class="quarto-category">paper</div>
+    <div class="quarto-category">systemic risk</div>
+    <div class="quarto-category">financial institution</div>
   </div>
   </div>
 
@@ -485,132 +473,318 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<blockquote class="blockquote">
-<p>한국은행에서 발표한 통계치인 뉴스심리지수(NSI)를 소개한다. 트랜스포머(tranformer)를 사용하여 감성분석을 한다.</p>
-</blockquote>
-<p><strong>논문 요약</strong></p>
-<section id="데이터" class="level1">
-<h1>데이터</h1>
-<p>뉴스기사 텍스트 데이터의 웹크롤링(web crawling) - 경제분야로 한정하여 인터넷 포털사이트(약 50여개 언론사)에서 뉴스기사 수집 - 수집 대상기간: 2005년 이후</p>
-<p>데이터 무결성(data integrity) 처리 - 중복된 뉴스기사 또는 광고성 기사 등 - 새로 수집한 뉴스기사 원문이 직전 30일 내에 한번이라도 동일하게 데이터베이스에 등장하는 경우, 이 뉴스기사를 배제제 년 이후이후</p>
-<p><img src="img/nsi_f1.png" width="500"></p>
-</section>
-<section id="작성-방법" class="level1">
-<h1>작성 방법</h1>
-<section id="개요" class="level2">
-<h2 class="anchored" data-anchor-id="개요">개요</h2>
-<p>뉴스기사에 나타난 긍정문장과 부정문장을 카운트한 뒤 지수화</p>
-<p>기계학습(machine learning) 사용 (감성분류 모형)</p>
+<p>서상원 (2018)</p>
+<p>시스템리스크 측정 방법 중 다수의 금융기관이 동시에 위험에 처하게 되는 위험을 직접적으로 측정하는 법을 알아본다. 금융기관의 부도사건에 대한 다변수 확률분포에 대한 정보를 추출하고 이를 이용하여 시스템리스크를 측정한다.</p>
+<section id="금융기관-위험-측정방법" class="level1">
+<h1>금융기관 위험 측정방법</h1>
+<section id="pcas-principal-component-analysis-based-systemic-risk-indicator" class="level2">
+<h2 class="anchored" data-anchor-id="pcas-principal-component-analysis-based-systemic-risk-indicator">PCAS : Principal component analysis-based systemic risk indicator</h2>
+<p><a href="https://www.sciencedirect.com/science/article/abs/pii/S0304405X11002868">Billio et al.(2012)</a></p>
+<p>은행, 증권회사, 보험회사 및 헤지펀드 등 주요 금융기관들의 주가 수익률간의 연계성(interconnectedness)을 PCA 기법을 이용하여 측정하는 방법</p>
 <ul>
-<li>뉴스 문장(<span class="math inline">\(s\in S\)</span>)과</li>
-<li>논조 (<span class="math inline">\(l \in {(p_0,p_1,p_2)|p_0=P(Positive),p_1=P(Negative),p_2=P(Neutral)}\)</span>)로 구성된</li>
-<li>데이터 쌍(data pair, <span class="math inline">\({(s,l)_i}^N_{i=1}\)</span>)을 이용하여</li>
-<li>데이터에 가장 잘 부합하는 다음과 같은 감성분류 함수 <span class="math inline">\(f_\theta\)</span>를 찾는 것</li>
+<li>여러 금융기관들의 주가 수익률이 서로 긴밀하게 연계되어 있을수록 상위 몇개의 주성분으로 (분산을 기준으로 할 때) 전체의 변동을 잘 설명할 수 있게 됨
+<ul>
+<li><span class="math inline">\(h_n = \frac{\sum^n_{i=1}\lambda_i}{\sum^n_{i=1}\lambda_i}\)</span></li>
+<li><span class="math inline">\(\lambda_i\)</span>는 금융기관들의 주가 수익률 공분산 행렬의 <span class="math inline">\(i\)</span>번째 특성치</li>
+<li>금융기관간 연계성이 강할수록 <span class="math inline">\(h_n\)</span>이 증가</li>
+<li>Kritzman et al.(2011)의 <a href="">PCA-AR</a>은 주식시장에서의 연계성을 측정한데 반해, Billio et al.(2012)는 금융기관간 연계성을 측정</li>
+</ul></li>
+<li>개별 금융기관이 시스템리스크에 미치는 기여도
+<ul>
+<li><span class="math inline">\({PCAS}_{i,n} \equiv \frac{1}{2} \frac{\sigma^2_i}{\sigma^2_S} \frac{\partial\sigma^2_S}{\partial\sigma^2_i}|_{h_n \geq H} = \frac{\sigma^2_i}{\sigma^2_S} \sum^n_{k=1}W^2_{ik}\lambda_k|_{h_n} \geq H\)</span></li>
+<li><span class="math inline">\(\sigma^2_i\)</span>는 주가수익률의 분산으로 측정한 개별 금융기관의 위험</li>
+<li><span class="math inline">\(\sigma^2_S\)</span>개별 금융기관 주가수익률의 공분산의 합으로 측정한 금융시스템의 위험도</li>
+<li><span class="math inline">\(W^2_{ik}\)</span>는 금융기관 주가 수익률 공분산 행렬의 특성벡터로 이루어진 주성분 가중치 행렬 <span class="math inline">\(W\)</span>의 <span class="math inline">\((i,k)\)</span>번째 원소</li>
+<li><span class="math inline">\(H\)</span>는 금융기관간 연계성에 대한 임계치로서 <span class="math inline">\(h_n\)</span>이 <span class="math inline">\(H\)</span>를 상회할 경우 강한 연계성이 존재하는 것으로 판단</li>
+</ul></li>
+<li>즉, PCAS는 개별 금융기관 위험도의 상대적 증가가 금융시스템의 상대적 위험도 증가에 미치는 영향을 민감도를 이용하여 측정</li>
 </ul>
-<p><span class="math display">\[f_\theta : S \rightarrow \{(p_0, p_1, p_2) \mid p_0 = P(\text{Positive}), p_1 = P(\text{Negative}), p_2 = P(\text{Neutral})\}\]</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="2-3_Systemic_Risk_Measures_Cross-sectional_files/figure-html/18fbdc18-1-Billio_et_al_2012_Fig1.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Billio et al.&nbsp;(2012) Figure 1</figcaption>
+</figure>
+</div>
 </section>
-<section id="전처리" class="level2">
-<h2 class="anchored" data-anchor-id="전처리">전처리</h2>
-<section id="입력-데이터의-구조" class="level3">
-<h3 class="anchored" data-anchor-id="입력-데이터의-구조">입력 데이터의 구조</h3>
-<p>기사가 아닌 <strong>문장</strong> 기준으로 논조를 분류</p>
-</section>
-<section id="토큰화tokenzing" class="level3">
-<h3 class="anchored" data-anchor-id="토큰화tokenzing">토큰화(tokenzing)</h3>
-<p>형태소(POS, part-of-speech) 단위 분해 <span class="math display">\[g: S \rightarrow C\]</span></p>
+<section id="covar-co-value-at-risk" class="level2">
+<h2 class="anchored" data-anchor-id="covar-co-value-at-risk">CoVaR: Co-Value-at-Risk</h2>
+<p><a href="https://doi.org/10.2139/ssrn.1269446">Adrian &amp; Brunnermeier (2008)</a></p>
+<p>VaR(Value-at-Risk)(금융기관의 위험도를 측정하는 대표적인 지표)개념을 활용하여 시스템리스크를 측정</p>
 <ul>
-<li>각 문장 (<span class="math inline">\(s \in S\)</span>)을 형태소 단위로 분해함</li>
-<li>말뭉치 토큰의 수열 모임(a collection of sequences of tokens), <span class="math inline">\(C\)</span></li>
+<li>금융기관 <span class="math inline">\(i\)</span>의 <span class="math inline">\(q\%\)</span> 유의수준에서 <span class="math inline">\(VaR\)</span>
+<ul>
+<li><span class="math inline">\(Pr[X^i \leq {VaR}^i_q] = q\%\)</span></li>
+<li><span class="math inline">\(X^i\)</span>는 금융기관 <span class="math inline">\(i\)</span>의 손실규모를 나타내는 확률변수</li>
+</ul></li>
+<li>금융기관 (또는 금융기관의 그룹) <span class="math inline">\(j\)</span> 의 <span class="math inline">\(CoVaR\)</span>
+<ul>
+<li><span class="math inline">\(Pr[X^j |C(X^i) \leq {CoVaR}^{j|C(X^i)}_q] = q\%\)</span></li>
+<li><span class="math inline">\(C(X^i)\)</span>는 금융기관 i가 손실허용한도인 <span class="math inline">\({VaR}^i_q\)</span>를 넘어서는 손실을 보는 사건</li>
+</ul></li>
+<li>금융기관 <span class="math inline">\(i\)</span>로 인한 <span class="math inline">\(j\)</span>의 위험도 변화
+<ul>
+<li><span class="math inline">\(\Delta{CoVaR}^{j|i}_q \equiv {CoVaR}^{j|X^i={VaR}^i_q}_q - {CoVaR}^{j|X^i={VaR}^i_{50}}_q\)</span></li>
+<li>즉, 금융기관 <span class="math inline">\(i\)</span>가 큰 손실을 보는 경우와 평균적인 경우에 금융기관 <span class="math inline">\(j\)</span>의 위험수준의 차이</li>
+</ul></li>
+<li>시스템리스크 관점에서 금융기관 <span class="math inline">\(i\)</span>가 시스템리스크에 미치는 기여도를 측정하기 위해 <span class="math inline">\(j\)</span>를 금융시스템으로 간주
+<ul>
+<li><span class="math inline">\(\Delta{CoVaR}^{system|i}_q \equiv {CoVaR}^{system|X^i={VaR}^i_q}_q - {CoVaR}^{system|X^i={VaR}^i_{50}}_q\)</span></li>
+</ul></li>
+<li>반대로 금융기관을 <span class="math inline">\(j\)</span>, 시스템을 <span class="math inline">\(i\)</span>로 하면, 금융기관이 시스템리스크의 변동에 따라 얼마나 영향을 받는지를 측정 (Exposure-CoVaR)/ 금융기관을 <span class="math inline">\(i\)</span>, <span class="math inline">\(j\)</span>로 하면 Network-CoVaR</li>
 </ul>
-<p>정수 변환(integer encoding)으로 수치화 <span class="math display">\[h:C \rightarrow \mathbb{R}^m\]</span></p>
-<p>최대 길이(<span class="math inline">\(m\)</span>=0)로 제로 패딩(zero padding) 사용</p>
-<p><img src="img/nsi_f2.png" width="500"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="2-3_Systemic_Risk_Measures_Cross-sectional_files/figure-html/4eef8c2c-1-Adrian_Brunnermeier_2008_Fig4.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Adrian, Brunnermeier (2008) Figure 4</figcaption>
+</figure>
+</div>
 </section>
-</section>
-<section id="모형" class="level2">
-<h2 class="anchored" data-anchor-id="모형">모형</h2>
-<section id="트랜스포머transformer" class="level3">
-<h3 class="anchored" data-anchor-id="트랜스포머transformer">트랜스포머(transformer)</h3>
-<p>감성분류 모형으로 트랜스포머(transformer) 사용</p>
+<section id="ses-systemic-expected-shortfall" class="level2">
+<h2 class="anchored" data-anchor-id="ses-systemic-expected-shortfall">SES: Systemic expected shortfall</h2>
+<p><a href="https://doi.org/10.2139/ssrn.1573171">Acharya et al.&nbsp;(2010)</a></p>
+<p>금융 시스템 위기가 발생한 경우에 개별 금융기관의 적정 자본수준대비 자본의 부족규모 예상치를 측정</p>
 <ul>
-<li>트랜스포머 모형은 여러 개(multiple-head)의 Attention 구조를 갖는 인공신경망 모형으로 텍스트 분석을 위해 널리 이용되던 RNN및 LSTM 모형에 비해 입력 벡터 전체의 맥락(context)을 더 잘 파악</li>
-<li>여기서 Attention 구조란 벡터를 입력데이터로 하는 예측 모형에서 입력 벡터의 값들 중 집중(attention)적으로 학습할 필요가 있는 값에 더 높은 가중치를 부여</li>
-</ul>
-<p>감성분류모형은 뉴스문장을 입력변수로 받으며, 해당 문장의 감성이 긍정/부정/중립일 확률을 출력변수로 출력</p>
-<p>전체 과정을 포함한 감성분류모형 <span class="math inline">\(f_\theta\)</span>는 다음과 같음</p>
-<p><img src="img/nsi_f3.png" width="500"></p>
-<p><span class="math inline">\(f_{\theta} : S \rightarrow \{ (p_0, p_1, p_2) \},\)</span></p>
-<p><span class="math inline">\(f_{\theta}(s_i) = k_{\theta} \circ h \circ g(s_i) \equiv \hat{i},\)</span></p>
-<p><span class="math inline">\(\text{where} \quad s_i \in S, \, \hat{i} \in \{ (p_0, p_1, p_2) \}\)</span></p>
+<li>가정 및 개념
 <ul>
-<li><p>뉴스문장은 먼저 전처리 과정을 거쳐 수치형 벡터로 치환됨.</p></li>
-<li><p>수치형 벡터로 치환된 문장은 각 단어 토큰의 연관도를 학습하여 다시 다차원 공간으로 배치하는 Embedding 과정을 거침 (Embedding을 위해 32차원을 고려).</p></li>
-<li><p>따라서 하나의 뉴스문장은 전처리와 Embedding 과정을 거치면서 80×32 차원의 수치행렬 값으로 치환됨.</p></li>
-<li><p>이후 트랜스포머 블록과 이어지는 Feed Forward 네트워크는 입력 문장의 논조를 잘 예측하는 비선형 함수를 찾아 뉴스문장의 감성을 긍정/부정/중립 중 하나로 분류하게 됨.</p></li>
-<li><p>마지막으로 Softmax 함수는 실수값의 출력변수를 0과 1사이의 확률값으로 변환하는 역할을 함.</p></li>
-</ul>
-<p>파라미터 <span class="math inline">\(\theta\)</span>값은 데이터쌍 <span class="math inline">\((\{(s, l)_i\}_{i=1}^N)\)</span>의 관측 레이블 <span class="math inline">\((l_i=(p_0^i,p_1^i,p_2^i))\)</span>과 모형의 예측치<span class="math inline">\((\hat{l}_i =(\hat{p}_0^i, \hat{p}_1^i,\hat{p}_2^i)\)</span> 분포가 비슷해지도록 다음의 Cross-entropy 손실함수(<span class="math inline">\(L\)</span>)를 최소화하는 과정(optimization)을 통해 추정(estimate or train)한다.</p>
-<p><span class="math display">\[L(\theta|\{s_{i},l_{i}\}_{i=1}^{N})=-\sum_{i=1}^{N}\sum_{c=0}^{N}p_{c}^{(i)}\log\hat{p}_{c}^{(i)}\]</span></p>
-</section>
-</section>
-<section id="학습데이터-구축-및-학습" class="level2">
-<h2 class="anchored" data-anchor-id="학습데이터-구축-및-학습">학습데이터 구축 및 학습</h2>
-<p>학습데이터는 <strong>2005년 1월 ~ 2021년 6월 경제 뉴스기사의 약 44만개 문장</strong></p>
-<p>16명의 통계조사원이 <strong>직접</strong> ‘긍정’, ‘부정’, ’중립’으로 분류하여 각 문장별로 <strong>감성 레이블</strong>을 작성</p>
+<li>시스템리스크: 시장 주가지수의 하락폭이 하위 5%를 넘는 경우로 전제</li>
+<li>MES: 시스템리스크가 발생하였을 때 해당 금융기관의 주가 수익률 하락폭의 기댓값</li>
+<li>레버리지: ‘주식 시가총액’ 대비 ’장부가 자산 – 장부가 부채 + 주식 시가총액’의 비율로 측정</li>
+</ul></li>
+<li>SES 추정
 <ul>
-<li><p>감성 레이블은 사람이 작성함에 따라 발생할 수 있는 측정오류를 최소화하기 위해 최초 분류 이후 검토자의 검토를 거쳐 최종 레이블을 확정</p></li>
-<li><p>약 80%가 중립, 나머지 약 20% 중 절반이 긍정, 다른 절반이 부정 <span class="math inline">\(\rightarrow\)</span> <strong>불균형</strong> 데이터의 조정을 위해 <strong>레이블 가중치</strong>를 모형 학습에 반영</p></li>
-</ul>
-<p>지리적 범위를 기준으로 ‘국내’, ‘국외’, ‘국내·국외 모두 해당’ 등 세 가지로 분류하여, 국외 뉴스기사 제외함.</p>
+<li>금융위기 기간에 금융기관별 주가수익률 하락폭을 실현된 SES로 간주하고 이 실현된 SES를 다음과 같이 MES 및 레버리지에 대해 회귀
 <ul>
-<li>Random Forest, Support Vector Machine (SVM), Single-head Attention 모형 등을 함께 고려</li>
-<li>5000개 문장으로 구성한 검증 데이터(validation data) 비교 결과 <strong>트랜스포머 모형</strong> 가장 우수</li>
-<li>가중치 조정 여부 결과 ’미조정’이 성능이 더 높으나, 심리지수 작성 시 변동성 확대 문제로, 가중치를 고려하기로 함</li>
-</ul>
-<p><img src="img/nsi_t1.png" width="500"></p>
-</section>
-<section id="일별-뉴스데이터-구축" class="level2">
-<h2 class="anchored" data-anchor-id="일별-뉴스데이터-구축">일별 뉴스데이터 구축</h2>
-<p>모든 문장에 대해 전처리, 모형 적용은 막대한 컴퓨터 비용 초래</p>
-<ul>
-<li>입수되는 뉴스기사의 수는 2021년 기준 일평균 약 4000개이며, 이를 문장으로 환산할 경우 약 7만 문장</li>
-</ul>
-<p>뉴스심리지수는 입수한 뉴스기사 문장 중 일부를 <strong>표본추출</strong>(<strong>sampling</strong>)하여 작성</p>
-<ul>
-<li>입수한 뉴스기사를 문장 단위로 분해하여 일별 데이터 모집단을 구성, 다음 일별 모집단에서 1만 개의 표본문장을 임의로 추출</li>
+<li><span class="math inline">\(SES_i = \alpha+ \beta MES_i + \gamma LVG_i + \delta'DUM\)</span></li>
+<li><span class="math inline">\(DUM\)</span>은 은행, 증권, 보험 등 금융기관의 종류를 나타내는 더미변수 벡터</li>
+</ul></li>
+<li>이 회귀식을 통해 추정된 SES를 이용하여 미국의 100여개 금융기관에 대해 금융기관별 시스템리스크의 순위(rank)를 정함</li>
+</ul></li>
 </ul>
 </section>
-<section id="뉴스심리-지수-작성-및-표준화" class="level2">
-<h2 class="anchored" data-anchor-id="뉴스심리-지수-작성-및-표준화">뉴스심리 지수 작성 및 표준화</h2>
-<p>뉴스심리지수는 일별로 입수한 뉴스기사의 표본문장들을 앞에서 설명한 과정을 거쳐 ’국내 긍정문장’과 ’국내 부정문장’으로 분류한 뒤, 두 분류(class)의 문장 개수를 카운트하여 작성.</p>
+<section id="ces-component-expected-shortfall" class="level2">
+<h2 class="anchored" data-anchor-id="ces-component-expected-shortfall">CES: Component expected shortfall</h2>
+<p><a href="https://www.sciencedirect.com/science/article/abs/pii/S037842661400051X">Banulescu and Dumitrescu(2015)</a></p>
+<p>MES와 해당 금융기관의 비중의 곱</p>
 <ul>
-<li>일별 뉴스심리지수의 경우 변동성을 고려하여 <strong>해당일 기준 직전 7일간</strong> 발간된 뉴스기사를 기준으로 작성</li>
-<li>월별 뉴스심리지수의 경우 <strong>해당월</strong> 중 발간된 뉴스기사를 기준으로 작성</li>
-</ul>
-<p>뉴스심리지수는 2005년부터 해당일 기준 직전 연도까지를 표준화 구간으로 설정하고 이 기간중 지수의 평균과 분산을 이용하여 <strong>평균이 100, 표준편차가 10</strong>이 되도록 표준화하여 산출</p>
+<li>금융시스템 전체의 수익률은 다음과 같이 개별 금융기관의 수익률과 금융기관별 비중의 가중합으로 표현
 <ul>
-<li>표준화한 뉴스심리지수는 지수가 100보다 크면 뉴스기사에 나타난 경제심리가 과거 평균보다 낙관적, 100보다 작으면 비관적인 것으로 해석</li>
+<li><span class="math inline">\(r_{mt}=\sum^n_{i=1}w_{it}t_{it}\)</span></li>
+</ul></li>
+<li>금융시스템 전체의 수익률이 일정 임계치 C를 하회하면 시스템리스크가 발생한 것으로 정의
+<ul>
+<li>조건부 기대손실규모 (ES):</li>
+<li><span class="math inline">\(ES_{mt-1}(C)=-E_{t-1}(r_{mt}|r_{mt}&lt;C)\)</span></li>
+</ul></li>
+<li>MES, CES
+<ul>
+<li><span class="math inline">\(MES_{it} \equiv \frac{\partial ES_{mt-1}}{\partial w_{it}} = -E_{t-1}(r_{it}|r_{mt}&lt;C)\)</span></li>
+<li><span class="math inline">\(CES_{it} = w_{it}MES_{it} = -w_{it}E_{t-1}(r_{it}|r_{mt}&lt;C)\)</span></li>
+<li>즉, <span class="math inline">\(ES_{mt-1}= \sum^n_{i=1}CES_{it}\)</span></li>
+</ul></li>
+<li>MES 또는 SRISK 등이 금융기관의 규모를 감안하지 못하는데 반해, 이 CES 지표는 명시적으로 개별 금융기관의 중요도를 감안한다는 차이점이 있으며, SIFI의 식별 등에 유용한 정보를 제공</li>
 </ul>
-<section id="일별심리지수" class="level3">
-<h3 class="anchored" data-anchor-id="일별심리지수">일별심리지수:</h3>
-<p><span class="math inline">\(NSI(\text{daily}) = \frac{X_t - \overline{X}}{S}\times 10 + 100,\)</span></p>
-<p><span class="math inline">\(\text{where } X_t = \frac{\sum_{\tau=1}^{7} P_{t-\tau} - \sum_{\tau=1}^{7} N_{t-\tau}} {\sum_{\tau=1}^{7} P_{t-\tau} + \sum_{\tau=1}^{7} N_{t-\tau}}\)</span></p>
-<p><span class="math inline">\(\overline{X} = \frac{1}{|T|} \sum_{t \in T} X_t,\)</span></p>
-<p><span class="math inline">\(S = \sqrt{\frac{1}{|T|-1} \sum_{t \in T} (X_t - \overline{X})^2}.\)</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="2-3_Systemic_Risk_Measures_Cross-sectional_files/figure-html/62071f71-1-Banilescu_Dumitrescu_2015_Fig3.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Banilescu and Dumitrescu (2015) Figure 3</figcaption>
+</figure>
+</div>
 </section>
-<section id="월별심리지수" class="level3">
-<h3 class="anchored" data-anchor-id="월별심리지수">월별심리지수:</h3>
-<p><span class="math inline">\(NSI(\text{monthly}) = \frac{X_t - \overline{X}}{S}\times 10 + 100,\)</span></p>
-<p><span class="math inline">\(\text{where } X_t = \frac{\sum_{\tau \in M_\mu} P_{t-\tau} - \sum_{\tau \in M_\mu} N_{t-\tau}} {\sum_{\tau \in M_\mu} P_{t-\tau} + \sum_{\tau \in M_\mu} N_{t-\tau}}\)</span></p>
-<p><span class="math inline">\(\overline{X} = \frac{1}{|T|} \sum_{t \in T} X_t,\)</span></p>
-<p><span class="math inline">\(S = \sqrt{\frac{1}{|T|-1} \sum_{t \in T} (X_t - \overline{X})^2}.\)</span></p>
+<section id="srisk-sytemic-risk" class="level2">
+<h2 class="anchored" data-anchor-id="srisk-sytemic-risk">SRISK: Sytemic risk</h2>
+<p><a href="https://doi.org/10.2139/ssrn.1611229">Brownlees &amp; Engle (2010)</a></p>
+<p>금융 시스템 위기가 발생한 경우에 개별 금융기관의 자본 부족규모 예상치를 측정</p>
+<ul>
+<li><p><span class="math inline">\(SRISK_{it}=W_{it}[kLVG_{it}+(1-k)LRMES_{it}-1]\)</span></p>
+<ul>
+<li><span class="math inline">\(W_{it}\)</span>는 주식 시가총액</li>
+<li><span class="math inline">\(k\)</span>는 자산대비 적정 자기자본 비율</li>
+<li><span class="math inline">\(LVG_{it}\)</span>는 자산대비 자기자본 비율 <span class="math inline">\(A_{it}/W_{it}\)</span></li>
+<li><span class="math inline">\(LRMES_{it}\)</span>는 시스템리스크가 발생하였을 때 개별 금융기관의 다기간 주가수익률 하락폭의 기댓값</li>
+</ul></li>
+<li><p>금융시스템의 불안정 수준: 개별 SRISK를 합산</p>
+<ul>
+<li><span class="math inline">\(SRISK_{t} \equiv \sum^N_{i=1} max(SRISK_{it},0)\)</span></li>
+</ul></li>
+<li><p>개별 금융기관의 위험수준</p>
+<ul>
+<li><span class="math inline">\(SRISK\%_{it} = \frac{SRISK_{it}}{SRISK_{t}}\)</span></li>
+</ul></li>
+<li><p>LRMES 측정 방법: GARCH-DCC 모형을 이용</p>
+<ul>
+<li><p>개별 금융기관 주가수익률 <span class="math inline">\(r_{it}\)</span>과 시장수익률 <span class="math inline">\(r_{mt}\)</span> 간의 관계를 GARCH-DCC 모형을 이용하여 구성 <span class="math display">\[\begin{equation*}
+\begin{bmatrix}
+r_{it} \\
+r_{mt}
+\end{bmatrix} \sim
+\begin{pmatrix}
+  0, &amp; \begin{bmatrix}
+  \sigma_{it}^2 &amp; \rho_{it}\sigma_{it}\sigma_{mt} \\
+  \rho_{it}\sigma_{it}\sigma_{mt} &amp; \sigma_{mt}^2
+\end{bmatrix}
+\end{pmatrix}
+\end{equation*}\]</span></p></li>
+<li><p>여기서 변동성은 GJR-GARCH 모형을 이용하여 다음과 같이 가정</p>
+<ul>
+<li><span class="math inline">\(\sigma_{it} = \omega_{v_i}+\alpha_{v_i}r^2_{it-1}+\gamma_{v_i}r^2_{it-1}\Gamma_{it-1}+\beta_{v_i}\sigma^2_{it-1}\)</span><br>
+</li>
+<li><span class="math inline">\(\sigma_{mt} = \omega_{v_m}+\alpha_{v_m}r^2_{mt-1}+\gamma_{v_m}r^2_{mt-1}\Gamma_{mt-1}+\beta_{v_i}\sigma^2_{mt-1}\)</span></li>
+<li>여기서 <span class="math inline">\(\Gamma_{mt-1}\)</span>은 <span class="math inline">\(r_{it-1}\)</span>이 음(-)인 경우에 1을, 아닌 경우에 0을 가지는 변수</li>
+</ul></li>
+</ul></li>
+<li><p>DCC 모형을 위해 변동성으로 표준화한 수익률을 <span class="math inline">\(\epsilon_{it}\equiv \frac{r_{it}}{\sigma_{it}}, \epsilon_{mt}\equiv \frac{r_{mt}}{\sigma_{mt}}\)</span>로 정의하여 상관계수 행렬을 구하면, <span class="math display">\[\begin{equation*}
+    R_t \equiv
+    \begin{bmatrix}
+     1 &amp; \rho_{it} \\
+     \rho_{it} &amp; 1
+    \end{bmatrix} =
+    diag(Q_{it})^{-1/2}Q_{it}diag(Q_{it})^{-1/2}, \\
+\end{equation*}\]</span> <span class="math display">\[\begin{equation*}
+    Q_{it} = (1-\alpha_{C_i}-\beta_{C_i})S_i+\alpha_{C_i}
+    \begin{bmatrix}
+     \epsilon_{it-1} \\
+     \epsilon_{mt-1}
+    \end{bmatrix}
+    \begin{bmatrix}
+     \epsilon_{it-1} \\
+     \epsilon_{mt-1}
+    \end{bmatrix}' + \beta_{C_i}Q_{it-1}
+\end{equation*}\]</span></p>
+<ul>
+<li><span class="math inline">\(S_i\)</span>는 <span class="math inline">\(\epsilon_{it}, \epsilon_{mt}\)</span>간의 무조건부 상관계수행렬</li>
+</ul></li>
+<li><p>2단계 QML 방법을 이용하여 모형 추정, 시뮬레이션 방법을 이용하여 LRMES에 대한 예측치를 산출</p></li>
+<li><p>SES 지수는 역사적으로 시스템리스크를 경험한 사례가 있어야 추정이 가능하지만, SRISK는 시스템리스크를 경험한 사례가 없더라도 그 추정이나 예측이 가능하다는 장점이 있음</p></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="2-3_Systemic_Risk_Measures_Cross-sectional_files/figure-html/37d206bd-1-Brownless_Engle_2010_Fig1.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Brownless and Engle (2010) Figure 1</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="2-3_Systemic_Risk_Measures_Cross-sectional_files/figure-html/37d206bd-2-Brownless_Engle_2010_Fig3.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Brownless and Engle (2010) Figure 3</figcaption>
+</figure>
+</div>
 </section>
+<section id="structural-garch" class="level2">
+<h2 class="anchored" data-anchor-id="structural-garch">Structural GARCH</h2>
+<p><a href="https://academic.oup.com/rfs/article-abstract/31/2/449/4139801">Engle and Siriwardane(2014)</a></p>
+<ul>
+<li><p>“레버리지” 효과를 반영할 수 있도록 GARCH 모형을 수정한 Structural GARCH 모형을 제안</p>
+<ul>
+<li>금융기관의 자산수익률에 부정적인 충격이 발생하면 이로 인해 비대칭적으로 변동성이 증가할 뿐만 아니라 레버리지(즉, 자본 대비 부채 비율)가 증가하며 이 효과로 인해 자본의 수익률에 대한 변동성이 추가로 증가하기 때문</li>
+</ul></li>
+<li><p>주요 식</p>
+<ul>
+<li><span class="math inline">\(r_{Et}=LM_{t-1}r_{At},\)</span></li>
+<li><span class="math inline">\(r_{At}=\sqrt{h_{At}\epsilon_{At}}, \epsilon_{At} \sim (0,1)\)</span></li>
+<li><span class="math inline">\(h_{At}=\omega + \alpha \left( \frac{r_{Et-1}}{LM_{t-2}} \right)^2 + \gamma \left( \frac{r_{Et-1}}{LM_{t-2}} \right)^2 I_{r_{E_{t-1}}}+\beta h_{At-1},\)</span></li>
+<li><span class="math inline">\(LM_{t-1} = \left[\Delta_{t-1}^{BSM}\times g^{BSM}\left(\frac{E_{t-1}}{D_{t-1}},1,\sigma^{f}_{At-1},\tau\right)\times \frac{E_{t-1}}{D_{t-1}}\right]^\psi\)</span></li>
+</ul></li>
+<li><p>변수 설명</p>
+<ul>
+<li><span class="math inline">\(r_{Et}\)</span>는 주식 수익률, <span class="math inline">\(r_{A}\)</span>는 관측불가능한 (시장가치) 자산 수익률</li>
+<li>변동성은 GJR GARCH 과정을 따름</li>
+<li><span class="math inline">\(LM\)</span>은 레버리지 효과</li>
+<li><span class="math inline">\(\Delta^{BSM}\)</span>은 Black-Scholes-Merton 옵션모형에 따른 옵션델타</li>
+<li><span class="math inline">\(g^{BSM}( \ \bullet \ )\)</span>은 콜옵션가격함수의 역함수</li>
+</ul></li>
+<li><p>주가의 변동성은 자산변동성 뿐만 아니라 레버리지 효과를 나타내는 <span class="math inline">\(LM\)</span>에도 영향을 받음</p>
+<ul>
+<li><span class="math inline">\(vol_t \left( \frac{dE_t}{E_t} \right) = LM_t \sigma_{At}\)</span></li>
+</ul></li>
+<li><p>레버리지 효과를 도입하면 MES 추정치가 증가하는 효과가 있음</p></li>
+<li><p>또한, Engle and Siriwardane(2014)는 새로운 시스템리스크 추정지표로서 예비적 자본규모(precautionary capital)을 제안</p>
+<ul>
+<li>예비적 자본규모는 시스템리스크 사건이 발생하더라도 해당 금융기관의 자본이 부족하지 않도록 하는 적정 자본규모와 현재의 자본규모와의 차이</li>
+</ul></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="2-3_Systemic_Risk_Measures_Cross-sectional_files/figure-html/47e60666-1-Engle_Siriwardane_2014_Fig4a.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Engle, Siriwardane (2014) Figure4A</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="2-3_Systemic_Risk_Measures_Cross-sectional_files/figure-html/47e60666-2-Engle_Siriwardane_2014_Fig6a.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Engle, Siriwardane (2014) Figure6A</figcaption>
+</figure>
+</div>
+</section>
+<section id="cimdo-consistent-multivariate-density-optimizing" class="level2">
+<h2 class="anchored" data-anchor-id="cimdo-consistent-multivariate-density-optimizing">CIMDO: Consistent multivariate density optimizing</h2>
+<p><a href="http://doi.org/10.5089/9781451871517.001">Segoviano &amp; Goodhart (2009)</a></p>
+<p>개별 금융기관들의 위험 확률(PoD; probability of distress)들로부터 CIMDO(consistent multivariate density optimizing) 기법을 활용하여 개별 금융기관들간의 위험 사건에 대한 결합분포를 구하고 이를 이용하여 여러 금융 불안정 지수들을 제안</p>
+<ul>
+<li>설명을 위한 가정:
+<ul>
+<li>두 개의 금융기관 X와 Y, 금융기관 주가의 로그 수익률 각각 <span class="math inline">\(x,y\)</span></li>
+<li><span class="math inline">\(q(x,y)\)</span>는 두 수익률에 대한 사전(prior) 분포, <span class="math inline">\(p(x,y)\)</span>는 두 수익률에 대한 사후(posterior) 분포</li>
+</ul></li>
+<li>사후 분포는 두 분포의 cross-entropy를 최소화하도록 정함
+<ul>
+<li>CIMDO 목적함수: <span class="math inline">\(C[p,q]= \int\int p(x,y) \ln \left[\frac{p(x,y)}{q(x,y)}\right]dxdy\)</span></li>
+</ul></li>
+<li><span class="math inline">\(x\)</span>(<span class="math inline">\(y\)</span>)가 임계치 <span class="math inline">\(d_x\)</span>(<span class="math inline">\(d_y\)</span>)를 하회하면 금융기관 X(Y)에 위험 사건이 발생하는 것으로 가정
+<ul>
+<li>데이터로부터 경험적으로 추정한 위험 확률 <span class="math inline">\(PoD_x\)</span>와 사후 분포는 다음과 같은 조건을 만족시켜야 사후 분포가 데이터와 일관성을 유지할 수 있음</li>
+<li><span class="math inline">\(\int^{d_{x(y)}}_{-\infty}\int^{\infty}_{-\infty} p(x,y)dxdy=PoD_{x(y)}\)</span></li>
+<li><span class="math inline">\(\int\int p(x,y)dxdy=1\)</span></li>
+</ul></li>
+<li>이러한 조건을 만족시키면서 CIMDO 목적함수를 최소화시키는 사후 결합밀도함수
+<ul>
+<li><span class="math inline">\(p(x,y)=q(x,y)\exp\{-[1+\mu+\lambda_1I_{(-\infty,d_x)}+\lambda_2I_{(-\infty,d_y)}]\}\)</span></li>
+<li><span class="math inline">\(\lambda_1\)</span>과 <span class="math inline">\(\lambda_2\)</span>는 각각 <span class="math inline">\(PoD_x\)</span>와 <span class="math inline">\(PoD_y\)</span>에 대한 일치성 조건에 관한 라그랑지 승수</li>
+<li><span class="math inline">\(\mu\)</span>는 확률밀도함수의 면적이 1이라는 조건에 대한 라그랑지 승수</li>
+</ul></li>
+</ul>
+<hr>
+<p>Segoviano and Goodhart(2009)는 결합확률밀도함수를 이용하여 다양한 금융시스템 불안정 지수를 제시</p>
+<p><strong>JPoD</strong> - 금융시스템 내의 모든 금융기관들에서 동시에 위험 사건이 발생할 확률 (세 금융기관 X,Y,Z가 존재하는 경우) - <span class="math inline">\(JPoD\equiv \int^{d_x}_{-infty}\int^{d_y}_{-infty}\int^{d_z}_{-infty}p(x,y,z)dxdydz\)</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="2-3_Systemic_Risk_Measures_Cross-sectional_files/figure-html/ad8b07dc-1-Segoviano_Goodhart_2009_Fig4.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Segoviano and Goodhart (2009) Figure 4</figcaption>
+</figure>
+</div>
+<p><strong>BSI(banking stability index)</strong> - 적어도 하나의 금융기관이 위험할 때 위험 금융기관 수의 기댓값 (세 금융기관 X,Y,Z가 존재하는 경우) - <span class="math inline">\(BSI= \frac{P(X\leq d_x)+P(Y\leq d_y)+P(Z\leq d_z)}{1-P(X&gt;d_x,Y&gt;d_y,Z&gt;d_z)}\)</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="2-3_Systemic_Risk_Measures_Cross-sectional_files/figure-html/26c6066e-1-Segoviano_Goodhart_2009_Fig5.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Segoviano and Goodhart (2009) Figure 5</figcaption>
+</figure>
+</div>
+<p><strong>PAO(probability that at least one bank becomes distressed)</strong></p>
+<ul>
+<li>특정 금융기관이 위험한 상황일 때 다른 금융기관 중 적어도 하나의 금융기관에서 위험 사건이 발생할 확률</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="2-3_Systemic_Risk_Measures_Cross-sectional_files/figure-html/48426e8b-1-Segoviano_Goodhart_2009_Fig7.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Segoviano and Goodhart (2009) Figure 7</figcaption>
+</figure>
+</div>
+<p><strong>DDM(distress dependence matrix)</strong></p>
+<ul>
+<li><span class="math inline">\(N\)</span>개의 금융기관이 존재할 때 <span class="math inline">\(N\times N\)</span> 행렬로서 그 <span class="math inline">\((i,j)\)</span>번째 원소는 <span class="math inline">\(j\)</span>번째 금융기관이 위험할 때 <span class="math inline">\(i\)</span>번째 금융기관이 위험할 조건부확률로 위험 사건에 대한 금융기관간 연계성에 대한 정보를 나타냄</li>
+</ul>
 </section>
 </section>
 <section id="참고문헌" class="level1">
 <h1>참고문헌</h1>
 <ul>
-<li><a href="https://www.bok.or.kr/portal/bbs/B0000233/view.do?nttId=10070681&amp;menuNo=200707">서범석·이영환·조형배 (2022 b)</a>. 기계학습을 이용한 뉴스심리지수(NSI)의 작성과 활용. 국민계정리뷰, 2022(1), 68-90.</li>
+<li><p>서상원. (2018). 시스템리스크의 측정과 관리: 서베이와 제언. 금융안정연구, 19(1), 131-232.</p></li>
+<li><p>Acharya, V. V., Pedersen, L. H., Philippon, T., &amp; Richardson, M. (2017). Measuring systemic risk. The review of financial studies, 30(1), 2-47.</p></li>
+<li><p>Adrian, T., &amp; Brunnermeier, M. K. (2011). CoVaR (No.&nbsp;w17454). National Bureau of Economic Research.</p></li>
+<li><p>Banulescu, G. D., &amp; Dumitrescu, E. I. (2015). Which are the SIFIs? A Component Expected Shortfall approach to systemic risk. Journal of Banking &amp; Finance, 50, 575-588.</p></li>
+<li><p>Billio, M., Getmansky, M., Lo, A. W., &amp; Pelizzon, L. (2012). Econometric measures of connectedness and systemic risk in the finance and insurance sectors. Journal of financial economics, 104(3), 535-559.</p></li>
+<li><p>Brownlees, C., &amp; Engle, R. F. (2017). SRISK: A conditional capital shortfall measure of systemic risk. The Review of Financial Studies, 30(1), 48-79.</p></li>
+<li><p>Engle, R. F., &amp; Siriwardane, E. N. (2018). Structural GARCH: the volatility-leverage connection. The Review of Financial Studies, 31(2), 449-492.</p></li>
+<li><p>Segoviano Basurto, M., &amp; Goodhart, C. (2009). Banking stability measures.</p></li>
 </ul>
 
 
@@ -854,11 +1028,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../posts/nlp/finance_llm_survey.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">금융분야의 LLM (2023)</span>
+      <a href="../../posts/systemic_risk/2-2_Systemic_Risk_Measures_Market.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">선행연구 (시장위험)</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../../posts/systemic_risk/2-4_Systemic_Risk_Measures_Probability_of_Default.html" class="pagination-link">
+        <span class="nav-page-text">선행연구 (부도확률모형 위험)</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

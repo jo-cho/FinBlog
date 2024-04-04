@@ -8,7 +8,7 @@
 
 <meta name="author" content="Cheonghyo Cho">
 
-<title>Cho’s FinBlog - 뉴스심리지수 (한국은행)</title>
+<title>Cho’s FinBlog - 시스템 리스크 분석: (1) 시스템 리스크 개념</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../posts/nlp/finance_llm_survey.html" rel="prev">
+<link href="../../posts/systemic_risk/2_Systemic_Risk_Measures.html" rel="next">
+<link href="../../posts/ml_trading/7_Enhancing_and_Bet_Confidence.html" rel="prev">
 <link href="../../logo.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -63,8 +64,6 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -118,7 +117,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">자연어 처리</li><li class="breadcrumb-item"><a href="../../posts/nlp/finance_llm_survey.html">선행연구</a></li><li class="breadcrumb-item"><a href="../../posts/nlp/news_sentiment_index.html">뉴스심리지수(NSI) - 한국은행</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../posts/systemic_risk/1_Systemic_Risk.html">시스템 리스크 분석</a></li><li class="breadcrumb-item"><a href="../../posts/systemic_risk/1_Systemic_Risk.html">시스템 리스크 개념</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -222,16 +221,16 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
  <span class="menu-text">시스템 리스크 분석</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/1_Systemic_Risk.html" class="sidebar-item-text sidebar-link">
+  <a href="../../posts/systemic_risk/1_Systemic_Risk.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">시스템 리스크 개념</span></a>
   </div>
 </li>
@@ -385,22 +384,22 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
  <span class="menu-text">자연어 처리</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
  <span class="menu-text">선행연구</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/nlp/finance_llm_survey.html" class="sidebar-item-text sidebar-link">
@@ -409,7 +408,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/nlp/news_sentiment_index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../posts/nlp/news_sentiment_index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">뉴스심리지수(NSI) - 한국은행</span></a>
   </div>
 </li>
@@ -427,28 +426,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">목차</h2>
    
   <ul>
-  <li><a href="#데이터" id="toc-데이터" class="nav-link active" data-scroll-target="#데이터">데이터</a></li>
-  <li><a href="#작성-방법" id="toc-작성-방법" class="nav-link" data-scroll-target="#작성-방법">작성 방법</a>
-  <ul class="collapse">
-  <li><a href="#개요" id="toc-개요" class="nav-link" data-scroll-target="#개요">개요</a></li>
-  <li><a href="#전처리" id="toc-전처리" class="nav-link" data-scroll-target="#전처리">전처리</a>
-  <ul class="collapse">
-  <li><a href="#입력-데이터의-구조" id="toc-입력-데이터의-구조" class="nav-link" data-scroll-target="#입력-데이터의-구조">입력 데이터의 구조</a></li>
-  <li><a href="#토큰화tokenzing" id="toc-토큰화tokenzing" class="nav-link" data-scroll-target="#토큰화tokenzing">토큰화(tokenzing)</a></li>
-  </ul></li>
-  <li><a href="#모형" id="toc-모형" class="nav-link" data-scroll-target="#모형">모형</a>
-  <ul class="collapse">
-  <li><a href="#트랜스포머transformer" id="toc-트랜스포머transformer" class="nav-link" data-scroll-target="#트랜스포머transformer">트랜스포머(transformer)</a></li>
-  </ul></li>
-  <li><a href="#학습데이터-구축-및-학습" id="toc-학습데이터-구축-및-학습" class="nav-link" data-scroll-target="#학습데이터-구축-및-학습">학습데이터 구축 및 학습</a></li>
-  <li><a href="#일별-뉴스데이터-구축" id="toc-일별-뉴스데이터-구축" class="nav-link" data-scroll-target="#일별-뉴스데이터-구축">일별 뉴스데이터 구축</a></li>
-  <li><a href="#뉴스심리-지수-작성-및-표준화" id="toc-뉴스심리-지수-작성-및-표준화" class="nav-link" data-scroll-target="#뉴스심리-지수-작성-및-표준화">뉴스심리 지수 작성 및 표준화</a>
-  <ul class="collapse">
-  <li><a href="#일별심리지수" id="toc-일별심리지수" class="nav-link" data-scroll-target="#일별심리지수">일별심리지수:</a></li>
-  <li><a href="#월별심리지수" id="toc-월별심리지수" class="nav-link" data-scroll-target="#월별심리지수">월별심리지수:</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#참고문헌" id="toc-참고문헌" class="nav-link" data-scroll-target="#참고문헌">참고문헌</a></li>
+  <li><a href="#시스템-리스크" id="toc-시스템-리스크" class="nav-link active" data-scroll-target="#시스템-리스크">시스템 리스크</a></li>
+  <li><a href="#시스템-리스크의-특징" id="toc-시스템-리스크의-특징" class="nav-link" data-scroll-target="#시스템-리스크의-특징">시스템 리스크의 특징</a></li>
+  <li><a href="#시스템-리스크-요인" id="toc-시스템-리스크-요인" class="nav-link" data-scroll-target="#시스템-리스크-요인">시스템 리스크 요인</a></li>
+  <li><a href="#참고-문헌" id="toc-참고-문헌" class="nav-link" data-scroll-target="#참고-문헌">참고 문헌</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -457,13 +438,11 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">뉴스심리지수 (한국은행)</h1>
-<p class="subtitle lead">Measuring News Sentiment</p>
+<h1 class="title">시스템 리스크 분석: (1) 시스템 리스크 개념</h1>
+<p class="subtitle lead">Systemic Risk</p>
   <div class="quarto-categories">
-    <div class="quarto-category">sentiment</div>
-    <div class="quarto-category">nlp</div>
-    <div class="quarto-category">transformer</div>
-    <div class="quarto-category">paper</div>
+    <div class="quarto-category">systemic risk</div>
+    <div class="quarto-category">risk</div>
   </div>
   </div>
 
@@ -485,132 +464,73 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<section id="시스템-리스크" class="level1">
+<h1>시스템 리스크</h1>
 <blockquote class="blockquote">
-<p>한국은행에서 발표한 통계치인 뉴스심리지수(NSI)를 소개한다. 트랜스포머(tranformer)를 사용하여 감성분석을 한다.</p>
+<p><strong>시스템 리스크 (systemic risk):</strong> 금융중개기능이 원활히 작동하지 못하여 경제성장과 사회후생에 심각하게 손상을 줄 정도의 심각한 금융불안정을 지칭하는 시스템적 사건이 발생할 위험 - 유럽중앙은행(ECB(2010))</p>
 </blockquote>
-<p><strong>논문 요약</strong></p>
-<section id="데이터" class="level1">
-<h1>데이터</h1>
-<p>뉴스기사 텍스트 데이터의 웹크롤링(web crawling) - 경제분야로 한정하여 인터넷 포털사이트(약 50여개 언론사)에서 뉴스기사 수집 - 수집 대상기간: 2005년 이후</p>
-<p>데이터 무결성(data integrity) 처리 - 중복된 뉴스기사 또는 광고성 기사 등 - 새로 수집한 뉴스기사 원문이 직전 30일 내에 한번이라도 동일하게 데이터베이스에 등장하는 경우, 이 뉴스기사를 배제제 년 이후이후</p>
-<p><img src="img/nsi_f1.png" width="500"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="1_Systemic_Risk_files/figure-html/d44e2590-1-systemic_risk.jpg" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Systemic_Risk</figcaption>
+</figure>
+</div>
+<p>금융에서 시스템리스크는 <strong>금융시스템 또는 한 지역·국가의 전체 시장, 나아가 글로벌 시장의 붕괴</strong>로 이어지는 위기를 말한다. <strong>2008년 글로벌 금융위기</strong>의 강력한 파괴력과 거대한 연쇄반응은 금융안정과 관련하여 시스템리스크의 중요성을 인식하게 했다.</p>
+<p>전통적인 금융 리스크와 다른 가장 중요한 특징은 “<strong>내부 및 외부 요인의 지속적인 반응으로 인해 전체 금융 시스템에 걸친 위험 전이 및 시스템 장애의 문제</strong>”이다. 따라서 시스템 리스크에 따른 결과는 “계단식” 실패로 이어지고 금융 시스템의 개인에게 영향을 미쳐 은행 시스템이 유동성 문제와 지불 불가 상태가 된다. 즉, 시스템 금융 리스크는 <strong>글로벌 또는 지역 금융 시스템의 유동성 위험을 유발하는 연쇄적 위기</strong>로 설명될 수 있다(Silva, Kimura, &amp; Sobreiro, 2017).</p>
+<p>지난 10년이 넘는 기간 동안 금융 생태계의 연구, 금융 감독, 국경 간 자본 흐름 모니터링 등 시스템적 금융 위험에 초점을 맞춘 많은 양의 연구가 있었다. 그러나 현대 금융은 이미 광범위하고 상호 연결된 네트워크를 갖춘 상호의존적 시스템으로 구성되어 있으며, 이는 점점 더 글로벌해지는 사회의 특성을 따르고 있다.</p>
+<p>따라서 현행 금융의 시스템 리스크에 대응하기 위해서는 비정상적인 위험행위를 <strong>자동으로 탐지하고 금융시장의 대규모 금융데이터를 신속하게 처리</strong>함으로써 <strong>정보기술(IT) 기법</strong>을 활용하여 위험 단서와 목적을 신속하게 파악하고 발견할 수 있는 새로운 도구가 개발되어야 한다. <strong>지능적이고 자동화된 기계 학습 방법</strong>은 위험 성향과 함께 점점 더 복잡해지는 금융 네트워크, 금융 거래의 빅데이터, 시장 정서 등으로 인한 시스템 위험을 평가하고 탐지하는 도구가 될 수 있다.</p>
 </section>
-<section id="작성-방법" class="level1">
-<h1>작성 방법</h1>
-<section id="개요" class="level2">
-<h2 class="anchored" data-anchor-id="개요">개요</h2>
-<p>뉴스기사에 나타난 긍정문장과 부정문장을 카운트한 뒤 지수화</p>
-<p>기계학습(machine learning) 사용 (감성분류 모형)</p>
+<section id="시스템-리스크의-특징" class="level1">
+<h1>시스템 리스크의 특징</h1>
+<p>시스템 리스크의 특징을 설명한 선행연구</p>
 <ul>
-<li>뉴스 문장(<span class="math inline">\(s\in S\)</span>)과</li>
-<li>논조 (<span class="math inline">\(l \in {(p_0,p_1,p_2)|p_0=P(Positive),p_1=P(Negative),p_2=P(Neutral)}\)</span>)로 구성된</li>
-<li>데이터 쌍(data pair, <span class="math inline">\({(s,l)_i}^N_{i=1}\)</span>)을 이용하여</li>
-<li>데이터에 가장 잘 부합하는 다음과 같은 감성분류 함수 <span class="math inline">\(f_\theta\)</span>를 찾는 것</li>
-</ul>
-<p><span class="math display">\[f_\theta : S \rightarrow \{(p_0, p_1, p_2) \mid p_0 = P(\text{Positive}), p_1 = P(\text{Negative}), p_2 = P(\text{Neutral})\}\]</span></p>
-</section>
-<section id="전처리" class="level2">
-<h2 class="anchored" data-anchor-id="전처리">전처리</h2>
-<section id="입력-데이터의-구조" class="level3">
-<h3 class="anchored" data-anchor-id="입력-데이터의-구조">입력 데이터의 구조</h3>
-<p>기사가 아닌 <strong>문장</strong> 기준으로 논조를 분류</p>
-</section>
-<section id="토큰화tokenzing" class="level3">
-<h3 class="anchored" data-anchor-id="토큰화tokenzing">토큰화(tokenzing)</h3>
-<p>형태소(POS, part-of-speech) 단위 분해 <span class="math display">\[g: S \rightarrow C\]</span></p>
+<li><p>Cifuentes(2003): 금융시스템에 집중도(concentration)가 높아질수록 충격이 금융기관들 간에 신속하게 잘 전파되어 시스템 리스크가 높아진다고 주장</p></li>
+<li><p>De Nicolo et al.(2012): 미시적 금융불안정이 시스템리스크로 확산되는 과정에서 부의 외부성(negative externalities)이 중요한 역할을 한다고 강조</p></li>
+<li><p>BIS(2010): 시스템리스크를 특정 시점을 기준으로 위험도가 금융시스템에 어떤 모습으로 분포되어 있는지에 주목하는 횡단면 위험과 시스템리스크가 시간에 따라 증가하는지 여부에 주목하는 시계열적 위험으로 구분</p>
 <ul>
-<li>각 문장 (<span class="math inline">\(s \in S\)</span>)을 형태소 단위로 분해함</li>
-<li>말뭉치 토큰의 수열 모임(a collection of sequences of tokens), <span class="math inline">\(C\)</span></li>
-</ul>
-<p>정수 변환(integer encoding)으로 수치화 <span class="math display">\[h:C \rightarrow \mathbb{R}^m\]</span></p>
-<p>최대 길이(<span class="math inline">\(m\)</span>=0)로 제로 패딩(zero padding) 사용</p>
-<p><img src="img/nsi_f2.png" width="500"></p>
-</section>
-</section>
-<section id="모형" class="level2">
-<h2 class="anchored" data-anchor-id="모형">모형</h2>
-<section id="트랜스포머transformer" class="level3">
-<h3 class="anchored" data-anchor-id="트랜스포머transformer">트랜스포머(transformer)</h3>
-<p>감성분류 모형으로 트랜스포머(transformer) 사용</p>
-<ul>
-<li>트랜스포머 모형은 여러 개(multiple-head)의 Attention 구조를 갖는 인공신경망 모형으로 텍스트 분석을 위해 널리 이용되던 RNN및 LSTM 모형에 비해 입력 벡터 전체의 맥락(context)을 더 잘 파악</li>
-<li>여기서 Attention 구조란 벡터를 입력데이터로 하는 예측 모형에서 입력 벡터의 값들 중 집중(attention)적으로 학습할 필요가 있는 값에 더 높은 가중치를 부여</li>
-</ul>
-<p>감성분류모형은 뉴스문장을 입력변수로 받으며, 해당 문장의 감성이 긍정/부정/중립일 확률을 출력변수로 출력</p>
-<p>전체 과정을 포함한 감성분류모형 <span class="math inline">\(f_\theta\)</span>는 다음과 같음</p>
-<p><img src="img/nsi_f3.png" width="500"></p>
-<p><span class="math inline">\(f_{\theta} : S \rightarrow \{ (p_0, p_1, p_2) \},\)</span></p>
-<p><span class="math inline">\(f_{\theta}(s_i) = k_{\theta} \circ h \circ g(s_i) \equiv \hat{i},\)</span></p>
-<p><span class="math inline">\(\text{where} \quad s_i \in S, \, \hat{i} \in \{ (p_0, p_1, p_2) \}\)</span></p>
-<ul>
-<li><p>뉴스문장은 먼저 전처리 과정을 거쳐 수치형 벡터로 치환됨.</p></li>
-<li><p>수치형 벡터로 치환된 문장은 각 단어 토큰의 연관도를 학습하여 다시 다차원 공간으로 배치하는 Embedding 과정을 거침 (Embedding을 위해 32차원을 고려).</p></li>
-<li><p>따라서 하나의 뉴스문장은 전처리와 Embedding 과정을 거치면서 80×32 차원의 수치행렬 값으로 치환됨.</p></li>
-<li><p>이후 트랜스포머 블록과 이어지는 Feed Forward 네트워크는 입력 문장의 논조를 잘 예측하는 비선형 함수를 찾아 뉴스문장의 감성을 긍정/부정/중립 중 하나로 분류하게 됨.</p></li>
-<li><p>마지막으로 Softmax 함수는 실수값의 출력변수를 0과 1사이의 확률값으로 변환하는 역할을 함.</p></li>
-</ul>
-<p>파라미터 <span class="math inline">\(\theta\)</span>값은 데이터쌍 <span class="math inline">\((\{(s, l)_i\}_{i=1}^N)\)</span>의 관측 레이블 <span class="math inline">\((l_i=(p_0^i,p_1^i,p_2^i))\)</span>과 모형의 예측치<span class="math inline">\((\hat{l}_i =(\hat{p}_0^i, \hat{p}_1^i,\hat{p}_2^i)\)</span> 분포가 비슷해지도록 다음의 Cross-entropy 손실함수(<span class="math inline">\(L\)</span>)를 최소화하는 과정(optimization)을 통해 추정(estimate or train)한다.</p>
-<p><span class="math display">\[L(\theta|\{s_{i},l_{i}\}_{i=1}^{N})=-\sum_{i=1}^{N}\sum_{c=0}^{N}p_{c}^{(i)}\log\hat{p}_{c}^{(i)}\]</span></p>
-</section>
-</section>
-<section id="학습데이터-구축-및-학습" class="level2">
-<h2 class="anchored" data-anchor-id="학습데이터-구축-및-학습">학습데이터 구축 및 학습</h2>
-<p>학습데이터는 <strong>2005년 1월 ~ 2021년 6월 경제 뉴스기사의 약 44만개 문장</strong></p>
-<p>16명의 통계조사원이 <strong>직접</strong> ‘긍정’, ‘부정’, ’중립’으로 분류하여 각 문장별로 <strong>감성 레이블</strong>을 작성</p>
-<ul>
-<li><p>감성 레이블은 사람이 작성함에 따라 발생할 수 있는 측정오류를 최소화하기 위해 최초 분류 이후 검토자의 검토를 거쳐 최종 레이블을 확정</p></li>
-<li><p>약 80%가 중립, 나머지 약 20% 중 절반이 긍정, 다른 절반이 부정 <span class="math inline">\(\rightarrow\)</span> <strong>불균형</strong> 데이터의 조정을 위해 <strong>레이블 가중치</strong>를 모형 학습에 반영</p></li>
-</ul>
-<p>지리적 범위를 기준으로 ‘국내’, ‘국외’, ‘국내·국외 모두 해당’ 등 세 가지로 분류하여, 국외 뉴스기사 제외함.</p>
-<ul>
-<li>Random Forest, Support Vector Machine (SVM), Single-head Attention 모형 등을 함께 고려</li>
-<li>5000개 문장으로 구성한 검증 데이터(validation data) 비교 결과 <strong>트랜스포머 모형</strong> 가장 우수</li>
-<li>가중치 조정 여부 결과 ’미조정’이 성능이 더 높으나, 심리지수 작성 시 변동성 확대 문제로, 가중치를 고려하기로 함</li>
-</ul>
-<p><img src="img/nsi_t1.png" width="500"></p>
-</section>
-<section id="일별-뉴스데이터-구축" class="level2">
-<h2 class="anchored" data-anchor-id="일별-뉴스데이터-구축">일별 뉴스데이터 구축</h2>
-<p>모든 문장에 대해 전처리, 모형 적용은 막대한 컴퓨터 비용 초래</p>
-<ul>
-<li>입수되는 뉴스기사의 수는 2021년 기준 일평균 약 4000개이며, 이를 문장으로 환산할 경우 약 7만 문장</li>
-</ul>
-<p>뉴스심리지수는 입수한 뉴스기사 문장 중 일부를 <strong>표본추출</strong>(<strong>sampling</strong>)하여 작성</p>
-<ul>
-<li>입수한 뉴스기사를 문장 단위로 분해하여 일별 데이터 모집단을 구성, 다음 일별 모집단에서 1만 개의 표본문장을 임의로 추출</li>
+<li>소수의 대형 금융기관에 위험이 집중되거나 금융기관들 간에 상호 연계성이 강할수록 시스템리스크는 커짐(횡단면 위험)</li>
+<li>경기호황기의 지나친 신용을 공급은 경기불황기에 나타날 수 있는 금융불안정을 더 심화시킴(시계열적 위험)</li>
+</ul></li>
 </ul>
 </section>
-<section id="뉴스심리-지수-작성-및-표준화" class="level2">
-<h2 class="anchored" data-anchor-id="뉴스심리-지수-작성-및-표준화">뉴스심리 지수 작성 및 표준화</h2>
-<p>뉴스심리지수는 일별로 입수한 뉴스기사의 표본문장들을 앞에서 설명한 과정을 거쳐 ’국내 긍정문장’과 ’국내 부정문장’으로 분류한 뒤, 두 분류(class)의 문장 개수를 카운트하여 작성.</p>
+<section id="시스템-리스크-요인" class="level1">
+<h1>시스템 리스크 요인</h1>
+<p>시스템 리스크를 축적시키는 요인</p>
 <ul>
-<li>일별 뉴스심리지수의 경우 변동성을 고려하여 <strong>해당일 기준 직전 7일간</strong> 발간된 뉴스기사를 기준으로 작성</li>
-<li>월별 뉴스심리지수의 경우 <strong>해당월</strong> 중 발간된 뉴스기사를 기준으로 작성</li>
+<li><p><strong>투자자, 금융기관의 집단적 협조실패(coordination failure)</strong>: 은행예금인출 쇄도(bank run), 자산 급매도(asset fire-sale)</p></li>
+<li><p><strong>정보 요인</strong>: 근시안적 행동(myopia), 정보의 비대칭성, 지나친 위험추구 성향</p></li>
+<li><p><strong>유인체계</strong>: 금융기관의 도덕적 해이, 단기 위험 추구 성향을 부추기는 보상체계</p></li>
+<li><p><strong>규제 및 감독체계 오류</strong>: 그림자 금융(shadow banking), 규제자본의 경기순응성</p></li>
 </ul>
-<p>뉴스심리지수는 2005년부터 해당일 기준 직전 연도까지를 표준화 구간으로 설정하고 이 기간중 지수의 평균과 분산을 이용하여 <strong>평균이 100, 표준편차가 10</strong>이 되도록 표준화하여 산출</p>
+<p>시스템 리스크를 촉발시키는 요인</p>
 <ul>
-<li>표준화한 뉴스심리지수는 지수가 100보다 크면 뉴스기사에 나타난 경제심리가 과거 평균보다 낙관적, 100보다 작으면 비관적인 것으로 해석</li>
+<li><p>금융시스템의 외부(exogenous) 또는 내부(endogenous) <strong>충격(shock)</strong></p></li>
+<li><p>신용위험이나 유동성 위험과 같은 <strong>미시적 성격의 충격</strong> 또는 공통요인의 발현과 같은 <strong>거시적 충격</strong></p></li>
+<li><p>소수의 <strong>대형 금융기관의 도산</strong> 또는 소규모이지만 <strong>다수의 금융기관들이 한꺼번에 도산</strong>하는 형태</p></li>
 </ul>
-<section id="일별심리지수" class="level3">
-<h3 class="anchored" data-anchor-id="일별심리지수">일별심리지수:</h3>
-<p><span class="math inline">\(NSI(\text{daily}) = \frac{X_t - \overline{X}}{S}\times 10 + 100,\)</span></p>
-<p><span class="math inline">\(\text{where } X_t = \frac{\sum_{\tau=1}^{7} P_{t-\tau} - \sum_{\tau=1}^{7} N_{t-\tau}} {\sum_{\tau=1}^{7} P_{t-\tau} + \sum_{\tau=1}^{7} N_{t-\tau}}\)</span></p>
-<p><span class="math inline">\(\overline{X} = \frac{1}{|T|} \sum_{t \in T} X_t,\)</span></p>
-<p><span class="math inline">\(S = \sqrt{\frac{1}{|T|-1} \sum_{t \in T} (X_t - \overline{X})^2}.\)</span></p>
-</section>
-<section id="월별심리지수" class="level3">
-<h3 class="anchored" data-anchor-id="월별심리지수">월별심리지수:</h3>
-<p><span class="math inline">\(NSI(\text{monthly}) = \frac{X_t - \overline{X}}{S}\times 10 + 100,\)</span></p>
-<p><span class="math inline">\(\text{where } X_t = \frac{\sum_{\tau \in M_\mu} P_{t-\tau} - \sum_{\tau \in M_\mu} N_{t-\tau}} {\sum_{\tau \in M_\mu} P_{t-\tau} + \sum_{\tau \in M_\mu} N_{t-\tau}}\)</span></p>
-<p><span class="math inline">\(\overline{X} = \frac{1}{|T|} \sum_{t \in T} X_t,\)</span></p>
-<p><span class="math inline">\(S = \sqrt{\frac{1}{|T|-1} \sum_{t \in T} (X_t - \overline{X})^2}.\)</span></p>
-</section>
-</section>
-</section>
-<section id="참고문헌" class="level1">
-<h1>참고문헌</h1>
+<p>시스템 리스크의 전염과 확산</p>
 <ul>
-<li><a href="https://www.bok.or.kr/portal/bbs/B0000233/view.do?nttId=10070681&amp;menuNo=200707">서범석·이영환·조형배 (2022 b)</a>. 기계학습을 이용한 뉴스심리지수(NSI)의 작성과 활용. 국민계정리뷰, 2022(1), 68-90.</li>
+<li><p>금융기관들 간의 다양한 형태의 부내(balance sheet) 또는 부외(off-balance sheet) <strong>직접적 거래관계</strong></p></li>
+<li><p><strong>정보 경로</strong>: 자산급매도, 쏠림현상(herding), 비이성적 행동 등</p></li>
+<li><p>금융기관들의 <strong>투자나 위험관리 측면에서의 유사성</strong></p></li>
+<li><p><strong>해외은행의 큰 비중</strong> (해외의 외생적 충격)</p></li>
+<li><p>금융시스템의 <strong>구조적 취약성(structural vulnerabilities)</strong></p>
+<ul>
+<li>높은 단기자금조달 의존도</li>
+<li>노출 위험의 높은 유사성</li>
+<li>중앙청산체계가 마련되어 있지 않은 장외거래 시장에 대한 높은 의존도</li>
+<li>큰 비중을 차지하는 그림자 금융</li>
+<li>높은 경기순응성을 보이는 신용공급</li>
+<li>금융기관의 심각한 만기 및 통화의 불일치</li>
+</ul></li>
+</ul>
+</section>
+<section id="참고-문헌" class="level1">
+<h1>참고 문헌</h1>
+<ul>
+<li><p>Kou, G., Chao, X., Peng, Y., Alsaadi, F. E., &amp; Herrera-Viedma, E. (2019). Machine learning methods for systemic risk analysis in financial sectors. Technological and Economic Development of Economy, 25(5), 716-742.</p></li>
+<li><p>Siegmann, A. (2017). Policy Lessons from Systemic Risk Modeling and Measurement. In Systemic Risk Tomography (pp.&nbsp;239-273). Elsevier.</p></li>
+<li><p>서상원. (2018). 시스템리스크의 측정과 관리: 서베이와 제언. 금융안정연구, 19(1), 131-232.</p></li>
 </ul>
 
 
@@ -854,11 +774,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../posts/nlp/finance_llm_survey.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">금융분야의 LLM (2023)</span>
+      <a href="../../posts/ml_trading/7_Enhancing_and_Bet_Confidence.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">8. 매매 신뢰도 측정과 전략 강화</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../../posts/systemic_risk/2_Systemic_Risk_Measures.html" class="pagination-link">
+        <span class="nav-page-text">선행연구 요약</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

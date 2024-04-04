@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Cheonghyo Cho">
+
+<title>Cho’s FinBlog - 시스템 리스크 분석: (2) 시스템 리스크 측정 방법 - 선행연구 요약</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../posts/systemic_risk/2-1_Systemic_Risk_Measures_Macro.html" rel="next">
+<link href="../../posts/systemic_risk/1_Systemic_Risk.html" rel="prev">
+<link href="../../logo.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Cho’s FinBlog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+      <i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">    
+        <li>
+    <a class="dropdown-item" href="https://github.com/jo-cho/FinBlog/tree/main/docs" rel="" target="">
+ <span class="dropdown-text">Source Code</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/jo-cho/FinBlog/issues" rel="" target="">
+ <span class="dropdown-text">Report a Bug</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../posts/systemic_risk/1_Systemic_Risk.html">시스템 리스크 분석</a></li><li class="breadcrumb-item"><a href="../../posts/systemic_risk/2_Systemic_Risk_Measures.html">시스템 리스크 측정</a></li><li class="breadcrumb-item"><a href="../../posts/systemic_risk/2_Systemic_Risk_Measures.html">선행연구 요약</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto"><div class="quarto-sidebar-header"><div class="sidebar-header-item">
+<p>FinBlog</p>
+</div></div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">홈</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../listing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모든 글 보기</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+ <span class="menu-text">금융 데이터 처리</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/fin_data/Fractional_difference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">분수 차분</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">알고리즘 트레이딩</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/ml_trading/0_Introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. 트레이딩 개요</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/ml_trading/1_Get_Market_Data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. 시장 데이터 수집</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/ml_trading/2_Labeling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. 가격 모멘텀 라벨링</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/ml_trading/3_Get_Features.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. 피쳐 생성</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/ml_trading/4_Feature_Selection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. 피쳐 선정</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/ml_trading/5_Get_Trading_Signals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. 매매 시그널 분류</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/ml_trading/6_Trading_Rules.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7. 매매 규칙</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/ml_trading/7_Enhancing_and_Bet_Confidence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8. 매매 신뢰도 측정과 전략 강화</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">시스템 리스크 분석</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/systemic_risk/1_Systemic_Risk.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">시스템 리스크 개념</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">시스템 리스크 측정</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/systemic_risk/2_Systemic_Risk_Measures.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">선행연구 요약</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/systemic_risk/2-1_Systemic_Risk_Measures_Macro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">선행연구 (거시경제)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/systemic_risk/2-2_Systemic_Risk_Measures_Market.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">선행연구 (시장위험)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">선행연구 (금융기관 위험)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/systemic_risk/2-4_Systemic_Risk_Measures_Probability_of_Default.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">선행연구 (부도확률모형 위험)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/systemic_risk/2-5_Systemic_Risk_Measures_Network.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">선행연구 (네트워크)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text">시스템 리스크와 머신러닝</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">선행연구1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_1_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">선행연구2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">향후 연구 방향</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text">그래프 머신러닝</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+ <span class="menu-text">그래프 머신러닝 이론</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/machine_learning/GRL_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. 들어가며</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/machine_learning/GRL_02_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2-1. 그래프 통계량과 커널</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/machine_learning/GRL_02_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2-2. 이웃중복 감지</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/machine_learning/GRL_02_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2-3. 라플라시안과 스펙트럼</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/machine_learning/GRL_03_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3-1. 인코더-디코더</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/machine_learning/GRL_03_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3-2. 랜덤워크 임베딩</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/machine_learning/GRL_04_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. 다중관계 데이터</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/machine_learning/GRL_05_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5-1. 신경망 메시지 전달</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+ <span class="menu-text">자연어 처리</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+ <span class="menu-text">선행연구</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/nlp/finance_llm_survey.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">금융분야의 LLM (2023)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/nlp/news_sentiment_index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">뉴스심리지수(NSI) - 한국은행</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">목차</h2>
+   
+  <ul>
+  <li><a href="#시스템-리스크-측정-요약" id="toc-시스템-리스크-측정-요약" class="nav-link active" data-scroll-target="#시스템-리스크-측정-요약">시스템 리스크 측정 요약</a>
+  <ul class="collapse">
+  <li><a href="#서상원-2018의-서베이" id="toc-서상원-2018의-서베이" class="nav-link" data-scroll-target="#서상원-2018의-서베이">서상원 (2018)의 서베이</a></li>
+  <li><a href="#tommasobelluzzosystemicriskgithub-repo의-서베이" id="toc-tommasobelluzzosystemicriskgithub-repo의-서베이" class="nav-link" data-scroll-target="#tommasobelluzzosystemicriskgithub-repo의-서베이">TommasoBelluzzo/SystemicRisk(Github Repo)의 서베이</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">시스템 리스크 분석: (2) 시스템 리스크 측정 방법 - 선행연구 요약</h1>
+<p class="subtitle lead">Systemic Risk Measure - Literatures in tables</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">systemic risk</div>
+    <div class="quarto-category">measures</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Cheonghyo Cho </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>시스템 리스크를 측정하는 기존의 방법에 대해 알아본다. 각 서베이 논문에서 정리한 표를 살펴보자.</p>
+<section id="시스템-리스크-측정-요약" class="level1">
+<h1>시스템 리스크 측정 요약</h1>
+<section id="서상원-2018의-서베이" class="level2">
+<h2 class="anchored" data-anchor-id="서상원-2018의-서베이">서상원 (2018)의 서베이</h2>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">카테고리</th>
+<th style="text-align: center;">이름</th>
+<th style="text-align: left;">내용</th>
+<th style="text-align: left;">관련 논문</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">거시경제</td>
+<td style="text-align: center;">FCYCL(금융사이클)</td>
+<td style="text-align: left;">금융부문의 불균형을 나타내는 집계변수를 고려</td>
+<td style="text-align: left;"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2084835">Drehmann, Borio and Tsatsaronis(2012)</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">거시경제</td>
+<td style="text-align: center;">CCYCL(신용사이클)</td>
+<td style="text-align: left;">GDP대비 신용 비율 중심 분석</td>
+<td style="text-align: left;"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2604099">Juselius and Drehmann(2015)</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">거시경제</td>
+<td style="text-align: center;">EWS-SE(조기경보모형-신호접근법)</td>
+<td style="text-align: left;">여러 정보변수들을 비모수적 방법으로 활용하여 금융위기의 발생가능성을 예측</td>
+<td style="text-align: left;"><a href="https://link.springer.com/article/10.2307/3867328">Kaminsky, Lizondo and Reinhart(1998)</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">거시경제</td>
+<td style="text-align: center;">EWS-LR(조기경보모형-로짓모형)</td>
+<td style="text-align: left;">여러 거시 및 금융부문의 정보변수를 활용하여 미리 예측</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">거시경제</td>
+<td style="text-align: center;">EWS-Hybrid(조기경보모형-혼합모형)</td>
+<td style="text-align: left;">여러 거시 및 금융부문의 정보변수를 활용하여 미리 예측</td>
+<td style="text-align: left;"><a href="https://www.sciencedirect.com/science/article/abs/pii/S1059056016303732">Suh(2017)</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">시장위험</td>
+<td style="text-align: center;">TURB(시장혼란지수)</td>
+<td style="text-align: left;">금융시장 에서의 자산가격형성이 통상적인 패턴에서 벗어나는지를 판단</td>
+<td style="text-align: left;"><a href="https://doi.org/10.2469/faj.v66.n5.3">Kritzman &amp; Li (2010)</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">시장위험</td>
+<td style="text-align: center;">CISS(Composite Indicator of Systemic Stress)</td>
+<td style="text-align: left;">여러 금융시장에서 형성되는 중요한 정보변수들을 종합하여 현재의 전반적인 금융시장 상황이 극단적인 모습을 보이는지를 요약</td>
+<td style="text-align: left;"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2018792">Hollo et al.(2012)</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">시장위험</td>
+<td style="text-align: center;">NOIS(시장 잡음)</td>
+<td style="text-align: left;">금융시장에서 차익거래 기회가 얼마나 존재하는지를 개별 금융거래 자료를 이용하여 측정</td>
+<td style="text-align: left;"><a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/jofi.12083">Hu, Pan, and Wang(2013)</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">시장위험</td>
+<td style="text-align: center;">PCA-AR(absorbtion ratio)</td>
+<td style="text-align: left;">금융자산 수익률간의 상관성 정도 측정</td>
+<td style="text-align: left;"><a href="https://doi.org/10.2139/ssrn.1633027">Kritzman et al.&nbsp;(2010)</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">금융기관 Distress</td>
+<td style="text-align: center;">PCAS</td>
+<td style="text-align: left;">금융자산 수익률간의 상관성 정도와 금융시스템에 대한 개별 금융기관의 기여도 측정</td>
+<td style="text-align: left;"><a href="https://www.sciencedirect.com/science/article/abs/pii/S0304405X11002868">Billio et al.(2012)</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">금융기관 Distress</td>
+<td style="text-align: center;">CoVaR</td>
+<td style="text-align: left;">금융시스템의 주가수익률이 일정 임계치 이상으로 크게 하락하는 것을 시스템리스크라고 하고 한 금융기관에서 심각한 금융위험 사건이 발생하였다는 조건의 부과가 시스템리스크 수준을 얼마나 증가시키는지를 측정</td>
+<td style="text-align: left;"><a href="https://doi.org/10.2139/ssrn.1269446">Adrian &amp; Brunnermeier (2008)</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">금융기관 Distress</td>
+<td style="text-align: center;">SES(Systemic expected shortfall)</td>
+<td style="text-align: left;">시스템리스크가 발생한 경우 개별 금융기관의 적정 자본수준 대비 자본의 부족규모 예상 치</td>
+<td style="text-align: left;"><a href="https://doi.org/10.2139/ssrn.1573171">Acharya et al.&nbsp;(2010)</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">금융기관 Distress</td>
+<td style="text-align: center;">CES(Component expected shortfall)</td>
+<td style="text-align: left;">금융기관별 MES(시스템리스크가 발생하였을 때 특정 금융기관의 주가 수익률 하락폭의 기댓값)에 해당 금융기관의 비중을 곱한 값</td>
+<td style="text-align: left;"><a href="https://www.sciencedirect.com/science/article/abs/pii/S037842661400051X">Banulescu and Dumitrescu(2015)</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">금융기관 Distress</td>
+<td style="text-align: center;">SRISK</td>
+<td style="text-align: left;">금융 시스템 위기가 발생한 경우에 개별 금융기관의 자본 부족규모 예상치를 측정 / 개별 금융기관 및 금융시스템의 주가 수익률이 GARCH-DCC 모형을 따른다고 가정</td>
+<td style="text-align: left;"><a href="https://doi.org/10.2139/ssrn.1611229">Brownlees &amp; Engle (2010)</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">금융기관 Distress</td>
+<td style="text-align: center;">Structural GARCH</td>
+<td style="text-align: left;">통상적인 GARCH 모형을 수정한 Structural GARCH 모형을 제안하고 이를 SRISK 지표에 적용 - ‘레버리지’ 효과를 반영</td>
+<td style="text-align: left;"><a href="https://academic.oup.com/rfs/article-abstract/31/2/449/4139801">Engle and Siriwardane(2014)</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">금융기관 Distress</td>
+<td style="text-align: center;">JPod(Joint probability of default)*</td>
+<td style="text-align: left;">금융시스템내의 모든 금융기관들에서 동시에 위험 사건이 발생할 확률</td>
+<td style="text-align: left;"><a href="http://doi.org/10.5089/9781451871517.001">Segoviano &amp; Goodhart (2009)</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">금융기관 Distress</td>
+<td style="text-align: center;">BSI(banking stability index)*</td>
+<td style="text-align: left;">적어도 하나의 금융기관이 위험할 때 위험 금융기관 수의 기댓값</td>
+<td style="text-align: left;"><a href="http://doi.org/10.5089/9781451871517.001">Segoviano &amp; Goodhart (2009)</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">금융기관 Distress</td>
+<td style="text-align: center;">PAO(probability that at least one bank becomes distressed)*</td>
+<td style="text-align: left;">특정 금융기관이 위험한 상황일 때 다른 금융기관 중 적어도 하나의 금융기관에서 위험 사건이 발생할 확률</td>
+<td style="text-align: left;"><a href="http://doi.org/10.5089/9781451871517.001">Segoviano &amp; Goodhart (2009)</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">금융기관 Distress</td>
+<td style="text-align: center;">DDM(distress dependence matrix)*</td>
+<td style="text-align: left;">i번째 금융기관이 위험할 때 j번째 금융기관이 위험에 처할 조건부확률</td>
+<td style="text-align: left;"><a href="http://doi.org/10.5089/9781451871517.001">Segoviano &amp; Goodhart (2009)</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">금융기관 부도위험</td>
+<td style="text-align: center;">CDS**-DIP(Distress insurance premium)</td>
+<td style="text-align: left;">금융시스템내에 개별 금융기관들이 발행한 CDS들의 (부채규모를 가중치로 하는) 가상적인 포트폴리오에 대해서 신용위험 사건 발생시 보호받기 위해서 지불하여야 하는 프리미엄</td>
+<td style="text-align: left;"><a href="https://www.sciencedirect.com/science/article/abs/pii/S0378426609001216?via%3Dihub">Huang et al.(2009)</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">금융기관 부도위험</td>
+<td style="text-align: center;">CDS-CoRisk</td>
+<td style="text-align: left;">CDS 스프레드에 대해 CoVaR와 유사한 개념을 적용</td>
+<td style="text-align: left;"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1417920">IMF(2009)</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">금융기관 부도위험</td>
+<td style="text-align: center;">Option-iPoD(Option-implied probability of default)</td>
+<td style="text-align: left;">CIMDO 기법을 적용하여 개별 금융기관의 부도확률을 추정하는 방법을 제시</td>
+<td style="text-align: left;"><a href="https://doi.org/10.5089/9781451870527.001">Capuano(2008)</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">금융기관 부도위험</td>
+<td style="text-align: center;">CCA*** 기반 시스템리스크</td>
+<td style="text-align: left;">CCA 방법에 기반하여 금융기관의 부도확률에 대해 추정 - 전체 금융시스템 내에 금융기관중 부실금융기관의 비율이 일정 임계치 이상일 확률</td>
+<td style="text-align: left;"><a href="https://doi.org/10.1016/j.jbankfin.2004.09.007">Lehar(2005)</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">금융기관 네트워크</td>
+<td style="text-align: center;">NETW</td>
+<td style="text-align: left;">금융기관들간의 직접적인 연계성이 존재하는 경우 네트워크 측정</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Agent-based</td>
+<td style="text-align: center;">ABM</td>
+<td style="text-align: left;">다수의 독립적인 이질적이고 경제주체들(agents)이 실제 상황에서 행하는 것과 유사하게 상호작용을 하고 새로운 환경에 적응(adapt)하면서 경제적 행동을 하도록 모형화하고 이러한 경제행위들의 상호작용의 결과를 분석</td>
+<td style="text-align: left;">Thurner(2011), Bookstaber et al.(2014), Bookstaber and Paddrik(2015)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">스트레스 테스트</td>
+<td style="text-align: center;">STEST</td>
+<td style="text-align: left;">스트레스 시나리오를 구성하고, 스트레스 시나리오 하에서 금융기관이 어떤 영향을 받을지 추정하고, 그러한 금융부문의 영향으로 인해 거시경제가 어떤 영향을 받을지 추정하는 과정으로 이루어짐 - CCAR(Comprehensive Capital Analysis and Review), DFAST(Dodd-Frank Act Stress Testing)</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">스트레스 테스트</td>
+<td style="text-align: center;">R(reverse)-STEST</td>
+<td style="text-align: left;">금융기관을 위험에 처하게 하는 시나리오가 어떤 것인지를 찾는 방법</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<p>*개별 금융기관들의 위험 확률(PoD)들로부터 CIMDO(consistent multivariate density optimizing) 기법을 활용하여 개별 금융기관들간의 위험 사건에 대한 결합분포를 구하고 이를 이용한 금융안정 지수들 (Segoviano and Goodhart(2009))</p>
+<p>**CDS 스프레드는 해당 금융기관이 위험사건 발생시 금융손실의 위험을 보장받을 것을 대가로 ‘보장’ 매입자가 일정기간마다 ‘보장’ 매도자에게 지불하여야 하는 (원금 대비) 프리미엄 비율 / CDS 스프레드 시장 가격은 금융기관의 위험도에 대해 시장에서 평가하는 정보를 가지고 있으며, 이 CDS 스프레드를 통해 위험사건의 발생확률을 역산할 수 있음</p>
+<p>***CCA(contingent claim approach)는 만기 시점에서 기업의 (시장가치 기준) 자산이 부채를 하회하는 것을 기업의 부도사건으로 정의하면, 자본은 부채를 먼저 상환하고 남는 부분에 대한 청구권으로서 기초자산을 자산가치로 하고 행사가격을 부채가치로 하는 콜옵션과 동일하다는 Merton(1974)의 구조모형에 기반한 부도확률 측정법 (Merton(1974))</p>
+<p>각 측정 방법의 자세한 설명은 아래 글에 나와있다.</p>
+<p><strong><a href="https://jo-cho.github.io/FinBlog/posts/systemic_risk/2-1_Systemic_Risk_Measures_Macro.html">시스템 리스크 분석: (2-1) 거시경제지표를 활용한 경제전체 위험도 측정방법</a></strong></p>
+<p><strong><a href="https://jo-cho.github.io/FinBlog/posts/systemic_risk/2-2_Systemic_Risk_Measures_Market.html">시스템 리스크 분석: (2-2) 시장위험 측정방법</a></strong></p>
+<p><strong><a href="https://jo-cho.github.io/FinBlog/posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.html">시스템 리스크 분석: (2-3) 금융기관 단면적 위험 측정방법</a></strong></p>
+<p><strong><a href="https://jo-cho.github.io/FinBlog/posts/systemic_risk/2-4_Systemic_Risk_Measures_Probability_of_Default.html">시스템 리스크 분석: (2-4) 금융기관 부도확률 위험 측정방법</a></strong></p>
+<p><strong><a href="https://jo-cho.github.io/FinBlog/posts/systemic_risk/2-5_Systemic_Risk_Measures_Network.html">시스템 리스크 분석: (2-5) 금융기관 네트워크 측정방법</a></strong></p>
+</section>
+<section id="tommasobelluzzosystemicriskgithub-repo의-서베이" class="level2">
+<h2 class="anchored" data-anchor-id="tommasobelluzzosystemicriskgithub-repo의-서베이">TommasoBelluzzo/SystemicRisk(Github Repo)의 서베이</h2>
+<p>https://github.com/TommasoBelluzzo/SystemicRisk</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">카테고리</th>
+<th style="text-align: center;">이름</th>
+<th style="text-align: left;">내용</th>
+<th style="text-align: left;">관련 논문</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">BUBBLES DETECTION</td>
+<td style="text-align: center;">BUB (Bubbles Flag), BMPH (Boom Phases Flag), BRPH (Burst Phases Flag)</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://doi.org/10.1111/iere.12132">Phillips et al.&nbsp;(2015)</a>, <a href="https://doi.org/10.1016/bs.host.2018.12.002">Phillips &amp; Shi (2018)</a>, <a href="https://doi.org/10.1111/obes.12307">Phillips &amp; Shi (2019)</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">BUBBLES DETECTION</td>
+<td style="text-align: center;">BC (Bubbling Capitalization), BCP (Bubbling Capitalization Percentage)</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://doi.org/10.1093/rfs/hhaa011">Brunnermeier et al.&nbsp;(2020)</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">COMPONENT MEASURES</td>
+<td style="text-align: center;">AR (Absorption Ratio)</td>
+<td style="text-align: left;">금융자산 수익률간의 상관성 정도 측정</td>
+<td style="text-align: left;"><a href="https://doi.org/10.2139/ssrn.1633027">Kritzman et al.&nbsp;(2010)</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">COMPONENT MEASURES</td>
+<td style="text-align: center;">CATFIN</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://doi.org/10.1093/rfs/hhs094">Allen et al.&nbsp;(2012)</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">COMPONENT MEASURES</td>
+<td style="text-align: center;">CS (Correlation Surprise)</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://doi.org/10.2139/ssrn.2133396">Kinlaw &amp; Turkington (2012)</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">COMPONENT MEASURES</td>
+<td style="text-align: center;">TI (Turbulence Index)</td>
+<td style="text-align: left;">금융시장 에서의 자산가격형성이 통상적인 패턴에서 벗어나는지를 판단</td>
+<td style="text-align: left;"><a href="https://doi.org/10.2469/faj.v66.n5.3">Kritzman &amp; Li (2010)</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">COMPONENT MEASURES</td>
+<td style="text-align: center;">PCA</td>
+<td style="text-align: left;">금융자산 수익률간의 상관성 정도와 금융시스템에 대한 개별 금융기관의 기여도 측정</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CONNECTEDNESS MEASURES</td>
+<td style="text-align: center;">DCI (Dynamic Causality Index), CIO (“In &amp; Out” Connections), CIOO (“In &amp; Out - Other” Connections), Network Centralities</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://doi.org/10.2139/ssrn.1963216">Billio et al.&nbsp;(2011)</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CROSS-ENTROPY MEASURES</td>
+<td style="text-align: center;">JPod(Joint probability of default)</td>
+<td style="text-align: left;">금융시스템내의 모든 금융기관들에서 동시에 위험 사건이 발생할 확률</td>
+<td style="text-align: left;"><a href="http://doi.org/10.5089/9781451871517.001">Segoviano &amp; Goodhart (2009)</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CROSS-ENTROPY MEASURES</td>
+<td style="text-align: center;">FSI (Financial Stability Index)</td>
+<td style="text-align: left;">적어도 하나의 금융기관이 위험할 때 위험 금융기관 수의 기댓값</td>
+<td style="text-align: left;"><a href="http://doi.org/10.5089/9781451871517.001">Segoviano &amp; Goodhart (2009)</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CROSS-ENTROPY MEASURES</td>
+<td style="text-align: center;">PCE(Probability of Cascade Effects)</td>
+<td style="text-align: left;">특정 금융기관이 위험한 상황일 때 다른 금융기관 중 적어도 하나의 금융기관에서 위험 사건이 발생할 확률</td>
+<td style="text-align: left;"><a href="http://doi.org/10.5089/9781451871517.001">Segoviano &amp; Goodhart (2009)</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CROSS-ENTROPY MEASURES</td>
+<td style="text-align: center;">DiDE(distress dependency)</td>
+<td style="text-align: left;">i번째 금융기관이 위험할 때 j번째 금융기관이 위험에 처할 조건부확률</td>
+<td style="text-align: left;"><a href="http://doi.org/10.5089/9781451871517.001">Segoviano &amp; Goodhart (2009)</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CROSS-ENTROPY MEASURES</td>
+<td style="text-align: center;">SI (Systemic Importance)</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CROSS-ENTROPY MEASURES</td>
+<td style="text-align: center;">SV (Systemic Vulnerability)</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CROSS-ENTROPY MEASURES</td>
+<td style="text-align: center;">CoJPoDs (Conditional Joint Probabilities of Default)</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CROSS-QUANTILOGRAM MEASURES</td>
+<td style="text-align: center;">Full Cross-Quantilograms, Partial Cross-Quantilograms</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://doi.org/10.1016/j.jeconom.2016.03.001">Han et al.&nbsp;(2016)</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CROSS-SECTIONAL MEASURES</td>
+<td style="text-align: center;">Idiosyncratic Metrics: Beta, Value-at-Risk &amp; Expected Shortfall</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CROSS-SECTIONAL MEASURES</td>
+<td style="text-align: center;">CAViaR (Conditional Autoregressive Value-at-Risk)</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://doi.org/10.1016/j.jeconom.2015.02.004">White et al.&nbsp;(2015)</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CROSS-SECTIONAL MEASURES</td>
+<td style="text-align: center;">CoVaR &amp; Delta CoVaR (Conditional Value-at-Risk)</td>
+<td style="text-align: left;">금융시스템의 주가수익률이 일정 임계치 이상으로 크게 하락하는 것을 시스템리스크라고 하고 한 금융기관에서 심각한 금융위험 사건이 발생하였다는 조건의 부과가 시스템리스크 수준을 얼마나 증가시키는지를 측정</td>
+<td style="text-align: left;"><a href="https://doi.org/10.2139/ssrn.1269446">Adrian &amp; Brunnermeier (2008)</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CROSS-SECTIONAL MEASURES</td>
+<td style="text-align: center;">MES (Marginal Expected Shortfall), SES (Systemic Expected Shortfall)</td>
+<td style="text-align: left;">시스템리스크가 발생한 경우 개별 금융기관의 적정 자본수준 대비 자본의 부족규모 예상 치</td>
+<td style="text-align: left;"><a href="https://doi.org/10.2139/ssrn.1573171">Acharya et al.&nbsp;(2010)</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CROSS-SECTIONAL MEASURES</td>
+<td style="text-align: center;">SRISK (Conditional Capital Shortfall Index)</td>
+<td style="text-align: left;">금융 시스템 위기가 발생한 경우에 개별 금융기관의 자본 부족규모 예상치를 측정 / 개별 금융기관 및 금융시스템의 주가 수익률이 GARCH-DCC 모형을 따른다고 가정</td>
+<td style="text-align: left;"><a href="https://doi.org/10.2139/ssrn.1611229">Brownlees &amp; Engle (2010)</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DEFAULT MEASURES</td>
+<td style="text-align: center;">D2C (Distance To Capital)</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://doi.org/10.1057/palgrave.jbr.2350056">Chan-Lau &amp; Sy (2007)</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DEFAULT MEASURES</td>
+<td style="text-align: center;">D2D (Distance To Default)</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://doi.org/10.1111/j.1540-6261.2004.00650.x">Vassalou &amp; Xing (2004)</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DEFAULT MEASURES</td>
+<td style="text-align: center;">DIP (Distress Insurance Premium)</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://doi.org/10.2139/ssrn.2181645">Black et al.&nbsp;(2012)</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DEFAULT MEASURES</td>
+<td style="text-align: center;">SCCA (Systemic Contingent Claims Analysis)</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://doi.org/10.5089/9781475572780.001">Jobst &amp; Gray (2013)</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LIQUIDITY MEASURES</td>
+<td style="text-align: center;">ILLIQ (Illiquidity Measure)</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://doi.org/10.1016/S1386-4181(01)00024-6">Amihud (2002)</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LIQUIDITY MEASURES</td>
+<td style="text-align: center;">RIS (Roll Implicit Spread)</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://doi.org/10.1111/j.1540-6261.2009.01469.x">Hasbrouck (2009)</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LIQUIDITY MEASURES</td>
+<td style="text-align: center;">Classic Indicators: Hui-Heubel Liquidity Ratio, Turnover Ratio &amp; Variance Ratio</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://doi.org/10.1057/palgrave.jbr.2350056">Chan-Lau &amp; Sy (2007)</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">REGIME-SWITCHING MEASURES</td>
+<td style="text-align: center;">2-States Model: High &amp; Low Volatility</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://www.bis.org/bcbs/events/sfrworkshopprogramme/billio.pdf">Billio et al.&nbsp;(2010)</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">REGIME-SWITCHING MEASURES</td>
+<td style="text-align: center;">3-States Model: High, Medium &amp; Low Volatility</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://www.bis.org/bcbs/events/sfrworkshopprogramme/billio.pdf">Billio et al.&nbsp;(2010)</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">REGIME-SWITCHING MEASURES</td>
+<td style="text-align: center;">4-States Model: High &amp; Low Volatility With Corrections</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://www.bis.org/bcbs/events/sfrworkshopprogramme/billio.pdf">Billio et al.&nbsp;(2010)</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">REGIME-SWITCHING MEASURES</td>
+<td style="text-align: center;">AP (Average Probability of High Volatility)</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://doi.org/10.2139/ssrn.1972255">Abdymomunov (2011)</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">REGIME-SWITCHING MEASURES</td>
+<td style="text-align: center;">JP (Joint Probability of High Volatility)</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://doi.org/10.2139/ssrn.1972255">Abdymomunov (2011)</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SPILLOVER MEASURES</td>
+<td style="text-align: center;">SI (Spillover Index), Spillovers From &amp; To, Net Spillovers</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://doi.org/10.1111/j.1468-0297.2008.02208.x">Diebold &amp; Yilmaz (2008)</a>, <a href="https://doi.org/10.1016/j.ijforecast.2011.02.006">Diebold &amp; Yilmaz (2012)</a>, <a href="https://doi.org/10.1016/j.jeconom.2014.04.012">Diebold &amp; Yilmaz (2014)</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TAIL DEPENDENCE MEASURES</td>
+<td style="text-align: center;">ACHI (Average Chi)</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://doi.org/10.1016/j.jfs.2014.10.002">Balla et al.&nbsp;(2014)</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TAIL DEPENDENCE MEASURES</td>
+<td style="text-align: center;">ADR (Asymptotic Dependence Rate)</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://doi.org/10.1016/j.jfs.2014.10.002">Balla et al.&nbsp;(2014)</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TAIL DEPENDENCE MEASURES</td>
+<td style="text-align: center;">FRM (Financial Risk Meter)</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://doi.org/10.1108/S0731-905320200000042016">Mihoci et al.&nbsp;(2020)</a></td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="jo-cho/FinBlog" data-repo-id="R_kgDOJQ80aw" data-category="General" data-category-id="DIC_kwDOJQ80a84CVb8i" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../posts/systemic_risk/1_Systemic_Risk.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">시스템 리스크 개념</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../posts/systemic_risk/2-1_Systemic_Risk_Measures_Macro.html" class="pagination-link">
+        <span class="nav-page-text">선행연구 (거시경제)</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
