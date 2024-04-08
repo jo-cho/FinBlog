@@ -182,6 +182,97 @@
     "text": "EWS-Hybrid (Early warning system-Hybrid)\nSuh(2017)\n조기경보모형으로 널리 사용되고 있는 신호접근법과 로짓모형의 각기 장단점을 서로 보완적으로 활용\n\n먼저 여러 정보변수들을 그 경제적 내용에 따라 소수의 하위부문으로 구분\n\n급작스런 자본유입의 중단 현상의 예측에 대해 17개의 개별 정보변수를 4개의 하위부문(거시경제, 금융, 대외부문 및 해외경제)으로 분류\n각 국가간 차이를 나타내는 변수 중에서 시기별로 큰 변동을 보이지 않는 5개의 변수를 따로 국가간 차이 변수로서 추가\n\n4개의 하위부문에 대해 각각 신호접근법을 적용하여 하위종합지수를 구성\n이렇게 구성된 4개의 하위종합지수와 5개의 국가간 차이변수 등 9개의 정보변수를 로짓 예측모형에 적용"
   },
   {
+    "objectID": "posts/statistics/time_series/ts_02_arima.html",
+    "href": "posts/statistics/time_series/ts_02_arima.html",
+    "title": "시계열 - ARIMA",
+    "section": "",
+    "text": "시계열 분석을 정리하고자 한다."
+  },
+  {
+    "objectID": "posts/statistics/time_series/ts_02_arima.html#arp",
+    "href": "posts/statistics/time_series/ts_02_arima.html#arp",
+    "title": "시계열 - ARIMA",
+    "section": "AR(p)",
+    "text": "AR(p)\n\\(AR(p)\\):\n\\[Y_t = c + \\phi_1 Y_{t-1} + \\phi_2 Y_{t-2} + \\dots + \\phi_p Y_{t-p} + \\epsilon_t\\]\n\\[\\Phi_p(L)Y_t = c + \\epsilon_t\\]\n\n자기 상관성: AR 모델은 시계열 데이터의 자기 상관성을 모델링한다. 즉, 현재의 값이 과거의 값들과 어떻게 연관되어 있는지를 분석한다.\n정상성(Stationarity): AR 모델을 적용하기 위해서는 시계열 데이터가 정상 시계열이어야 한다. 즉, 시계열의 평균과 분산이 시간에 따라 일정해야 하며, 공분산이 두 시점 간의 간격에만 의존해야 한다. 비정상 시계열은 차분(differencing)과 같은 방법으로 정상화할 수 있다.\n모델 선택: AR 모델의 차수 \\(p\\)는 중요한 선택 요소이다. 너무 낮은 차수는 데이터의 구조를 충분히 설명하지 못할 수 있고, 너무 높은 차수는 과적합(overfitting)을 초래할 수 있다. AIC(Akaike Information Criterion)나 BIC(Bayesian Information Criterion) 같은 정보 기준을 사용하여 최적의 차수를 결정할 수 있다.\n\n\nimport numpy as np\nimport pandas as pd\nfrom statsmodels.tsa.ar_model import AutoReg\nimport matplotlib.pyplot as plt\n\n# 임의의 시계열 데이터 생성\nnp.random.seed(123)\ndata = pd.Series(np.random.randn(100).cumsum())\n\n# AR 모델 적합 (여기서는 차수 p=2로 설정)\nmodel = AutoReg(data, lags=2)\nmodel_fitted = model.fit()\n\n# 모델 파라미터 출력\nprint(model_fitted.params)\n\n# 예측\npredictions = model_fitted.predict(start=len(data), end=len(data)+10)\n\nplt.figure(figsize=(10,5))\nplt.plot(data, label='Original Data')\nplt.plot(np.arange(len(data), len(data)+11), predictions, label='Predictions', color='red')\nplt.legend()\nplt.show()\n\nconst    0.087009\ny.L1     0.989062\ny.L2    -0.041930\ndtype: float64"
+  },
+  {
+    "objectID": "posts/statistics/time_series/ts_02_arima.html#ar1",
+    "href": "posts/statistics/time_series/ts_02_arima.html#ar1",
+    "title": "시계열 - ARIMA",
+    "section": "AR(1)",
+    "text": "AR(1)\n\\(X_{t} = c + {\\phi}X_{t-1} + \\epsilon_{t}\\)\nAR(1) 모형의 정상성 조건은 다음과 같음을 확인할 수 있다.\n$ ||&lt;1$\n만약 이 조건이 지켜지지 않는 경우 AR(1) 회귀식으로부터, 시계열의 값이 시간에 대해 점차 증가하거나 감소하는 추세를 가지게 될 것임을 예측할 수 있다.\n\\(E[X_{t}] = \\frac{c}{1-\\phi}\\)\n\\(Var[X_{t}] = \\frac{\\sigma^{2}}{1-\\phi^{2}}\\)\n\\(Cov[X_{t}, X_{t-k}] = \\frac{\\phi^{k}}{1-\\phi^{2}}\\sigma^{2}\\)\nAR(1)의 ACF는 \\(\\phi^k\\) (단, 정상 시계열일때)\nAR(1)의 PACF는 \\(\\phi\\) (단, k&gt;1이면 0)"
+  },
+  {
+    "objectID": "posts/statistics/time_series/ts_02_arima.html#ma1",
+    "href": "posts/statistics/time_series/ts_02_arima.html#ma1",
+    "title": "시계열 - ARIMA",
+    "section": "MA(1)",
+    "text": "MA(1)\n\\(X_{t} = c + \\epsilon_{t} + \\theta \\epsilon_{t-1}\\)\n\\(E[X_{t}] = c\\)\n\\(Var[X_{t}] = (1+\\theta^{2})\\sigma^{2}\\)\n\\(Cov(X_{t},X_{t-1}) = \\theta\\sigma^{2}\\)\n\\(Cov(X_{t},X_{t-k}) = 0\\) for k &gt; 1\nMA(1) process는 추가적인 가정이 없이도 약정상성을 만족"
+  },
+  {
+    "objectID": "posts/statistics/time_series/ts_02_arima.html#acf-pacf",
+    "href": "posts/statistics/time_series/ts_02_arima.html#acf-pacf",
+    "title": "시계열 - ARIMA",
+    "section": "ACF, PACF",
+    "text": "ACF, PACF\nACF, PACF에 대해서는 전 포스트에서 다루었다.\n\nAR 모델의 차수 결정: PACF를 살펴보아 \\(p\\) 이후에 급격히 떨어지는 지점을 찾는다. 이 지점이 AR 모델의 추정 차수가 될 수 있다.\nMA 모델의 차수 결정: ACF를 살펴보아 \\(q\\) 이후에 급격히 떨어지는 지점을 찾는다. 이 지점이 MA 모델의 추정 차수가 될 수 있다.\nARIMA 모델의 차수 결정: 차분 \\(d\\)를 적용한 후에도 비정상적인 패턴이 관찰되면, ACF와 PACF를 다시 살펴보아 AR 부분과 MA 부분의 차수를 결정한다.\n\n\nfrom statsmodels.graphics.tsaplots import plot_acf, plot_pacf\nimport matplotlib.pyplot as plt\n\n# ACF 플롯\nplt.figure(figsize=(5, 6))\nplot_acf(data, lags=40, ax=plt.subplot(2, 1, 1))\n\n# PACF 플롯\nplot_pacf(data, lags=40, ax=plt.subplot(2, 1, 2))\n\nplt.tight_layout()\nplt.show()\n\n\n\n\n\ndiff = data.diff(1).dropna()\n\n# ACF 플롯\nplt.figure(figsize=(5, 6))\nplot_acf(diff, lags=40, ax=plt.subplot(2, 1, 1))\n\n# PACF 플롯\nplot_pacf(diff, lags=40, ax=plt.subplot(2, 1, 2))\n\nplt.tight_layout()\nplt.show()"
+  },
+  {
+    "objectID": "posts/statistics/time_series/ts_02_arima.html#aic-bic",
+    "href": "posts/statistics/time_series/ts_02_arima.html#aic-bic",
+    "title": "시계열 - ARIMA",
+    "section": "AIC, BIC",
+    "text": "AIC, BIC\nAIC (Akaike Information Criterion)와 BIC (Bayesian Information Criterion)는 시계열 모델 선택에서 모델의 적합도와 복잡성 사이의 균형을 평가하는 데 널리 사용된다. 자세한 설명은 생략한다.\n\nfrom statsmodels.tsa.arima.model import ARIMA\n\n# 모델 적합\nmodel = ARIMA(data, order=(1, 1, 1))\nmodel_fitted = model.fit()\n\n# AIC와 BIC 출력\nprint(f\"AIC: {model_fitted.aic}\")\nprint(f\"BIC: {model_fitted.bic}\")\n\n# 모델 적합\nmodel = ARIMA(data, order=(3, 1, 1))\nmodel_fitted = model.fit()\n\n# AIC와 BIC 출력\nprint(f\"AIC: {model_fitted.aic}\")\nprint(f\"BIC: {model_fitted.bic}\")\n\nAIC: 309.0152096770903\nBIC: 316.80056922749407\nAIC: 310.78416238617626\nBIC: 323.7597616368492"
+  },
+  {
+    "objectID": "posts/statistics/time_series/ts_02_arima.html#auto-arima",
+    "href": "posts/statistics/time_series/ts_02_arima.html#auto-arima",
+    "title": "시계열 - ARIMA",
+    "section": "Auto ARIMA",
+    "text": "Auto ARIMA\nauto_arima 함수는 주어진 시계열 데이터에 대해 최적의 ARIMA 모델을 자동으로 찾는다!\n\nimport pmdarima as pm\n\n# auto_arima 실행\nmodel = pm.auto_arima(data, start_p=2, start_q=2,\n                      test='adf',       # ADF 검정을 사용하여 차분 결정\n                      max_p=5, max_q=5, # 최대 p와 q 값\n                      m=1,              # 계절성 주기, 여기서는 비계절성 시계열이므로 1\n                      d=None,           # 차분 차수, None이면 자동 결정\n                      seasonal=False,   # 계절성 모델 사용 여부\n                      start_P=1, \n                      D=None, \n                      trace=True,       # 검색 과정의 정보를 출력\n                      error_action='ignore',  \n                      suppress_warnings=True, \n                      stepwise=True)    # 단계별 검색 사용\n\n# 요약 정보 출력\nprint(model.summary())\n\nPerforming stepwise search to minimize aic\n ARIMA(2,1,2)(0,0,0)[0] intercept   : AIC=inf, Time=0.37 sec\n ARIMA(0,1,0)(0,0,0)[0] intercept   : AIC=308.858, Time=0.02 sec\n ARIMA(1,1,0)(0,0,0)[0] intercept   : AIC=310.834, Time=0.02 sec\n ARIMA(0,1,1)(0,0,0)[0] intercept   : AIC=310.833, Time=0.03 sec\n ARIMA(0,1,0)(0,0,0)[0]             : AIC=306.972, Time=0.00 sec\n ARIMA(1,1,1)(0,0,0)[0] intercept   : AIC=312.834, Time=0.05 sec\n\nBest model:  ARIMA(0,1,0)(0,0,0)[0]          \nTotal fit time: 0.485 seconds\n                               SARIMAX Results                                \n==============================================================================\nDep. Variable:                      y   No. Observations:                  100\nModel:               SARIMAX(0, 1, 0)   Log Likelihood                -152.486\nDate:                Mon, 08 Apr 2024   AIC                            306.972\nTime:                        20:49:26   BIC                            309.567\nSample:                             0   HQIC                           308.022\n                                - 100                                         \nCovariance Type:                  opg                                         \n==============================================================================\n                 coef    std err          z      P&gt;|z|      [0.025      0.975]\n------------------------------------------------------------------------------\nsigma2         1.2746      0.219      5.831      0.000       0.846       1.703\n===================================================================================\nLjung-Box (L1) (Q):                   0.02   Jarque-Bera (JB):                 1.64\nProb(Q):                              0.87   Prob(JB):                         0.44\nHeteroskedasticity (H):               0.70   Skew:                             0.01\nProb(H) (two-sided):                  0.32   Kurtosis:                         2.37\n===================================================================================\n\nWarnings:\n[1] Covariance matrix calculated using the outer product of gradients (complex-step)."
+  },
+  {
+    "objectID": "posts/statistics/time_series/ts_02_arima.html#머신러닝-딥러닝",
+    "href": "posts/statistics/time_series/ts_02_arima.html#머신러닝-딥러닝",
+    "title": "시계열 - ARIMA",
+    "section": "머신러닝, 딥러닝",
+    "text": "머신러닝, 딥러닝\n머신러닝과 딥러닝 기반의 시계열 모델은 전통적인 통계 기반 모델링 방법의 한계를 극복하고, 비선형성, 복잡한 패턴 인식, 대규모 데이터 처리 등에서 뛰어난 성능을 보인다. 이러한 모델들은 다양한 분야에서 시계열 데이터의 예측, 분류, 패턴 인식 등에 활용된다.\n\nRandom Forest, Boosting, SVM\nRNN, LSTM, Transformer 등"
+  },
+  {
+    "objectID": "posts/statistics/time_complexity.html",
+    "href": "posts/statistics/time_complexity.html",
+    "title": "알고리즘: 시간복잡도",
+    "section": "",
+    "text": "시간 복잡도는 알고리즘의 실행 시간이 입력 크기에 따라 어떻게 변화하는지를 나타내는 척도이다. 일반적으로 Big O 표기법을 사용하여 표현되며, 예를 들어 \\(O(n), O(\\log n), O(n^2)\\) 등으로 표현된다."
+  },
+  {
+    "objectID": "posts/statistics/time_complexity.html#시간-복잡도란",
+    "href": "posts/statistics/time_complexity.html#시간-복잡도란",
+    "title": "알고리즘: 시간복잡도",
+    "section": "",
+    "text": "시간 복잡도는 알고리즘의 실행 시간이 입력 크기에 따라 어떻게 변화하는지를 나타내는 척도이다. 일반적으로 Big O 표기법을 사용하여 표현되며, 예를 들어 \\(O(n), O(\\log n), O(n^2)\\) 등으로 표현된다."
+  },
+  {
+    "objectID": "posts/statistics/time_complexity.html#시간-복잡도의-종류",
+    "href": "posts/statistics/time_complexity.html#시간-복잡도의-종류",
+    "title": "알고리즘: 시간복잡도",
+    "section": "시간 복잡도의 종류",
+    "text": "시간 복잡도의 종류\n\n\n\n\n\n\n\n\n\n\n이름\n시간복잡도\n설명\nExample algorithms\n\n\n\n\nconstant time\n\\(O(1)\\)\n입력의 크기와 상관없이 항상 일정한 시간이 걸리는 알고리즘\n정렬된 수 배열에서 중간값 찾기\n\n\nlogarithmic time\n\\(O(\\log n)\\)\n알고리즘의 실행 시간이 입력 크기의 로그에 비례해서 증가, 문제를 해결하는데 필요한 단계들이 연산마다 특정 요인에 의해 줄어듬\n이진검색(Binary search)\n\n\nlinear time\n\\(O(n)\\)\n알고리즘의 실행 시간이 입력 크기에 직접 비례(1:1)해서 증가\n배열을 순회하는 알고리즘(반복문)\n\n\nlinearithmic time\n\\(O(n \\log n)\\)\n알고리즘의 실행 시간이 입력 크기에 비례하여 증가하지만, 각 단계마다 로그 시간이 추가로 소요\nquick-sort나 병합 정렬과 같은 효율적인 정렬 알고리즘\n\n\nquadratic time\n\\(O(n^2)\\)\n알고리즘의 실행 시간이 입력 크기의 제곱에 비례해서 증가\n버블 정렬, 삽입 정렬과 같은 간단한 정렬 알고리즘, 반복문이 두번\n\n\nfactorial time\n\\(O(n!)\\)\n알고리즘의 실행 시간이 입력 크기의 팩토리얼만큼 증가\n\n\n\nexponential time\n\\(O(2^n)\\)\n알고리즘의 실행 시간이 입력 크기의 지수적으로 증가\nbrute-force search를 통한 matrix chain multiplication"
+  },
+  {
+    "objectID": "posts/statistics/time_complexity.html#시간-복잡도-예시",
+    "href": "posts/statistics/time_complexity.html#시간-복잡도-예시",
+    "title": "알고리즘: 시간복잡도",
+    "section": "시간 복잡도 예시",
+    "text": "시간 복잡도 예시\n\n#1\n\ndef linear_search(arr, target):\n    for i in range(len(arr)):\n        if arr[i] == target:\n            return i  # 타겟을 찾으면 해당 인덱스 반환\n    return -1  # 타겟을 찾지 못하면 -1 반환\n\n\nlinear_search([0,2,3,4], 5)\n\n-1\n\n\n\n최악의 경우(Worst Case) 시간 복잡도: 타겟 값이 배열의 마지막에 위치하거나 배열 내에 존재하지 않는 경우, 배열의 모든 요소를 검사해야 하며, 입력 크기 n에 대해 n번의 비교가 이루어짐: \\(O(n)\\)\n최선의 경우(Best Case) 시간 복잡도: 타겟 값이 배열의 첫 번째 위치에 있으면, 첫 번째 비교에서 바로 타겟을 찾을 수 있음: \\(O(1)\\)\n평균적인 경우(Average Case) 시간 복잡도: 타겟 값의 위치가 무작위일 때, 타겟을 찾기까지 배열의 절반 정도를 평균적으로 검사해야 함. 그러나 평균적인 경우도 최악의 경우와 마찬가지로 n에 비례하기 때문에, 평균 시간 복잡도 역시 \\(O(n)\\)\n\n\n# 2\n\ndef binary_search(arr, target):\n    low = 0\n    high = len(arr) - 1\n    \n    while low &lt;= high:\n        mid = (low + high) // 2\n        guess = arr[mid]\n        \n        if guess == target:\n            return mid  # 타겟을 찾은 경우\n        if guess &gt; target:\n            high = mid - 1  # 타겟이 중간값보다 작은 경우, 검색 범위를 낮은 쪽으로 조정\n        else:\n            low = mid + 1  # 타겟이 중간값보다 큰 경우, 검색 범위를 높은 쪽으로 조정\n    return -1  # 타겟을 찾지 못한 경우\n\n예를 들어, \\(n=16\\)인 정렬된 배열에서 특정 값을 이진 검색으로 찾는 경우를 생각해봅시다. 최악의 경우나 평균적인 경우에도 검색 횟수는 다음과 같이 계산됨.\n\n처음 검색 범위는 전체 배열. (n=16)\n첫 번째 비교 후, 검색 범위는 8개의 요소로 감소. (n/2)\n두 번째 비교 후, 검색 범위는 4개의 요소로 감소. (n/4)\n세 번째 비교 후, 검색 범위는 2개의 요소로 감소. (n/8)\n네 번째 비교 후, 검색 범위는 1개의 요소로 감소. (n/16)\n\n이 경우, 최대 4번의 비교로 타겟 값을 찾을 수 있으며, 이는 \\(\\log_2 16=4\\)와 일치함. 따라서, 이진 검색의 시간 복잡도는 \\(O(\\log n)\\)."
+  },
+  {
+    "objectID": "posts/statistics/time_complexity.html#참고자료",
+    "href": "posts/statistics/time_complexity.html#참고자료",
+    "title": "알고리즘: 시간복잡도",
+    "section": "참고자료",
+    "text": "참고자료\n\n위키피디아(https://wikipedia.org)"
+  },
+  {
     "objectID": "posts/nlp/news_sentiment_index.html",
     "href": "posts/nlp/news_sentiment_index.html",
     "title": "뉴스심리지수 (한국은행)",
@@ -259,263 +350,60 @@
     "text": "기간: 2005년 7월 27일부터 2022년 1월 17일 까지\n삼성전자의 OHLCV(시가, 고가, 저가, 종가, 거래량)\n투자주체별 거래량: 개인, 외국인 기관\n\n파이썬 라이브러리인 FinanceDataReader와 yfinance을 이용한다. 순매수량 데이터는 대신증권 API로 받은 데이터를 이용한다.\n모든 시장 데이터는 일별 데이터이다.\n\n# lib\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns;sns.set()\n\nimport FinanceDataReader as fdr\nimport yfinance as yf\ndf_ohlc = fdr.DataReader('005930','2005-7-27','2022-1-17').iloc[:,0:4] #가격 수정되어 있음\nvolume_yf = yf.download('005930.KS','2005-7-27','2022-1-17',auto_adjust=True).Volume # 수정거래량\n\ndf_ohlcv = df_ohlc.join(volume_yf).dropna()\ndf = tautil.ohlcv(df_ohlcv)\n\nquantity_ = pd.read_csv('C:data/순매수량.csv')\nquantity_ = quantity_.iloc[:-1,1:5]\nquantity_.columns = ['Date','individual','foreign','institutional']\nquantity_.index = quantity_['Date'].apply(lambda x: pd.to_datetime(str(x), format='%Y%m%d'))\nquantity_.drop(columns='Date',inplace=True)\n\ndf = df.join(quantity_).dropna()\n\n얻은 데이터는 뒤에서 시각화하기로 한다."
   },
   {
-    "objectID": "posts/math/probability_distribution.html",
-    "href": "posts/math/probability_distribution.html",
-    "title": "기초통계: 확률 분포, 적률, 엔트로피",
+    "objectID": "posts/machine_learning/GRL_05_2.html",
+    "href": "posts/machine_learning/GRL_05_2.html",
+    "title": "그래프 머신러닝: (5-2) GNN: 일반화된 집계 및 업데이트",
     "section": "",
-    "text": "AI 연구는 확률, 통계에 대한 기초적인 지식을 필요로 한다. 하지만, 확률, 통계를 공부했다고 하더라도, 잠시 관심을 꺼둔다면, 기초적인 지식조차도 금방 잊어버리기 마련이다. 필요할 때마다 찾아볼 수 있도록, 확률, 통계에 대한 간단한 기본 지식을 정리했다."
+    "text": "Hamilton,W.L. Graph Representation Learning. 2020\nBasic GNN은 여러 가지 방법으로 개선되고 일반화될 수 있다. 여기서는 aggregation과 update 작업을 일반화하고 개선할 수 있는 방법에 대해 알아보자."
   },
   {
-    "objectID": "posts/math/probability_distribution.html#이산-확률-분포-discrete-probability-distributions",
-    "href": "posts/math/probability_distribution.html#이산-확률-분포-discrete-probability-distributions",
-    "title": "기초통계: 확률 분포, 적률, 엔트로피",
-    "section": "이산 확률 분포 (Discrete probability distributions)",
-    "text": "이산 확률 분포 (Discrete probability distributions)\n\nBernouille distribution\n\n단일 시행에서 두 가지 결과(성공 1 /실패 0) 실험 모델링\n예: 동전 한번 던지기\n\n\\(P(X=k) = p^k (1-p)^{1-k} \\quad \\text{for} \\ k \\in \\{0,1\\}\\)\n\\(E(x) = p\\)\n\\(V(x) = p(1-p)\\)\n\n\nBinomial distribution\n\n고정된 수(\\(n\\))의 독립 시행에서 성공 횟수(\\(k\\))의 분포 (즉, 여러 베르누이 시행)\n사용 예시: 동전 던지기\n\n\\(P(X=k) = \\binom{n}{k} p^k (1-p)^{n-k}\\)\n\\(E(x) = np\\)\n\\(V(x) = np(1-p)\\)\n\n\nPoisson distribution\n\n\n단위 시간 또는 공간에서 발생하는 사건의 수\n한 시간 동안의 전화 통화 횟수(\\(k\\))\n\n\\(P(X=k) = \\frac{\\lambda^k e^{-\\lambda}}{k!}\\)\n\\(P(X \\leq K) = 1 - \\sum^{K}_{k=0}\\frac{\\lambda^k e^{-\\lambda}}{k!}\\)\n\\(E(x) = \\lambda\\)\n\\(V(x) = \\lambda\\)\n\n\nNegative binomial distribution\n\n\n베르누이 시행에서 성공 \\(r\\)회가 나타나기까지의 실패 횟수를 모델링\n팀이 \\(r\\)개의 중대한 버그를 모두 수정하기까지, 몇 번의 코드 검토가 필요할지 추정\n\n\\(P(X = k) = \\binom{k + r - 1}{k} (1-p)^k p^r\\)\n\\(E(X) = \\frac{r(1-p)}{p}\\)\n\\(V(X) = \\frac{r(1-p)}{p^2}\\)\n\n\nHypergeometric distribution\n\n\n한정된 특정 수(\\(N\\))의 모집단에서 교체없이(without replacement) 특정 성공 사건이 몇 번 발생했는지 모델링\n예시, \\(N\\)개 카드 덱(\\(K\\)개 하트카드)에서 한번에 \\(n\\)개 카드을 뽑았을 때, 뽑은 카드 중 \\(k\\)개가 하트 카드일 확률 계산\n\n\\(P(X = k) = \\frac{{\\binom{K}{k}}{\\binom{N-K}{n-k}}}{\\binom{N}{n}}\\)\n\\(F(x) = 1 - (1-p)^{x} \\quad \\text{for} \\ x \\geq 1\\)\n\\(E(X) = n\\frac{K}{N}\\)\n\\(V(X) = n\\frac{K}{N}\\frac{N-K}{N}\\frac{N-n}{N-1}\\)\n\n\nGeometric distribution\n\n\n베르누이 시행에서 처음 성공까지 시도한 횟수 \\(X\\)의 분포\n예시: 동전 앞면이 나올 때까지 동전 던진 횟수(\\(k\\))\n\n\\(P(X=k) = (1-p)^{k-1}p\\)\n\\(F(x) = 1 - (1-p)^{x} \\quad \\text{for} \\ x \\geq 1\\)\n\\(E(x) = \\frac{1}{p}\\)\n\\(V(x) = \\frac{1-p}{p^2}\\)"
+    "objectID": "posts/machine_learning/GRL_05_2.html#neighborhood-normalization",
+    "href": "posts/machine_learning/GRL_05_2.html#neighborhood-normalization",
+    "title": "그래프 머신러닝: (5-2) GNN: 일반화된 집계 및 업데이트",
+    "section": "Neighborhood Normalization",
+    "text": "Neighborhood Normalization\n가장 기본적인 이웃 집계(aggreagation)는 단순히 이웃 임베딩의 합을 취하는 것이나, 이 방식은 불안정하고 노드 degree에 매우 민감할 수 있다. 예를 들어, 노드 \\(u\\)가 노드 \\(u'\\)보다 \\(100\\)배 많은 이웃(즉, 훨씬 더 높은 차수)이 있다고 가정 할 때 \\(\\left\\| \\sum_{v \\in \\mathcal{N}(u)} h_v \\right\\| \\gg \\left\\| \\sum_{v' \\in \\mathcal{N}(u')} h_{v'} \\right\\|\\)라고 합리적으로 기대할 수 있다. 이러한 급격한 크기 차이로 인해 수치적 불안정성과 최적화의 어려움이 발생할 수 있다.\n해결 방법으로 관련된 포함된 노드 degree에 따라 집계를 단순히 정규화하는 방법이 있다.\n\n가장 단순한 방법은 합 대신 평균화 하는 것이다:\n\n\\[ \\mathbf{m}_{\\mathcal{N}(u)} = \\frac{\\sum_{v \\in \\mathcal{N}(u)} \\mathbf{h}_v}{|\\mathcal{N}(u)|} \\]\n\nKipf and Welling [2016a]에서 사용된 다음과 같은 대칭 정규화(symmetric normalization)와 같은 다른 정규화 factor도 있다:\n\n\\[ \\mathbf{m}_{\\mathcal{N}(u)} = \\sum_{v \\in \\mathcal{N}(u)} \\frac{\\mathbf{h}_v}{\\sqrt{|\\mathcal{N}(u)| |\\mathcal{N}(v)|}} \\]\n특히, 대칭 정규화 집계와 기본 GNN 업데이트 함수를 결합하면 spectral graph convolution의 1차(first-order) 근사(approximation)가 생성된다.\nGraph Convolutional Networks (GCNs)\n가장 널리 사용되는 기준이 되는 그래프 신경망 모델 중 하나인 그래프 컨볼루션 네트워크(GCN)는 대칭 정규화 집계와 self-loop 업데이트 접근 방식을 사용한다.\nGCN은 메시지 전달 함수를 다음과 같이 정의한다:\n\\[\\mathbf{h}^{(k)}_u = \\sigma \\left( \\mathbf{W}^{(k)} \\sum_{v \\in \\mathcal{N}(u) \\cup \\{u\\}} \\frac{\\mathbf{h}_v}{\\sqrt{|\\mathcal{N}(u)| |\\mathcal{N}(v)|}} \\right)\\]\n정규화는 필요할까?\n\nGNN을 사용할 때 안정적이고 강력한 성능을 얻으려면 적절한 정규화가 필수적일 수 있으나, 정규화로 인해 정보가 손실될 수도 있다는 점에 유의해야 한다.\n예를 들어, 정규화 후에는 학습된 임베딩을 사용하여 서로 다른 degree의 노드를 구별하는 것이 어렵거나 불가능할 수 있으며, 다양한 다른 구조 그래프 특징이 정규화에 의해 가려질 수 있다.\n일반적으로 정규화는 노드 피쳐 정보가 구조적 정보보다 훨씬 더 유용하거나, 최적화 중에 불안정을 초래할 수 있는 노드 degree 범위가 매우 넓은 작업에서 유용하다."
   },
   {
-    "objectID": "posts/math/probability_distribution.html#연속확률분포-continuous-probability-distributions",
-    "href": "posts/math/probability_distribution.html#연속확률분포-continuous-probability-distributions",
-    "title": "기초통계: 확률 분포, 적률, 엔트로피",
-    "section": "연속확률분포 (Continuous probability distributions)",
-    "text": "연속확률분포 (Continuous probability distributions)\n\nNormal distribution\n\n\n자연 현상에서 발생하는 많은 데이터의 분포를 모델링 (aka 가우시안 분포)\n인간의 키나 몸무게\n\n\\(f(x|\\mu,\\sigma^2) = \\frac{1}{\\sqrt{2\\pi\\sigma^2}}e^{-\\frac{(x-\\mu)^2}{2\\sigma^2}}\\)\n\\(F(x|\\mu,\\sigma) = \\frac{1}{2} \\left[1 + \\text{erf}\\left(\\frac{x-\\mu}{\\sigma\\sqrt{2}}\\right)\\right]\\), \\(\\text{erf}(z) = \\frac{2}{\\sqrt{\\pi}} \\int_{0}^{z} e^{-t^2} dt\\)\n\\(E(x) = \\mu\\)\n\\(V(x) = \\sigma^2\\)\n\n\nStudent’t t-distribution\n\n\n작은 표본 크기에서 정규 분포의 평균을 추정할 때 사용되는 분포\nt 검정, 신뢰 구간 추정\n\n\\(f(x|\\mu,\\sigma^2) = \\frac{1}{\\sqrt{2\\pi\\sigma^2}}e^{-\\frac{(x-\\mu)^2}{2\\sigma^2}}\\)\n\\(F(x|\\mu,\\sigma) = \\frac{1}{2} \\left[1 + \\text{erf}\\left(\\frac{x-\\mu}{\\sigma\\sqrt{2}}\\right)\\right]\\), \\(\\text{erf}(z) = \\frac{2}{\\sqrt{\\pi}} \\int_{0}^{z} e^{-t^2} dt\\)\n\\(E(x) = \\mu\\)\n\\(V(x) = \\sigma^2\\)\n\n\nChi-squared Distribution\n\n\n독립적인 표준 정규 분포를 따르는 변수들의 제곱 합의 분포\n사용 예시: 분산 분석, 카이제곱 검정 (적합도 검정, 독립성 검정) 등\n\n\\(f(x; k) = \\frac{1}{2^{\\frac{k}{2}}\\Gamma\\left(\\frac{k}{2}\\right)}x^{\\frac{k}{2}-1}e^{-\\frac{x}{2}}\\)\n\\(E(x) = k\\)\n\\(V(x) = 2k\\)\n\n\nUniform distribution\n\n모든 사건이 동일한 확률로 발생하는 분포\n사용 예시: 랜덤 숫자 생성\n\n\\(f(x) = \\begin{cases} \\frac{1}{b-a} & \\text{for } a \\leq x \\leq b \\\\ 0 & \\text{else } \\end{cases}\\)\n\\(F(x) = \\begin{cases} 0 & \\text{if } x &lt; a \\\\ \\frac{x-a}{b-a} & \\text{if } a \\leq x \\leq b \\\\ 1 & \\text{if } x &gt; b \\end{cases}\\)\n\\(\\mu = \\frac{a+b}{2}\\)\n\\(\\sigma^2 = \\frac{(b-a)^2}{12}\\)\n\n\nExponential distribution\n\n\n일정한 평균 속도(\\(\\lambda\\))로 발생하는 독립적인 사건 사이의 시간을 모델링\n예시: 기계가 고장 나기까지의 시간\n\n\\(f(x) = \\lambda e^{-\\lambda x}\\)\n\\(F(x) = 1 - e^{-\\lambda x} \\quad \\text{for} \\ x \\geq 0\\)\n\\(E(x) = \\frac{1}{\\lambda}\\)\n\\(V(x) = \\frac{1}{\\lambda^2}\\)\n\n\nWeibul distribution\n\n\n모양 매개변수(\\(\\lambda\\))와 스케일 매개변수(\\(k\\))에 의해 정의\n예시: 제품의 수명, 재료의 파손 시간, 또는 대기 시간 분석 등\n\n\\(f(x) = \\frac{k}{\\lambda} \\left( \\frac{x}{\\lambda} \\right)^{k - 1} e^{-(x/\\lambda)^k}\\)\n\\(F(x) = 1 - e^{-(x/\\lambda)^k}\\)\n\\(E(x) = \\lambda \\Gamma\\left(1 + \\frac{1}{k}\\right)\\)\n\\(V(x) = \\lambda^2 \\left[ \\Gamma\\left(1 + \\frac{2}{k}\\right) - \\left(\\Gamma\\left(1 + \\frac{1}{k}\\right)\\right)^2 \\right]\\)\n\n\nGamma Distribution\n\n\n지수분포에서 한 번의 사건이 아닌 여러 개의 사건으로 확장\n\\(\\alpha\\)번째 사건이 발생할때까지 걸리는 시간이 \\(T\\)이하일 확률\n사용 예시: 여러 기계의 수명 합, 모수의 베이지안 추정\n\n\\(f(x) = \\frac{x^{\\alpha-1}e^{-x/\\beta}}{\\Gamma(\\alpha)\\beta^\\alpha} \\quad \\text{for } x &gt; 0\\)\n\\(E(x) = \\alpha\\beta\\)\n\\(V(x) = \\alpha\\beta^2\\)\n\n\nBeta Distribution\n\n\n0과 1 사이의 값에 대한 확률 분포로, 성공 확률의 불확실성을 모델링할 때 사용\n두 매개변수 \\(\\alpha, \\beta\\)에 의해 모양이 결정되며, 이 매개변수들은 분포의 모양을 조절하는 데 사용\n사용 예시: 베이지안 통계에서 사전 분포(prior distribution), A/B 테스트 결과의 해석 등\n\n\\(f(x;\\alpha,\\beta) = \\frac{x^{\\alpha-1}(1-x)^{\\beta-1}}{B(\\alpha, \\beta)}\\)\n\\(B(\\alpha, \\beta) = \\int_{0}^{1} t^{\\alpha-1}(1-t)^{\\beta-1} dt\\) (베타함수)\n\\(E(x) = \\frac{\\alpha}{\\alpha + \\beta}\\)\n\\(V(x) = \\frac{\\alpha\\beta}{(\\alpha + \\beta)^2(\\alpha + \\beta + 1)}\\)"
+    "objectID": "posts/machine_learning/GRL_05_2.html#set-aggregators",
+    "href": "posts/machine_learning/GRL_05_2.html#set-aggregators",
+    "title": "그래프 머신러닝: (5-2) GNN: 일반화된 집계 및 업데이트",
+    "section": "Set Aggregators",
+    "text": "Set Aggregators\n이웃 집계 연산은 기본적으로 집합 함수(set function)이다. 이웃 임베딩 집합 {\\(\\mathbf{h}_v, \\forall v \\in \\mathcal{N}(u)\\)}이 주어지고, 이를 싱글 벡터 \\(\\mathbf{m}_{\\mathcal{N}(u)}\\)에 매핑해야 한다. {\\(\\mathbf{h}_v, \\forall v \\in \\mathcal{N}(u)\\)}이 집합이라는 사실은 실제로 매우 중요하다: 노드 이웃에는 자연적인 순서가 없으며, 따라서 정의하는 모든 집계 함수는 순열 불변(permutation invariant)이어야 한다.\n집계 함수를 정의하는 한 가지 원칙적인 접근 방식은 순열 불변 신경망 이론(permutaion invariant neural network)을 기반으로 한다.\n예를 들어, Zaheer et al. [2017]은 다음 형식의 집계 함수가 범용적 집합 함수 근사기(universal set function approximator)임을 보여준다:\n\\[\\mathbf{m}_{\\mathcal{N}(u)} = MLP_{\\theta} \\left( \\sum_{v \\in \\mathcal{N}(u)} MLP_{\\phi} (\\mathbf{h}_v) \\right)\\]"
   },
   {
-    "objectID": "posts/math/probability_distribution.html#적률moments이란",
-    "href": "posts/math/probability_distribution.html#적률moments이란",
-    "title": "기초통계: 확률 분포, 적률, 엔트로피",
-    "section": "적률(moments)이란",
-    "text": "적률(moments)이란\n\nk차 원점 적률: \\(\\mu'_k = \\int_{-\\infty}^{\\infty} x^k f(x) dx = E[X^k]\\)\nk차 중심 적률: \\(\\mu_k = \\int_{-\\infty}^{\\infty} (x-\\mu)^k f(x) dx = E[(X-\\mu)^k]\\)\nk차 표준화 적률: \\(\\tilde{\\mu}_k = \\frac{\\mu_k}{\\sigma^k} = E[{(\\frac{X-\\mu}{\\sigma})}^k]\\)"
-  },
-  {
-    "objectID": "posts/math/probability_distribution.html#평균-분산-왜도-첨도",
-    "href": "posts/math/probability_distribution.html#평균-분산-왜도-첨도",
-    "title": "기초통계: 확률 분포, 적률, 엔트로피",
-    "section": "평균, 분산, 왜도, 첨도",
-    "text": "평균, 분산, 왜도, 첨도\n\n1차 원점 적률(평균): 데이터의 평균 값을 나타냄 \\(\\mu = E[X]\\)\n1차 중심 적률: 0\n2차 중심 적률(분산): 데이터의 분산을 나타냄 \\(E[(X-\\mu)^2]\\)\n3차 중심 표준화 적률(왜도): 데이터 분포의 비대칭도를 나타냄 \\(E[{(\\frac{X-\\mu}{\\sigma})}^3]\\)\n4차 중심 표준화 적률(첨도): 데이터 분포의 뾰족함을 나타냄 \\(E[{(\\frac{X-\\mu}{\\sigma})}^4]\\)"
-  },
-  {
-    "objectID": "posts/math/probability_distribution.html#적률-생성-함수mgf",
-    "href": "posts/math/probability_distribution.html#적률-생성-함수mgf",
-    "title": "기초통계: 확률 분포, 적률, 엔트로피",
-    "section": "적률 생성 함수(MGF)",
-    "text": "적률 생성 함수(MGF)\n적률 생성 함수는 확률변수의 모든 적률을 유도하기 위한 방법으로 사용\n\\[M_X(t) = E[e^{tX}] = \\int_{-\\infty}^{\\infty} e^{tx} f(x) dx\\]\n이때, 확률변수 \\(X\\)의 \\(n\\)번째 적률은 \\(M(t)\\)를 \\(t\\)에 대해 \\(n\\)번 미분하고 \\(t=0\\)을 대입하여 얻을 수 있음\n\\[\\mu_n' = E[X^n] = \\left. \\frac{d^n M(t)}{dt^n} \\right|_{t=0}\\]\n\\(e^{tX}\\)를 테일러 전개하여, 적률 생성 함수에 대입하면,\n\\(M_X(t) = E[e^{tX}] = E\\left[1 + Xt + \\frac{X^2t^2}{2!} + \\frac{X^3t^3}{3!} + \\ldots \\right]\\)\n\\(M_X(t) = E[e^{tX}] = 1 + E[X]t + \\frac{E[X^2]t^2}{2!} + \\frac{E[X^3]t^3}{3!} + \\ldots\\)\n\\(n\\)차 미분하여 \\(t=0\\)을 대입하면, \\(n\\)차 적률이 되는 것을 알 수 있다."
-  },
-  {
-    "objectID": "posts/math/probability_distribution.html#적률-생성-함수의-특징",
-    "href": "posts/math/probability_distribution.html#적률-생성-함수의-특징",
-    "title": "기초통계: 확률 분포, 적률, 엔트로피",
-    "section": "적률 생성 함수의 특징",
-    "text": "적률 생성 함수의 특징\n\n존재성: 모든 적률이 존재하는 확률변수는 MGF가 적어도 \\(t=0\\)을 중심으로 한 작은 주변에서 존재\n유일성: 두 확률변수의 MGF가 존재하고 같다면, 그 확률변수들은 동일한 확률분포를 가짐\n선형성: 확률변수 \\(X\\)와 \\(Y\\)가 독립이고 \\(M_X(t)\\), \\(M_Y(t)\\)의 MGF를 가진다면 \\(X+Y\\)의 MGF는 \\(M_X(t) \\times M_Y(t)\\)\n\n\n정규분포의 적률생성함수\n\n\\(M_X(t) = \\int_{-\\infty}^{\\infty} e^{tx} \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^2} dx\\)\n\\(...\\)\n\\(M_X(t) = e^{\\mu t + \\frac{1}{2}\\sigma^2 t^2}\\)"
-  },
-  {
-    "objectID": "posts/math/probability_distribution.html#엔트로피entropy란",
-    "href": "posts/math/probability_distribution.html#엔트로피entropy란",
-    "title": "기초통계: 확률 분포, 적률, 엔트로피",
-    "section": "엔트로피(entropy)란",
-    "text": "엔트로피(entropy)란\n엔트로피(entropy)는 확률분포가 가지는 정보의 확신도 혹은 정보량을 수치로 표현한 것이다. 확률분포에서 특정한 값이 나올 확률이 높아지고 나머지 값의 확률은 낮아진다면 엔트로피가 작아진다.\n\n이산확률분포: \\[H(X) = -\\sum_{i} p(x_i) \\log p(x_i)\\]\n연속확률분포: \\[h(X) = -\\int f(x) \\log f(x) \\, dx\\]"
-  },
-  {
-    "objectID": "posts/math/probability_distribution.html#지니-불순도gini-impurity",
-    "href": "posts/math/probability_distribution.html#지니-불순도gini-impurity",
-    "title": "기초통계: 확률 분포, 적률, 엔트로피",
-    "section": "지니 불순도(gini impurity)",
-    "text": "지니 불순도(gini impurity)\n지니 불순도(Gini impurity)는 데이터 집합 내에서 랜덤으로 선택한 요소가 잘못 분류될 확률을 측정, 주어진 데이터 집합이 얼마나 “혼합”되어 있는지를 나타냄\n\\[G(Y) = \\sum_{k=1}^{K} P(y_k) (1 - P(y_k))\\]\n\n# 예시: 베르누이 분포의 엔트로피, 지니 불순도\n\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nP0 = np.linspace(0.001, 1 - 0.001, 1000)\nP1 = 1 - P0\nH = - P0 * np.log2(P0) - P1 * np.log2(P1)\nG = 2 * (P0 * (1 - P0) + P1 * (1 - P1))\n\nplt.plot(P1, H, \"-\", label=\"entropy\")\nplt.plot(P1, G, \"--\", label=\"gini\")\nplt.legend()\nplt.xlabel(\"P(Y=1)\")\nplt.show()"
-  },
-  {
-    "objectID": "posts/math/probability_distribution.html#크로스-엔트로피",
-    "href": "posts/math/probability_distribution.html#크로스-엔트로피",
-    "title": "기초통계: 확률 분포, 적률, 엔트로피",
-    "section": "크로스-엔트로피",
-    "text": "크로스-엔트로피\n크로스-엔트로피(cross-entropy)는 두 확률분포 간의 차이를 측정하는 데 사용\nCross-entropy는 머신러닝과 딥러닝에서 손실 함수(loss function)로 널리 사용되며, 특히 분류 문제에서 예측 분포 \\(Q\\)가 실제 분포 \\(P\\)를 얼마나 잘 추정하는지를 평가할 때 중요함\n이때 낮은 cross-entropy 값은 모델의 예측이 실제 분포에 더 가깝다는 것을 의미\n\\(H(P, Q) = -\\sum_{x} P(x) \\log Q(x)\\) (이산)\n\\(H(P, Q) = -\\int p(x) \\log q(x) \\, dx\\) (연속)"
-  },
-  {
-    "objectID": "posts/machine_learning/GRL_05_1.html",
-    "href": "posts/machine_learning/GRL_05_1.html",
-    "title": "그래프 머신러닝: (5-1) GNN: 신경망 메시지 전달",
-    "section": "",
-    "text": "Hamilton,W.L. Graph Representation Learning. 2020\n이제 그래프 데이터에서 심층 신경망(deep neural network)을 정의하기 위한 프레임워크인 그래프 신경망(Grpah Neural Network, GNN) 형식을 살펴보자. 핵심 아이디어는 그래프의 구조와 모든 feature에 의존하는 노드의 표현을 생성하려는 것이다.\n그래프 구조 데이터에 대한 복잡한 인코더를 개발할 때 가장 큰 문제는 일반적인 딥러닝 방법이 적용되지 않는다는 것이다. 예를 들어, CNN은 그리드 구조 입력(예: 이미지)에 대해서만 잘 정의되는 반면, RNN은 시퀀스(예: 텍스트)에 대해서만 잘 정의된다.\n일반 그래프에 대한 심층 신경망을 정의하려면 새로운 종류의 딥 러닝 아키텍처를 정의해야 한다."
-  },
-  {
-    "objectID": "posts/machine_learning/GRL_05_1.html#overview",
-    "href": "posts/machine_learning/GRL_05_1.html#overview",
-    "title": "그래프 머신러닝: (5-1) GNN: 신경망 메시지 전달",
-    "section": "Overview",
-    "text": "Overview\nGNN에서 각 message-passing(메시지 전달)의 반복 중에 각 노드 \\(u\\in \\mathcal{V}\\)에 해당하는 은닉(hidden) 임베딩 \\(\\mathbf{h}_u^{(k)}\\)는 \\(u\\)의 그래프 이웃 \\(\\mathcal{N}(u)\\)에서 aggregated(집계된) 정보에 따라 업데이트된다.\n\n\nFigure 5.1 in Hamilton,Graph Representation Learning. 2020: 단일 노드가 로컬 이웃의 메시지를 집계하는 방법\n\nmessage-passing 업데이트는 다음과 같이 표현할 수 있다.\n\\[ \\mathbf{h}_u^{(k+1)} = \\text{UPDATE}^{(k)} ( \\mathbf{h}_u^{(k)}, \\text{AGGREGATE}^{(k)}(\\{\\mathbf{h}_v^{(k)}, \\forall v \\in \\mathcal{N}(u)\\})) = \\text{UPDATE}^{(k)}( \\mathbf{h}_u^{(k)}, \\mathbf{m}_{\\mathcal{N}(u)}^{(k)} ) \\]\n여기서 UPDATE와 AGGREGATE는 임의의 미분가능 함수(i.e. 신경망)이고, \\(\\mathbf{m}_{\\mathcal{N}(u)}\\)는 \\(u\\)의 그래프 이웃 \\(\\mathcal{N}(u)\\)로부터 집계된 “메시지(message)” 벡터이다.\nGNN의 각 반복 \\(k\\)에서 AGGREGATE 함수는 \\(u\\)의 그래프 이웃 \\(\\mathcal{N}(u)\\)에 있는 노드의 임베딩 집합을 입력으로 받고, 이 집계된 이웃 정보를 기반으로 메시지 \\(\\mathbf{m}_{\\mathcal{N}(u)}^{(k)}\\)를 생성한다.\nUPDATE 함수는 메시지 \\(\\mathbf{m}_{\\mathcal{N}(u)}^{(k)}\\)를 노드 \\(u\\)의 이전 임베딩 \\(\\mathbf{h}^{(k-1)}_u\\)와 합쳐, 업데이트한다.\n초기 임베딩 (\\(k=0\\))은 모든 노드의 입력 feature로 하며: \\(\\mathbf{h}_u^{(0)}=\\mathbf{x}_u , \\forall u \\in \\mathcal{V}\\)\nGNN 메시지 전달의 \\(K\\)번의 반복 후 각 노드에 대한 임베딩을 정의하기 위해 마지막 층의 출력을 사용한다: \\(\\mathbf{z}_u = \\mathbf{h}_u^{(K)},\\forall u \\in \\mathcal{V}\\)\n노드 피쳐(node features)\n\n지난 포스트에서 논의된 shallow 임베딩 방법과 달리 GNN 프레임워크는 모델에 대한 입력으로 노드 피쳐 \\(\\mathbf{x}_u\\)를 필요로 한다.\n노드 피쳐를 사용할 수 없는 경우, 노드 통계를 사용하여 feature을 정의하거나, identify features(각 노드를 해당 노드를 고유하게 식별하는 원-핫 indicator feature와 연결)을 사용한다."
-  },
-  {
-    "objectID": "posts/machine_learning/GRL_05_1.html#motivation-and-institutions",
-    "href": "posts/machine_learning/GRL_05_1.html#motivation-and-institutions",
-    "title": "그래프 머신러닝: (5-1) GNN: 신경망 메시지 전달",
-    "section": "Motivation and Institutions",
-    "text": "Motivation and Institutions\nGNN message-passing 프레임워크의 직관은 간단하다: “각 반복에서 모든 노드는 로컬 이웃의 정보를 집계하고, 이러한 반복이 진행됨에 따라 각 노드 임베딩은 그래프의 더 먼 범위에서 점점 더 많은 정보를 포함한다.”\n조금 더 정확히 말하자면, 첫 번째 반복 \\((k = 1)\\) 이후, 모든 노드 임베딩은 \\(1\\)-hop 이웃의 정보를 포함한다. 즉, 모든 노드 임베딩은 그래프에서 길이 \\(1\\)의 경로로 도달 할 수 있는 인접 그래프 이웃의 feature에 대한 정보를 포함한다. 일반화하면 \\(k\\) 반복 후 모든 노드 임베딩에는 \\(k\\)-hop 이웃에 대한 정보가 포함된다.\n이러한 노드 임베딩은 실제로 어떤 종류의 “정보”를 인코딩할까? 일반적으로 이 정보는 두 가지 형태로 제공된다.\n\n그래프에 대한 구조적(structural) 정보가 있다. 예를 들어, GNN 메시지 전달의 \\(k\\) 반복 후, 노드 \\(u\\)의 임베딩 \\(\\mathbf{h}_u^{(k)}\\)는 \\(u\\)의 \\(k\\)-hop 이웃에 있는 모든 노드의 degree에 대한 정보를 인코딩할 수 있다.\n다른 종류는 피쳐(feature) 기반 정보이다. GNN message-passing \\(k\\)반복 후 각 노드에 대한 임베딩은 \\(k\\)-hop 이웃의 모든 feature에 대한 정보도 인코딩한다.\n\nGNN의 이러한 로컬 feature 집계는 CNN의 convolutional kernel과 유사하다. 그러나 CNN은 이미지에서 공간적으로 정의된 패치의 특징 정보를 집계하는 반면, GNN은 로컬 그래프 이웃을 기반으로 정보를 집계한다."
-  },
-  {
-    "objectID": "posts/machine_learning/GRL_05_1.html#the-basic-gnn",
-    "href": "posts/machine_learning/GRL_05_1.html#the-basic-gnn",
-    "title": "그래프 머신러닝: (5-1) GNN: 신경망 메시지 전달",
-    "section": "The Basic GNN",
-    "text": "The Basic GNN\n지금까지 GNN 프레임워크는 AGGREGATION 및 UPDATE 함수를 사용하는 일련의 message-passing 반복으로 비교적 추상적인 방식으로 논의했다. 추상 GNN 프레임워크를 구현할 수 있는 것으로 변환하려면 AGGREGATION 및 UPDATE 함수에 구체적인 인스턴스화(instantiation)를 제공해야 한다.\n여기서는 Merkwirth and Lengauer[2005]와 Scarselli et al.[2009]이 제안한 원래 GNN 모델을 단순화한 가장 기본적인 GNN 프레임워크부터 시작한다.\n\\[h_u^{(k)} = \\sigma\\left(W_{self}^{(k)}h_u^{(k-1)} + W_{neigh}^{(k)} \\sum_{v \\in N(u)}h_v^{(k-1)} + b^{(k)}\\right)\\]\n\\(W_{self}^{(k)}, W_{neigh}^{(k)} \\in \\mathbb{R}^{d^{(k)} \\times d^{(k-1)}}\\)는 학습가능 파라미터 행렬, \\(\\sigma\\)는 요소별 비선형성(tanh, ReLU 등), \\(\\mathbf{b}^{(k)} \\in \\mathbb{R}^{d^{(k)}}\\)는 bias term.\n기본 GNN 프레임워크에서 message passing은 선형 연산에 이어 단일 요소별 비선형성에 의존하기 때문에 다층 퍼셉트론(MLP) 또는 Elman RNN[Elman, 1990]과 유사하다. 먼저 이웃에서 들어오는 message를 합산하고, 선형 조합을 사용하여 이웃 정보를 노드의 이전 임베딩과 결합한다. 마지막으로 요소별 비선형성을 적용한다.\n위 방정식에서 hidden state를 합산하는 것은 AGGREGATE함수이며, 노드의 이전 hidden state 벡터와 메세지 벡터를 각각 변환해주고 편향 벡터를 더해 비선형 함수를 적용시키는 것은 UPDATE함수라고 할 수 있다.\n\\[\\mathbf{m}^{(k)}_{N(v)} = \\text{AGGREGATE}^{(k)} \\left( \\left\\{ \\mathbf{h}^{(k-1)}_u : u \\in N(v) \\right\\} \\right) = \\sum_{u \\in N(v)} \\mathbf{h}^{(k-1)}_u\\]\n\\[\\text{UPDATE}^{(k)} \\left( \\mathbf{h}^{(k)}_u, \\mathbf{m}^{(k)}_{N(v)} \\right) = \\sigma \\left( W^{(k)}_{\\text{self}} \\mathbf{h}^{(k-1)}_u + W^{(k)}_{\\text{neigh}} \\mathbf{m}^{(k)}_{N(v)} + \\mathbf{b}^{(k)} \\right)\\]\n\n또한, 방정식을 행렬로 묶어 표현할 수도 있다. 즉, graph-level의 방정식이다.\n\n\\[\\mathbf{H}^{(k)} = \\sigma \\left( \\mathbf{H}^{(k-1)} W^{(k)}_{\\text{self}} + \\mathbf{A} \\mathbf{H}^{(k-1)} W^{(k)}_{\\text{neigh}} \\right)\\]"
-  },
-  {
-    "objectID": "posts/machine_learning/GRL_05_1.html#message-passing-with-self-loops",
-    "href": "posts/machine_learning/GRL_05_1.html#message-passing-with-self-loops",
-    "title": "그래프 머신러닝: (5-1) GNN: 신경망 메시지 전달",
+    "objectID": "posts/machine_learning/GRL_05_2.html#message-passing-with-self-loops",
+    "href": "posts/machine_learning/GRL_05_2.html#message-passing-with-self-loops",
+    "title": "그래프 머신러닝: (5-2) GNN: 일반화된 집계 및 업데이트",
     "section": "Message Passing with Self-Loops",
-    "text": "Message Passing with Self-Loops\nneural message passing 접근 방식을 단순화하기 위해 입력 그래프에 self-loop를 추가하고 명시적인 업데이트 단계를 생략하는 것이 일반적이다. 따라서 message passing을 단순히 다음과 같이 정의한다:\n\\[h_u^{(k)} = \\text{AGGREGATE}\\left(\\left\\{ h_v^{(k-1)}, \\forall v \\in \\mathcal{N}(u) \\cup \\{u\\} \\right\\}\\right)\\]\n\\(\\mathcal{N}(u) \\cup \\{u\\}\\) 집합 대상으로 aggregate하겠다는 것은 노드의 이웃뿐아니라 자기 자신도 포함한다는 것이다.\n이 방법의 장점은 업데이트가 aggregation 방법을 통해 암시적으로 정의되기 때문에 더 이상 명시적 업데이트 함수를 정의할 필요가 없다는 것이다. 이러한 방식으로 전달되는 메시지를 단순화하면 종종 과적합을 완화할 수 있지만 노드의 이웃에서 오는 정보를 노드 자체의 정보와 구별할 수 없기 때문에 GNN의 표현성을 제한하기도 한다.\nBasic GNN의 경우, self-loops를 추가하는 것은 \\(\\mathbf{W}_{self}\\) 행렬과 \\(\\mathbf{W}_{neigh}\\) 행렬 간에 매개변수를 공유하는 것과 동일하며, Graph-level에서 다음과 같은 업데이트를 제공한다.\n\\[\\mathbf{H}^{(t)} = \\sigma \\left( (\\mathbf{A} + \\mathbf{I})\\mathbf{H}^{(t-1)}\\mathbf{W}^{(t)} \\right)\n\\]\n다음 포스트에서는 AGGREGATE, UPDATE 함수에 대해 더 알아보도록 하자."
+    "text": "Message Passing with Self-Loops\nneural message passing 접근 방식을 단순화하기 위해 입력 그래프에 self-loop를 추가하고 명시적 업데이트 단계를 생략하는 것이 일반적이다. 따라서 message passing을 단순히 다음과 같이 정의한다:\n\\[h_u^{(k)} = \\text{AGGREGATE}\\left(\\left\\{ h_v^{(k-1)}, \\forall v \\in \\mathcal{N}(u) \\cup \\{u\\} \\right\\}\\right)\\]\n\\(\\mathcal{N}(u) \\cup \\{u\\}\\) 집합 대상으로 aggregate하겠다는 것은 노드의 이웃뿐아니라 자기 자신도 포함한다는 것이다.\n이 방법의 장점은 업데이트가 aggregation 방법을 통해 암시적으로 정의되기 때문에 더 이상 명시적 업데이트 함수를 정의할 필요가 없다는 것이다. 이러한 방식으로 전달되는 메시지를 단순화하면 종종 과적합을 완화할 수 있지만 노드의 이웃에서 오는 정보를 노드 자체의 정보와 구별할 수 없기 때문에 GNN의 표현성을 제한하기도 한다.\nBasic GNN의 경우, self-loops를 추가하는 것은 \\(\\mathbf{W}_{self}\\) 행렬과 \\(\\mathbf{W}_{neigh}\\) 행렬 간에 매개변수를 공유하는 것과 동일하며, 다음과 같은 graph-level 업데이트를 제공한다.\n\\[\\mathbf{H}^{(t)} = \\sigma \\left( (\\mathbf{A} + \\mathbf{I})\\mathbf{H}^{(t-1)}\\mathbf{W}^{(t)} \\right)\n\\]\n다음 포스트에서는 AGGREGATE, UPDATE 함수에 대해 더 알아보도록 하자."
   },
   {
-    "objectID": "posts/machine_learning/GRL_03_2.html",
-    "href": "posts/machine_learning/GRL_03_2.html",
-    "title": "그래프 머신러닝: (3-2) 이웃재구성: 랜덤워크 임베딩",
+    "objectID": "posts/machine_learning/GRL_04_1.html",
+    "href": "posts/machine_learning/GRL_04_1.html",
+    "title": "그래프 머신러닝: (4) 다중관계 데이터와 지식 그래프",
     "section": "",
-    "text": "Hamilton,W.L. Graph Representation Learning. 2020"
+    "text": "Hamilton,W.L. Graph Representation Learning. 2020\n앞에서는 저차원 임베딩에 대해 다루었으며, 특히 shallow embedding 방법을 위주로 다루었다. 이 포스트에서는 shallow embedding 방법으로 다중관계(multi-relational)의 그래프에서의 기술에 대해 알아본다."
   },
   {
-    "objectID": "posts/machine_learning/GRL_03_2.html#shallow-임베딩의-한계",
-    "href": "posts/machine_learning/GRL_03_2.html#shallow-임베딩의-한계",
-    "title": "그래프 머신러닝: (3-2) 이웃재구성: 랜덤워크 임베딩",
-    "section": "Shallow 임베딩의 한계",
-    "text": "Shallow 임베딩의 한계\n\n인코더가 각 노드에 대해 고유한 임베딩 벡터를 직접 최적화하기 때문에 섈로우 임베딩 방법은 인코더의 노드 간에 어떤 파라미터도 공유하지 않는다. 이러한 파라미터 공유의 부족은 통계적으로나 계산적으로 비효율적이다. 통계적 관점에서 매개변수 공유는 학습의 효율성을 향상시킬 수 있으며, 정규화의 강력한 형태로 작용하기도 한다. 계산적 관점에서 파라미터 공유가 부족하다는 것은 파라미터의 수가 \\(O(V)\\)로 증가한다는 것이며, 이는 방대한 그래프에서 다루기 어려울 수 있다.\n섈로우 임베딩 접근법들은 인코더에서의 노드 피처(feature)들을 활용하지 않는다. 많은 그래프 데이터 세트들은 풍부한 피처 정보를 가지며, 이는 인코딩 프로세스에서 잠재적으로 정보가 될 수 있다.\n섈로우 임베딩 방법은 본질적으로 transductive하다. 훈련 단계 동안 존재했던 노드에 대한 임베딩만 생성할 수 있으며, 훈련 단계 이후 관찰되는 새로운 노드에 대한 임베딩을 생성하는 것은 추가 최적화를 수행하지 않는 한 불가능하다.\n\n이러한 한계점들을 보완하기 위해서 그래프의 구조와 특성에 의존한 조금 더 정교한 인코더로 대체하고는 한다. 이러한 인코더를 정의하는 유명한 패러다임(ie.GNN)을 다음 포스트에서 살펴보기로 하자."
+    "objectID": "posts/machine_learning/GRL_04_1.html#cross-entropy-with-negative-sampling",
+    "href": "posts/machine_learning/GRL_04_1.html#cross-entropy-with-negative-sampling",
+    "title": "그래프 머신러닝: (4) 다중관계 데이터와 지식 그래프",
+    "section": "Cross-Entropy with Negative Sampling",
+    "text": "Cross-Entropy with Negative Sampling\n\\[\\mathcal{L} = \\sum_{(u,\\tau,v)\\in\\mathcal{E}} - \\log(\\sigma (\\text{DEC}(\\mathbf{z}_u,\\tau,\\mathbf{z}_v)) - \\gamma \\mathbb{E}_{v_n ~ P_{n,u}(v)}[-\\log(\\sigma (\\text{DEC}(\\mathbf{z}_u,\\tau,\\mathbf{z}_{v_n}))]\\]\n\\(\\sigma\\)는 로지스틱 함수, \\(P_{n,u}(\\mathcal{V})\\)는 (\\(u\\)에 의존하는) \\(V\\)에 대한 “negative sampling” 분포 , \\(\\gamma &gt; 0\\)는 하이퍼파라미터\n여기서 네거티브 샘플링은 엣지가 없는(엣지 집합에 없는) \\((u_n, \\tau, v_n) \\notin \\mathcal{E}\\)로 볼 수 있다."
   },
   {
-    "objectID": "posts/machine_learning/GRL_02_3.html",
-    "href": "posts/machine_learning/GRL_02_3.html",
-    "title": "그래프 머신러닝: (2-3) 그래프 라플라시안과 스펙트럴 방법",
-    "section": "",
-    "text": "Hamilton,W.L. Graph Representation Learning. 2020"
+    "objectID": "posts/machine_learning/GRL_04_1.html#max-margin-loss",
+    "href": "posts/machine_learning/GRL_04_1.html#max-margin-loss",
+    "title": "그래프 머신러닝: (4) 다중관계 데이터와 지식 그래프",
+    "section": "Max-Margin Loss",
+    "text": "Max-Margin Loss\n\\[\\mathcal{L} = \\sum_{(u,\\tau,v) \\in \\mathcal{E}} \\sum_{v_n \\in P_{n,u}} \\max(0, -\\text{DEC}(z_u, \\tau, z_v) + \\text{DEC}(z_u, \\tau, z_{u_n}) + \\Delta)\\]\nMax-margin loss에서는 실제 쌍에 대한 디코딩된 점수를 네거티브 샘플과 비교한다. 단, 이것을 이진 분류 작업으로 취급하는 대신 단순히 디코더의 직접 출력과 비교한다.\n\n“true” 쌍의 점수가 “negative” 쌍보다 크면 손실이 있다.\n\\(\\Delta\\)는 margin이며, 스코어 차이가 모든 예에서 그만큼 크다면 손실은 0이 된다."
   },
   {
-    "objectID": "posts/machine_learning/GRL_02_3.html#graph-laplacians",
-    "href": "posts/machine_learning/GRL_02_3.html#graph-laplacians",
-    "title": "그래프 머신러닝: (2-3) 그래프 라플라시안과 스펙트럴 방법",
-    "section": "Graph Laplacians",
-    "text": "Graph Laplacians\n인접 행렬의 다양한 변형으로 나타내며 유용한 수학적 속성들을 가진다.\n\nUnnormalized Laplacian\n가장 기본적인 라플라시안(Laplacian) 행렬\n\\[L=D-A\\]\n\n\\(A\\)는 인접 행렬, \\(D\\)는 degree 행렬\n라플라시안 행렬의 속성\n\nsymmetric, positive semi-definite\n\\(\\forall \\mathbf{x} \\in \\mathbb{R}^{|\\mathcal{V}|}\\) , \\(\\mathbf{x}^{\\top}L\\mathbf{x} = \\sum_{(u,v)\\in \\mathcal{E}}(\\mathbf{x}[u]-\\mathbf{x}[v])^2\\)\n\\(L\\)은 \\(|V|\\)개의 비음수 eigenvalue를 가짐\n\n\n\n\nNormalized Laplacian\n대칭 라플라시안:\n\\[L_{sym}=D^{-\\frac{1}{2}}LD^{-\\frac{1}{2}}\\]\n랜덤워크 라플라시안:\n\\[L_{RW}=D^{-1}L\\]"
-  },
-  {
-    "objectID": "posts/machine_learning/GRL_02_3.html#graph-cuts-and-clustering",
-    "href": "posts/machine_learning/GRL_02_3.html#graph-cuts-and-clustering",
-    "title": "그래프 머신러닝: (2-3) 그래프 라플라시안과 스펙트럴 방법",
-    "section": "Graph Cuts and Clustering",
-    "text": "Graph Cuts and Clustering\nfully connected 그래프에서 라플라시안이 노드의 최적 클러스터링을 하는데 사용되는 방법을 알아보자.\n\ngraph cuts\n\\(\\mathcal{A} \\subset \\mathcal{V}\\)은 그래프의 노드의 부분집합을 나타내고 \\(\\bar{\\mathcal{A}}\\)은 이 집합의 여집합이라고 하자.\n그래프를 \\(K\\)개 중복되지 않는 부분집합으로 나누면(파티셔닝) ’cut value’를 다음과 같이 정의할 수 있다:\n\\[\\text{cut}(\\mathcal{A}_1, \\dots, \\mathcal{A}_K) = \\frac{1}{2}\\sum^{K}_{k=1}|(u,v) \\in \\mathcal{E} : u \\in \\mathcal{A}_k, v \\in \\bar{\\mathcal{A}}_k|\\]\n\ncut은 노드 파티션 사이 경계에 엣지의 개수를 나타낸다.\n노드를 \\(K\\)개 클러스터로 나누는 최적 방법은 이 cut value를 최소화하는 파티션을 결정하는 것이다.\n하지만 이 경우 하나의 노드로 구성된 클러스터를 만드는 경향이 있다.\n\n대신 파티션의 크기를 적당히 크게 하면서 cut을 최소화하는 방법을 사용한다:\n\\[\\text{RatioCut}(\\mathcal{A}_1, \\dots, \\mathcal{A}_K) = \\frac{1}{2} \\frac{\\sum^{K}_{k=1}|(u,v) \\in \\mathcal{E} : u \\in \\mathcal{A}_k, v \\in \\bar{\\mathcal{A}}_k|}{{|\\mathcal{A}}_k|}\\],\n\\[\\text{NormalizedCut}(\\mathcal{A}_1, \\dots, \\mathcal{A}_K) = \\frac{1}{2} \\frac{\\sum^{K}_{k=1}|(u,v) \\in \\mathcal{E} : u \\in \\mathcal{A}_k, v \\in \\bar{\\mathcal{A}}_k|}{\\text{vol}(\\mathcal{A}_k)}\\] where \\(\\text{vol}(\\mathcal{A}_k) = \\sum_{u \\in \\mathcal{A}} d_u\\)\n\n\nApproximating the RatioCut with the Laplacian Spectrum\n라플라시안 스펙트럼(Laplacian spectrum)을 사용하여 RatioCut을 최소화시키는 방법을 도출해보자. \\(K=2\\)인 경우를 보자.\n\\[\\min_{\\mathcal{A} \\in \\mathcal{V}}\\text{RatioCut}(\\mathcal{A}, \\bar{\\mathcal{A}}) \\]\n벡터 \\(\\mathbf{a}\\in \\mathbb{R}^{|\\mathcal{V}|}\\)를 다음과 같이 정의한다.\n\\[\\mathbf{a}[u] =\n\\begin{cases}\n\\sqrt{\\frac{|\\bar{\\mathcal{A}}|}{|\\mathcal{A}|}} \\quad \\text{if} \\ u \\in \\mathcal{A}\\\\\n- \\sqrt{\\frac{|\\mathcal{A}|}{|\\bar{\\mathcal{A}}|}} \\quad \\text{if} \\ u \\in \\bar{\\mathcal{A}}\n\\end{cases}\\]\n그래프 라플라시안의 속성을 이용하면,\n\\[\\mathbf{a}^{\\top}L\\mathbf{a}=\\sum_{(u,v) \\in \\mathcal{E}}(\\mathbf{a}[u]-\\mathbf{a}[v])^2\\\\\n=\\cdots^{\\text{*}} \\\\\n=|\\mathcal{V}|\\text{RatioCut}(\\mathcal{A},\\bar{\\mathcal{A}})\\]\n\n*(중간 단계는 생략)\n\n또한 \\(\\mathbf{a}\\)의 속성인 \\(\\mathbf{a} \\perp \\mathbf{1}\\) 그리고 \\({\\parallel\\mathbf{a}\\parallel}^2 = |\\mathcal{V}|\\)을 고려,\n\\[\\min_{\\mathbf{a} \\in \\mathbb{R}^{|\\mathcal{V}|}}\\mathbf{a}^{\\top}L\\mathbf{a} \\quad s.t. \\quad \\mathbf{a} \\perp \\mathbf{1},\\ {\\parallel\\mathbf{a}\\parallel}^2 = |\\mathcal{V}|\\]\n벡터 a를 라플라시안 행렬의 두번째로 작은 eigenvector로 설정하여 RatioCut 최소화를 근사할 수 있다. 다음 \\(\\mathbf{a}[u]\\)의 부호로 클러스터링을 할 수 있다.\n즉, 라플라시안의 두번째로 작은 eigenvector는 최적 클러스터를 (RatioCut에 대해) 수행하는 이산(discrete) 벡터에 연속적 근사치이다."
-  },
-  {
-    "objectID": "posts/machine_learning/GRL_02_3.html#generalized-spectral-clustering",
-    "href": "posts/machine_learning/GRL_02_3.html#generalized-spectral-clustering",
-    "title": "그래프 머신러닝: (2-3) 그래프 라플라시안과 스펙트럴 방법",
-    "section": "Generalized Spectral Clustering",
-    "text": "Generalized Spectral Clustering\n위에서 라플라시안의 스펙트럼을 이용하여 그래프를 두 클러스터로 나누는 방법에 대해 알 수 있었다.이제 일반화시켜 \\(K\\)개 클러스터링을 해보자.\n\n\\(K\\)개의 최소 \\(L\\) eigenvector들을 찾는다(단, 가장 작은 eigenvector 제외): \\(\\mathbf{e}_{|\\mathcal{V}|-1},\\mathbf{e}_{|\\mathcal{V}|-2},\\cdots,\\mathbf{e}_{|\\mathcal{V}|-K}\\)\n이 eigenvetor를 행으로 하여 행렬 \\(U \\in \\mathbb{R}^{|\\mathcal{V}| \\times (K-1)}\\)를 형성한다.\n\\(U\\)에 있는 각 노드를 대응하는 열로 표현한다: \\(\\mathbf{z}_u = U[u] \\quad \\forall u \\in \\mathcal{V}\\)\n임베딩(embedding) \\(\\mathbf{z}_u\\)에 K-means 클러스터링을 돌린다.\n\n스펙트럼 클러스터링의 일반적인 원리는 강력하다. 그래프 라플라시안의 스펙트럼을 사용하여 노드를 그래프로 표현할 수 있으며, 이 표현은 최적의 그래프 클러스터링에 대한 원칙적 근사로 볼 수 있다."
-  },
-  {
-    "objectID": "posts/machine_learning/GRL_02_1.html",
-    "href": "posts/machine_learning/GRL_02_1.html",
-    "title": "그래프 머신러닝: (2-1) 그래프 통계량과 커널 방법",
-    "section": "",
-    "text": "Hamilton,W.L. Graph Representation Learning. 2020"
-  },
-  {
-    "objectID": "posts/machine_learning/GRL_02_1.html#node-level-통계량과-피쳐features",
-    "href": "posts/machine_learning/GRL_02_1.html#node-level-통계량과-피쳐features",
-    "title": "그래프 머신러닝: (2-1) 그래프 통계량과 커널 방법",
-    "section": "Node-level 통계량과 피쳐(features)",
-    "text": "Node-level 통계량과 피쳐(features)\n\nimport networkx as nx\nimport matplotlib.pyplot as plt\n\n# Barabási-Albert 그래프 생성\nn = 8  # 노드 개수\nm = 2    # 새로운 노드에 연결되는 엣지 수\nG = nx.barabasi_albert_graph(n, m)\n\n\n# 시각화\npos = nx.spring_layout(G)  # 그래프 레이아웃 정의\n\n# 노드 및 엣지 그리기\nnx.draw(G, pos, with_labels=True, node_size=700, node_color=\"skyblue\", font_size=12, font_weight=\"bold\")\nplt.title(\"Sample Graph\")\nplt.show()\n\n\n\n\n\nNode degree\n한 노드에 연결된 엣지 수\n\\[d_u = \\sum_{v \\in V}A[u,v] \\quad \\text{for } u \\in \\mathcal{V}\\]\n\nnode degree는 전통적 기계학습 모델에서 가장 유익한 정보 중 하나이다.\n하지만, 한 노드와 연결된 다른 노드들의 중요성은 노드의 degree에 반영되지 않는다. 즉, 두 노드가 같은 degree를 갖더라도 이웃의 중요도에 따라 중요도가 다를 수 있다.\n\n\n# Node degree 구하기\ndegree = dict(G.degree())\nprint(\"Node degree:\")\nprint(degree)\n\nNode degree:\n{0: 5, 1: 1, 2: 5, 3: 2, 4: 5, 5: 2, 6: 2, 7: 2}\n\n\n\n\nNode centrality\n위세 중심성 (eigenvector centrality)\n\nnode degree와 달리, 노드의 이웃들의 중요도까지 고려하는 방법이다.\n\n\\[e_u = \\frac{1}{\\lambda}\\sum_{v \\in V}A[u,v] e_v, \\quad \\forall u \\in \\mathcal{V}\\]\n\n식처럼 recursive한 성질을 가진다.\n단, 위의 식을 다시 쓰면 벡터 \\(\\mathbf{e}\\)에 대해 \\(\\lambda \\mathbf{e} = A \\mathbf{e}\\)와 같다. 즉, centrality는 인접행렬의 eigenvector이다. 양의 centrality 값을 가정하면, Perron-Frobenius Theorem을 적용하여 \\(\\mathbf{e}\\)를 구할 수 있다.\n또한, eigenvector centrality느 그래프에서 무한 랜덤워킹할 때 해당 노드에 도착할 확률이라고도 볼 수 있다.\n\n\\(\\mathbf{e}^{(t+1)} = A \\mathbf{e}^{(t)}\\) : power iteration\n\n\n매개 중심성 (betweenness centrality): 한 노드가 다른 두 노드 사이의 최단 경로에 있을 빈도\n근접 중심성 (closeness centrality): 한 노드와 다른 모든 노드 사이 최단거리들의 평균\n차수 중심성(degree centrality): 해당 노드의 직접적인 연결 수를 기준으로 측정\n\n# Degree centrality 구하기\ndegree_centrality = nx.degree_centrality(G)\nprint(\"Degree centrality:\")\nprint(degree_centrality)\n\n# Betweenness centrality 구하기\nbetweenness_centrality = nx.betweenness_centrality(G)\nprint(\"\\nBetweenness centrality:\")\nprint(betweenness_centrality)\n\n# Closeness centrality 구하기\ncloseness_centrality = nx.closeness_centrality(G)\nprint(\"\\nCloseness centrality:\")\nprint(closeness_centrality)\n\n# Eigenvector centrality 구하기\neigenvector_centrality = nx.eigenvector_centrality(G)\nprint(\"\\nEigenvector centrality:\")\nprint(eigenvector_centrality)\n\nDegree centrality:\n{0: 0.7142857142857142, 1: 0.14285714285714285, 2: 0.7142857142857142, 3: 0.2857142857142857, 4: 0.7142857142857142, 5: 0.2857142857142857, 6: 0.2857142857142857, 7: 0.2857142857142857}\n\nBetweenness centrality:\n{0: 0.38095238095238093, 1: 0.0, 2: 0.23809523809523808, 3: 0.0, 4: 0.23809523809523808, 5: 0.0, 6: 0.0, 7: 0.0}\n\nCloseness centrality:\n{0: 0.7777777777777778, 1: 0.4666666666666667, 2: 0.7777777777777778, 3: 0.5833333333333334, 4: 0.7777777777777778, 5: 0.5384615384615384, 6: 0.5833333333333334, 7: 0.5384615384615384}\n\nEigenvector centrality:\n{0: 0.45764291396672224, 1: 0.12765413188341646, 2: 0.4916986269732836, 3: 0.2648068579411542, 4: 0.4916986269732836, 5: 0.27430545232366466, 6: 0.2648068579411542, 7: 0.27430545232366466}\n\n\n\n\nClustering Coefficient\n한 노드의 로컬(local) 이웃에서의 closed triangle의 비율\n\nclustering coefficient의 변형 중 ‘local’ variant를 보자. \\[c_u = \\frac{|(v_1,v_2) \\in \\mathcal{E}: v_1, v_2 \\in \\mathcal{N}(u)|}{\\binom{d_u}{2}}\\]\n\n분자는 노드 \\(u\\)의 이웃 간 엣지 수이고, 분모는 \\(u\\)의 이웃에 있는 노드 쌍의 수이다.\n\n노드의 이웃이 얼마나 tight하게 클러스터되어 있는지를 측정한다.\nclustering coefficient가 1이면, \\(u\\)의 모든 이웃은 서로의 이웃이기도 하게 된다.\n\n\n# Clustering coefficient 구하기\nclustering_coefficient = nx.clustering(G)\nprint(\"\\nClustering coefficient:\")\nprint(clustering_coefficient)\n\n\nClustering coefficient:\n{0: 0.3, 1: 0, 2: 0.4, 3: 1.0, 4: 0.4, 5: 1.0, 6: 1.0, 7: 1.0}\n\n\n\n\nClosed Triangles, Ego Graphs, and Motif\n\nclustering coefficient는 노드의 로컬 이웃 사이에 있는 closed triangle의 수라고 볼 수도 있다.\nclustering coefficient는 실제 triangle의 수와 노드의 ’ego graph’의 총 가능 triangle 수의 비이기도 하다.\n\nego graph: 노드, 이웃, 이웃 간 모든 엣지를 포함하는 subgraph\n\n노드의 ego graph 내 임의의 motif나 graphlet을 세는 개념으로 일반화될 수 있다. 즉, 단순히 triangle을 세는 것보다는 특정 길이의 순환과 같은 복잡한 구조를 고려할 수 있고, 이러한 서로 다른 motif가 ego graph에서 얼마나 자주 발생하는지 세는 것으로 노드를 특성화할 수 있다.\nmotif: 네트워크에서 특정한 패턴을 가진 서브그래프를 찾아내는 것\n이러한 방식으로 노드의 ego graph를 조사하여 노드 레벨의 통계량을 계산하는 작업을 그래프 레벨로 근본적으로 변환할 수 있다.\n\n\nclosed_triangles = nx.triangles(G).values()\nprint(\"Closed Triangles:\", closed_triangles)\n\nClosed Triangles: dict_values([3, 0, 4, 1, 4, 1, 1, 1])\n\n\n\nnode=0\nego_graph = nx.ego_graph(G, n=node, radius=1)\npos = nx.spring_layout(ego_graph)  # 그래프 레이아웃 정의\nnx.draw(ego_graph, pos, with_labels=True, node_size=200, node_color=\"skyblue\", edge_color=\"gray\", alpha=0.7, font_size=8)\nplt.title(\"Ego Graph with Center Node \" + str(node))\nplt.show()"
-  },
-  {
-    "objectID": "posts/machine_learning/GRL_02_1.html#graph-level-피쳐와-그래프-커널",
-    "href": "posts/machine_learning/GRL_02_1.html#graph-level-피쳐와-그래프-커널",
-    "title": "그래프 머신러닝: (2-1) 그래프 통계량과 커널 방법",
-    "section": "Graph-level 피쳐와 그래프 커널",
-    "text": "Graph-level 피쳐와 그래프 커널\n\nBag of Nodes\n\n단순히 node-level의 통계량을 집계하여 graph-level 피쳐로 만든다.\n하지만, 로컬(local) node-level의 정보만에 기반하기 때문에 글로벌(global)한 속성을 놓칠 수 있다.\n\n\n\nThe Weisfieler-Lehman Kernel\n\nnode-level 피처를 더 풍성하게 만들고나서 집계하는 방법 중 하나이다.\nWL 알고리즘은 다음과 같다.\n\n\n각 노드에 초기 레이블 값을 준다. 보통 degree로 한다.: \\(l^{(0)}(v) = d_v\\)\n\n\n노드의 이웃에서 현재 레이블의 multi-set을 hashing하여 새로운 레이블을 할당하며, 이를 반복(iteration)한다.: \\[l^{(i)}(v) = \\text{HASH}(\\{ \\{ l^{(i-1)}(v) \\quad \\forall u \\in \\mathcal{N}(v) \\} \\} )\\]\n\n\n{{ }}는 mult-set을 뜻한다. multi-set은 원소의 중복을 허용\nHASH 함수는 multi-set으로 표현될 뻔한 레이블에 겹치지 않는 인덱스 (숫자)를 부여해주는 역할\n\n\n이를 \\(K\\)번 반복하면 각 노드마다 \\(l^{(K)}(v)\\)가 생기며, 이는 \\(K\\)-hop 이웃의 구조를 요약한다고 볼 수 있다. 다시 말해, WL kernel은 두 그래프의 결과 레이블 집합 간의 차이를 측정하는 것이다.\n\n\n이러한 WL kernel은 그래프 동형(isomorphism)을 확인하는 데 쓰인다: 두 그래프가 \\(K\\)번 WL알고리즘 반복 뒤 생기는 레이블 집합이 같은지를 확인한다.\n\n\n\nGraphlets, Path-Based Methods\ngraphlets\n\n\nFigure 2.2 in Hamilton,Graph Representation Learning. 2020: 크기가 3인 graphlet들\n\n\ngraphlets: 서로 다른 작은 subgraph 구조\ngraphlet kernel은 전체 그래프에서 특정한 크기의 graphlets가 얼마나 나타나는지 세는 방식이다. 하지만 모든 graphlet을 세는 것은 번거로운 일이다.\n\npath-based 방법\n\ngraphlet을 세는 방법 대신 그래프에서 서로 다른 경로(path)의 종류가 얼마나 있는지를 본다.\n예를 들어 그래프에서 랜덤워크를 가정할때 발생하는 서로 다른 degree 시퀀스를 카운팅하는 random walk kernel(Kashima et al.(2003)), 또는 가장 짧은 경로만을 카운팅하는 shortest-path kernel(Borgwardt and Kriegel (2005)) 등이 있다."
-  },
-  {
-    "objectID": "posts/fin_data/Fractional_difference.html",
-    "href": "posts/fin_data/Fractional_difference.html",
-    "title": "분수 차분 (fractional differentiation)",
-    "section": "",
-    "text": "시계열의 메모리를 어느정도 보존하면서 정상성을 만족하도록 차분해주는 “분수 차분(fractional diffentiation)”에 대해 알아보자."
-  },
-  {
-    "objectID": "posts/fin_data/Fractional_difference.html#방법",
-    "href": "posts/fin_data/Fractional_difference.html#방법",
-    "title": "분수 차분 (fractional differentiation)",
-    "section": "방법",
-    "text": "방법\n다음과 같은 Backshift 연산자 \\(B\\)가 있다고 하자\n실수 행렬 \\({Xt}\\)에 대해\n\n\\(B^k X_t = X_{t−k}\\) (\\(k \\geq 0\\))\n\\((1-B)^{d} = \\sum^{\\infty}_{k=0}{\\left( \\begin{array}{c}  n \\\\  r  \\end{array}\\right)} (-B)^k\\) (formal binomial series expansion)\n\\((1-B)^{d}X_t\\): d차 차분 시계열 (d는 실수)\n\n따라서 d차 차분에 대해 다음과 같이 시계열이 생성된다.\n\n\\(\\tilde{X}_t = \\sum^{\\infty}_{k=0}w_kX_{t-k}\\)\n\\(w = \\{ 1, -d, \\frac{d(d-1)}{2!}, -\\frac{d(d-1)(d-2)}{3!}, \\cdots, (-1)^k \\prod_{i=1}^{k-1}(\\frac{d-i}{k!}) , \\cdots \\}\\)\n\n하지만 실제로 차분을 구할 때 위와 같은 계산은 무한급수가 되므로 이를 처리해야 한다.\n또한 위의 식에서의 계수(혹은 weight)를 \\(w\\)(예: \\(0.2, 0.08 \\cdots\\))라고 했을 때, 정수가 아닌 \\(d\\)에 대해 \\(k \\geq d+1\\)가 되면 \\(\\text{int}[d]\\)가 짝수일 때 \\(w\\)가 음수가 된다.\n즉, \\(\\text{int}[d]\\)가 짝수일 때, \\(\\lim\\limits_{k\\to \\infty} w_k = 0^-\\)이고, \\(\\text{int}[d]\\)가 홀수일 때, \\(\\lim\\limits_{k\\to \\infty} w_k = 0^+\\)이다.\n따라서 \\(w_k\\)의 \\(k\\)에 대한 window를 정해주거나, 상대적 weight-loss (\\(\\frac{\\sum_{j=T-1}^{T}|w_j|}{\\sum_{i=0}^{T-1}|w_i|}\\))에 대해 threshold를 설정하여 계산을 제한할 수 있다.\n예를 들어 다음과 같이 생각할 수 있다.\n\n\\((1-B)^{0.2} X_t = X_t - 0.2 X_{t-1} - 0.08 X_{t-2} - 0.048 X_{t-3} \\cdots\\)\n\\((1-B)^{0.4} X_t = X_t - 0.4 X_{t-1} - 0.12 X_{t-2} - 0.064 X_{t-3} \\cdots\\)\n\\((1-B)^{0.8} X_t = X_t - 0.8 X_{t-1} - 0.08 X_{t-2} - 0.032 X_{t-3} \\cdots\\)\n\\((1-B)^{1} X_t = X_t - 1.0 X_{t-1} - 0 X_{t-2} - 0 X_{t-3} \\cdots\\)"
-  },
-  {
-    "objectID": "posts/fin_data/Fractional_difference.html#예시",
-    "href": "posts/fin_data/Fractional_difference.html#예시",
-    "title": "분수 차분 (fractional differentiation)",
-    "section": "예시",
-    "text": "예시\n\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport yfinance as yf\n\nimport fracdiff # https://github.com/fracdiff/fracdiff를 사용\n\n\n# S&P500 지수를 가져와본다\n\nsp500 = yf.download('^GSPC', start='2001-1-1', end='2023-1-1').Close\n\n[*********************100%***********************]  1 of 1 completed\n\n\n\nsp500\n\nDate\n2001-01-02    1283.270020\n2001-01-03    1347.560059\n2001-01-04    1333.339966\n2001-01-05    1298.349976\n2001-01-08    1295.859985\n                 ...     \n2022-12-23    3844.820068\n2022-12-27    3829.250000\n2022-12-28    3783.219971\n2022-12-29    3849.280029\n2022-12-30    3839.500000\nName: Close, Length: 5535, dtype: float64\n\n\n\nplt.figure(figsize=(10,3))\nplt.title(\"S&P500\")\nplt.plot(sp500)\nplt.show()\n\n\n\n\n\n# fraction difference (n=1)은 np.diff()와 같다.\n\ndiff = sp500.diff()[1:]\nf_diff_1 = fracdiff.fdiff(sp500, n=1)\nnp.all(diff == f_diff_1)\n\nTrue\n\n\n\ndiff = sp500.diff()\nplt.figure(figsize=(10,3))\nplt.title(\"S&P500 difference\")\nplt.plot(diff)\nplt.show()\n\n\n\n\n\nn_s=[.2,.4,.6,.8,1.]\nw=10\nplt.figure(figsize=(16,8))\nplt.title(f\"S&P500 nth fractional differences\")\nplt.plot(sp500)\nfor n in n_s:\n    diff = fracdiff.fdiff(sp500, n=n, window=w)[w:]\n    diff = pd.Series(diff,index=sp500.index[int(n)+w:])\n    plt.plot(diff)\nplt.legend(['0 (original)']+n_s, title='nth')\nplt.savefig(\"fdiff_thumbnail.jpg\")\nplt.show()"
-  },
-  {
-    "objectID": "posts/fin_data/Fractional_difference.html#참고문헌",
-    "href": "posts/fin_data/Fractional_difference.html#참고문헌",
-    "title": "분수 차분 (fractional differentiation)",
-    "section": "참고문헌",
-    "text": "참고문헌\n\nDe Prado, M. L. (2018). Advances in financial machine learning. John Wiley & Sons.\nhttps://fracdiff.github.io/fracdiff/"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Welcome to Cho’s FinBlog!",
-    "section": "",
-    "text": "이 블로그는 빅데이터, AI를 활용한 금융 및 경제 분야를 공부하며 정리한 짧은 글이나 마저 끝내지 못한 연구 등을 올리는 개인 블로그입니다.\n\n\n모든 블로그 글 보기\n\n\n주요 관심주제: 금융 머신러닝, 자산가격 모멘텀, 시스템 리스크(systemic risk), 네트워크 분석, 자연어 처리 등\n\n이 블로그의 모든 글은 오직 교육용 목적입니다.\nAbout Me"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "E-mail: jhcho1016@naver.com"
-  },
-  {
-    "objectID": "listing.html",
-    "href": "listing.html",
-    "title": "",
-    "section": "",
-    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\n그래프 머신러닝: (1) 들어가며\n\n\n\ngraph\n\n\nnetwork\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n그래프 머신러닝: (2-1) 그래프 통계량과 커널 방법\n\n\n\ngraph\n\n\nnetwork\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n그래프 머신러닝: (2-2) 이웃 중복 감지\n\n\n\ngraph\n\n\nnetwork\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n그래프 머신러닝: (2-3) 그래프 라플라시안과 스펙트럴 방법\n\n\n\ngraph\n\n\nnetwork\n\n\nmachine learning\n\n\nspectral\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n그래프 머신러닝: (3-1) 이웃 재구성: 인코더-디코더\n\n\n\ngraph\n\n\nnetwork\n\n\nencoder-decoder\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n그래프 머신러닝: (3-2) 이웃재구성: 랜덤워크 임베딩\n\n\n\ngraph\n\n\nnetwork\n\n\nencoder-decoder\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n그래프 머신러닝: (4) 다중관계 데이터와 지식 그래프\n\n\n\ngraph\n\n\nnetwork\n\n\nmulti-relational\n\n\nknowledge graph\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n그래프 머신러닝: (5-1) GNN: 신경망 메시지 전달\n\n\n\ngraph\n\n\nnetwork\n\n\nGNN\n\n\ndeep learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n그래프 머신러닝: (5-2) GNN: 일반화된 집계 및 업데이트\n\n\n\ngraph\n\n\nnetwork\n\n\nGNN\n\n\ndeep learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n금융 분야의 LLM (2023)\n\n\n\nllm\n\n\nnlp\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n기초통계: 확률 분포, 적률, 엔트로피\n\n\n\nprobability distribution\n\n\nmoments\n\n\nentropy\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n뉴스심리지수 (한국은행)\n\n\n\nsentiment\n\n\nnlp\n\n\ntransformer\n\n\npaper\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (0) 트레이딩 개요\n\n\n\ntrading\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (1) 시장 데이터 수집\n\n\n\ntrading\n\n\ndata\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (2) 가격 모멘텀 라벨링\n\n\n\ntrading\n\n\nlabeling\n\n\nmomentum\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (3) 피쳐 생성\n\n\n\ntrading\n\n\nfeature\n\n\nmomentum\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (4) 피쳐 선정\n\n\n\ntrading\n\n\nfeature selection\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (5) 매매 시그널 분류\n\n\n\ntrading\n\n\nsignals\n\n\nclassification\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (6) 매매 규칙\n\n\n\ntrading\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (7) 매매 신뢰도 측정과 전략 강화\n\n\n\ntrading\n\n\nenhancing\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n분수 차분 (fractional differentiation)\n\n\n\nfractional differentiation\n\n\ndata\n\n\nstationarity\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (1) 시스템 리스크 개념\n\n\n\nsystemic risk\n\n\nrisk\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (2) 시스템 리스크 측정 방법 - 선행연구 요약\n\n\n\nsystemic risk\n\n\nmeasures\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (2-1) 거시경제지표를 활용한 경제전체 위험도 측정 방법\n\n\n\nsystemic risk\n\n\ncycle\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (2-2) 시장위험 측정 방법\n\n\n\nsystemic risk\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (2-3) 금융기관 단면적 위험 측정방법\n\n\n\nsystemic risk\n\n\nfinancial institution\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (2-4) 금융기관 부도확률 위험 측정방법\n\n\n\nsystemic risk\n\n\nfinancial institution\n\n\ndefault\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (2-5) 네트워크 측정방법\n\n\n\nsystemic risk\n\n\nfinancial institution\n\n\nnetwork\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (3-1) 시스템 리스크와 머신러닝 - 네트워크 기반 및 빅데이터 분석\n\n\n\nsystemic risk\n\n\nmeasures\n\n\nnetwork\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (3-2) 시스템 리스크와 머신러닝 - 계량경제학, 미시구조, 금융규제\n\n\n\nsystemic risk\n\n\nmeasures\n\n\nnetwork\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (3-3) 시스템 리스크와 머신러닝 - 향후 연구 방향\n\n\n\nsystemic risk\n\n\nnetwork\n\n\nbig data\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n알고리즘: 시간복잡도\n\n\n\ntime complexity\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "posts/machine_learning/GRL_01.html",
-    "href": "posts/machine_learning/GRL_01.html",
-    "title": "그래프 머신러닝: (1) 들어가며",
-    "section": "",
-    "text": "Hamilton,W.L. Graph Representation Learning. 2020\n그래프(graph)는 복잡한 시스템을 나타내는 보편적인 수단이다."
-  },
-  {
-    "objectID": "posts/machine_learning/GRL_01.html#그래프란",
-    "href": "posts/machine_learning/GRL_01.html#그래프란",
-    "title": "그래프 머신러닝: (1) 들어가며",
-    "section": "그래프란?",
-    "text": "그래프란?\n그래프: \\(\\mathcal{G} = (\\mathcal{V},\\mathcal{E})\\)\n\n그래프는 노드 집합 \\(V\\)와 엣지 집합 \\(\\mathcal{E}\\)로 정의된다. 노드 \\(u \\in \\mathcal{V}\\)에서 노드 \\(v \\in \\mathcal{V}\\)로 가는 엣지를 \\((u,v) \\in \\mathcal{E}\\)로 나타낸다.\n\n단순그래프(simple graph): 두 노드 간 최대 하나의 엣지를 가지고, 노드 스스로 연결하는 엣지가 없으며, 방향이 없는(undirected) 그래프\n인접행렬(adjacency matrix): \\(A \\in \\mathbb{R}^{|\\mathcal{V}| \\times |\\mathcal{V}|}\\)\n\n\\(A[u,v] = \\begin{cases}  1 & \\quad \\text{if } (u,v) \\in \\mathcal{E} \\\\  0 & \\quad \\text{otherwise}  \\end{cases}\\)\n만약, 그래프가 방향이 없는 엣지로 이루어져 있다면 \\(A\\)는 symmetric matrix가 된다.\nweighted 엣지를 가지는 경우 \\(0, 1\\)이 아닌 실수 원소를 가지는 인접행렬이 된다.\n\n\n\nFigure 2 in Xu (2021) Different types of graphs and their corresponding adjacency matrix representations\n\n\n다중관계(Multi-relational) 그래프\n\\((u,\\tau,v) \\in \\mathcal{E}\\)\n\n두 종류 이상의 관계에 대한 연결성을 나타낼 수 있는 그래프\n관계 \\(\\tau \\in R\\)가 있으며, 각 종류의 관계 \\(\\tau\\)마다 인접행렬 \\(A_\\tau\\)가 있다.\n이때 인접행렬은 다음과 같은 3차원이다: \\(A \\in \\mathbb{R}^{|\\mathcal{V}| \\times |\\mathcal{R}| \\times |\\mathcal{V}|}\\)\nmulti-relational 그래프에는 heterogeneous와 multiplex 그래프가 있다.\n\n\nHeterogeneous 그래프\n\n\\(\\mathcal{V}=\\mathcal{V_1} \\cup \\mathcal{V_2} \\cup \\cdots \\cup \\mathcal{V_3}\\) where \\(\\mathcal{V_i} \\cap \\mathcal{V_j} = \\emptyset\\) for all \\(i \\neq j\\)\n즉, disjoint한 노드 부분집합으로 구성된 노드 집합\n\n예시: 노드(약 노드집합, 질병 노드집합), 엣지(약-약: 다약부작용, 약-질병: 치료)\n\n관계 \\(\\tau_i\\)는 두 노드 부분집합 사이 연결: \\((u,\\tau_i, v) \\in \\mathcal{E} \\rightarrow u \\in V_j, v \\in V_k\\)\n이 때 \\(j \\neq k\\)이면 multipartite 그래프라고 한다. (즉, 다른 부분집합 간의 엣지만 존재)\n\n\n\nMultiplex 그래프\n\n\\(k\\)개의 층(layers)의 집합으로 이루어진 그래프\nintra-layer 엣지(같은 layer 안)와 inter-layer 엣지(서로 다른 layer 사이)가 있다.\n\n\n\nFigure 1 in Hammoud & Kramer (2020) Node-colored Graphs\n\n\n\n\nFeature information\n\n노드의 특징(feature or attribute) (예: 소셜 네트워크에서 한 사람(노드)의 프로필 사진 등 특징) 정보\nfeature는 실수 행렬로 나타냄: \\(X \\in \\mathbb{R}^{|V| \\times m}\\)\n각 노드 \\(u \\in V\\)에 대해 \\(m\\)개의 feature\nheterogeneous 그래프에서는 보통 각 종류의 노드는 각각의 특징 set을 가진다."
-  },
-  {
-    "objectID": "posts/machine_learning/GRL_01.html#머신러닝과-그래프",
-    "href": "posts/machine_learning/GRL_01.html#머신러닝과-그래프",
-    "title": "그래프 머신러닝: (1) 들어가며",
-    "section": "머신러닝과 그래프",
-    "text": "머신러닝과 그래프\n\n노드 분류(node classification)\n\n레이블된 노드를 학습하여, 레이블되지 않은 노드를 분류\n기존의 i.i.d.(independent and identically distributed)를 가정하는 지도학습 모형과 달리 i.i.d.를 가정하지 않는다. 대신, 노드 간 연결 집합을 모델링 한다.\n접근방법\n\nhomophily(동종선호): 그래프의 이웃 노드 간에 유사한 feature를 공유한다는 개념\nstructural equivalence: 유사한 이웃 구조를 가진 노드가 유사한 레이블을 가진다는 개념\nheterophily(이종선호): 한 노드가 다른 레이블의 노드와 우선적으로 연결될 것을 가정\n\n\n\n\n관계 예측(relation prediction)\n\n주어진 노드 집합과 부분적인 엣지 집합을 활용하여 누락된 엣지를 예측하는 작업\n작업의 복잡성은 그래프 유형에 따라 다르며, 단순한 그래프에서는 이웃을 공유하는 노드 쌍을 기반으로 하는 간단한 방법으로 성능을 높일 수 있지만, 복잡한 다중 관계 그래프에서는 복잡한 추론이 필요하다.\n관계 예측은 지도 및 비지도 학습 개념을 혼합하며 그래프 도메인에 특화된 inductive bias가 필요하다.\n\ninductive bias: 귀납적 추론을 수행하기 위한 학습 모델이 갖고 있는 가정들의 집합\n\n또한 단일 그래프 내에서 예측하는 경우와 여러 겹치지 않는 그래프 간 예측을 하는 경우 등 다양한 변형이 있다.\n\n\n\n커뮤니티 감지(community detection)\n\n위의 노드 분류와 관계 예측은 지도학습에 대응되는 작업이었다면, community detection은 비지도학습/클러스터링에 대응된다.\ncommunity detection은 주어진 \\(\\mathcal{G}=(\\mathcal{V},\\mathcal{E})\\)로 잠재적인 커뮤니티 구조를 추론한다.\nex. Louvain 알고리즘, Girvan-Newman 알고리즘, Label Propagation 등\n\n\n\n그래프 분류, 회귀, 클러스터링 (graph classification, regression, clustering)\n\n그래프 하나하나를 대상으로 분류하거나, 그래프 특성을 예측하거나, 클러스터링한다.\n여러 그래프로 구성된 데이터를 가지고 특정 그래프에 대해 작업한다."
-  },
-  {
-    "objectID": "posts/machine_learning/GRL_02_2.html",
-    "href": "posts/machine_learning/GRL_02_2.html",
-    "title": "그래프 머신러닝: (2-2) 이웃 중복 감지",
-    "section": "",
-    "text": "Hamilton,W.L. Graph Representation Learning. 2020"
-  },
-  {
-    "objectID": "posts/machine_learning/GRL_02_2.html#local-overlap-measures",
-    "href": "posts/machine_learning/GRL_02_2.html#local-overlap-measures",
-    "title": "그래프 머신러닝: (2-2) 이웃 중복 감지",
-    "section": "Local Overlap Measures",
-    "text": "Local Overlap Measures\n로컬(local) 중복도는 두 노드가 공유하는 공통 이웃의 수의 함수이다.\n\n예를 들어, Sorensen index는 노드-노드 이웃 중복의 행렬은 공통 이웃 수를 노드 degree의 합으로 정규화한다(큰 degree의 노드에 대한 예측 bias 방지). \\[S_{\\text{Sorenson}}[u,v] = \\frac{2|\\mathcal{N}(u) \\cap \\mathcal{N}(u)|}{d_u + d_v}\\]\n비슷한 방법으로 Salton index, Jaccard overlap가 있다. \\[S_{\\text{Salton}}[u,v] = \\frac{2|\\mathcal{N}(u) \\cap \\mathcal{N}(u)|}{\\sqrt{d_ud_v}}\\] \\[S_{\\text{Jaccard}}[u,v] = \\frac{|\\mathcal{N}(u) \\cap \\mathcal{N}(u)|}{|\\mathcal{N}(u) \\cup \\mathcal{N}(u)|}\\]\n\n또한, 공통 이웃 수가 아닌 공통 이웃의 중요도를 고려하는 방법도 있다. degree가 낮은 공통 이웃(더 informative할 것이라고 가정)에 가중을 준다.\n\nResource allocation(RA) index는 공통 이웃의 역 차수(inverse degree)를 카운트한다. \\[ S_{RA}[v_1,v_2] = \\sum_{u \\in \\mathcal{N}(v_1) \\cap \\mathcal{N}(v_2)} \\frac{1}{d_u} \\]\nAdamic-Adar(AA) index는 공통 이웃의 역 로그 차수를 카운트한다. \\[ S_{AA}[v_1,v_2] = \\sum_{u \\in \\mathcal{N}(v_1) \\cap \\mathcal{N}(v_2)} \\frac{1}{\\log(d_u)} \\]\n\n\n# 두 노드 간의 Jaccard 유사도 계산\ndef jaccard_similarity(G, node1, node2):\n    neighbors1 = set(G.neighbors(node1))\n    neighbors2 = set(G.neighbors(node2))\n    intersection = len(neighbors1.intersection(neighbors2))\n    union = len(neighbors1.union(neighbors2))\n    if union == 0:\n        return 0\n    return intersection / union\n\n# 유사도 행렬 생성\nnodes = list(G.nodes())\nnum_nodes = len(nodes)\nsimilarity_matrix = np.zeros((num_nodes, num_nodes))\nfor i in range(num_nodes):\n    for j in range(num_nodes):\n        similarity_matrix[i, j] = jaccard_similarity(G, nodes[i], nodes[j])\n\nprint(\"Jaccard 유사도 행렬:\")\nprint(similarity_matrix)\n\nJaccard 유사도 행렬:\n[[1.         0.4        0.         0.2        0.2       ]\n [0.4        1.         0.33333333 0.25       0.25      ]\n [0.         0.33333333 1.         0.5        0.5       ]\n [0.2        0.25       0.5        1.         1.        ]\n [0.2        0.25       0.5        1.         1.        ]]\n\n\n\ndef adamic_adar_similarity(G, node1, node2):\n    common_neighbors = list(nx.common_neighbors(G, node1, node2))\n    similarity = sum(1 / (len(list(G.neighbors(neighbor)))) for neighbor in common_neighbors if len(list(G.neighbors(neighbor))) &gt; 1)\n    return similarity\n    \ndef adamic_adar_similarity_matrix(G):\n    nodes = list(G.nodes())\n    num_nodes = len(nodes)\n    similarity_matrix = np.zeros((num_nodes, num_nodes))\n    for i in range(num_nodes):\n        for j in range(num_nodes):\n            if i == j:\n                similarity_matrix[i, j] = 0  # 같은 노드일 경우 유사도는 0\n            else:\n                similarity_matrix[i, j] = adamic_adar_similarity(G, nodes[i], nodes[j])\n    return similarity_matrix\n\n# Adamic-Adar 유사도 행렬 계산\nsimilarity_matrix = adamic_adar_similarity_matrix(G)\nprint(\"Adamic-Adar 유사도 행렬:\")\nprint(similarity_matrix)\n\nAdamic-Adar 유사도 행렬:\n[[0.         1.         0.         0.33333333 0.33333333]\n [1.         0.         0.25       0.25       0.25      ]\n [0.         0.25       0.         0.25       0.25      ]\n [0.33333333 0.25       0.25       0.         0.58333333]\n [0.33333333 0.25       0.25       0.58333333 0.        ]]"
-  },
-  {
-    "objectID": "posts/machine_learning/GRL_02_2.html#global-overlap-measures",
-    "href": "posts/machine_learning/GRL_02_2.html#global-overlap-measures",
-    "title": "그래프 머신러닝: (2-2) 이웃 중복 감지",
-    "section": "Global Overlap Measures",
-    "text": "Global Overlap Measures\n로컬 중복도는 이름처럼 국소적인 노드 이웃만을 고려하기 때문에, 그래프의 같은 커뮤니티 멤버이더라도 국소적 중복이 없을 때 이를 감지하지 못할 수 있다. 글로벌 중복은 이러한 것을 고려한다.\n\nKatz Index\n가장 기본적인 글로벌(global) 중복 통계량으로 노드 쌍 사이 모든 길이(lengths)의 경로의 수를 카운트한다.\n\\[S_{\\text{Katz}}[u,v] = \\sum^{\\infty}_{i=1}\\beta^iA^i[u,v] \\]\n\n\\(\\beta \\in \\mathbb{R}^+ (&lt;1)\\)는 사용자 설정값으로 길이간 긴 경로에 더 낮은 가중치를 부여한다.\nKatz index의 해답은 다음과 같이 주어질 수 있다:\n\n\\[S_{\\text{Katz}} = (I-\\beta A)^{-1}-I\\]\n\n\\(S_{\\text{Katz}} \\in \\mathbb{R}^{|\\mathcal{V}| \\times |\\mathcal{V}|}\\)는 노드-노드 유사도 값의 full 행렬이다.\n\n\n\nLeicht, Holme, and Newman (LHN) Similarity\nKatz Index는 노드 degree에 강하게 편향되어 있다. 이에 Leicht et al.(2006)은 실제 관찰된 경로 수와 두 노드 간 기대 경로 수의 비율을 제시했다. 즉, 두 노드 간 경로의 수를 랜덤모형에서의 경로 수 기대값으로 정규화하는 것이다.\n\\[\\frac{A^i}{\\mathbb{E}[A^i]}\\]\n\\({\\mathbb{E}[A^i]}\\)를 계산하기 위해 configuration model을 이용하여 analytical하게 구한다: \\[\\mathbb{E}[A[u,v]] = \\frac{d_u d_v}{2m}\\] - \\(m=|\\mathcal{E}|\\)는 그래프의 엣지 전체 수를 의미한다. - 위 식은 랜덤 configuration model에서 엣지의 가능도(likelihood)는 단순히 두 노드 degree의 곱임을 뜻한다. - 또한 \\(d_u\\)개 엣지가 \\(u\\)를 출발하여 \\(\\frac{d_v}{2m}\\)의 확률로 \\(v\\)에 도착한다고 볼 수 있다.\n길이 2의 경로의 경우, \\[ \\mathbb{E}[A^2[v_1,v_2]] = \\frac{d_{v_1} d_{v_2}}{(2m)^{2}} \\sum_{u \\in \\mathcal{V}} (d_u-1) d_u \\] 와 같으며, 길이가 3이상일 경우는 처리하기 어려워진다. 단, 근사값으로, \\[ \\mathbb{E}[A^i[u,v]] = \\frac{d_u d_v \\lambda^{i-1}}{2m} \\]로 나타낼 수 있다.\n해답을 구하기 위해, 행렬을 표현하면,\n\\[S_{LNH}[u,v] = I[u,v]+\\frac{2m}{d_u d_v} \\sum^{\\infty}_{i=0}\\beta \\lambda_1^{1-i}A^i [u,v]\\] \\[S_{LNH}[u,v] = 2\\alpha m \\lambda_1 D^{-1}(I-\\frac{\\beta}{\\lambda_1}A)^{-1}D^{-1}\\]\n\n\\(D\\)는 대각에 노드 degree가 있는 행렬을 뜻한다.\n\n\ndef lhn_similarity(G, node1, node2):\n    common_neighbors = list(nx.common_neighbors(G, node1, node2))\n    if len(common_neighbors) == 0:\n        return 0.0\n    else:\n        sum_inverse_degree = sum(1 / G.degree(neighbor) for neighbor in common_neighbors)\n        return sum_inverse_degree / len(common_neighbors)\n\ndef lhn_similarity_matrix(G):\n    num_nodes = len(G.nodes())\n    similarity_matrix = np.zeros((num_nodes, num_nodes))\n    for i, node1 in enumerate(G.nodes()):\n        for j, node2 in enumerate(G.nodes()):\n            if i == j:\n                similarity_matrix[i, j] = 0.0  # 같은 노드의 유사도는 0\n            else:\n                similarity_matrix[i, j] = lhn_similarity(G, node1, node2)\n    return similarity_matrix\n\n# LHN 유사도 행렬 계산\nlhn_matrix = lhn_similarity_matrix(G)\nprint(\"LHN 유사도 행렬:\")\nprint(lhn_matrix)\n\nLHN 유사도 행렬:\n[[0.         0.5        0.         0.33333333 0.33333333]\n [0.5        0.         0.25       0.25       0.25      ]\n [0.         0.25       0.         0.25       0.25      ]\n [0.33333333 0.25       0.25       0.         0.29166667]\n [0.33333333 0.25       0.25       0.29166667 0.        ]]\n\n\n\n\nRandom Walk Methods\n그래프의 정확한 경로의 수를 세는 대신 랜덤워크를 고려하여 유사도를 측정할 수 있다.\n‘Personalized PageRank’ 알고리즘(Leskovec et al., 2020)을 사용하면 확률(stochastic) 행렬 \\(P=AD^{-1}\\)가 있을 때, 랜덤워크가 노드 \\(u\\)에서 \\(v\\)로 가는 확률 \\(\\mathbf{q}_u[v]\\)를 다음과 같이 구한다.\n\\[\\mathbf{q}_u = cP\\mathbf{q}_u+(1-c)\\mathbf{e}_u\\] \\[\\mathbf{q}_u = (1-c)(I-cP)^{-1}\\mathbf{e}_u\\]\n\n\\(\\mathbf{e}_u\\)는 노드 \\(u\\)에 대한 one-hot indicator 벡터\n\\(c\\)는 랜덤워크가 노드 \\(u\\)에서 다시 시작할 확률을 결정\n\n노드-노드 랜덤워크 유사도 측정:\n\\[S_{RW}[u,v]=\\mathbf{q}_u[v]+\\mathbf{q}_v[u]\\]\n\n# Personalized PageRank 계산\ndef personalized_pagerank_similarity_matrix(G, alpha=0.85):\n    # Personalized PageRank 계산\n    pr_matrix = nx.pagerank(G, alpha=alpha)\n\n    # 유사도 행렬 초기화\n    num_nodes = len(G.nodes())\n    similarity_matrix = np.zeros((num_nodes, num_nodes))\n\n    # 각 노드 쌍 간의 Personalized PageRank 유사도 계산\n    for i, node1 in enumerate(G.nodes()):\n        for j, node2 in enumerate(G.nodes()):\n            similarity_matrix[i, j] = abs(pr_matrix[node1] - pr_matrix[node2])\n    return similarity_matrix\n\n# Personalized PageRank 유사도 행렬 계산\nppr_similarity_matrix = personalized_pagerank_similarity_matrix(G)\nprint(\"Personalized PageRank 유사도 행렬:\")\nprint(ppr_similarity_matrix)\n\nPersonalized PageRank 유사도 행렬:\n[[0.         0.08351986 0.22581248 0.15743786 0.15743786]\n [0.08351986 0.         0.14229262 0.07391799 0.07391799]\n [0.22581248 0.14229262 0.         0.06837463 0.06837463]\n [0.15743786 0.07391799 0.06837463 0.         0.        ]\n [0.15743786 0.07391799 0.06837463 0.         0.        ]]"
+    "objectID": "posts/machine_learning/GRL_04_1.html#representational-abilities",
+    "href": "posts/machine_learning/GRL_04_1.html#representational-abilities",
+    "title": "그래프 머신러닝: (4) 다중관계 데이터와 지식 그래프",
+    "section": "Representational Abilities",
+    "text": "Representational Abilities\n다양한 다중 관계형 디코더를 특성화하는 한 가지 방법은 관계에 대한 다양한 논리적 패턴을 표현(represent)하는 능력이다.\n\n\nTable 4.2 in Hamilton,Graph Representation Learning. 2020: 다중관계 디코더에 사용되는 디코더의 능력 비교\n\n대칭과 반대칭(anti-symmetry)\n\n\\((u, t, v) \\in \\mathcal{E} \\leftrightarrow (v, t, u) \\in \\mathcal{E}\\)\n\\((u, t, v) \\in \\mathcal{E} \\rightarrow (v, t, u) \\notin \\mathcal{E}\\) $\n\nInversion\n\n\\((u, \\tau_1, v) \\in \\mathcal{E} \\leftrightarrow (v, \\tau_2, u) \\in \\mathcal{E}\\)\n\nCompositionality\n\n\\((u, \\tau_1, y) \\in \\mathcal{E} \\land (y, \\tau_2, v) \\in \\mathcal{E} \\rightarrow (u, \\tau_3, v) \\in \\mathcal{E}\\)"
   },
   {
     "objectID": "posts/machine_learning/GRL_03_1.html",
@@ -553,95 +441,193 @@
     "text": "overview\n아래 표를 보면 잘 알려진 몇가지 인코더 디코더 임베딩 방법이 있다. (모두 shallow encoding 방법 사용)\n인코더 디코더 구조를 사용하면 서로다른 (디코더 함수, 그래프 기반 유사성 측정법, 손실 함수의) 임베딩 기법을 비교하고 간결하게 정의할 수 있다는 장점이 있다.\n\n\nTable 3.1 in Hamilton,Graph Representation Learning. 2020: shallow 임베딩 알고리즘들"
   },
   {
-    "objectID": "posts/machine_learning/GRL_04_1.html",
-    "href": "posts/machine_learning/GRL_04_1.html",
-    "title": "그래프 머신러닝: (4) 다중관계 데이터와 지식 그래프",
+    "objectID": "posts/machine_learning/GRL_02_2.html",
+    "href": "posts/machine_learning/GRL_02_2.html",
+    "title": "그래프 머신러닝: (2-2) 이웃 중복 감지",
     "section": "",
-    "text": "Hamilton,W.L. Graph Representation Learning. 2020\n앞에서는 저차원 임베딩에 대해 다루었으며, 특히 shallow embedding 방법을 위주로 다루었다. 이 포스트에서는 shallow embedding 방법으로 다중관계(multi-relational)의 그래프에서의 기술에 대해 알아본다."
+    "text": "Hamilton,W.L. Graph Representation Learning. 2020"
   },
   {
-    "objectID": "posts/machine_learning/GRL_04_1.html#cross-entropy-with-negative-sampling",
-    "href": "posts/machine_learning/GRL_04_1.html#cross-entropy-with-negative-sampling",
-    "title": "그래프 머신러닝: (4) 다중관계 데이터와 지식 그래프",
-    "section": "Cross-Entropy with Negative Sampling",
-    "text": "Cross-Entropy with Negative Sampling\n\\[\\mathcal{L} = \\sum_{(u,\\tau,v)\\in\\mathcal{E}} - \\log(\\sigma (\\text{DEC}(\\mathbf{z}_u,\\tau,\\mathbf{z}_v)) - \\gamma \\mathbb{E}_{v_n ~ P_{n,u}(v)}[-\\log(\\sigma (\\text{DEC}(\\mathbf{z}_u,\\tau,\\mathbf{z}_{v_n}))]\\]\n\\(\\sigma\\)는 로지스틱 함수, \\(P_{n,u}(\\mathcal{V})\\)는 (\\(u\\)에 의존하는) \\(V\\)에 대한 “negative sampling” 분포 , \\(\\gamma &gt; 0\\)는 하이퍼파라미터\n여기서 네거티브 샘플링은 엣지가 없는(엣지 집합에 없는) \\((u_n, \\tau, v_n) \\notin \\mathcal{E}\\)로 볼 수 있다."
+    "objectID": "posts/machine_learning/GRL_02_2.html#local-overlap-measures",
+    "href": "posts/machine_learning/GRL_02_2.html#local-overlap-measures",
+    "title": "그래프 머신러닝: (2-2) 이웃 중복 감지",
+    "section": "Local Overlap Measures",
+    "text": "Local Overlap Measures\n로컬(local) 중복도는 두 노드가 공유하는 공통 이웃의 수의 함수이다.\n\n예를 들어, Sorensen index는 노드-노드 이웃 중복의 행렬은 공통 이웃 수를 노드 degree의 합으로 정규화한다(큰 degree의 노드에 대한 예측 bias 방지). \\[S_{\\text{Sorenson}}[u,v] = \\frac{2|\\mathcal{N}(u) \\cap \\mathcal{N}(u)|}{d_u + d_v}\\]\n비슷한 방법으로 Salton index, Jaccard overlap가 있다. \\[S_{\\text{Salton}}[u,v] = \\frac{2|\\mathcal{N}(u) \\cap \\mathcal{N}(u)|}{\\sqrt{d_ud_v}}\\] \\[S_{\\text{Jaccard}}[u,v] = \\frac{|\\mathcal{N}(u) \\cap \\mathcal{N}(u)|}{|\\mathcal{N}(u) \\cup \\mathcal{N}(u)|}\\]\n\n또한, 공통 이웃 수가 아닌 공통 이웃의 중요도를 고려하는 방법도 있다. degree가 낮은 공통 이웃(더 informative할 것이라고 가정)에 가중을 준다.\n\nResource allocation(RA) index는 공통 이웃의 역 차수(inverse degree)를 카운트한다. \\[ S_{RA}[v_1,v_2] = \\sum_{u \\in \\mathcal{N}(v_1) \\cap \\mathcal{N}(v_2)} \\frac{1}{d_u} \\]\nAdamic-Adar(AA) index는 공통 이웃의 역 로그 차수를 카운트한다. \\[ S_{AA}[v_1,v_2] = \\sum_{u \\in \\mathcal{N}(v_1) \\cap \\mathcal{N}(v_2)} \\frac{1}{\\log(d_u)} \\]\n\n\n# 두 노드 간의 Jaccard 유사도 계산\ndef jaccard_similarity(G, node1, node2):\n    neighbors1 = set(G.neighbors(node1))\n    neighbors2 = set(G.neighbors(node2))\n    intersection = len(neighbors1.intersection(neighbors2))\n    union = len(neighbors1.union(neighbors2))\n    if union == 0:\n        return 0\n    return intersection / union\n\n# 유사도 행렬 생성\nnodes = list(G.nodes())\nnum_nodes = len(nodes)\nsimilarity_matrix = np.zeros((num_nodes, num_nodes))\nfor i in range(num_nodes):\n    for j in range(num_nodes):\n        similarity_matrix[i, j] = jaccard_similarity(G, nodes[i], nodes[j])\n\nprint(\"Jaccard 유사도 행렬:\")\nprint(similarity_matrix)\n\nJaccard 유사도 행렬:\n[[1.         0.4        0.         0.2        0.2       ]\n [0.4        1.         0.33333333 0.25       0.25      ]\n [0.         0.33333333 1.         0.5        0.5       ]\n [0.2        0.25       0.5        1.         1.        ]\n [0.2        0.25       0.5        1.         1.        ]]\n\n\n\ndef adamic_adar_similarity(G, node1, node2):\n    common_neighbors = list(nx.common_neighbors(G, node1, node2))\n    similarity = sum(1 / (len(list(G.neighbors(neighbor)))) for neighbor in common_neighbors if len(list(G.neighbors(neighbor))) &gt; 1)\n    return similarity\n    \ndef adamic_adar_similarity_matrix(G):\n    nodes = list(G.nodes())\n    num_nodes = len(nodes)\n    similarity_matrix = np.zeros((num_nodes, num_nodes))\n    for i in range(num_nodes):\n        for j in range(num_nodes):\n            if i == j:\n                similarity_matrix[i, j] = 0  # 같은 노드일 경우 유사도는 0\n            else:\n                similarity_matrix[i, j] = adamic_adar_similarity(G, nodes[i], nodes[j])\n    return similarity_matrix\n\n# Adamic-Adar 유사도 행렬 계산\nsimilarity_matrix = adamic_adar_similarity_matrix(G)\nprint(\"Adamic-Adar 유사도 행렬:\")\nprint(similarity_matrix)\n\nAdamic-Adar 유사도 행렬:\n[[0.         1.         0.         0.33333333 0.33333333]\n [1.         0.         0.25       0.25       0.25      ]\n [0.         0.25       0.         0.25       0.25      ]\n [0.33333333 0.25       0.25       0.         0.58333333]\n [0.33333333 0.25       0.25       0.58333333 0.        ]]"
   },
   {
-    "objectID": "posts/machine_learning/GRL_04_1.html#max-margin-loss",
-    "href": "posts/machine_learning/GRL_04_1.html#max-margin-loss",
-    "title": "그래프 머신러닝: (4) 다중관계 데이터와 지식 그래프",
-    "section": "Max-Margin Loss",
-    "text": "Max-Margin Loss\n\\[\\mathcal{L} = \\sum_{(u,\\tau,v) \\in \\mathcal{E}} \\sum_{v_n \\in P_{n,u}} \\max(0, -\\text{DEC}(z_u, \\tau, z_v) + \\text{DEC}(z_u, \\tau, z_{u_n}) + \\Delta)\\]\nMax-margin loss에서는 실제 쌍에 대한 디코딩된 점수를 네거티브 샘플과 비교한다. 단, 이것을 이진 분류 작업으로 취급하는 대신 단순히 디코더의 직접 출력과 비교한다.\n\n“true” 쌍의 점수가 “negative” 쌍보다 크면 손실이 있다.\n\\(\\Delta\\)는 margin이며, 스코어 차이가 모든 예에서 그만큼 크다면 손실은 0이 된다."
+    "objectID": "posts/machine_learning/GRL_02_2.html#global-overlap-measures",
+    "href": "posts/machine_learning/GRL_02_2.html#global-overlap-measures",
+    "title": "그래프 머신러닝: (2-2) 이웃 중복 감지",
+    "section": "Global Overlap Measures",
+    "text": "Global Overlap Measures\n로컬 중복도는 이름처럼 국소적인 노드 이웃만을 고려하기 때문에, 그래프의 같은 커뮤니티 멤버이더라도 국소적 중복이 없을 때 이를 감지하지 못할 수 있다. 글로벌 중복은 이러한 것을 고려한다.\n\nKatz Index\n가장 기본적인 글로벌(global) 중복 통계량으로 노드 쌍 사이 모든 길이(lengths)의 경로의 수를 카운트한다.\n\\[S_{\\text{Katz}}[u,v] = \\sum^{\\infty}_{i=1}\\beta^iA^i[u,v] \\]\n\n\\(\\beta \\in \\mathbb{R}^+ (&lt;1)\\)는 사용자 설정값으로 길이간 긴 경로에 더 낮은 가중치를 부여한다.\nKatz index의 해답은 다음과 같이 주어질 수 있다:\n\n\\[S_{\\text{Katz}} = (I-\\beta A)^{-1}-I\\]\n\n\\(S_{\\text{Katz}} \\in \\mathbb{R}^{|\\mathcal{V}| \\times |\\mathcal{V}|}\\)는 노드-노드 유사도 값의 full 행렬이다.\n\n\n\nLeicht, Holme, and Newman (LHN) Similarity\nKatz Index는 노드 degree에 강하게 편향되어 있다. 이에 Leicht et al.(2006)은 실제 관찰된 경로 수와 두 노드 간 기대 경로 수의 비율을 제시했다. 즉, 두 노드 간 경로의 수를 랜덤모형에서의 경로 수 기대값으로 정규화하는 것이다.\n\\[\\frac{A^i}{\\mathbb{E}[A^i]}\\]\n\\({\\mathbb{E}[A^i]}\\)를 계산하기 위해 configuration model을 이용하여 analytical하게 구한다: \\[\\mathbb{E}[A[u,v]] = \\frac{d_u d_v}{2m}\\] - \\(m=|\\mathcal{E}|\\)는 그래프의 엣지 전체 수를 의미한다. - 위 식은 랜덤 configuration model에서 엣지의 가능도(likelihood)는 단순히 두 노드 degree의 곱임을 뜻한다. - 또한 \\(d_u\\)개 엣지가 \\(u\\)를 출발하여 \\(\\frac{d_v}{2m}\\)의 확률로 \\(v\\)에 도착한다고 볼 수 있다.\n길이 2의 경로의 경우, \\[ \\mathbb{E}[A^2[v_1,v_2]] = \\frac{d_{v_1} d_{v_2}}{(2m)^{2}} \\sum_{u \\in \\mathcal{V}} (d_u-1) d_u \\] 와 같으며, 길이가 3이상일 경우는 처리하기 어려워진다. 단, 근사값으로, \\[ \\mathbb{E}[A^i[u,v]] = \\frac{d_u d_v \\lambda^{i-1}}{2m} \\]로 나타낼 수 있다.\n해답을 구하기 위해, 행렬을 표현하면,\n\\[S_{LNH}[u,v] = I[u,v]+\\frac{2m}{d_u d_v} \\sum^{\\infty}_{i=0}\\beta \\lambda_1^{1-i}A^i [u,v]\\] \\[S_{LNH}[u,v] = 2\\alpha m \\lambda_1 D^{-1}(I-\\frac{\\beta}{\\lambda_1}A)^{-1}D^{-1}\\]\n\n\\(D\\)는 대각에 노드 degree가 있는 행렬을 뜻한다.\n\n\ndef lhn_similarity(G, node1, node2):\n    common_neighbors = list(nx.common_neighbors(G, node1, node2))\n    if len(common_neighbors) == 0:\n        return 0.0\n    else:\n        sum_inverse_degree = sum(1 / G.degree(neighbor) for neighbor in common_neighbors)\n        return sum_inverse_degree / len(common_neighbors)\n\ndef lhn_similarity_matrix(G):\n    num_nodes = len(G.nodes())\n    similarity_matrix = np.zeros((num_nodes, num_nodes))\n    for i, node1 in enumerate(G.nodes()):\n        for j, node2 in enumerate(G.nodes()):\n            if i == j:\n                similarity_matrix[i, j] = 0.0  # 같은 노드의 유사도는 0\n            else:\n                similarity_matrix[i, j] = lhn_similarity(G, node1, node2)\n    return similarity_matrix\n\n# LHN 유사도 행렬 계산\nlhn_matrix = lhn_similarity_matrix(G)\nprint(\"LHN 유사도 행렬:\")\nprint(lhn_matrix)\n\nLHN 유사도 행렬:\n[[0.         0.5        0.         0.33333333 0.33333333]\n [0.5        0.         0.25       0.25       0.25      ]\n [0.         0.25       0.         0.25       0.25      ]\n [0.33333333 0.25       0.25       0.         0.29166667]\n [0.33333333 0.25       0.25       0.29166667 0.        ]]\n\n\n\n\nRandom Walk Methods\n그래프의 정확한 경로의 수를 세는 대신 랜덤워크를 고려하여 유사도를 측정할 수 있다.\n‘Personalized PageRank’ 알고리즘(Leskovec et al., 2020)을 사용하면 확률(stochastic) 행렬 \\(P=AD^{-1}\\)가 있을 때, 랜덤워크가 노드 \\(u\\)에서 \\(v\\)로 가는 확률 \\(\\mathbf{q}_u[v]\\)를 다음과 같이 구한다.\n\\[\\mathbf{q}_u = cP\\mathbf{q}_u+(1-c)\\mathbf{e}_u\\] \\[\\mathbf{q}_u = (1-c)(I-cP)^{-1}\\mathbf{e}_u\\]\n\n\\(\\mathbf{e}_u\\)는 노드 \\(u\\)에 대한 one-hot indicator 벡터\n\\(c\\)는 랜덤워크가 노드 \\(u\\)에서 다시 시작할 확률을 결정\n\n노드-노드 랜덤워크 유사도 측정:\n\\[S_{RW}[u,v]=\\mathbf{q}_u[v]+\\mathbf{q}_v[u]\\]\n\n# Personalized PageRank 계산\ndef personalized_pagerank_similarity_matrix(G, alpha=0.85):\n    # Personalized PageRank 계산\n    pr_matrix = nx.pagerank(G, alpha=alpha)\n\n    # 유사도 행렬 초기화\n    num_nodes = len(G.nodes())\n    similarity_matrix = np.zeros((num_nodes, num_nodes))\n\n    # 각 노드 쌍 간의 Personalized PageRank 유사도 계산\n    for i, node1 in enumerate(G.nodes()):\n        for j, node2 in enumerate(G.nodes()):\n            similarity_matrix[i, j] = abs(pr_matrix[node1] - pr_matrix[node2])\n    return similarity_matrix\n\n# Personalized PageRank 유사도 행렬 계산\nppr_similarity_matrix = personalized_pagerank_similarity_matrix(G)\nprint(\"Personalized PageRank 유사도 행렬:\")\nprint(ppr_similarity_matrix)\n\nPersonalized PageRank 유사도 행렬:\n[[0.         0.08351986 0.22581248 0.15743786 0.15743786]\n [0.08351986 0.         0.14229262 0.07391799 0.07391799]\n [0.22581248 0.14229262 0.         0.06837463 0.06837463]\n [0.15743786 0.07391799 0.06837463 0.         0.        ]\n [0.15743786 0.07391799 0.06837463 0.         0.        ]]"
   },
   {
-    "objectID": "posts/machine_learning/GRL_04_1.html#representational-abilities",
-    "href": "posts/machine_learning/GRL_04_1.html#representational-abilities",
-    "title": "그래프 머신러닝: (4) 다중관계 데이터와 지식 그래프",
-    "section": "Representational Abilities",
-    "text": "Representational Abilities\n다양한 다중 관계형 디코더를 특성화하는 한 가지 방법은 관계에 대한 다양한 논리적 패턴을 표현(represent)하는 능력이다.\n\n\nTable 4.2 in Hamilton,Graph Representation Learning. 2020: 다중관계 디코더에 사용되는 디코더의 능력 비교\n\n대칭과 반대칭(anti-symmetry)\n\n\\((u, t, v) \\in \\mathcal{E} \\leftrightarrow (v, t, u) \\in \\mathcal{E}\\)\n\\((u, t, v) \\in \\mathcal{E} \\rightarrow (v, t, u) \\notin \\mathcal{E}\\) $\n\nInversion\n\n\\((u, \\tau_1, v) \\in \\mathcal{E} \\leftrightarrow (v, \\tau_2, u) \\in \\mathcal{E}\\)\n\nCompositionality\n\n\\((u, \\tau_1, y) \\in \\mathcal{E} \\land (y, \\tau_2, v) \\in \\mathcal{E} \\rightarrow (u, \\tau_3, v) \\in \\mathcal{E}\\)"
-  },
-  {
-    "objectID": "posts/machine_learning/GRL_05_2.html",
-    "href": "posts/machine_learning/GRL_05_2.html",
-    "title": "그래프 머신러닝: (5-2) GNN: 일반화된 집계 및 업데이트",
+    "objectID": "posts/machine_learning/GRL_01.html",
+    "href": "posts/machine_learning/GRL_01.html",
+    "title": "그래프 머신러닝: (1) 들어가며",
     "section": "",
-    "text": "Hamilton,W.L. Graph Representation Learning. 2020\nBasic GNN은 여러 가지 방법으로 개선되고 일반화될 수 있다. 여기서는 aggregation과 update 작업을 일반화하고 개선할 수 있는 방법에 대해 알아보자."
+    "text": "Hamilton,W.L. Graph Representation Learning. 2020\n그래프(graph)는 복잡한 시스템을 나타내는 보편적인 수단이다."
   },
   {
-    "objectID": "posts/machine_learning/GRL_05_2.html#neighborhood-normalization",
-    "href": "posts/machine_learning/GRL_05_2.html#neighborhood-normalization",
-    "title": "그래프 머신러닝: (5-2) GNN: 일반화된 집계 및 업데이트",
-    "section": "Neighborhood Normalization",
-    "text": "Neighborhood Normalization\n가장 기본적인 이웃 집계(aggreagation)는 단순히 이웃 임베딩의 합을 취하는 것이나, 이 방식은 불안정하고 노드 degree에 매우 민감할 수 있다. 예를 들어, 노드 \\(u\\)가 노드 \\(u'\\)보다 \\(100\\)배 많은 이웃(즉, 훨씬 더 높은 차수)이 있다고 가정 할 때 \\(\\left\\| \\sum_{v \\in \\mathcal{N}(u)} h_v \\right\\| \\gg \\left\\| \\sum_{v' \\in \\mathcal{N}(u')} h_{v'} \\right\\|\\)라고 합리적으로 기대할 수 있다. 이러한 급격한 크기 차이로 인해 수치적 불안정성과 최적화의 어려움이 발생할 수 있다.\n해결 방법으로 관련된 포함된 노드 degree에 따라 집계를 단순히 정규화하는 방법이 있다.\n\n가장 단순한 방법은 합 대신 평균화 하는 것이다:\n\n\\[ \\mathbf{m}_{\\mathcal{N}(u)} = \\frac{\\sum_{v \\in \\mathcal{N}(u)} \\mathbf{h}_v}{|\\mathcal{N}(u)|} \\]\n\nKipf and Welling [2016a]에서 사용된 다음과 같은 대칭 정규화(symmetric normalization)와 같은 다른 정규화 factor도 있다:\n\n\\[ \\mathbf{m}_{\\mathcal{N}(u)} = \\sum_{v \\in \\mathcal{N}(u)} \\frac{\\mathbf{h}_v}{\\sqrt{|\\mathcal{N}(u)| |\\mathcal{N}(v)|}} \\]\n특히, 대칭 정규화 집계와 기본 GNN 업데이트 함수를 결합하면 spectral graph convolution의 1차(first-order) 근사(approximation)가 생성된다.\nGraph Convolutional Networks (GCNs)\n가장 널리 사용되는 기준이 되는 그래프 신경망 모델 중 하나인 그래프 컨볼루션 네트워크(GCN)는 대칭 정규화 집계와 self-loop 업데이트 접근 방식을 사용한다.\nGCN은 메시지 전달 함수를 다음과 같이 정의한다:\n\\[\\mathbf{h}^{(k)}_u = \\sigma \\left( \\mathbf{W}^{(k)} \\sum_{v \\in \\mathcal{N}(u) \\cup \\{u\\}} \\frac{\\mathbf{h}_v}{\\sqrt{|\\mathcal{N}(u)| |\\mathcal{N}(v)|}} \\right)\\]\n정규화는 필요할까?\n\nGNN을 사용할 때 안정적이고 강력한 성능을 얻으려면 적절한 정규화가 필수적일 수 있으나, 정규화로 인해 정보가 손실될 수도 있다는 점에 유의해야 한다.\n예를 들어, 정규화 후에는 학습된 임베딩을 사용하여 서로 다른 degree의 노드를 구별하는 것이 어렵거나 불가능할 수 있으며, 다양한 다른 구조 그래프 특징이 정규화에 의해 가려질 수 있다.\n일반적으로 정규화는 노드 피쳐 정보가 구조적 정보보다 훨씬 더 유용하거나, 최적화 중에 불안정을 초래할 수 있는 노드 degree 범위가 매우 넓은 작업에서 유용하다."
+    "objectID": "posts/machine_learning/GRL_01.html#그래프란",
+    "href": "posts/machine_learning/GRL_01.html#그래프란",
+    "title": "그래프 머신러닝: (1) 들어가며",
+    "section": "그래프란?",
+    "text": "그래프란?\n그래프: \\(\\mathcal{G} = (\\mathcal{V},\\mathcal{E})\\)\n\n그래프는 노드 집합 \\(V\\)와 엣지 집합 \\(\\mathcal{E}\\)로 정의된다. 노드 \\(u \\in \\mathcal{V}\\)에서 노드 \\(v \\in \\mathcal{V}\\)로 가는 엣지를 \\((u,v) \\in \\mathcal{E}\\)로 나타낸다.\n\n단순그래프(simple graph): 두 노드 간 최대 하나의 엣지를 가지고, 노드 스스로 연결하는 엣지가 없으며, 방향이 없는(undirected) 그래프\n인접행렬(adjacency matrix): \\(A \\in \\mathbb{R}^{|\\mathcal{V}| \\times |\\mathcal{V}|}\\)\n\n\\(A[u,v] = \\begin{cases}  1 & \\quad \\text{if } (u,v) \\in \\mathcal{E} \\\\  0 & \\quad \\text{otherwise}  \\end{cases}\\)\n만약, 그래프가 방향이 없는 엣지로 이루어져 있다면 \\(A\\)는 symmetric matrix가 된다.\nweighted 엣지를 가지는 경우 \\(0, 1\\)이 아닌 실수 원소를 가지는 인접행렬이 된다.\n\n\n\nFigure 2 in Xu (2021) Different types of graphs and their corresponding adjacency matrix representations\n\n\n다중관계(Multi-relational) 그래프\n\\((u,\\tau,v) \\in \\mathcal{E}\\)\n\n두 종류 이상의 관계에 대한 연결성을 나타낼 수 있는 그래프\n관계 \\(\\tau \\in R\\)가 있으며, 각 종류의 관계 \\(\\tau\\)마다 인접행렬 \\(A_\\tau\\)가 있다.\n이때 인접행렬은 다음과 같은 3차원이다: \\(A \\in \\mathbb{R}^{|\\mathcal{V}| \\times |\\mathcal{R}| \\times |\\mathcal{V}|}\\)\nmulti-relational 그래프에는 heterogeneous와 multiplex 그래프가 있다.\n\n\nHeterogeneous 그래프\n\n\\(\\mathcal{V}=\\mathcal{V_1} \\cup \\mathcal{V_2} \\cup \\cdots \\cup \\mathcal{V_3}\\) where \\(\\mathcal{V_i} \\cap \\mathcal{V_j} = \\emptyset\\) for all \\(i \\neq j\\)\n즉, disjoint한 노드 부분집합으로 구성된 노드 집합\n\n예시: 노드(약 노드집합, 질병 노드집합), 엣지(약-약: 다약부작용, 약-질병: 치료)\n\n관계 \\(\\tau_i\\)는 두 노드 부분집합 사이 연결: \\((u,\\tau_i, v) \\in \\mathcal{E} \\rightarrow u \\in V_j, v \\in V_k\\)\n이 때 \\(j \\neq k\\)이면 multipartite 그래프라고 한다. (즉, 다른 부분집합 간의 엣지만 존재)\n\n\n\nMultiplex 그래프\n\n\\(k\\)개의 층(layers)의 집합으로 이루어진 그래프\nintra-layer 엣지(같은 layer 안)와 inter-layer 엣지(서로 다른 layer 사이)가 있다.\n\n\n\nFigure 1 in Hammoud & Kramer (2020) Node-colored Graphs\n\n\n\n\nFeature information\n\n노드의 특징(feature or attribute) (예: 소셜 네트워크에서 한 사람(노드)의 프로필 사진 등 특징) 정보\nfeature는 실수 행렬로 나타냄: \\(X \\in \\mathbb{R}^{|V| \\times m}\\)\n각 노드 \\(u \\in V\\)에 대해 \\(m\\)개의 feature\nheterogeneous 그래프에서는 보통 각 종류의 노드는 각각의 특징 set을 가진다."
   },
   {
-    "objectID": "posts/machine_learning/GRL_05_2.html#set-aggregators",
-    "href": "posts/machine_learning/GRL_05_2.html#set-aggregators",
-    "title": "그래프 머신러닝: (5-2) GNN: 일반화된 집계 및 업데이트",
-    "section": "Set Aggregators",
-    "text": "Set Aggregators\n이웃 집계 연산은 기본적으로 집합 함수(set function)이다. 이웃 임베딩 집합 {\\(\\mathbf{h}_v, \\forall v \\in \\mathcal{N}(u)\\)}이 주어지고, 이를 싱글 벡터 \\(\\mathbf{m}_{\\mathcal{N}(u)}\\)에 매핑해야 한다. {\\(\\mathbf{h}_v, \\forall v \\in \\mathcal{N}(u)\\)}이 집합이라는 사실은 실제로 매우 중요하다: 노드 이웃에는 자연적인 순서가 없으며, 따라서 정의하는 모든 집계 함수는 순열 불변(permutation invariant)이어야 한다.\n집계 함수를 정의하는 한 가지 원칙적인 접근 방식은 순열 불변 신경망 이론(permutaion invariant neural network)을 기반으로 한다.\n예를 들어, Zaheer et al. [2017]은 다음 형식의 집계 함수가 범용적 집합 함수 근사기(universal set function approximator)임을 보여준다:\n\\[\\mathbf{m}_{\\mathcal{N}(u)} = MLP_{\\theta} \\left( \\sum_{v \\in \\mathcal{N}(u)} MLP_{\\phi} (\\mathbf{h}_v) \\right)\\]"
+    "objectID": "posts/machine_learning/GRL_01.html#머신러닝과-그래프",
+    "href": "posts/machine_learning/GRL_01.html#머신러닝과-그래프",
+    "title": "그래프 머신러닝: (1) 들어가며",
+    "section": "머신러닝과 그래프",
+    "text": "머신러닝과 그래프\n\n노드 분류(node classification)\n\n레이블된 노드를 학습하여, 레이블되지 않은 노드를 분류\n기존의 i.i.d.(independent and identically distributed)를 가정하는 지도학습 모형과 달리 i.i.d.를 가정하지 않는다. 대신, 노드 간 연결 집합을 모델링 한다.\n접근방법\n\nhomophily(동종선호): 그래프의 이웃 노드 간에 유사한 feature를 공유한다는 개념\nstructural equivalence: 유사한 이웃 구조를 가진 노드가 유사한 레이블을 가진다는 개념\nheterophily(이종선호): 한 노드가 다른 레이블의 노드와 우선적으로 연결될 것을 가정\n\n\n\n\n관계 예측(relation prediction)\n\n주어진 노드 집합과 부분적인 엣지 집합을 활용하여 누락된 엣지를 예측하는 작업\n작업의 복잡성은 그래프 유형에 따라 다르며, 단순한 그래프에서는 이웃을 공유하는 노드 쌍을 기반으로 하는 간단한 방법으로 성능을 높일 수 있지만, 복잡한 다중 관계 그래프에서는 복잡한 추론이 필요하다.\n관계 예측은 지도 및 비지도 학습 개념을 혼합하며 그래프 도메인에 특화된 inductive bias가 필요하다.\n\ninductive bias: 귀납적 추론을 수행하기 위한 학습 모델이 갖고 있는 가정들의 집합\n\n또한 단일 그래프 내에서 예측하는 경우와 여러 겹치지 않는 그래프 간 예측을 하는 경우 등 다양한 변형이 있다.\n\n\n\n커뮤니티 감지(community detection)\n\n위의 노드 분류와 관계 예측은 지도학습에 대응되는 작업이었다면, community detection은 비지도학습/클러스터링에 대응된다.\ncommunity detection은 주어진 \\(\\mathcal{G}=(\\mathcal{V},\\mathcal{E})\\)로 잠재적인 커뮤니티 구조를 추론한다.\nex. Louvain 알고리즘, Girvan-Newman 알고리즘, Label Propagation 등\n\n\n\n그래프 분류, 회귀, 클러스터링 (graph classification, regression, clustering)\n\n그래프 하나하나를 대상으로 분류하거나, 그래프 특성을 예측하거나, 클러스터링한다.\n여러 그래프로 구성된 데이터를 가지고 특정 그래프에 대해 작업한다."
   },
   {
-    "objectID": "posts/machine_learning/GRL_05_2.html#message-passing-with-self-loops",
-    "href": "posts/machine_learning/GRL_05_2.html#message-passing-with-self-loops",
-    "title": "그래프 머신러닝: (5-2) GNN: 일반화된 집계 및 업데이트",
+    "objectID": "listing.html",
+    "href": "listing.html",
+    "title": "",
+    "section": "",
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\n그래프 머신러닝: (1) 들어가며\n\n\n\ngraph\n\n\nnetwork\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n그래프 머신러닝: (2-1) 그래프 통계량과 커널 방법\n\n\n\ngraph\n\n\nnetwork\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n그래프 머신러닝: (2-2) 이웃 중복 감지\n\n\n\ngraph\n\n\nnetwork\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n그래프 머신러닝: (2-3) 그래프 라플라시안과 스펙트럴 방법\n\n\n\ngraph\n\n\nnetwork\n\n\nmachine learning\n\n\nspectral\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n그래프 머신러닝: (3-1) 이웃 재구성: 인코더-디코더\n\n\n\ngraph\n\n\nnetwork\n\n\nencoder-decoder\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n그래프 머신러닝: (3-2) 이웃재구성: 랜덤워크 임베딩\n\n\n\ngraph\n\n\nnetwork\n\n\nencoder-decoder\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n그래프 머신러닝: (4) 다중관계 데이터와 지식 그래프\n\n\n\ngraph\n\n\nnetwork\n\n\nmulti-relational\n\n\nknowledge graph\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n그래프 머신러닝: (5-1) GNN: 신경망 메시지 전달\n\n\n\ngraph\n\n\nnetwork\n\n\nGNN\n\n\ndeep learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n그래프 머신러닝: (5-2) GNN: 일반화된 집계 및 업데이트\n\n\n\ngraph\n\n\nnetwork\n\n\nGNN\n\n\ndeep learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n금융 분야의 LLM (2023)\n\n\n\nllm\n\n\nnlp\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n기초통계: 확률 분포, 적률, 엔트로피\n\n\n\nprobability distribution\n\n\nmoments\n\n\nentropy\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n뉴스심리지수 (한국은행)\n\n\n\nsentiment\n\n\nnlp\n\n\ntransformer\n\n\npaper\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (0) 트레이딩 개요\n\n\n\ntrading\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (1) 시장 데이터 수집\n\n\n\ntrading\n\n\ndata\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (2) 가격 모멘텀 라벨링\n\n\n\ntrading\n\n\nlabeling\n\n\nmomentum\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (3) 피쳐 생성\n\n\n\ntrading\n\n\nfeature\n\n\nmomentum\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (4) 피쳐 선정\n\n\n\ntrading\n\n\nfeature selection\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (5) 매매 시그널 분류\n\n\n\ntrading\n\n\nsignals\n\n\nclassification\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (6) 매매 규칙\n\n\n\ntrading\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n머신러닝을 이용한 트레이딩: (7) 매매 신뢰도 측정과 전략 강화\n\n\n\ntrading\n\n\nenhancing\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n분수 차분 (fractional differentiation)\n\n\n\nfractional differentiation\n\n\ndata\n\n\nstationarity\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시계열 - ARIMA\n\n\n\ntime series\n\n\nARMA\n\n\nARIMA\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시계열 - Introduction\n\n\n\ntime series\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (1) 시스템 리스크 개념\n\n\n\nsystemic risk\n\n\nrisk\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (2) 시스템 리스크 측정 방법 - 선행연구 요약\n\n\n\nsystemic risk\n\n\nmeasures\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (2-1) 거시경제지표를 활용한 경제전체 위험도 측정 방법\n\n\n\nsystemic risk\n\n\ncycle\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (2-2) 시장위험 측정 방법\n\n\n\nsystemic risk\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (2-3) 금융기관 단면적 위험 측정방법\n\n\n\nsystemic risk\n\n\nfinancial institution\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (2-4) 금융기관 부도확률 위험 측정방법\n\n\n\nsystemic risk\n\n\nfinancial institution\n\n\ndefault\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (2-5) 네트워크 측정방법\n\n\n\nsystemic risk\n\n\nfinancial institution\n\n\nnetwork\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (3-1) 시스템 리스크와 머신러닝 - 네트워크 기반 및 빅데이터 분석\n\n\n\nsystemic risk\n\n\nmeasures\n\n\nnetwork\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (3-2) 시스템 리스크와 머신러닝 - 계량경제학, 미시구조, 금융규제\n\n\n\nsystemic risk\n\n\nmeasures\n\n\nnetwork\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시스템 리스크 분석: (3-3) 시스템 리스크와 머신러닝 - 향후 연구 방향\n\n\n\nsystemic risk\n\n\nnetwork\n\n\nbig data\n\n\nmachine learning\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n알고리즘: 시간복잡도\n\n\n\ntime complexity\n\n\n\n\n\n\n\nCheonghyo Cho\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "E-mail: jhcho1016@naver.com"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome to Cho’s FinBlog!",
+    "section": "",
+    "text": "이 블로그는 빅데이터, AI를 활용한 금융 및 경제 분야를 공부하며 정리한 짧은 글이나 마저 끝내지 못한 연구 등을 올리는 개인 블로그입니다.\n\n\n모든 블로그 글 보기\n\n\n주요 관심주제: 금융 머신러닝, 자산가격 모멘텀, 시스템 리스크(systemic risk), 네트워크 분석, 자연어 처리 등\n\n이 블로그의 모든 글은 오직 교육용 목적입니다.\nAbout Me"
+  },
+  {
+    "objectID": "posts/fin_data/Fractional_difference.html",
+    "href": "posts/fin_data/Fractional_difference.html",
+    "title": "분수 차분 (fractional differentiation)",
+    "section": "",
+    "text": "시계열의 메모리를 어느정도 보존하면서 정상성을 만족하도록 차분해주는 “분수 차분(fractional diffentiation)”에 대해 알아보자."
+  },
+  {
+    "objectID": "posts/fin_data/Fractional_difference.html#방법",
+    "href": "posts/fin_data/Fractional_difference.html#방법",
+    "title": "분수 차분 (fractional differentiation)",
+    "section": "방법",
+    "text": "방법\n다음과 같은 Backshift 연산자 \\(B\\)가 있다고 하자\n실수 행렬 \\({Xt}\\)에 대해\n\n\\(B^k X_t = X_{t−k}\\) (\\(k \\geq 0\\))\n\\((1-B)^{d} = \\sum^{\\infty}_{k=0}{\\left( \\begin{array}{c}  n \\\\  r  \\end{array}\\right)} (-B)^k\\) (formal binomial series expansion)\n\\((1-B)^{d}X_t\\): d차 차분 시계열 (d는 실수)\n\n따라서 d차 차분에 대해 다음과 같이 시계열이 생성된다.\n\n\\(\\tilde{X}_t = \\sum^{\\infty}_{k=0}w_kX_{t-k}\\)\n\\(w = \\{ 1, -d, \\frac{d(d-1)}{2!}, -\\frac{d(d-1)(d-2)}{3!}, \\cdots, (-1)^k \\prod_{i=1}^{k-1}(\\frac{d-i}{k!}) , \\cdots \\}\\)\n\n하지만 실제로 차분을 구할 때 위와 같은 계산은 무한급수가 되므로 이를 처리해야 한다.\n또한 위의 식에서의 계수(혹은 weight)를 \\(w\\)(예: \\(0.2, 0.08 \\cdots\\))라고 했을 때, 정수가 아닌 \\(d\\)에 대해 \\(k \\geq d+1\\)가 되면 \\(\\text{int}[d]\\)가 짝수일 때 \\(w\\)가 음수가 된다.\n즉, \\(\\text{int}[d]\\)가 짝수일 때, \\(\\lim\\limits_{k\\to \\infty} w_k = 0^-\\)이고, \\(\\text{int}[d]\\)가 홀수일 때, \\(\\lim\\limits_{k\\to \\infty} w_k = 0^+\\)이다.\n따라서 \\(w_k\\)의 \\(k\\)에 대한 window를 정해주거나, 상대적 weight-loss (\\(\\frac{\\sum_{j=T-1}^{T}|w_j|}{\\sum_{i=0}^{T-1}|w_i|}\\))에 대해 threshold를 설정하여 계산을 제한할 수 있다.\n예를 들어 다음과 같이 생각할 수 있다.\n\n\\((1-B)^{0.2} X_t = X_t - 0.2 X_{t-1} - 0.08 X_{t-2} - 0.048 X_{t-3} \\cdots\\)\n\\((1-B)^{0.4} X_t = X_t - 0.4 X_{t-1} - 0.12 X_{t-2} - 0.064 X_{t-3} \\cdots\\)\n\\((1-B)^{0.8} X_t = X_t - 0.8 X_{t-1} - 0.08 X_{t-2} - 0.032 X_{t-3} \\cdots\\)\n\\((1-B)^{1} X_t = X_t - 1.0 X_{t-1} - 0 X_{t-2} - 0 X_{t-3} \\cdots\\)"
+  },
+  {
+    "objectID": "posts/fin_data/Fractional_difference.html#예시",
+    "href": "posts/fin_data/Fractional_difference.html#예시",
+    "title": "분수 차분 (fractional differentiation)",
+    "section": "예시",
+    "text": "예시\n\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport yfinance as yf\n\nimport fracdiff # https://github.com/fracdiff/fracdiff를 사용\n\n\n# S&P500 지수를 가져와본다\n\nsp500 = yf.download('^GSPC', start='2001-1-1', end='2023-1-1').Close\n\n[*********************100%***********************]  1 of 1 completed\n\n\n\nsp500\n\nDate\n2001-01-02    1283.270020\n2001-01-03    1347.560059\n2001-01-04    1333.339966\n2001-01-05    1298.349976\n2001-01-08    1295.859985\n                 ...     \n2022-12-23    3844.820068\n2022-12-27    3829.250000\n2022-12-28    3783.219971\n2022-12-29    3849.280029\n2022-12-30    3839.500000\nName: Close, Length: 5535, dtype: float64\n\n\n\nplt.figure(figsize=(10,3))\nplt.title(\"S&P500\")\nplt.plot(sp500)\nplt.show()\n\n\n\n\n\n# fraction difference (n=1)은 np.diff()와 같다.\n\ndiff = sp500.diff()[1:]\nf_diff_1 = fracdiff.fdiff(sp500, n=1)\nnp.all(diff == f_diff_1)\n\nTrue\n\n\n\ndiff = sp500.diff()\nplt.figure(figsize=(10,3))\nplt.title(\"S&P500 difference\")\nplt.plot(diff)\nplt.show()\n\n\n\n\n\nn_s=[.2,.4,.6,.8,1.]\nw=10\nplt.figure(figsize=(16,8))\nplt.title(f\"S&P500 nth fractional differences\")\nplt.plot(sp500)\nfor n in n_s:\n    diff = fracdiff.fdiff(sp500, n=n, window=w)[w:]\n    diff = pd.Series(diff,index=sp500.index[int(n)+w:])\n    plt.plot(diff)\nplt.legend(['0 (original)']+n_s, title='nth')\nplt.savefig(\"fdiff_thumbnail.jpg\")\nplt.show()"
+  },
+  {
+    "objectID": "posts/fin_data/Fractional_difference.html#참고문헌",
+    "href": "posts/fin_data/Fractional_difference.html#참고문헌",
+    "title": "분수 차분 (fractional differentiation)",
+    "section": "참고문헌",
+    "text": "참고문헌\n\nDe Prado, M. L. (2018). Advances in financial machine learning. John Wiley & Sons.\nhttps://fracdiff.github.io/fracdiff/"
+  },
+  {
+    "objectID": "posts/machine_learning/GRL_02_1.html",
+    "href": "posts/machine_learning/GRL_02_1.html",
+    "title": "그래프 머신러닝: (2-1) 그래프 통계량과 커널 방법",
+    "section": "",
+    "text": "Hamilton,W.L. Graph Representation Learning. 2020"
+  },
+  {
+    "objectID": "posts/machine_learning/GRL_02_1.html#node-level-통계량과-피쳐features",
+    "href": "posts/machine_learning/GRL_02_1.html#node-level-통계량과-피쳐features",
+    "title": "그래프 머신러닝: (2-1) 그래프 통계량과 커널 방법",
+    "section": "Node-level 통계량과 피쳐(features)",
+    "text": "Node-level 통계량과 피쳐(features)\n\nimport networkx as nx\nimport matplotlib.pyplot as plt\n\n# Barabási-Albert 그래프 생성\nn = 8  # 노드 개수\nm = 2    # 새로운 노드에 연결되는 엣지 수\nG = nx.barabasi_albert_graph(n, m)\n\n\n# 시각화\npos = nx.spring_layout(G)  # 그래프 레이아웃 정의\n\n# 노드 및 엣지 그리기\nnx.draw(G, pos, with_labels=True, node_size=700, node_color=\"skyblue\", font_size=12, font_weight=\"bold\")\nplt.title(\"Sample Graph\")\nplt.show()\n\n\n\n\n\nNode degree\n한 노드에 연결된 엣지 수\n\\[d_u = \\sum_{v \\in V}A[u,v] \\quad \\text{for } u \\in \\mathcal{V}\\]\n\nnode degree는 전통적 기계학습 모델에서 가장 유익한 정보 중 하나이다.\n하지만, 한 노드와 연결된 다른 노드들의 중요성은 노드의 degree에 반영되지 않는다. 즉, 두 노드가 같은 degree를 갖더라도 이웃의 중요도에 따라 중요도가 다를 수 있다.\n\n\n# Node degree 구하기\ndegree = dict(G.degree())\nprint(\"Node degree:\")\nprint(degree)\n\nNode degree:\n{0: 5, 1: 1, 2: 5, 3: 2, 4: 5, 5: 2, 6: 2, 7: 2}\n\n\n\n\nNode centrality\n위세 중심성 (eigenvector centrality)\n\nnode degree와 달리, 노드의 이웃들의 중요도까지 고려하는 방법이다.\n\n\\[e_u = \\frac{1}{\\lambda}\\sum_{v \\in V}A[u,v] e_v, \\quad \\forall u \\in \\mathcal{V}\\]\n\n식처럼 recursive한 성질을 가진다.\n단, 위의 식을 다시 쓰면 벡터 \\(\\mathbf{e}\\)에 대해 \\(\\lambda \\mathbf{e} = A \\mathbf{e}\\)와 같다. 즉, centrality는 인접행렬의 eigenvector이다. 양의 centrality 값을 가정하면, Perron-Frobenius Theorem을 적용하여 \\(\\mathbf{e}\\)를 구할 수 있다.\n또한, eigenvector centrality느 그래프에서 무한 랜덤워킹할 때 해당 노드에 도착할 확률이라고도 볼 수 있다.\n\n\\(\\mathbf{e}^{(t+1)} = A \\mathbf{e}^{(t)}\\) : power iteration\n\n\n매개 중심성 (betweenness centrality): 한 노드가 다른 두 노드 사이의 최단 경로에 있을 빈도\n근접 중심성 (closeness centrality): 한 노드와 다른 모든 노드 사이 최단거리들의 평균\n차수 중심성(degree centrality): 해당 노드의 직접적인 연결 수를 기준으로 측정\n\n# Degree centrality 구하기\ndegree_centrality = nx.degree_centrality(G)\nprint(\"Degree centrality:\")\nprint(degree_centrality)\n\n# Betweenness centrality 구하기\nbetweenness_centrality = nx.betweenness_centrality(G)\nprint(\"\\nBetweenness centrality:\")\nprint(betweenness_centrality)\n\n# Closeness centrality 구하기\ncloseness_centrality = nx.closeness_centrality(G)\nprint(\"\\nCloseness centrality:\")\nprint(closeness_centrality)\n\n# Eigenvector centrality 구하기\neigenvector_centrality = nx.eigenvector_centrality(G)\nprint(\"\\nEigenvector centrality:\")\nprint(eigenvector_centrality)\n\nDegree centrality:\n{0: 0.7142857142857142, 1: 0.14285714285714285, 2: 0.7142857142857142, 3: 0.2857142857142857, 4: 0.7142857142857142, 5: 0.2857142857142857, 6: 0.2857142857142857, 7: 0.2857142857142857}\n\nBetweenness centrality:\n{0: 0.38095238095238093, 1: 0.0, 2: 0.23809523809523808, 3: 0.0, 4: 0.23809523809523808, 5: 0.0, 6: 0.0, 7: 0.0}\n\nCloseness centrality:\n{0: 0.7777777777777778, 1: 0.4666666666666667, 2: 0.7777777777777778, 3: 0.5833333333333334, 4: 0.7777777777777778, 5: 0.5384615384615384, 6: 0.5833333333333334, 7: 0.5384615384615384}\n\nEigenvector centrality:\n{0: 0.45764291396672224, 1: 0.12765413188341646, 2: 0.4916986269732836, 3: 0.2648068579411542, 4: 0.4916986269732836, 5: 0.27430545232366466, 6: 0.2648068579411542, 7: 0.27430545232366466}\n\n\n\n\nClustering Coefficient\n한 노드의 로컬(local) 이웃에서의 closed triangle의 비율\n\nclustering coefficient의 변형 중 ‘local’ variant를 보자. \\[c_u = \\frac{|(v_1,v_2) \\in \\mathcal{E}: v_1, v_2 \\in \\mathcal{N}(u)|}{\\binom{d_u}{2}}\\]\n\n분자는 노드 \\(u\\)의 이웃 간 엣지 수이고, 분모는 \\(u\\)의 이웃에 있는 노드 쌍의 수이다.\n\n노드의 이웃이 얼마나 tight하게 클러스터되어 있는지를 측정한다.\nclustering coefficient가 1이면, \\(u\\)의 모든 이웃은 서로의 이웃이기도 하게 된다.\n\n\n# Clustering coefficient 구하기\nclustering_coefficient = nx.clustering(G)\nprint(\"\\nClustering coefficient:\")\nprint(clustering_coefficient)\n\n\nClustering coefficient:\n{0: 0.3, 1: 0, 2: 0.4, 3: 1.0, 4: 0.4, 5: 1.0, 6: 1.0, 7: 1.0}\n\n\n\n\nClosed Triangles, Ego Graphs, and Motif\n\nclustering coefficient는 노드의 로컬 이웃 사이에 있는 closed triangle의 수라고 볼 수도 있다.\nclustering coefficient는 실제 triangle의 수와 노드의 ’ego graph’의 총 가능 triangle 수의 비이기도 하다.\n\nego graph: 노드, 이웃, 이웃 간 모든 엣지를 포함하는 subgraph\n\n노드의 ego graph 내 임의의 motif나 graphlet을 세는 개념으로 일반화될 수 있다. 즉, 단순히 triangle을 세는 것보다는 특정 길이의 순환과 같은 복잡한 구조를 고려할 수 있고, 이러한 서로 다른 motif가 ego graph에서 얼마나 자주 발생하는지 세는 것으로 노드를 특성화할 수 있다.\nmotif: 네트워크에서 특정한 패턴을 가진 서브그래프를 찾아내는 것\n이러한 방식으로 노드의 ego graph를 조사하여 노드 레벨의 통계량을 계산하는 작업을 그래프 레벨로 근본적으로 변환할 수 있다.\n\n\nclosed_triangles = nx.triangles(G).values()\nprint(\"Closed Triangles:\", closed_triangles)\n\nClosed Triangles: dict_values([3, 0, 4, 1, 4, 1, 1, 1])\n\n\n\nnode=0\nego_graph = nx.ego_graph(G, n=node, radius=1)\npos = nx.spring_layout(ego_graph)  # 그래프 레이아웃 정의\nnx.draw(ego_graph, pos, with_labels=True, node_size=200, node_color=\"skyblue\", edge_color=\"gray\", alpha=0.7, font_size=8)\nplt.title(\"Ego Graph with Center Node \" + str(node))\nplt.show()"
+  },
+  {
+    "objectID": "posts/machine_learning/GRL_02_1.html#graph-level-피쳐와-그래프-커널",
+    "href": "posts/machine_learning/GRL_02_1.html#graph-level-피쳐와-그래프-커널",
+    "title": "그래프 머신러닝: (2-1) 그래프 통계량과 커널 방법",
+    "section": "Graph-level 피쳐와 그래프 커널",
+    "text": "Graph-level 피쳐와 그래프 커널\n\nBag of Nodes\n\n단순히 node-level의 통계량을 집계하여 graph-level 피쳐로 만든다.\n하지만, 로컬(local) node-level의 정보만에 기반하기 때문에 글로벌(global)한 속성을 놓칠 수 있다.\n\n\n\nThe Weisfieler-Lehman Kernel\n\nnode-level 피처를 더 풍성하게 만들고나서 집계하는 방법 중 하나이다.\nWL 알고리즘은 다음과 같다.\n\n\n각 노드에 초기 레이블 값을 준다. 보통 degree로 한다.: \\(l^{(0)}(v) = d_v\\)\n\n\n노드의 이웃에서 현재 레이블의 multi-set을 hashing하여 새로운 레이블을 할당하며, 이를 반복(iteration)한다.: \\[l^{(i)}(v) = \\text{HASH}(\\{ \\{ l^{(i-1)}(v) \\quad \\forall u \\in \\mathcal{N}(v) \\} \\} )\\]\n\n\n{{ }}는 mult-set을 뜻한다. multi-set은 원소의 중복을 허용\nHASH 함수는 multi-set으로 표현될 뻔한 레이블에 겹치지 않는 인덱스 (숫자)를 부여해주는 역할\n\n\n이를 \\(K\\)번 반복하면 각 노드마다 \\(l^{(K)}(v)\\)가 생기며, 이는 \\(K\\)-hop 이웃의 구조를 요약한다고 볼 수 있다. 다시 말해, WL kernel은 두 그래프의 결과 레이블 집합 간의 차이를 측정하는 것이다.\n\n\n이러한 WL kernel은 그래프 동형(isomorphism)을 확인하는 데 쓰인다: 두 그래프가 \\(K\\)번 WL알고리즘 반복 뒤 생기는 레이블 집합이 같은지를 확인한다.\n\n\n\nGraphlets, Path-Based Methods\ngraphlets\n\n\nFigure 2.2 in Hamilton,Graph Representation Learning. 2020: 크기가 3인 graphlet들\n\n\ngraphlets: 서로 다른 작은 subgraph 구조\ngraphlet kernel은 전체 그래프에서 특정한 크기의 graphlets가 얼마나 나타나는지 세는 방식이다. 하지만 모든 graphlet을 세는 것은 번거로운 일이다.\n\npath-based 방법\n\ngraphlet을 세는 방법 대신 그래프에서 서로 다른 경로(path)의 종류가 얼마나 있는지를 본다.\n예를 들어 그래프에서 랜덤워크를 가정할때 발생하는 서로 다른 degree 시퀀스를 카운팅하는 random walk kernel(Kashima et al.(2003)), 또는 가장 짧은 경로만을 카운팅하는 shortest-path kernel(Borgwardt and Kriegel (2005)) 등이 있다."
+  },
+  {
+    "objectID": "posts/machine_learning/GRL_02_3.html",
+    "href": "posts/machine_learning/GRL_02_3.html",
+    "title": "그래프 머신러닝: (2-3) 그래프 라플라시안과 스펙트럴 방법",
+    "section": "",
+    "text": "Hamilton,W.L. Graph Representation Learning. 2020"
+  },
+  {
+    "objectID": "posts/machine_learning/GRL_02_3.html#graph-laplacians",
+    "href": "posts/machine_learning/GRL_02_3.html#graph-laplacians",
+    "title": "그래프 머신러닝: (2-3) 그래프 라플라시안과 스펙트럴 방법",
+    "section": "Graph Laplacians",
+    "text": "Graph Laplacians\n인접 행렬의 다양한 변형으로 나타내며 유용한 수학적 속성들을 가진다.\n\nUnnormalized Laplacian\n가장 기본적인 라플라시안(Laplacian) 행렬\n\\[L=D-A\\]\n\n\\(A\\)는 인접 행렬, \\(D\\)는 degree 행렬\n라플라시안 행렬의 속성\n\nsymmetric, positive semi-definite\n\\(\\forall \\mathbf{x} \\in \\mathbb{R}^{|\\mathcal{V}|}\\) , \\(\\mathbf{x}^{\\top}L\\mathbf{x} = \\sum_{(u,v)\\in \\mathcal{E}}(\\mathbf{x}[u]-\\mathbf{x}[v])^2\\)\n\\(L\\)은 \\(|V|\\)개의 비음수 eigenvalue를 가짐\n\n\n\n\nNormalized Laplacian\n대칭 라플라시안:\n\\[L_{sym}=D^{-\\frac{1}{2}}LD^{-\\frac{1}{2}}\\]\n랜덤워크 라플라시안:\n\\[L_{RW}=D^{-1}L\\]"
+  },
+  {
+    "objectID": "posts/machine_learning/GRL_02_3.html#graph-cuts-and-clustering",
+    "href": "posts/machine_learning/GRL_02_3.html#graph-cuts-and-clustering",
+    "title": "그래프 머신러닝: (2-3) 그래프 라플라시안과 스펙트럴 방법",
+    "section": "Graph Cuts and Clustering",
+    "text": "Graph Cuts and Clustering\nfully connected 그래프에서 라플라시안이 노드의 최적 클러스터링을 하는데 사용되는 방법을 알아보자.\n\ngraph cuts\n\\(\\mathcal{A} \\subset \\mathcal{V}\\)은 그래프의 노드의 부분집합을 나타내고 \\(\\bar{\\mathcal{A}}\\)은 이 집합의 여집합이라고 하자.\n그래프를 \\(K\\)개 중복되지 않는 부분집합으로 나누면(파티셔닝) ’cut value’를 다음과 같이 정의할 수 있다:\n\\[\\text{cut}(\\mathcal{A}_1, \\dots, \\mathcal{A}_K) = \\frac{1}{2}\\sum^{K}_{k=1}|(u,v) \\in \\mathcal{E} : u \\in \\mathcal{A}_k, v \\in \\bar{\\mathcal{A}}_k|\\]\n\ncut은 노드 파티션 사이 경계에 엣지의 개수를 나타낸다.\n노드를 \\(K\\)개 클러스터로 나누는 최적 방법은 이 cut value를 최소화하는 파티션을 결정하는 것이다.\n하지만 이 경우 하나의 노드로 구성된 클러스터를 만드는 경향이 있다.\n\n대신 파티션의 크기를 적당히 크게 하면서 cut을 최소화하는 방법을 사용한다:\n\\[\\text{RatioCut}(\\mathcal{A}_1, \\dots, \\mathcal{A}_K) = \\frac{1}{2} \\frac{\\sum^{K}_{k=1}|(u,v) \\in \\mathcal{E} : u \\in \\mathcal{A}_k, v \\in \\bar{\\mathcal{A}}_k|}{{|\\mathcal{A}}_k|}\\],\n\\[\\text{NormalizedCut}(\\mathcal{A}_1, \\dots, \\mathcal{A}_K) = \\frac{1}{2} \\frac{\\sum^{K}_{k=1}|(u,v) \\in \\mathcal{E} : u \\in \\mathcal{A}_k, v \\in \\bar{\\mathcal{A}}_k|}{\\text{vol}(\\mathcal{A}_k)}\\] where \\(\\text{vol}(\\mathcal{A}_k) = \\sum_{u \\in \\mathcal{A}} d_u\\)\n\n\nApproximating the RatioCut with the Laplacian Spectrum\n라플라시안 스펙트럼(Laplacian spectrum)을 사용하여 RatioCut을 최소화시키는 방법을 도출해보자. \\(K=2\\)인 경우를 보자.\n\\[\\min_{\\mathcal{A} \\in \\mathcal{V}}\\text{RatioCut}(\\mathcal{A}, \\bar{\\mathcal{A}}) \\]\n벡터 \\(\\mathbf{a}\\in \\mathbb{R}^{|\\mathcal{V}|}\\)를 다음과 같이 정의한다.\n\\[\\mathbf{a}[u] =\n\\begin{cases}\n\\sqrt{\\frac{|\\bar{\\mathcal{A}}|}{|\\mathcal{A}|}} \\quad \\text{if} \\ u \\in \\mathcal{A}\\\\\n- \\sqrt{\\frac{|\\mathcal{A}|}{|\\bar{\\mathcal{A}}|}} \\quad \\text{if} \\ u \\in \\bar{\\mathcal{A}}\n\\end{cases}\\]\n그래프 라플라시안의 속성을 이용하면,\n\\[\\mathbf{a}^{\\top}L\\mathbf{a}=\\sum_{(u,v) \\in \\mathcal{E}}(\\mathbf{a}[u]-\\mathbf{a}[v])^2\\\\\n=\\cdots^{\\text{*}} \\\\\n=|\\mathcal{V}|\\text{RatioCut}(\\mathcal{A},\\bar{\\mathcal{A}})\\]\n\n*(중간 단계는 생략)\n\n또한 \\(\\mathbf{a}\\)의 속성인 \\(\\mathbf{a} \\perp \\mathbf{1}\\) 그리고 \\({\\parallel\\mathbf{a}\\parallel}^2 = |\\mathcal{V}|\\)을 고려,\n\\[\\min_{\\mathbf{a} \\in \\mathbb{R}^{|\\mathcal{V}|}}\\mathbf{a}^{\\top}L\\mathbf{a} \\quad s.t. \\quad \\mathbf{a} \\perp \\mathbf{1},\\ {\\parallel\\mathbf{a}\\parallel}^2 = |\\mathcal{V}|\\]\n벡터 a를 라플라시안 행렬의 두번째로 작은 eigenvector로 설정하여 RatioCut 최소화를 근사할 수 있다. 다음 \\(\\mathbf{a}[u]\\)의 부호로 클러스터링을 할 수 있다.\n즉, 라플라시안의 두번째로 작은 eigenvector는 최적 클러스터를 (RatioCut에 대해) 수행하는 이산(discrete) 벡터에 연속적 근사치이다."
+  },
+  {
+    "objectID": "posts/machine_learning/GRL_02_3.html#generalized-spectral-clustering",
+    "href": "posts/machine_learning/GRL_02_3.html#generalized-spectral-clustering",
+    "title": "그래프 머신러닝: (2-3) 그래프 라플라시안과 스펙트럴 방법",
+    "section": "Generalized Spectral Clustering",
+    "text": "Generalized Spectral Clustering\n위에서 라플라시안의 스펙트럼을 이용하여 그래프를 두 클러스터로 나누는 방법에 대해 알 수 있었다.이제 일반화시켜 \\(K\\)개 클러스터링을 해보자.\n\n\\(K\\)개의 최소 \\(L\\) eigenvector들을 찾는다(단, 가장 작은 eigenvector 제외): \\(\\mathbf{e}_{|\\mathcal{V}|-1},\\mathbf{e}_{|\\mathcal{V}|-2},\\cdots,\\mathbf{e}_{|\\mathcal{V}|-K}\\)\n이 eigenvetor를 행으로 하여 행렬 \\(U \\in \\mathbb{R}^{|\\mathcal{V}| \\times (K-1)}\\)를 형성한다.\n\\(U\\)에 있는 각 노드를 대응하는 열로 표현한다: \\(\\mathbf{z}_u = U[u] \\quad \\forall u \\in \\mathcal{V}\\)\n임베딩(embedding) \\(\\mathbf{z}_u\\)에 K-means 클러스터링을 돌린다.\n\n스펙트럼 클러스터링의 일반적인 원리는 강력하다. 그래프 라플라시안의 스펙트럼을 사용하여 노드를 그래프로 표현할 수 있으며, 이 표현은 최적의 그래프 클러스터링에 대한 원칙적 근사로 볼 수 있다."
+  },
+  {
+    "objectID": "posts/machine_learning/GRL_03_2.html",
+    "href": "posts/machine_learning/GRL_03_2.html",
+    "title": "그래프 머신러닝: (3-2) 이웃재구성: 랜덤워크 임베딩",
+    "section": "",
+    "text": "Hamilton,W.L. Graph Representation Learning. 2020"
+  },
+  {
+    "objectID": "posts/machine_learning/GRL_03_2.html#shallow-임베딩의-한계",
+    "href": "posts/machine_learning/GRL_03_2.html#shallow-임베딩의-한계",
+    "title": "그래프 머신러닝: (3-2) 이웃재구성: 랜덤워크 임베딩",
+    "section": "Shallow 임베딩의 한계",
+    "text": "Shallow 임베딩의 한계\n\n인코더가 각 노드에 대해 고유한 임베딩 벡터를 직접 최적화하기 때문에 섈로우 임베딩 방법은 인코더의 노드 간에 어떤 파라미터도 공유하지 않는다. 이러한 파라미터 공유의 부족은 통계적으로나 계산적으로 비효율적이다. 통계적 관점에서 매개변수 공유는 학습의 효율성을 향상시킬 수 있으며, 정규화의 강력한 형태로 작용하기도 한다. 계산적 관점에서 파라미터 공유가 부족하다는 것은 파라미터의 수가 \\(O(V)\\)로 증가한다는 것이며, 이는 방대한 그래프에서 다루기 어려울 수 있다.\n섈로우 임베딩 접근법들은 인코더에서의 노드 피처(feature)들을 활용하지 않는다. 많은 그래프 데이터 세트들은 풍부한 피처 정보를 가지며, 이는 인코딩 프로세스에서 잠재적으로 정보가 될 수 있다.\n섈로우 임베딩 방법은 본질적으로 transductive하다. 훈련 단계 동안 존재했던 노드에 대한 임베딩만 생성할 수 있으며, 훈련 단계 이후 관찰되는 새로운 노드에 대한 임베딩을 생성하는 것은 추가 최적화를 수행하지 않는 한 불가능하다.\n\n이러한 한계점들을 보완하기 위해서 그래프의 구조와 특성에 의존한 조금 더 정교한 인코더로 대체하고는 한다. 이러한 인코더를 정의하는 유명한 패러다임(ie.GNN)을 다음 포스트에서 살펴보기로 하자."
+  },
+  {
+    "objectID": "posts/machine_learning/GRL_05_1.html",
+    "href": "posts/machine_learning/GRL_05_1.html",
+    "title": "그래프 머신러닝: (5-1) GNN: 신경망 메시지 전달",
+    "section": "",
+    "text": "Hamilton,W.L. Graph Representation Learning. 2020\n이제 그래프 데이터에서 심층 신경망(deep neural network)을 정의하기 위한 프레임워크인 그래프 신경망(Grpah Neural Network, GNN) 형식을 살펴보자. 핵심 아이디어는 그래프의 구조와 모든 feature에 의존하는 노드의 표현을 생성하려는 것이다.\n그래프 구조 데이터에 대한 복잡한 인코더를 개발할 때 가장 큰 문제는 일반적인 딥러닝 방법이 적용되지 않는다는 것이다. 예를 들어, CNN은 그리드 구조 입력(예: 이미지)에 대해서만 잘 정의되는 반면, RNN은 시퀀스(예: 텍스트)에 대해서만 잘 정의된다.\n일반 그래프에 대한 심층 신경망을 정의하려면 새로운 종류의 딥 러닝 아키텍처를 정의해야 한다."
+  },
+  {
+    "objectID": "posts/machine_learning/GRL_05_1.html#overview",
+    "href": "posts/machine_learning/GRL_05_1.html#overview",
+    "title": "그래프 머신러닝: (5-1) GNN: 신경망 메시지 전달",
+    "section": "Overview",
+    "text": "Overview\nGNN에서 각 message-passing(메시지 전달)의 반복 중에 각 노드 \\(u\\in \\mathcal{V}\\)에 해당하는 은닉(hidden) 임베딩 \\(\\mathbf{h}_u^{(k)}\\)는 \\(u\\)의 그래프 이웃 \\(\\mathcal{N}(u)\\)에서 aggregated(집계된) 정보에 따라 업데이트된다.\n\n\nFigure 5.1 in Hamilton,Graph Representation Learning. 2020: 단일 노드가 로컬 이웃의 메시지를 집계하는 방법\n\nmessage-passing 업데이트는 다음과 같이 표현할 수 있다.\n\\[ \\mathbf{h}_u^{(k+1)} = \\text{UPDATE}^{(k)} ( \\mathbf{h}_u^{(k)}, \\text{AGGREGATE}^{(k)}(\\{\\mathbf{h}_v^{(k)}, \\forall v \\in \\mathcal{N}(u)\\})) = \\text{UPDATE}^{(k)}( \\mathbf{h}_u^{(k)}, \\mathbf{m}_{\\mathcal{N}(u)}^{(k)} ) \\]\n여기서 UPDATE와 AGGREGATE는 임의의 미분가능 함수(i.e. 신경망)이고, \\(\\mathbf{m}_{\\mathcal{N}(u)}\\)는 \\(u\\)의 그래프 이웃 \\(\\mathcal{N}(u)\\)로부터 집계된 “메시지(message)” 벡터이다.\nGNN의 각 반복 \\(k\\)에서 AGGREGATE 함수는 \\(u\\)의 그래프 이웃 \\(\\mathcal{N}(u)\\)에 있는 노드의 임베딩 집합을 입력으로 받고, 이 집계된 이웃 정보를 기반으로 메시지 \\(\\mathbf{m}_{\\mathcal{N}(u)}^{(k)}\\)를 생성한다.\nUPDATE 함수는 메시지 \\(\\mathbf{m}_{\\mathcal{N}(u)}^{(k)}\\)를 노드 \\(u\\)의 이전 임베딩 \\(\\mathbf{h}^{(k-1)}_u\\)와 합쳐, 업데이트한다.\n초기 임베딩 (\\(k=0\\))은 모든 노드의 입력 feature로 하며: \\(\\mathbf{h}_u^{(0)}=\\mathbf{x}_u , \\forall u \\in \\mathcal{V}\\)\nGNN 메시지 전달의 \\(K\\)번의 반복 후 각 노드에 대한 임베딩을 정의하기 위해 마지막 층의 출력을 사용한다: \\(\\mathbf{z}_u = \\mathbf{h}_u^{(K)},\\forall u \\in \\mathcal{V}\\)\n노드 피쳐(node features)\n\n지난 포스트에서 논의된 shallow 임베딩 방법과 달리 GNN 프레임워크는 모델에 대한 입력으로 노드 피쳐 \\(\\mathbf{x}_u\\)를 필요로 한다.\n노드 피쳐를 사용할 수 없는 경우, 노드 통계를 사용하여 feature을 정의하거나, identify features(각 노드를 해당 노드를 고유하게 식별하는 원-핫 indicator feature와 연결)을 사용한다."
+  },
+  {
+    "objectID": "posts/machine_learning/GRL_05_1.html#motivation-and-institutions",
+    "href": "posts/machine_learning/GRL_05_1.html#motivation-and-institutions",
+    "title": "그래프 머신러닝: (5-1) GNN: 신경망 메시지 전달",
+    "section": "Motivation and Institutions",
+    "text": "Motivation and Institutions\nGNN message-passing 프레임워크의 직관은 간단하다: “각 반복에서 모든 노드는 로컬 이웃의 정보를 집계하고, 이러한 반복이 진행됨에 따라 각 노드 임베딩은 그래프의 더 먼 범위에서 점점 더 많은 정보를 포함한다.”\n조금 더 정확히 말하자면, 첫 번째 반복 \\((k = 1)\\) 이후, 모든 노드 임베딩은 \\(1\\)-hop 이웃의 정보를 포함한다. 즉, 모든 노드 임베딩은 그래프에서 길이 \\(1\\)의 경로로 도달 할 수 있는 인접 그래프 이웃의 feature에 대한 정보를 포함한다. 일반화하면 \\(k\\) 반복 후 모든 노드 임베딩에는 \\(k\\)-hop 이웃에 대한 정보가 포함된다.\n이러한 노드 임베딩은 실제로 어떤 종류의 “정보”를 인코딩할까? 일반적으로 이 정보는 두 가지 형태로 제공된다.\n\n그래프에 대한 구조적(structural) 정보가 있다. 예를 들어, GNN 메시지 전달의 \\(k\\) 반복 후, 노드 \\(u\\)의 임베딩 \\(\\mathbf{h}_u^{(k)}\\)는 \\(u\\)의 \\(k\\)-hop 이웃에 있는 모든 노드의 degree에 대한 정보를 인코딩할 수 있다.\n다른 종류는 피쳐(feature) 기반 정보이다. GNN message-passing \\(k\\)반복 후 각 노드에 대한 임베딩은 \\(k\\)-hop 이웃의 모든 feature에 대한 정보도 인코딩한다.\n\nGNN의 이러한 로컬 feature 집계는 CNN의 convolutional kernel과 유사하다. 그러나 CNN은 이미지에서 공간적으로 정의된 패치의 특징 정보를 집계하는 반면, GNN은 로컬 그래프 이웃을 기반으로 정보를 집계한다."
+  },
+  {
+    "objectID": "posts/machine_learning/GRL_05_1.html#the-basic-gnn",
+    "href": "posts/machine_learning/GRL_05_1.html#the-basic-gnn",
+    "title": "그래프 머신러닝: (5-1) GNN: 신경망 메시지 전달",
+    "section": "The Basic GNN",
+    "text": "The Basic GNN\n지금까지 GNN 프레임워크는 AGGREGATION 및 UPDATE 함수를 사용하는 일련의 message-passing 반복으로 비교적 추상적인 방식으로 논의했다. 추상 GNN 프레임워크를 구현할 수 있는 것으로 변환하려면 AGGREGATION 및 UPDATE 함수에 구체적인 인스턴스화(instantiation)를 제공해야 한다.\n여기서는 Merkwirth and Lengauer[2005]와 Scarselli et al.[2009]이 제안한 원래 GNN 모델을 단순화한 가장 기본적인 GNN 프레임워크부터 시작한다.\n\\[h_u^{(k)} = \\sigma\\left(W_{self}^{(k)}h_u^{(k-1)} + W_{neigh}^{(k)} \\sum_{v \\in N(u)}h_v^{(k-1)} + b^{(k)}\\right)\\]\n\\(W_{self}^{(k)}, W_{neigh}^{(k)} \\in \\mathbb{R}^{d^{(k)} \\times d^{(k-1)}}\\)는 학습가능 파라미터 행렬, \\(\\sigma\\)는 요소별 비선형성(tanh, ReLU 등), \\(\\mathbf{b}^{(k)} \\in \\mathbb{R}^{d^{(k)}}\\)는 bias term.\n기본 GNN 프레임워크에서 message passing은 선형 연산에 이어 단일 요소별 비선형성에 의존하기 때문에 다층 퍼셉트론(MLP) 또는 Elman RNN[Elman, 1990]과 유사하다. 먼저 이웃에서 들어오는 message를 합산하고, 선형 조합을 사용하여 이웃 정보를 노드의 이전 임베딩과 결합한다. 마지막으로 요소별 비선형성을 적용한다.\n위 방정식에서 hidden state를 합산하는 것은 AGGREGATE함수이며, 노드의 이전 hidden state 벡터와 메세지 벡터를 각각 변환해주고 편향 벡터를 더해 비선형 함수를 적용시키는 것은 UPDATE함수라고 할 수 있다.\n\\[\\mathbf{m}^{(k)}_{N(v)} = \\text{AGGREGATE}^{(k)} \\left( \\left\\{ \\mathbf{h}^{(k-1)}_u : u \\in N(v) \\right\\} \\right) = \\sum_{u \\in N(v)} \\mathbf{h}^{(k-1)}_u\\]\n\\[\\text{UPDATE}^{(k)} \\left( \\mathbf{h}^{(k)}_u, \\mathbf{m}^{(k)}_{N(v)} \\right) = \\sigma \\left( W^{(k)}_{\\text{self}} \\mathbf{h}^{(k-1)}_u + W^{(k)}_{\\text{neigh}} \\mathbf{m}^{(k)}_{N(v)} + \\mathbf{b}^{(k)} \\right)\\]\n\n또한, 방정식을 행렬로 묶어 표현할 수도 있다. 즉, graph-level의 방정식이다.\n\n\\[\\mathbf{H}^{(k)} = \\sigma \\left( \\mathbf{H}^{(k-1)} W^{(k)}_{\\text{self}} + \\mathbf{A} \\mathbf{H}^{(k-1)} W^{(k)}_{\\text{neigh}} \\right)\\]"
+  },
+  {
+    "objectID": "posts/machine_learning/GRL_05_1.html#message-passing-with-self-loops",
+    "href": "posts/machine_learning/GRL_05_1.html#message-passing-with-self-loops",
+    "title": "그래프 머신러닝: (5-1) GNN: 신경망 메시지 전달",
     "section": "Message Passing with Self-Loops",
-    "text": "Message Passing with Self-Loops\nneural message passing 접근 방식을 단순화하기 위해 입력 그래프에 self-loop를 추가하고 명시적 업데이트 단계를 생략하는 것이 일반적이다. 따라서 message passing을 단순히 다음과 같이 정의한다:\n\\[h_u^{(k)} = \\text{AGGREGATE}\\left(\\left\\{ h_v^{(k-1)}, \\forall v \\in \\mathcal{N}(u) \\cup \\{u\\} \\right\\}\\right)\\]\n\\(\\mathcal{N}(u) \\cup \\{u\\}\\) 집합 대상으로 aggregate하겠다는 것은 노드의 이웃뿐아니라 자기 자신도 포함한다는 것이다.\n이 방법의 장점은 업데이트가 aggregation 방법을 통해 암시적으로 정의되기 때문에 더 이상 명시적 업데이트 함수를 정의할 필요가 없다는 것이다. 이러한 방식으로 전달되는 메시지를 단순화하면 종종 과적합을 완화할 수 있지만 노드의 이웃에서 오는 정보를 노드 자체의 정보와 구별할 수 없기 때문에 GNN의 표현성을 제한하기도 한다.\nBasic GNN의 경우, self-loops를 추가하는 것은 \\(\\mathbf{W}_{self}\\) 행렬과 \\(\\mathbf{W}_{neigh}\\) 행렬 간에 매개변수를 공유하는 것과 동일하며, 다음과 같은 graph-level 업데이트를 제공한다.\n\\[\\mathbf{H}^{(t)} = \\sigma \\left( (\\mathbf{A} + \\mathbf{I})\\mathbf{H}^{(t-1)}\\mathbf{W}^{(t)} \\right)\n\\]\n다음 포스트에서는 AGGREGATE, UPDATE 함수에 대해 더 알아보도록 하자."
-  },
-  {
-    "objectID": "posts/math/time_complexity.html",
-    "href": "posts/math/time_complexity.html",
-    "title": "알고리즘: 시간복잡도",
-    "section": "",
-    "text": "시간 복잡도는 알고리즘의 실행 시간이 입력 크기에 따라 어떻게 변화하는지를 나타내는 척도이다. 일반적으로 Big O 표기법을 사용하여 표현되며, 예를 들어 \\(O(n), O(\\log n), O(n^2)\\) 등으로 표현된다."
-  },
-  {
-    "objectID": "posts/math/time_complexity.html#시간-복잡도란",
-    "href": "posts/math/time_complexity.html#시간-복잡도란",
-    "title": "알고리즘: 시간복잡도",
-    "section": "",
-    "text": "시간 복잡도는 알고리즘의 실행 시간이 입력 크기에 따라 어떻게 변화하는지를 나타내는 척도이다. 일반적으로 Big O 표기법을 사용하여 표현되며, 예를 들어 \\(O(n), O(\\log n), O(n^2)\\) 등으로 표현된다."
-  },
-  {
-    "objectID": "posts/math/time_complexity.html#시간-복잡도의-종류",
-    "href": "posts/math/time_complexity.html#시간-복잡도의-종류",
-    "title": "알고리즘: 시간복잡도",
-    "section": "시간 복잡도의 종류",
-    "text": "시간 복잡도의 종류\n\n\n\n\n\n\n\n\n\n\n이름\n시간복잡도\n설명\nExample algorithms\n\n\n\n\nconstant time\n\\(O(1)\\)\n입력의 크기와 상관없이 항상 일정한 시간이 걸리는 알고리즘\n정렬된 수 배열에서 중간값 찾기\n\n\nlogarithmic time\n\\(O(\\log n)\\)\n알고리즘의 실행 시간이 입력 크기의 로그에 비례해서 증가, 문제를 해결하는데 필요한 단계들이 연산마다 특정 요인에 의해 줄어듬\n이진검색(Binary search)\n\n\nlinear time\n\\(O(n)\\)\n알고리즘의 실행 시간이 입력 크기에 직접 비례(1:1)해서 증가\n배열을 순회하는 알고리즘(반복문)\n\n\nlinearithmic time\n\\(O(n \\log n)\\)\n알고리즘의 실행 시간이 입력 크기에 비례하여 증가하지만, 각 단계마다 로그 시간이 추가로 소요\nquick-sort나 병합 정렬과 같은 효율적인 정렬 알고리즘\n\n\nquadratic time\n\\(O(n^2)\\)\n알고리즘의 실행 시간이 입력 크기의 제곱에 비례해서 증가\n버블 정렬, 삽입 정렬과 같은 간단한 정렬 알고리즘, 반복문이 두번\n\n\nfactorial time\n\\(O(n!)\\)\n알고리즘의 실행 시간이 입력 크기의 팩토리얼만큼 증가\n\n\n\nexponential time\n\\(O(2^n)\\)\n알고리즘의 실행 시간이 입력 크기의 지수적으로 증가\nbrute-force search를 통한 matrix chain multiplication"
-  },
-  {
-    "objectID": "posts/math/time_complexity.html#시간-복잡도-예시",
-    "href": "posts/math/time_complexity.html#시간-복잡도-예시",
-    "title": "알고리즘: 시간복잡도",
-    "section": "시간 복잡도 예시",
-    "text": "시간 복잡도 예시\n\n#1\n\ndef linear_search(arr, target):\n    for i in range(len(arr)):\n        if arr[i] == target:\n            return i  # 타겟을 찾으면 해당 인덱스 반환\n    return -1  # 타겟을 찾지 못하면 -1 반환\n\n\nlinear_search([0,2,3,4], 5)\n\n-1\n\n\n\n최악의 경우(Worst Case) 시간 복잡도: 타겟 값이 배열의 마지막에 위치하거나 배열 내에 존재하지 않는 경우, 배열의 모든 요소를 검사해야 하며, 입력 크기 n에 대해 n번의 비교가 이루어짐: \\(O(n)\\)\n최선의 경우(Best Case) 시간 복잡도: 타겟 값이 배열의 첫 번째 위치에 있으면, 첫 번째 비교에서 바로 타겟을 찾을 수 있음: \\(O(1)\\)\n평균적인 경우(Average Case) 시간 복잡도: 타겟 값의 위치가 무작위일 때, 타겟을 찾기까지 배열의 절반 정도를 평균적으로 검사해야 함. 그러나 평균적인 경우도 최악의 경우와 마찬가지로 n에 비례하기 때문에, 평균 시간 복잡도 역시 \\(O(n)\\)\n\n\n# 2\n\ndef binary_search(arr, target):\n    low = 0\n    high = len(arr) - 1\n    \n    while low &lt;= high:\n        mid = (low + high) // 2\n        guess = arr[mid]\n        \n        if guess == target:\n            return mid  # 타겟을 찾은 경우\n        if guess &gt; target:\n            high = mid - 1  # 타겟이 중간값보다 작은 경우, 검색 범위를 낮은 쪽으로 조정\n        else:\n            low = mid + 1  # 타겟이 중간값보다 큰 경우, 검색 범위를 높은 쪽으로 조정\n    return -1  # 타겟을 찾지 못한 경우\n\n예를 들어, \\(n=16\\)인 정렬된 배열에서 특정 값을 이진 검색으로 찾는 경우를 생각해봅시다. 최악의 경우나 평균적인 경우에도 검색 횟수는 다음과 같이 계산됨.\n\n처음 검색 범위는 전체 배열. (n=16)\n첫 번째 비교 후, 검색 범위는 8개의 요소로 감소. (n/2)\n두 번째 비교 후, 검색 범위는 4개의 요소로 감소. (n/4)\n세 번째 비교 후, 검색 범위는 2개의 요소로 감소. (n/8)\n네 번째 비교 후, 검색 범위는 1개의 요소로 감소. (n/16)\n\n이 경우, 최대 4번의 비교로 타겟 값을 찾을 수 있으며, 이는 \\(\\log_2 16=4\\)와 일치함. 따라서, 이진 검색의 시간 복잡도는 \\(O(\\log n)\\)."
-  },
-  {
-    "objectID": "posts/math/time_complexity.html#참고자료",
-    "href": "posts/math/time_complexity.html#참고자료",
-    "title": "알고리즘: 시간복잡도",
-    "section": "참고자료",
-    "text": "참고자료\n\n위키피디아(https://wikipedia.org)"
+    "text": "Message Passing with Self-Loops\nneural message passing 접근 방식을 단순화하기 위해 입력 그래프에 self-loop를 추가하고 명시적인 업데이트 단계를 생략하는 것이 일반적이다. 따라서 message passing을 단순히 다음과 같이 정의한다:\n\\[h_u^{(k)} = \\text{AGGREGATE}\\left(\\left\\{ h_v^{(k-1)}, \\forall v \\in \\mathcal{N}(u) \\cup \\{u\\} \\right\\}\\right)\\]\n\\(\\mathcal{N}(u) \\cup \\{u\\}\\) 집합 대상으로 aggregate하겠다는 것은 노드의 이웃뿐아니라 자기 자신도 포함한다는 것이다.\n이 방법의 장점은 업데이트가 aggregation 방법을 통해 암시적으로 정의되기 때문에 더 이상 명시적 업데이트 함수를 정의할 필요가 없다는 것이다. 이러한 방식으로 전달되는 메시지를 단순화하면 종종 과적합을 완화할 수 있지만 노드의 이웃에서 오는 정보를 노드 자체의 정보와 구별할 수 없기 때문에 GNN의 표현성을 제한하기도 한다.\nBasic GNN의 경우, self-loops를 추가하는 것은 \\(\\mathbf{W}_{self}\\) 행렬과 \\(\\mathbf{W}_{neigh}\\) 행렬 간에 매개변수를 공유하는 것과 동일하며, Graph-level에서 다음과 같은 업데이트를 제공한다.\n\\[\\mathbf{H}^{(t)} = \\sigma \\left( (\\mathbf{A} + \\mathbf{I})\\mathbf{H}^{(t-1)}\\mathbf{W}^{(t)} \\right)\n\\]\n다음 포스트에서는 AGGREGATE, UPDATE 함수에 대해 더 알아보도록 하자."
   },
   {
     "objectID": "posts/ml_trading/0_Introduction.html",
@@ -733,6 +719,118 @@
     "title": "금융 분야의 LLM (2023)",
     "section": "Decision Process",
     "text": "Decision Process\nLLM을 선택하면:\n\n(사전 훈련 지식 활용) 충분한 훈련 데이터나 주석이 달린 데이터가 부족하지만 상식적인 지식이 필요한 경우 유리함\n(추론 및 신흥 능력) 금융 자문 분야에서 고객 요청은 종종 높은 변동성과 복잡한 대화를 나타내는 경우 유리함\n(모델 협업 조정) LLM은 다양한 모델과 도구 사이에서 조정자 역할\n\n의 장점이 있다.\nLLM은 뛰어난 능력을 가지고 있지만, API를 활용하거나 오픈소스 LLM을 세밀하게 조정하는 경우에 상당한 비용이 발생한다. 따라서 작업이 명확하게 정의되어 있거나(예: 회귀, 분류, 순위 매기기), 주석이 달린 훈련 데이터가 풍부하다면 기존의 작은 모형을 사용하는게 적합할 수 있다.\n아래 그림과 표를 통해 LLM 사용에 대한 decision process와 비용을 가늠해볼 수 있다.\n\n\nFigure 1 in Li et al. (2023): Decision Process Flowchart\n\n\n\nTable 3 in Li et al. (2023): Costs of Different LLM Options"
+  },
+  {
+    "objectID": "posts/statistics/probability_distribution.html",
+    "href": "posts/statistics/probability_distribution.html",
+    "title": "기초통계: 확률 분포, 적률, 엔트로피",
+    "section": "",
+    "text": "AI 연구는 확률, 통계에 대한 기초적인 지식을 필요로 한다. 하지만, 확률, 통계를 공부했다고 하더라도, 잠시 관심을 꺼둔다면, 기초적인 지식조차도 금방 잊어버리기 마련이다. 필요할 때마다 찾아볼 수 있도록, 확률, 통계에 대한 간단한 기본 지식을 정리했다."
+  },
+  {
+    "objectID": "posts/statistics/probability_distribution.html#이산-확률-분포-discrete-probability-distributions",
+    "href": "posts/statistics/probability_distribution.html#이산-확률-분포-discrete-probability-distributions",
+    "title": "기초통계: 확률 분포, 적률, 엔트로피",
+    "section": "이산 확률 분포 (Discrete probability distributions)",
+    "text": "이산 확률 분포 (Discrete probability distributions)\n\nBernouille distribution\n\n단일 시행에서 두 가지 결과(성공 1 /실패 0) 실험 모델링\n예: 동전 한번 던지기\n\n\\(P(X=k) = p^k (1-p)^{1-k} \\quad \\text{for} \\ k \\in \\{0,1\\}\\)\n\\(E(x) = p\\)\n\\(V(x) = p(1-p)\\)\n\n\nBinomial distribution\n\n고정된 수(\\(n\\))의 독립 시행에서 성공 횟수(\\(k\\))의 분포 (즉, 여러 베르누이 시행)\n사용 예시: 동전 던지기\n\n\\(P(X=k) = \\binom{n}{k} p^k (1-p)^{n-k}\\)\n\\(E(x) = np\\)\n\\(V(x) = np(1-p)\\)\n\n\nPoisson distribution\n\n\n단위 시간 또는 공간에서 발생하는 사건의 수\n한 시간 동안의 전화 통화 횟수(\\(k\\))\n\n\\(P(X=k) = \\frac{\\lambda^k e^{-\\lambda}}{k!}\\)\n\\(P(X \\leq K) = 1 - \\sum^{K}_{k=0}\\frac{\\lambda^k e^{-\\lambda}}{k!}\\)\n\\(E(x) = \\lambda\\)\n\\(V(x) = \\lambda\\)\n\n\nNegative binomial distribution\n\n\n베르누이 시행에서 성공 \\(r\\)회가 나타나기까지의 실패 횟수를 모델링\n팀이 \\(r\\)개의 중대한 버그를 모두 수정하기까지, 몇 번의 코드 검토가 필요할지 추정\n\n\\(P(X = k) = \\binom{k + r - 1}{k} (1-p)^k p^r\\)\n\\(E(X) = \\frac{r(1-p)}{p}\\)\n\\(V(X) = \\frac{r(1-p)}{p^2}\\)\n\n\nHypergeometric distribution\n\n\n한정된 특정 수(\\(N\\))의 모집단에서 교체없이(without replacement) 특정 성공 사건이 몇 번 발생했는지 모델링\n예시, \\(N\\)개 카드 덱(\\(K\\)개 하트카드)에서 한번에 \\(n\\)개 카드을 뽑았을 때, 뽑은 카드 중 \\(k\\)개가 하트 카드일 확률 계산\n\n\\(P(X = k) = \\frac{{\\binom{K}{k}}{\\binom{N-K}{n-k}}}{\\binom{N}{n}}\\)\n\\(F(x) = 1 - (1-p)^{x} \\quad \\text{for} \\ x \\geq 1\\)\n\\(E(X) = n\\frac{K}{N}\\)\n\\(V(X) = n\\frac{K}{N}\\frac{N-K}{N}\\frac{N-n}{N-1}\\)\n\n\nGeometric distribution\n\n\n베르누이 시행에서 처음 성공까지 시도한 횟수 \\(X\\)의 분포\n예시: 동전 앞면이 나올 때까지 동전 던진 횟수(\\(k\\))\n\n\\(P(X=k) = (1-p)^{k-1}p\\)\n\\(F(x) = 1 - (1-p)^{x} \\quad \\text{for} \\ x \\geq 1\\)\n\\(E(x) = \\frac{1}{p}\\)\n\\(V(x) = \\frac{1-p}{p^2}\\)"
+  },
+  {
+    "objectID": "posts/statistics/probability_distribution.html#연속확률분포-continuous-probability-distributions",
+    "href": "posts/statistics/probability_distribution.html#연속확률분포-continuous-probability-distributions",
+    "title": "기초통계: 확률 분포, 적률, 엔트로피",
+    "section": "연속확률분포 (Continuous probability distributions)",
+    "text": "연속확률분포 (Continuous probability distributions)\n\nNormal distribution\n\n\n자연 현상에서 발생하는 많은 데이터의 분포를 모델링 (aka 가우시안 분포)\n인간의 키나 몸무게\n\n\\(f(x|\\mu,\\sigma^2) = \\frac{1}{\\sqrt{2\\pi\\sigma^2}}e^{-\\frac{(x-\\mu)^2}{2\\sigma^2}}\\)\n\\(F(x|\\mu,\\sigma) = \\frac{1}{2} \\left[1 + \\text{erf}\\left(\\frac{x-\\mu}{\\sigma\\sqrt{2}}\\right)\\right]\\), \\(\\text{erf}(z) = \\frac{2}{\\sqrt{\\pi}} \\int_{0}^{z} e^{-t^2} dt\\)\n\\(E(x) = \\mu\\)\n\\(V(x) = \\sigma^2\\)\n\n\nStudent’t t-distribution\n\n\n작은 표본 크기에서 정규 분포의 평균을 추정할 때 사용되는 분포\nt 검정, 신뢰 구간 추정\n\n\\(f(x|\\mu,\\sigma^2) = \\frac{1}{\\sqrt{2\\pi\\sigma^2}}e^{-\\frac{(x-\\mu)^2}{2\\sigma^2}}\\)\n\\(F(x|\\mu,\\sigma) = \\frac{1}{2} \\left[1 + \\text{erf}\\left(\\frac{x-\\mu}{\\sigma\\sqrt{2}}\\right)\\right]\\), \\(\\text{erf}(z) = \\frac{2}{\\sqrt{\\pi}} \\int_{0}^{z} e^{-t^2} dt\\)\n\\(E(x) = \\mu\\)\n\\(V(x) = \\sigma^2\\)\n\n\nChi-squared Distribution\n\n\n독립적인 표준 정규 분포를 따르는 변수들의 제곱 합의 분포\n사용 예시: 분산 분석, 카이제곱 검정 (적합도 검정, 독립성 검정) 등\n\n\\(f(x; k) = \\frac{1}{2^{\\frac{k}{2}}\\Gamma\\left(\\frac{k}{2}\\right)}x^{\\frac{k}{2}-1}e^{-\\frac{x}{2}}\\)\n\\(E(x) = k\\)\n\\(V(x) = 2k\\)\n\n\nUniform distribution\n\n모든 사건이 동일한 확률로 발생하는 분포\n사용 예시: 랜덤 숫자 생성\n\n\\(f(x) = \\begin{cases} \\frac{1}{b-a} & \\text{for } a \\leq x \\leq b \\\\ 0 & \\text{else } \\end{cases}\\)\n\\(F(x) = \\begin{cases} 0 & \\text{if } x &lt; a \\\\ \\frac{x-a}{b-a} & \\text{if } a \\leq x \\leq b \\\\ 1 & \\text{if } x &gt; b \\end{cases}\\)\n\\(\\mu = \\frac{a+b}{2}\\)\n\\(\\sigma^2 = \\frac{(b-a)^2}{12}\\)\n\n\nExponential distribution\n\n\n일정한 평균 속도(\\(\\lambda\\))로 발생하는 독립적인 사건 사이의 시간을 모델링\n예시: 기계가 고장 나기까지의 시간\n\n\\(f(x) = \\lambda e^{-\\lambda x}\\)\n\\(F(x) = 1 - e^{-\\lambda x} \\quad \\text{for} \\ x \\geq 0\\)\n\\(E(x) = \\frac{1}{\\lambda}\\)\n\\(V(x) = \\frac{1}{\\lambda^2}\\)\n\n\nWeibul distribution\n\n\n모양 매개변수(\\(\\lambda\\))와 스케일 매개변수(\\(k\\))에 의해 정의\n예시: 제품의 수명, 재료의 파손 시간, 또는 대기 시간 분석 등\n\n\\(f(x) = \\frac{k}{\\lambda} \\left( \\frac{x}{\\lambda} \\right)^{k - 1} e^{-(x/\\lambda)^k}\\)\n\\(F(x) = 1 - e^{-(x/\\lambda)^k}\\)\n\\(E(x) = \\lambda \\Gamma\\left(1 + \\frac{1}{k}\\right)\\)\n\\(V(x) = \\lambda^2 \\left[ \\Gamma\\left(1 + \\frac{2}{k}\\right) - \\left(\\Gamma\\left(1 + \\frac{1}{k}\\right)\\right)^2 \\right]\\)\n\n\nGamma Distribution\n\n\n지수분포에서 한 번의 사건이 아닌 여러 개의 사건으로 확장\n\\(\\alpha\\)번째 사건이 발생할때까지 걸리는 시간이 \\(T\\)이하일 확률\n사용 예시: 여러 기계의 수명 합, 모수의 베이지안 추정\n\n\\(f(x) = \\frac{x^{\\alpha-1}e^{-x/\\beta}}{\\Gamma(\\alpha)\\beta^\\alpha} \\quad \\text{for } x &gt; 0\\)\n\\(E(x) = \\alpha\\beta\\)\n\\(V(x) = \\alpha\\beta^2\\)\n\n\nBeta Distribution\n\n\n0과 1 사이의 값에 대한 확률 분포로, 성공 확률의 불확실성을 모델링할 때 사용\n두 매개변수 \\(\\alpha, \\beta\\)에 의해 모양이 결정되며, 이 매개변수들은 분포의 모양을 조절하는 데 사용\n사용 예시: 베이지안 통계에서 사전 분포(prior distribution), A/B 테스트 결과의 해석 등\n\n\\(f(x;\\alpha,\\beta) = \\frac{x^{\\alpha-1}(1-x)^{\\beta-1}}{B(\\alpha, \\beta)}\\)\n\\(B(\\alpha, \\beta) = \\int_{0}^{1} t^{\\alpha-1}(1-t)^{\\beta-1} dt\\) (베타함수)\n\\(E(x) = \\frac{\\alpha}{\\alpha + \\beta}\\)\n\\(V(x) = \\frac{\\alpha\\beta}{(\\alpha + \\beta)^2(\\alpha + \\beta + 1)}\\)"
+  },
+  {
+    "objectID": "posts/statistics/probability_distribution.html#적률moments이란",
+    "href": "posts/statistics/probability_distribution.html#적률moments이란",
+    "title": "기초통계: 확률 분포, 적률, 엔트로피",
+    "section": "적률(moments)이란",
+    "text": "적률(moments)이란\n\nk차 원점 적률: \\(\\mu'_k = \\int_{-\\infty}^{\\infty} x^k f(x) dx = E[X^k]\\)\nk차 중심 적률: \\(\\mu_k = \\int_{-\\infty}^{\\infty} (x-\\mu)^k f(x) dx = E[(X-\\mu)^k]\\)\nk차 표준화 적률: \\(\\tilde{\\mu}_k = \\frac{\\mu_k}{\\sigma^k} = E[{(\\frac{X-\\mu}{\\sigma})}^k]\\)"
+  },
+  {
+    "objectID": "posts/statistics/probability_distribution.html#평균-분산-왜도-첨도",
+    "href": "posts/statistics/probability_distribution.html#평균-분산-왜도-첨도",
+    "title": "기초통계: 확률 분포, 적률, 엔트로피",
+    "section": "평균, 분산, 왜도, 첨도",
+    "text": "평균, 분산, 왜도, 첨도\n\n1차 원점 적률(평균): 데이터의 평균 값을 나타냄 \\(\\mu = E[X]\\)\n1차 중심 적률: 0\n2차 중심 적률(분산): 데이터의 분산을 나타냄 \\(E[(X-\\mu)^2]\\)\n3차 중심 표준화 적률(왜도): 데이터 분포의 비대칭도를 나타냄 \\(E[{(\\frac{X-\\mu}{\\sigma})}^3]\\)\n4차 중심 표준화 적률(첨도): 데이터 분포의 뾰족함을 나타냄 \\(E[{(\\frac{X-\\mu}{\\sigma})}^4]\\)"
+  },
+  {
+    "objectID": "posts/statistics/probability_distribution.html#적률-생성-함수mgf",
+    "href": "posts/statistics/probability_distribution.html#적률-생성-함수mgf",
+    "title": "기초통계: 확률 분포, 적률, 엔트로피",
+    "section": "적률 생성 함수(MGF)",
+    "text": "적률 생성 함수(MGF)\n적률 생성 함수는 확률변수의 모든 적률을 유도하기 위한 방법으로 사용\n\\[M_X(t) = E[e^{tX}] = \\int_{-\\infty}^{\\infty} e^{tx} f(x) dx\\]\n이때, 확률변수 \\(X\\)의 \\(n\\)번째 적률은 \\(M(t)\\)를 \\(t\\)에 대해 \\(n\\)번 미분하고 \\(t=0\\)을 대입하여 얻을 수 있음\n\\[\\mu_n' = E[X^n] = \\left. \\frac{d^n M(t)}{dt^n} \\right|_{t=0}\\]\n\\(e^{tX}\\)를 테일러 전개하여, 적률 생성 함수에 대입하면,\n\\(M_X(t) = E[e^{tX}] = E\\left[1 + Xt + \\frac{X^2t^2}{2!} + \\frac{X^3t^3}{3!} + \\ldots \\right]\\)\n\\(M_X(t) = E[e^{tX}] = 1 + E[X]t + \\frac{E[X^2]t^2}{2!} + \\frac{E[X^3]t^3}{3!} + \\ldots\\)\n\\(n\\)차 미분하여 \\(t=0\\)을 대입하면, \\(n\\)차 적률이 되는 것을 알 수 있다."
+  },
+  {
+    "objectID": "posts/statistics/probability_distribution.html#적률-생성-함수의-특징",
+    "href": "posts/statistics/probability_distribution.html#적률-생성-함수의-특징",
+    "title": "기초통계: 확률 분포, 적률, 엔트로피",
+    "section": "적률 생성 함수의 특징",
+    "text": "적률 생성 함수의 특징\n\n존재성: 모든 적률이 존재하는 확률변수는 MGF가 적어도 \\(t=0\\)을 중심으로 한 작은 주변에서 존재\n유일성: 두 확률변수의 MGF가 존재하고 같다면, 그 확률변수들은 동일한 확률분포를 가짐\n선형성: 확률변수 \\(X\\)와 \\(Y\\)가 독립이고 \\(M_X(t)\\), \\(M_Y(t)\\)의 MGF를 가진다면 \\(X+Y\\)의 MGF는 \\(M_X(t) \\times M_Y(t)\\)\n\n\n정규분포의 적률생성함수\n\n\\(M_X(t) = \\int_{-\\infty}^{\\infty} e^{tx} \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^2} dx\\)\n\\(...\\)\n\\(M_X(t) = e^{\\mu t + \\frac{1}{2}\\sigma^2 t^2}\\)"
+  },
+  {
+    "objectID": "posts/statistics/probability_distribution.html#엔트로피entropy란",
+    "href": "posts/statistics/probability_distribution.html#엔트로피entropy란",
+    "title": "기초통계: 확률 분포, 적률, 엔트로피",
+    "section": "엔트로피(entropy)란",
+    "text": "엔트로피(entropy)란\n엔트로피(entropy)는 확률분포가 가지는 정보의 확신도 혹은 정보량을 수치로 표현한 것이다. 확률분포에서 특정한 값이 나올 확률이 높아지고 나머지 값의 확률은 낮아진다면 엔트로피가 작아진다.\n\n이산확률분포: \\[H(X) = -\\sum_{i} p(x_i) \\log p(x_i)\\]\n연속확률분포: \\[h(X) = -\\int f(x) \\log f(x) \\, dx\\]"
+  },
+  {
+    "objectID": "posts/statistics/probability_distribution.html#지니-불순도gini-impurity",
+    "href": "posts/statistics/probability_distribution.html#지니-불순도gini-impurity",
+    "title": "기초통계: 확률 분포, 적률, 엔트로피",
+    "section": "지니 불순도(gini impurity)",
+    "text": "지니 불순도(gini impurity)\n지니 불순도(Gini impurity)는 데이터 집합 내에서 랜덤으로 선택한 요소가 잘못 분류될 확률을 측정, 주어진 데이터 집합이 얼마나 “혼합”되어 있는지를 나타냄\n\\[G(Y) = \\sum_{k=1}^{K} P(y_k) (1 - P(y_k))\\]\n\n# 예시: 베르누이 분포의 엔트로피, 지니 불순도\n\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nP0 = np.linspace(0.001, 1 - 0.001, 1000)\nP1 = 1 - P0\nH = - P0 * np.log2(P0) - P1 * np.log2(P1)\nG = 2 * (P0 * (1 - P0) + P1 * (1 - P1))\n\nplt.plot(P1, H, \"-\", label=\"entropy\")\nplt.plot(P1, G, \"--\", label=\"gini\")\nplt.legend()\nplt.xlabel(\"P(Y=1)\")\nplt.show()"
+  },
+  {
+    "objectID": "posts/statistics/probability_distribution.html#크로스-엔트로피",
+    "href": "posts/statistics/probability_distribution.html#크로스-엔트로피",
+    "title": "기초통계: 확률 분포, 적률, 엔트로피",
+    "section": "크로스-엔트로피",
+    "text": "크로스-엔트로피\n크로스-엔트로피(cross-entropy)는 두 확률분포 간의 차이를 측정하는 데 사용\nCross-entropy는 머신러닝과 딥러닝에서 손실 함수(loss function)로 널리 사용되며, 특히 분류 문제에서 예측 분포 \\(Q\\)가 실제 분포 \\(P\\)를 얼마나 잘 추정하는지를 평가할 때 중요함\n이때 낮은 cross-entropy 값은 모델의 예측이 실제 분포에 더 가깝다는 것을 의미\n\\(H(P, Q) = -\\sum_{x} P(x) \\log Q(x)\\) (이산)\n\\(H(P, Q) = -\\int p(x) \\log q(x) \\, dx\\) (연속)"
+  },
+  {
+    "objectID": "posts/statistics/time_series/ts_01_intro.html",
+    "href": "posts/statistics/time_series/ts_01_intro.html",
+    "title": "시계열 - Introduction",
+    "section": "",
+    "text": "시계열 분석을 정리하고자 한다.\n일반적으로 변수 \\(x\\)에 대한 시계열은 \\(x_t\\)로 표시되며, 여기서 \\(t\\)는 시간을 나타낸다. 전체 시간 집합 \\(t=1,2, ..., T\\)는 관찰 기간이며, 관측치는 일반적으로 동일한 간격(예: 분, 시간 또는 일 등)으로 측정된다.\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\n# Generate synthetic time series data\n# trend, seasonality, noise로 구성된 time series data를 생성한다.\nnp.random.seed(42)\nnum_points = 100\ntime_index = pd.date_range(start='2024-1-1', periods=num_points, freq='D')\ntrend = 0.1 * np.arange(num_points)\nseasonality = 10 * np.sin(np.linspace(0, 4 * np.pi, num_points))\nnoise = np.random.normal(loc=0, scale=2, size=num_points)\ntime_series_data = trend + seasonality + noise\n\n# Create a DataFrame with the time series data\ndf = pd.DataFrame({'Date': time_index, 'Value': time_series_data})\ndf = df.set_index('Date')\n\n# Plot the time series data\nplt.figure(figsize=(10, 6))\nplt.plot(df, label='Time Series Data', color='blue')\nplt.xlabel('Date')\nplt.ylabel('Value')\nplt.title('Synthetic Time Series Data')\nplt.legend()\nplt.grid(True)"
+  },
+  {
+    "objectID": "posts/statistics/time_series/ts_01_intro.html#계절성-추세-잡음",
+    "href": "posts/statistics/time_series/ts_01_intro.html#계절성-추세-잡음",
+    "title": "시계열 - Introduction",
+    "section": "계절성, 추세, 잡음",
+    "text": "계절성, 추세, 잡음\n\n계절성(Seasonality): 많은 시계열 데이터에서 일정한 시간 간격으로 반복되는 패턴을 관찰할 수 있다. 예를 들어, 소매업에서는 연말 연시에 매출이 증가하는 계절적 패턴이 존재한다.\n\n\n계절성은 계절요인의 더미변수를 고려하거나, 삼각함수를 이용하여 모델링할 수 있다.\n\n추세(Trend): 시계열 데이터에서는 장기적으로 관찰될 수 있는 상승 또는 하락 추세를 볼 수 있다. 예를 들어, 경제 성장으로 인한 장기적인 주가 상승이 있을 수 있다.\n\n \n선형 추세 모형(linear trend model)을 least square를 이용하여 구할 수 있다.\n\\(Z_t = \\beta_0 + \\beta_1t+ \\epsilon\\)\n\n잡음(Noise): 시계열 데이터는 종종 잡음을 포함한다. 잡음은 데이터에서 관찰되는 무작위 변동을 의미하며, 이는 분석가가 실제 신호를 잡음으로부터 분리해야 함을 의미한다.\n순환 변동(Cyclical Variations): 추세나 계절성과는 별개로, 시계열 데이터에는 경제 사이클 같은 더 긴 시간 단위의 변동 패턴이 존재할 수 있다. 이러한 순환 변동은 명확한 주기를 가지지 않을 수도 있다.\n\n\n# statsmodels의 분해 함수로 시계열 모형을 분해해보자.\n# Decompose the time series data into components (trend, seasonality, and residuals)\nimport statsmodels\nfrom statsmodels.tsa.seasonal import seasonal_decompose\n\ndecomposition = seasonal_decompose(df, model='additive')\n\ntrend_component = decomposition.trend\nseasonal_component = decomposition.seasonal\nresiduals = decomposition.resid\n\n# Plot the decomposed components\nplt.figure(figsize=(10, 6))\nplt.subplot(3, 1, 1)\nplt.plot(trend_component, label='Trend', color='red')\nplt.ylabel('Trend')\nplt.legend()\nplt.grid(True)\n\nplt.subplot(3, 1, 2)\nplt.plot(seasonal_component, label='Seasonality', color='green')\nplt.ylabel('Seasonality')\nplt.legend()\nplt.grid(True)\n\nplt.subplot(3, 1, 3)\nplt.plot(residuals, label='Residuals', color='purple')\nplt.xlabel('Date')\nplt.ylabel('Residuals')\nplt.legend()\nplt.grid(True)\n\nplt.tight_layout()\nplt.show()"
+  },
+  {
+    "objectID": "posts/statistics/time_series/ts_01_intro.html#변동성",
+    "href": "posts/statistics/time_series/ts_01_intro.html#변동성",
+    "title": "시계열 - Introduction",
+    "section": "변동성",
+    "text": "변동성\n\n변동성(Volatility): 시간에 따른 변수의 변동 정도를 의미하고, 대부분 표준편차나 분산으로 측정된다. 대부분의 시계열 데이터(특히 금융시장)에서는 변동성의 군집현상(volatility clustering)이 발생하는데, 이러한 현상은 오차항의 분산이 일정하다는 회귀모형의 기본적인 가정을 만족시키지 못하게 된다.\n\n즉, 외부 요인에 영향을 받는다는 의미이며, 이러한 영향으로 인해 시계열에서 분산이 일정해지지 않는 이분산성(Heteoskedasticity)이 나타나게 된다.\n0&gt;\n\n변동성 측정 방법\n\nhistorical volatility: 과거 가격 데이터를 기반으로 계산(표준편차)\nimplied volatility: 옵션 가격으로부터 역산하여 얻은 변동성. 시장 참여자들이 기대하는 미래 변동성을 반영\nGARCH model: 시계열 데이터의 조건부 변동성을 모델링. 이 모델은 변동성이 시간에 따라 변화하고 과거 변동성에 의존한다고 가정"
+  },
+  {
+    "objectID": "posts/statistics/time_series/ts_01_intro.html#시간-종속성",
+    "href": "posts/statistics/time_series/ts_01_intro.html#시간-종속성",
+    "title": "시계열 - Introduction",
+    "section": "시간 종속성",
+    "text": "시간 종속성\n\n시간 종속성(Time Dependency): 시계열 데이터는 시간을 기준으로 정렬되어 시간 순서에 의존적이다. 즉, 과거의 값이 미래의 값에 영향을 미칠 수 있고, 따라서 데이터의 시간 순서를 유지하는 것이 중요하다.\n\n자기상관함수(Autocorrelation Function, ACF), 부분자기상관함수(Partial Autocorrelation Function, PACF)\n\n\n\n자기상관함수\n시계열 데이터의 자기상관 함수(Autocorrelation Function, ACF)와 부분자기상관 함수(Partial Autocorrelation Function, PACF)는 시계열의 시간 종속성을 분석하는 데 중요한 도구이다.\n\\(ACF(k)(\\rho_k) = \\frac{\\text{cov}(y_t, y_{t+k})}{\\text{var}(y_t)} = \\frac{\\sum_{t=1}^{N-k}(y_t - \\bar{y})(y_{t+k} - \\bar{y})}{\\sum_{t=1}^{N}(y_t - \\bar{y})^2} \\cdot \\frac{N}{N - k}\\)\nACF는 \\(y_t\\)와 \\(y_{t+k}\\) 간 correlation을 측정한다. 단, 실제 자기 상관 함수(ACF)는 구할 수 없고 데이터를 이용하여 추정해야 하며, 시계열 관측치가 주어졌다고 했을 때 SACF(Sample ACF)를 구한다. ARIMA 모형에서 이동 평균(MA) 항의 차수(order)를 판단하는데 활용된다.\n\\(PACF(k)(\\phi_{k}) = \\text{Corr}(y_t - \\hat{y}_t^{(k-1)}, y_{t-k} - \\hat{y}_{t-k}^{(k-1)})\\)\n\n여기서,\n\n\\(\\hat{y}_t^{(k-1)}\\)는 시간 \\(t\\)에서의 관측치를 시차 \\(1\\)에서 \\(k-1\\)까지의 관측치로 선형회귀한 모델에 의해 예측된 값\n\\(\\hat{y}_{t-k}^{(k-1)}\\)는 시간 \\(t-k\\)에서의 관측치를 시차 \\(1\\)에서 \\(k-1\\)까지의 관측치로 선형회귀한 모델에 의해 예측된 값\n\n\nPACF는 \\(t\\)와 \\(t+k\\) 사이에 다른 \\(y\\)값들의 영향력을 배제하고 correlation을 측정하는 것으로, ARIMA 모형에서 자기 회귀 차수를 식별하는 용도로 사용된다.\n\nfrom statsmodels.tsa.stattools import acf, pacf\nimport statsmodels.api as sm\nfrom statsmodels.tsa.arima_process import ArmaProcess\nimport matplotlib.pyplot as plt\n\n# ARMA 모델을 위한 파라미터 설정 (ARMA(1,1) 모델로 설정)\nar_params = np.array([1, -0.5]) # AR 파라미터에는 첫 번째 항이 1이어야 함 (상수 항)\nma_params = np.array([1, 0.5])  # MA 파라미터에는 첫 번째 항이 1이어야 함 (상수 항)\n\n# ARMA(1,1) 프로세스 정의\narma_process = ArmaProcess(ar=ar_params, ma=ma_params)\n\n# 시계열 데이터 생성\nnp.random.seed(42)\nn_points = 120\ndata = arma_process.generate_sample(nsample=n_points)\ntimeseries_data = pd.Series(data)\n\n# ACF 및 PACF 계산\nlags = 20  # 사용할 시차의 수\nacf_values = acf(timeseries_data, nlags=lags)\npacf_values = pacf(timeseries_data, nlags=lags)\n\n# ACF와 PACF 플롯을 시각화\nfig, axes = plt.subplots(1, 2, figsize=(15, 5))\nsm.graphics.tsa.plot_acf(timeseries_data, lags=lags, ax=axes[0])\nsm.graphics.tsa.plot_pacf(timeseries_data, lags=lags, ax=axes[1])\nplt.show()\n\n\n\n\n다음 포스트에서 이를 활용해 ARIMA 모형의 차수를 구하는 방법을 알아보기로 한다."
+  },
+  {
+    "objectID": "posts/statistics/time_series/ts_01_intro.html#정상성",
+    "href": "posts/statistics/time_series/ts_01_intro.html#정상성",
+    "title": "시계열 - Introduction",
+    "section": "정상성",
+    "text": "정상성\n\n정상성(Stationarity): 정상 시계열은 시간에 따른 통계적 속성(평균, 분산 등)이 일정하게 유지되는 특성을 가진다. 많은 시계열 분석 기법은 데이터가 정상성을 가정하며, 비정상 시계열 데이터를 분석하기 위해서는 추가적인 전처리가 필요할 수 있다.\n강정상성(strong/strictly stationary): 시계열 데이터(\\(X_t\\))의 결합확률분포(\\(F_X\\))가 시간 이동에 대해 불변이라는 속성을 의미한다. 강정상성을 띠는 시계열은 모든 적률(moments)이 시간과 무관하게 일정하다.\n\n\\[F_X(x_{t}, x_{t+1}, ..., x_{t+k}) = F_X(x_{t+\\tau}, x_{t+1+\\tau}, ..., x_{t+k+\\tau})\\]\n\n약정상성(weak stationary): 다음의 세 가지 조건을 만족\n\n\n모든 시점 $ t $에 대하여 \\(E(X_t) = \\mu\\)\n모든 시점 $ t $에 대하여 $Var(X_t) &lt; $\n모든 시점 $ t $, \\(h\\)에 대하여 $Cov(X_{t+h}, X_t) = (h) $(즉, 공분산이 $t $에 의존하지 않고 \\(h\\)만에 의존한다.) $(h) $는 자기공분산함수(auto covariance function, ACF)라 한다.\n\n\n랜덤워크(Random walk)\n\\(X_t = X_{t-1} + Z_t\\)\n\\(Z_t \\sim WN(0, \\sigma^2)\\)\n\\(X_t\\)는 random walk 한다고 말한다.\n또한, random walk를 자기회귀모형식으로 표현하면 AR(1) 모형을 가지며, 단위근(unit root)을 가진다고 한다.\n\n# 랜덤 워크 데이터 생성\nnp.random.seed(42)\nn = 500  # 데이터 포인트의 수\nwalk = np.random.normal(0, 1, n).cumsum()\n\n# 시각화\nplt.plot(walk)\nplt.xlabel('Step')\nplt.ylabel('Value')\nplt.title('Random Walk Time Series')\nplt.grid(True)\nplt.show()\n\n\n\n\n\n\n단위근검정(Unit root test)\n\n단위근(unit root): \\(X_t = \\alpha X_{t-1} + \\epsilon_t\\)에서 $|| =1 $이면 시계열은 단위근을 가진다. 이는 시계열이 평균으로 회귀하지 않고, 즉 랜덤 워크의 형태로 변화하는 것을 의미한다. 즉 단위근을 가지면 stationary하지 않다.\n\nADF test(Augmented Dickey-Fuller) Test\n\n귀무가설 (H0): 시계열 데이터는 단위근을 가짐 (unstationary)\n대립가설 (H1): 시계열 데이터는 단위근을 가지지 않음 (stationary)\n\n\nfrom statsmodels.tsa.stattools import adfuller\nimport numpy as np\n\n# ADF 검정 수행\nresult = adfuller(walk) #랜덤워크\nprint('ADF Statistic: %f' % result[0])\nprint('p-value: %f' % result[1])\nprint('Critical Values:')\nfor key, value in result[4].items():\n    print('\\t%s: %.3f' % (key, value))\n\nADF Statistic: -1.498630\np-value: 0.534189\nCritical Values:\n    1%: -3.444\n    5%: -2.867\n    10%: -2.570\n\n\n\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport statsmodels.api as sm\n\n# ARMA 모형의 계수 설정\nar_params = [0.5, -0.2]  # 자동 회귀(AR) 모형의 계수\nma_params = [0.3, -0.1]  # 이동 평균(MA) 모형의 계수\n\n# 시계열 데이터 생성 (단위근 없음)\nnp.random.seed(0)\nn = 1000  # 시계열의 길이\nar = np.r_[1, -np.array(ar_params)]  # AR 모형의 파라미터 배열 생성\nma = np.r_[1, np.array(ma_params)]  # MA 모형의 파라미터 배열 생성\narma_process = sm.tsa.ArmaProcess(ar, ma)\ndata = arma_process.generate_sample(nsample=n)\n\n# ADF 검정 수행\nresult = adfuller(data) #ARMA 사용\nprint('ADF Statistic: %f' % result[0])\nprint('p-value: %f' % result[1])\nprint('Critical Values:')\nfor key, value in result[4].items():\n    print('\\t%s: %.3f' % (key, value))\n\nADF Statistic: -10.498778\np-value: 0.000000\nCritical Values:\n    1%: -3.437\n    5%: -2.864\n    10%: -2.568\n\n\nADF 검정과 같이 정상성을 검정하는 방법으로 여러 가지가 있다.\nKPSS (Kwiatkowski–Phillips–Schmidt–Shin) Test: 시계열 데이터의 누적 합계의 제곱에 대한 표준편차를 사용. ADF와 귀무가설, 대립가설이 반대이다.\n\nfrom statsmodels.tsa.stattools import kpss\n\n# KPSS 검정 수행 - RW\nkpss_stat, p_value, lags, crit_values = kpss(walk)\n\n# 결과 출력\nprint(f'KPSS 검정 통계량: {kpss_stat}')\nprint(f'p-value(RW): {p_value}')\n\n# KPSS 검정 수행\nkpss_stat, p_value, lags, crit_values = kpss(data)\n\n# 결과 출력\nprint(f'KPSS 검정 통계량: {kpss_stat}')\nprint(f'p-value: {p_value}')\n\nKPSS 검정 통계량: 2.8794199665024265\np-value(RW): 0.01\nKPSS 검정 통계량: 0.4224597532310452\np-value: 0.06747424429696329\n\n\nInterpolationWarning: The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is smaller than the p-value returned.\n\n  kpss_stat, p_value, lags, crit_values = kpss(walk)\n\n\nPhillips Perron Test: PP 검정은 ADF 검정과 유사하지만, 시리즈의 자기상관을 모델링하기 위해 다른 접근을 사용한다. PP 검정은 수정된 t 통계량을 사용하여 단위근의 존재를 검정하며, 이는 시계열의 특정 형태의 자기상관과 이질적 분산을 고려할 수 있게 해준다.\n\nfrom arch.unitroot import PhillipsPerron\n \nfor tt in ['n','c']:\n    pp = PhillipsPerron(walk, trend=tt, test_type='tau')\n    print(pp.summary().as_text())\nprint('')\nfor tt in ['n','c']:\n    pp = PhillipsPerron(data, trend=tt, test_type='tau')\n    print(pp.summary().as_text())\n\n     Phillips-Perron Test (Z-tau)    \n=====================================\nTest Statistic                 -1.480\nP-value                         0.130\nLags                               18\n-------------------------------------\n\nTrend: No Trend\nCritical Values: -2.57 (1%), -1.94 (5%), -1.62 (10%)\nNull Hypothesis: The process contains a unit root.\nAlternative Hypothesis: The process is weakly stationary.\n     Phillips-Perron Test (Z-tau)    \n=====================================\nTest Statistic                 -1.482\nP-value                         0.542\nLags                               18\n-------------------------------------\n\nTrend: Constant\nCritical Values: -3.44 (1%), -2.87 (5%), -2.57 (10%)\nNull Hypothesis: The process contains a unit root.\nAlternative Hypothesis: The process is weakly stationary.\n\n     Phillips-Perron Test (Z-tau)    \n=====================================\nTest Statistic                -16.468\nP-value                         0.000\nLags                               22\n-------------------------------------\n\nTrend: No Trend\nCritical Values: -2.57 (1%), -1.94 (5%), -1.62 (10%)\nNull Hypothesis: The process contains a unit root.\nAlternative Hypothesis: The process is weakly stationary.\n     Phillips-Perron Test (Z-tau)    \n=====================================\nTest Statistic                -16.387\nP-value                         0.000\nLags                               22\n-------------------------------------\n\nTrend: Constant\nCritical Values: -3.44 (1%), -2.86 (5%), -2.57 (10%)\nNull Hypothesis: The process contains a unit root.\nAlternative Hypothesis: The process is weakly stationary."
+  },
+  {
+    "objectID": "posts/statistics/time_series/ts_01_intro.html#시계열-데이터-변형",
+    "href": "posts/statistics/time_series/ts_01_intro.html#시계열-데이터-변형",
+    "title": "시계열 - Introduction",
+    "section": "시계열 데이터 변형",
+    "text": "시계열 데이터 변형\n차분(differencing), 변환(transformation), 분해(decomposition), 평활화(smoothing), 선형회귀 추세제거, ARIMA 등이 있다.\n비정상 시계열을 정상 시계열로 바꾸는 등의 목적으로 쓰인다.\n\n차분: 시점 간 차이 등을 이용한다.\n1차 차분: \\(\\Delta X_t = X_t - X_{t-1}\\)\n2차 차분: 1차 차분을 한번 더 차분\n로그 차분 / 수익률\n계절차분\n분수차분(Fractional difference) 등\n\n\n# 1차 차분\ndiff = np.diff(walk, n=1)\n\n# 원본 데이터와 차분 데이터 시각화\nplt.figure(figsize=(8, 6))\n\nplt.subplot(2, 1, 1)\nplt.plot(walk, label='Random Walk')\nplt.title('Random Walk Data')\nplt.legend()\n\nplt.subplot(2, 1, 2)\nplt.plot(diff, label='1st Differencing')\nplt.title('After 1st Differencing')\nplt.legend()\n\nplt.tight_layout()\nplt.show()\n\n\n\n\n\n변환: 로그 변환, Box-cox 변환 등\n\n로그 변환: 로그 변환은 시계열 데이터의 분산을 안정화하고, 비선형 트렌드를 선형화하여 분석을 용이하게 하는 데 도움이 된다. 특히, 시계열 데이터의 값이 시간에 따라 지수적으로 증가하거나 감소하는 경우 유용하다.\nBox-cox 변환: Box-Cox 변환은 시계열 데이터의 분산을 안정화하고, 정규성을 개선하기 위해 사용되는 일종의 데이터 변환 기법이다. 이 변환은 데이터에 음수 값이 없을 때 사용할 수 있으며, 하나의 파라미터(λ, 람다)를 사용하여 여러 가지 변환을 일반화한 형태이다.\n\n# 랜덤 워크 데이터 생성 (여기서는 로그 변환을 보여주기 위해 양의 값으로 생성)\nnp.random.seed(452)\nn = 100\ndata = np.exp(np.random.normal(0, 1, n).cumsum())\n\n# 로그 변환\nlog_data = np.log(data)\n\n# 원본 데이터와 로그 변환 데이터 시각화\nplt.figure(figsize=(8, 6))\n\nplt.subplot(2, 1, 1)\nplt.plot(data, label='Original Data')\nplt.title('Original Data')\nplt.legend()\n\nplt.subplot(2, 1, 2)\nplt.plot(log_data, label='Log Transformed')\nplt.title('After Log Transformation')\nplt.legend()\n\nplt.tight_layout()\nplt.show()\n\n\n\n\n\nfrom scipy.stats import boxcox\n# 양의 값을 가진 임의의 데이터 생성 (ex 분산)\nnp.random.seed(42)\ndata = np.random.lognormal(mean=0.0, sigma=1.0, size=1000)\n# Box-Cox 변환 수행\ntransformed_data, best_lambda = boxcox(data)\n# 원본 데이터와 Box-Cox 변환된 데이터의 히스토그램 비교\nplt.figure(figsize=(10, 3))\nplt.subplot(1, 2, 1)\nplt.hist(data, bins=30, color='blue', alpha=0.7)\nplt.title('Original Data')\nplt.subplot(1, 2, 2)\nplt.hist(transformed_data, bins=30, color='green', alpha=0.7)\nplt.title('Box-Cox Transformed Data')\nplt.tight_layout()\nplt.show()\nprint(f\"Optimal Lambda: {best_lambda:.2f}\")\n\n\n\n\nOptimal Lambda: -0.04\n\n\n\n분해: 계절적 분해(위에서 코드 다룸) 등\n평활화: 이동평균(moving average), 지수가중 이동평균(EWMA) 등\n\n\nimport pandas as pd\n\n# 예제 데이터 생성\nnp.random.seed(42)\ndata = pd.Series(np.random.randn(100).cumsum())\n\n# 5일 이동 평균\nrolling_mean = data.rolling(window=5).mean()\n# EWMA 계산\newma = data.ewm(span=5).mean()\n\n# 원본 데이터와 이동 평균 시각화\nplt.figure(figsize=(8, 3))\nplt.plot(data, label='Original Data')\nplt.plot(rolling_mean, label='5-Day Moving Average', color='red')\nplt.plot(ewma, label='EWMA (span=5)', color='green')\nplt.legend()\nplt.show()\n\n\n\n\nARIMA에 대해서는 다음 포스트에서 다루며, AR, MA, ARMA 모형에 대해서도 다룬다."
   },
   {
     "objectID": "posts/systemic_risk/1_Systemic_Risk.html",

@@ -12,7 +12,7 @@
       "/posts/machine_learning/GRL_05_1.html",
       "/posts/machine_learning/GRL_05_2.html",
       "/posts/nlp/finance_llm_survey.html",
-      "/posts/math/probability_distribution.html",
+      "/posts/statistics/probability_distribution.html",
       "/posts/nlp/news_sentiment_index.html",
       "/posts/ml_trading/0_Introduction.html",
       "/posts/ml_trading/1_Get_Market_Data.html",
@@ -23,6 +23,8 @@
       "/posts/ml_trading/6_Trading_Rules.html",
       "/posts/ml_trading/7_Enhancing_and_Bet_Confidence.html",
       "/posts/fin_data/Fractional_difference.html",
+      "/posts/statistics/time_series/ts_02_arima.html",
+      "/posts/statistics/time_series/ts_01_intro.html",
       "/posts/systemic_risk/1_Systemic_Risk.html",
       "/posts/systemic_risk/2_Systemic_Risk_Measures.html",
       "/posts/systemic_risk/2-1_Systemic_Risk_Measures_Macro.html",
@@ -33,8 +35,7 @@
       "/posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_1.html",
       "/posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_1_2.html",
       "/posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_2.html",
-      "/posts/math/time_complexity.html",
-      "/posts/math/time_series.html"
+      "/posts/statistics/time_complexity.html"
     ]
   }
 ]
