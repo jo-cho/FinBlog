@@ -29,6 +29,20 @@ website:
         text: "홈"
       - href: listing.qmd
         text: "모든 글 보기"
+      - section: "기초통계"
+        contents:
+          - section: "확률과 통계"
+            contents:
+              - href: posts/statistics/probability_distribution.ipynb
+                text: "확률 분포"
+          - section: "시계열 분석"
+            contents:
+              - href: posts/statistics/time_series/ts_01_intro.ipynb
+                text: "1. 시계열 서론"
+              - href: posts/statistics/time_series/ts_02_arima.ipynb
+                text: "2. ARIMA 모형"
+              - href: posts/statistics/time_series/ts_03_var.ipynb
+                text: "3. 다변량 시계열"
       - section: "금융 데이터 처리"
         contents:
           - href: posts/fin_data/Fractional_difference.ipynb
