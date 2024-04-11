@@ -524,12 +524,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#예측forecasting" id="toc-예측forecasting" class="nav-link" data-scroll-target="#예측forecasting">예측(Forecasting)</a></li>
   </ul></li>
   <li><a href="#structural-varsvar" id="toc-structural-varsvar" class="nav-link" data-scroll-target="#structural-varsvar">Structural VAR(SVAR)</a></li>
-  <li><a href="#impulse-response-functionirf" id="toc-impulse-response-functionirf" class="nav-link" data-scroll-target="#impulse-response-functionirf">Impulse Response Function(IRF)</a>
-  <ul class="collapse">
-  <li><a href="#acf-pacf" id="toc-acf-pacf" class="nav-link" data-scroll-target="#acf-pacf">ACF, PACF</a></li>
-  <li><a href="#aic-bic" id="toc-aic-bic" class="nav-link" data-scroll-target="#aic-bic">AIC, BIC</a></li>
-  <li><a href="#auto-arima" id="toc-auto-arima" class="nav-link" data-scroll-target="#auto-arima">Auto ARIMA</a></li>
-  </ul></li>
+  <li><a href="#impulse-response-functionirf" id="toc-impulse-response-functionirf" class="nav-link" data-scroll-target="#impulse-response-functionirf">Impulse Response Function(IRF)</a></li>
   <li><a href="#granger-causality-테스트" id="toc-granger-causality-테스트" class="nav-link" data-scroll-target="#granger-causality-테스트">Granger Causality 테스트</a></li>
   <li><a href="#공적분cointegration" id="toc-공적분cointegration" class="nav-link" data-scroll-target="#공적분cointegration">공적분(Cointegration)</a></li>
   <li><a href="#vecm" id="toc-vecm" class="nav-link" data-scroll-target="#vecm">VECM</a></li>
@@ -588,35 +583,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><span class="math inline">\(\epsilon_t\)</span>는 오차항(white noise) 벡터</li>
 </ul>
 <p>또한, 다른 방식으로 쓰면 아래와 같다. Bivariate VAR(1)를 예로 보자.</p>
-<p>$y_t = a_1 + b_{11}y_{t-1} + b_{12}x_{t-1} + u_t $</p>
-<p>$x_t = a_2 + b_{21}y_{t-1} + b_{22}x_{t-1} + v_t $</p>
+<p><span class="math inline">\(y_t = a_1 + b_{11}y_{t-1} + b_{12}x_{t-1} + u_t\)</span></p>
+<p><span class="math inline">\(x_t = a_2 + b_{21}y_{t-1} + b_{22}x_{t-1} + v_t\)</span></p>
 <p>Matrix Representation</p>
-$
-<span class="math display">\[\begin{bmatrix}
-y_t \\
-x_t
-\end{bmatrix}\]</span>
-=
-<span class="math display">\[\begin{bmatrix}
-a_1 \\
-a_2
-\end{bmatrix}\]</span>
+<p><span class="math inline">\(\begin{bmatrix} y_t \\ x_t \end{bmatrix} = \begin{bmatrix} a_1 \\ a_2 \end{bmatrix} + \begin{bmatrix} b_{11} &amp; b_{12} \\ b_{21} &amp; b_{22} \end{bmatrix} \begin{bmatrix} y_{t-1} \\ x_{t-1} \end{bmatrix} + \begin{bmatrix} u_t \\ v_t \end{bmatrix}\)</span></p>
 <ul>
-<li><span class="math display">\[\begin{bmatrix}
-b_{11} &amp; b_{12} \\
-b_{21} &amp; b_{22}
-\end{bmatrix}
-\begin{bmatrix}
-y_{t-1} \\
-x_{t-1}
-\end{bmatrix}\]</span>
-<ul>
-<li><span class="math display">\[\begin{bmatrix}
-u_t \\
-v_t
-\end{bmatrix}\]</span>
-$</li>
-</ul></li>
 <li>다변량 분석: VAR 모형은 여러 시계열이 서로 어떻게 영향을 미치는지를 동시에 분석한다.</li>
 <li>상호 의존성: 각 변수는 다른 변수들의 과거 값에 의해 영향을 받는다.</li>
 <li>충격 반응 분석(impulse response analysis): 한 변수에 대한 충격이 시간에 따라 다른 변수에 미치는 영향을 분석한다.</li>
@@ -871,180 +842,26 @@ realint   -0.039671 -0.928779  1.000000
 <p>VAR 모델을 떠올려보자.</p>
 <p><span class="math inline">\(Y_t = A_1 Y_{t-1} + A_2 Y_{t-2} + ... + A_p Y_{t-p} + \epsilon_t\)</span></p>
 <p>IRF를 나타내는 데 있어서, 충격 <span class="math inline">\(\epsilon_t\)</span>가 시스템에 미치는 영향을 시간에 걸쳐 추적하는 것이 목적이다. 특정 시점 <span class="math inline">\(t\)</span>에서 <span class="math inline">\(i\)</span>번째 변수에 단위 충격이 가해졌을 때, 이 충격이 시스템에 미치는 영향을 시간 <span class="math inline">\(h\)</span>에 걸쳐 추적하는 IRF는 다음과 같이 표현될 수 있다: <span class="math display">\[IRF_{i,h} = \frac{\partial Y_{t+h}}{\partial \epsilon_{i,t}}\]</span></p>
-<ul>
-<li>비정상 시계열 데이터 적용 가능: 차분을 통해 비정상 시계열을 정상 시계열로 변환한 후, ARMA 모델을 적용한다.</li>
-<li>예측력: ARIMA 모델은 미래 값의 예측에 자주 사용되며, 금융, 경제, 사회 과학 등 다양한 분야에서 활용된다.</li>
-<li>모델 차수의 결정: AIC, BIC와 같은 정보 기준을 사용하여 최적의 <span class="math inline">\(p,d,q\)</span> 값을 결정한다.</li>
-</ul>
-<div class="cell" data-execution_count="140">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ARIMA 모델 적합 (여기서는 p=1, d=1, q=1로 설정)</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> ARIMA(data, order<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>model_fitted <span class="op">=</span> model.fit()</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 요약 정보 출력</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model_fitted.summary())</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 예측</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>predictions <span class="op">=</span> model_fitted.predict(start<span class="op">=</span><span class="bu">len</span>(data), end<span class="op">=</span><span class="bu">len</span>(data)<span class="op">+</span><span class="dv">10</span>, typ<span class="op">=</span><span class="st">'levels'</span>)</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">5</span>))</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>plt.plot(data, label<span class="op">=</span><span class="st">'Original Data'</span>)</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>plt.plot(np.arange(<span class="bu">len</span>(data), <span class="bu">len</span>(data)<span class="op">+</span><span class="dv">11</span>), predictions, label<span class="op">=</span><span class="st">'Predictions'</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>NameError: name 'ARIMA' is not defined</code></pre>
-</div>
-</div>
-<section id="acf-pacf" class="level2">
-<h2 class="anchored" data-anchor-id="acf-pacf">ACF, PACF</h2>
-<p>ACF, PACF에 대해서는 전 포스트에서 다루었다.</p>
-<ul>
-<li>AR 모델의 차수 결정: PACF를 살펴보아 <span class="math inline">\(p\)</span> 이후에 급격히 떨어지는 지점을 찾는다. 이 지점이 AR 모델의 추정 차수가 될 수 있다.</li>
-<li>MA 모델의 차수 결정: ACF를 살펴보아 <span class="math inline">\(q\)</span> 이후에 급격히 떨어지는 지점을 찾는다. 이 지점이 MA 모델의 추정 차수가 될 수 있다.</li>
-<li>ARIMA 모델의 차수 결정: 차분 <span class="math inline">\(d\)</span>를 적용한 후에도 비정상적인 패턴이 관찰되면, ACF와 PACF를 다시 살펴보아 AR 부분과 MA 부분의 차수를 결정한다.</li>
-</ul>
-<div class="cell" data-execution_count="51">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.graphics.tsaplots <span class="im">import</span> plot_acf, plot_pacf</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ACF 플롯</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">6</span>))</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>plot_acf(data, lags<span class="op">=</span><span class="dv">40</span>, ax<span class="op">=</span>plt.subplot(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># PACF 플롯</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>plot_pacf(data, lags<span class="op">=</span><span class="dv">40</span>, ax<span class="op">=</span>plt.subplot(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="ts_03_var_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
-</div>
-</div>
-<div class="cell" data-execution_count="52">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>diff <span class="op">=</span> data.diff(<span class="dv">1</span>).dropna()</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ACF 플롯</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">6</span>))</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>plot_acf(diff, lags<span class="op">=</span><span class="dv">40</span>, ax<span class="op">=</span>plt.subplot(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># PACF 플롯</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>plot_pacf(diff, lags<span class="op">=</span><span class="dv">40</span>, ax<span class="op">=</span>plt.subplot(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="ts_03_var_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
-</div>
-</div>
-</section>
-<section id="aic-bic" class="level2">
-<h2 class="anchored" data-anchor-id="aic-bic">AIC, BIC</h2>
-<p>AIC (Akaike Information Criterion)와 BIC (Bayesian Information Criterion)는 시계열 모델 선택에서 모델의 적합도와 복잡성 사이의 균형을 평가하는 데 널리 사용된다. 자세한 설명은 생략한다.</p>
-<div class="cell" data-execution_count="44">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tsa.arima.model <span class="im">import</span> ARIMA</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 적합</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> ARIMA(data, order<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>model_fitted <span class="op">=</span> model.fit()</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># AIC와 BIC 출력</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"AIC: </span><span class="sc">{</span>model_fitted<span class="sc">.</span>aic<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"BIC: </span><span class="sc">{</span>model_fitted<span class="sc">.</span>bic<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 적합</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> ARIMA(data, order<span class="op">=</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>model_fitted <span class="op">=</span> model.fit()</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co"># AIC와 BIC 출력</span></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"AIC: </span><span class="sc">{</span>model_fitted<span class="sc">.</span>aic<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"BIC: </span><span class="sc">{</span>model_fitted<span class="sc">.</span>bic<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>AIC: 309.0152096770903
-BIC: 316.80056922749407
-AIC: 310.78416238617626
-BIC: 323.7597616368492</code></pre>
-</div>
-</div>
-</section>
-<section id="auto-arima" class="level2">
-<h2 class="anchored" data-anchor-id="auto-arima">Auto ARIMA</h2>
-<p>auto_arima 함수는 주어진 시계열 데이터에 대해 최적의 ARIMA 모델을 자동으로 찾는다!</p>
-<div class="cell" data-execution_count="46">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pmdarima <span class="im">as</span> pm</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># auto_arima 실행</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> pm.auto_arima(data, start_p<span class="op">=</span><span class="dv">2</span>, start_q<span class="op">=</span><span class="dv">2</span>,</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                      test<span class="op">=</span><span class="st">'adf'</span>,       <span class="co"># ADF 검정을 사용하여 차분 결정</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>                      max_p<span class="op">=</span><span class="dv">5</span>, max_q<span class="op">=</span><span class="dv">5</span>, <span class="co"># 최대 p와 q 값</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>                      m<span class="op">=</span><span class="dv">1</span>,              <span class="co"># 계절성 주기, 여기서는 비계절성 시계열이므로 1</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>                      d<span class="op">=</span><span class="va">None</span>,           <span class="co"># 차분 차수, None이면 자동 결정</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>                      seasonal<span class="op">=</span><span class="va">False</span>,   <span class="co"># 계절성 모델 사용 여부</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>                      start_P<span class="op">=</span><span class="dv">1</span>, </span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>                      D<span class="op">=</span><span class="va">None</span>, </span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>                      trace<span class="op">=</span><span class="va">True</span>,       <span class="co"># 검색 과정의 정보를 출력</span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>                      error_action<span class="op">=</span><span class="st">'ignore'</span>,  </span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>                      suppress_warnings<span class="op">=</span><span class="va">True</span>, </span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>                      stepwise<span class="op">=</span><span class="va">True</span>)    <span class="co"># 단계별 검색 사용</span></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 요약 정보 출력</span></span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Performing stepwise search to minimize aic
- ARIMA(2,1,2)(0,0,0)[0] intercept   : AIC=inf, Time=0.37 sec
- ARIMA(0,1,0)(0,0,0)[0] intercept   : AIC=308.858, Time=0.02 sec
- ARIMA(1,1,0)(0,0,0)[0] intercept   : AIC=310.834, Time=0.02 sec
- ARIMA(0,1,1)(0,0,0)[0] intercept   : AIC=310.833, Time=0.03 sec
- ARIMA(0,1,0)(0,0,0)[0]             : AIC=306.972, Time=0.00 sec
- ARIMA(1,1,1)(0,0,0)[0] intercept   : AIC=312.834, Time=0.05 sec
-
-Best model:  ARIMA(0,1,0)(0,0,0)[0]          
-Total fit time: 0.485 seconds
-                               SARIMAX Results                                
-==============================================================================
-Dep. Variable:                      y   No. Observations:                  100
-Model:               SARIMAX(0, 1, 0)   Log Likelihood                -152.486
-Date:                Mon, 08 Apr 2024   AIC                            306.972
-Time:                        20:49:26   BIC                            309.567
-Sample:                             0   HQIC                           308.022
-                                - 100                                         
-Covariance Type:                  opg                                         
-==============================================================================
-                 coef    std err          z      P&gt;|z|      [0.025      0.975]
-------------------------------------------------------------------------------
-sigma2         1.2746      0.219      5.831      0.000       0.846       1.703
-===================================================================================
-Ljung-Box (L1) (Q):                   0.02   Jarque-Bera (JB):                 1.64
-Prob(Q):                              0.87   Prob(JB):                         0.44
-Heteroskedasticity (H):               0.70   Skew:                             0.01
-Prob(H) (two-sided):                  0.32   Kurtosis:                         2.37
-===================================================================================
-
-Warnings:
-[1] Covariance matrix calculated using the outer product of gradients (complex-step).</code></pre>
-</div>
-</div>
 <div class="cell" data-execution_count="163">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>irf <span class="op">=</span> model_fitted.irf(<span class="dv">20</span>) <span class="co">#var result</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>sirf <span class="op">=</span> res.irf(<span class="dv">20</span>) <span class="co">#svar result</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>impulse <span class="op">=</span> [<span class="st">'realint'</span>,<span class="st">'infl'</span>]</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> <span class="st">'realgdp'</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>irf.plot(orth<span class="op">=</span><span class="va">True</span>, response<span class="op">=</span>response, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>), plot_stderr<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>sirf.plot(response<span class="op">=</span>response, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>), plot_stderr<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>sirf.plot_cum_effects(response<span class="op">=</span>response, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>), plot_stderr<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>irf <span class="op">=</span> model_fitted.irf(<span class="dv">20</span>) <span class="co">#var result</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>sirf <span class="op">=</span> res.irf(<span class="dv">20</span>) <span class="co">#svar result</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>impulse <span class="op">=</span> [<span class="st">'realint'</span>,<span class="st">'infl'</span>]</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> <span class="st">'realgdp'</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>irf.plot(orth<span class="op">=</span><span class="va">True</span>, response<span class="op">=</span>response, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>), plot_stderr<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>sirf.plot(response<span class="op">=</span>response, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>), plot_stderr<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>sirf.plot_cum_effects(response<span class="op">=</span>response, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>), plot_stderr<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="ts_03_var_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
+<p><img src="ts_03_var_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="ts_03_var_files/figure-html/cell-11-output-2.png" class="img-fluid"></p>
+<p><img src="ts_03_var_files/figure-html/cell-6-output-2.png" class="img-fluid"></p>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="ts_03_var_files/figure-html/cell-11-output-3.png" class="img-fluid"></p>
+<p><img src="ts_03_var_files/figure-html/cell-6-output-3.png" class="img-fluid"></p>
 </div>
 </div>
 <p>단, SVAR 모델은 Structural IRF로 측정한다. 이외에도 VAR에서는 Orthogonal IRF(변수 간의 동시 상관관계를 제거한 후 측정), Generalized IRF, Local IRF, Bayesian IRF 등이 있다.</p>
-</section>
 </section>
 <section id="granger-causality-테스트" class="level1">
 <h1>Granger Causality 테스트</h1>
@@ -1053,13 +870,13 @@ Warnings:
 <li>시간 우선성(Temporal Precedence): 인과 관계를 주장하기 위해서는 원인이 되는 사건이 결과에 앞서 발생해야 한다.- 정보 증가(Information Gain): 원인으로 여겨지는 변수의 과거 값이 결과 변수의 현재 값 예측에 추가적인 정보를 제공해야 한다.</li>
 </ul>
 <p><span class="math inline">\(Y_t = \alpha_0 + \sum_{i=1}^{p} \alpha_i Y_{t-i} + \epsilon_t\)</span></p>
-<p>$Y_t = <em>0 + </em>{i=1}^{p} <em>i Y</em>{t-i} + _{j=1}^{q} <em>j X</em>{t-j} + u_t $</p>
+<p><span class="math inline">\(Y_t = \beta_0 + \sum_{i=1}^{p} \beta_i Y_{t-i} + \sum_{j=1}^{q} \gamma_j X_{t-j} + u_t\)</span></p>
 <p>그레인저 인과성 검정 절차 - 모델 설정: 두 변수 <span class="math inline">\(X\)</span>와 <span class="math inline">\(Y\)</span>에 대해, <span class="math inline">\(Y\)</span>를 예측하기 위한 두 가지 모델을 설정한다. 첫 번째 모델은 <span class="math inline">\(Y\)</span>의 과거 값만을 사용하고, 두 번째 모델은 <span class="math inline">\(Y\)</span>의 과거 값과 <span class="math inline">\(X\)</span>의 과거 값을 모두 사용한다. - 모델 추정: 두 모델을 데이터에 적합시킨다. - 통계적 검정: 두 모델의 적합도를 비교하여, <span class="math inline">\(X\)</span>의 과거 값이 <span class="math inline">\(Y\)</span>의 예측에 유의미하게 기여하는지 검정한다. 이를 위해 보통 F-통계량을 사용한다.</p>
 <div class="cell" data-execution_count="178">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> df[[<span class="st">'realgdp'</span>,<span class="st">'infl'</span>]]   </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tsa.stattools <span class="im">import</span> grangercausalitytests</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>gc_res <span class="op">=</span> grangercausalitytests(data, [<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> df[[<span class="st">'realgdp'</span>,<span class="st">'infl'</span>]]   </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tsa.stattools <span class="im">import</span> grangercausalitytests</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>gc_res <span class="op">=</span> grangercausalitytests(data, [<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Granger Causality
@@ -1085,8 +902,8 @@ parameter F test:         F=2.4878  , p=0.0330  , df_denom=183, df_num=5</code><
 </div>
 </div>
 <div class="cell" data-execution_count="177">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> df[[<span class="st">'realgdp'</span>,<span class="st">'realint'</span>]]    </span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>gc_res <span class="op">=</span> grangercausalitytests(data, [<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> df[[<span class="st">'realgdp'</span>,<span class="st">'realint'</span>]]    </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>gc_res <span class="op">=</span> grangercausalitytests(data, [<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Granger Causality
@@ -1112,8 +929,8 @@ parameter F test:         F=0.9406  , p=0.4560  , df_denom=183, df_num=5</code><
 </div>
 </div>
 <div class="cell" data-execution_count="179">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> df[[<span class="st">'infl'</span>,<span class="st">'realint'</span>]]   </span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>gc_res <span class="op">=</span> grangercausalitytests(data, [<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> df[[<span class="st">'infl'</span>,<span class="st">'realint'</span>]]   </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>gc_res <span class="op">=</span> grangercausalitytests(data, [<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Granger Causality
@@ -1147,49 +964,49 @@ parameter F test:         F=3.2191  , p=0.0082  , df_denom=183, df_num=5</code><
 <p>두 시계열 <span class="math inline">\(X_t\)</span>, <span class="math inline">\(Y_t\)</span>가 있을 때, 만약 이들이 각각 비정상이지만, 이들의 선형 조합 <span class="math inline">\(Y_t-\beta X_t = u_t\)</span>가 정상(stationary) 시계열을 이룬다면, <span class="math inline">\(X_t, Y_t\)</span>는 공적분 관계에 있다고 말한다.</p>
 <p>공적분의 존재 여부는 여러 통계적 검정을 통해 결정할 수 있으며, 가장 널리 사용되는 방법 중 하나는 <strong>Johansen 공적분 검정</strong>이다.</p>
 <div class="cell" data-execution_count="278">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>timesteps <span class="op">=</span> <span class="dv">300</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>common_trend <span class="op">=</span> np.cumsum(np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, timesteps))</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 주가 시뮬레이션</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>price1 <span class="op">=</span> <span class="dv">1000</span> <span class="op">+</span> common_trend <span class="op">+</span> np.cumsum(np.random.normal(<span class="dv">0</span>, <span class="fl">.5</span>, timesteps))  <span class="co"># 첫 번째 주가</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>price2 <span class="op">=</span> <span class="dv">1000</span> <span class="op">+</span> common_trend <span class="op">+</span> np.cumsum(np.random.normal(<span class="dv">0</span>, <span class="fl">.4</span>, timesteps))  <span class="co"># 두 번째 주가</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 잡음 추가</span></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>noise1 <span class="op">=</span> np.random.normal(<span class="dv">0</span>, <span class="fl">.1</span>, timesteps)</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>noise2 <span class="op">=</span> np.random.normal(<span class="dv">0</span>, <span class="fl">.1</span>, timesteps)</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>price1 <span class="op">+=</span> noise1</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>price2 <span class="op">+=</span> noise2</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터프레임 생성 및 시각화</span></span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>df_prices <span class="op">=</span> pd.DataFrame({<span class="st">'Price1'</span>: price1, <span class="st">'Price2'</span>: price2}, index<span class="op">=</span>pd.date_range(start<span class="op">=</span><span class="st">'2022'</span>, periods<span class="op">=</span>timesteps, freq<span class="op">=</span><span class="st">'D'</span>))</span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>df_prices.plot()</span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Simulated Price Series'</span>)</span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>timesteps <span class="op">=</span> <span class="dv">300</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>common_trend <span class="op">=</span> np.cumsum(np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, timesteps))</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 주가 시뮬레이션</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>price1 <span class="op">=</span> <span class="dv">1000</span> <span class="op">+</span> common_trend <span class="op">+</span> np.cumsum(np.random.normal(<span class="dv">0</span>, <span class="fl">.5</span>, timesteps))  <span class="co"># 첫 번째 주가</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>price2 <span class="op">=</span> <span class="dv">1000</span> <span class="op">+</span> common_trend <span class="op">+</span> np.cumsum(np.random.normal(<span class="dv">0</span>, <span class="fl">.4</span>, timesteps))  <span class="co"># 두 번째 주가</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 잡음 추가</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>noise1 <span class="op">=</span> np.random.normal(<span class="dv">0</span>, <span class="fl">.1</span>, timesteps)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>noise2 <span class="op">=</span> np.random.normal(<span class="dv">0</span>, <span class="fl">.1</span>, timesteps)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>price1 <span class="op">+=</span> noise1</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>price2 <span class="op">+=</span> noise2</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터프레임 생성 및 시각화</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>df_prices <span class="op">=</span> pd.DataFrame({<span class="st">'Price1'</span>: price1, <span class="st">'Price2'</span>: price2}, index<span class="op">=</span>pd.date_range(start<span class="op">=</span><span class="st">'2022'</span>, periods<span class="op">=</span>timesteps, freq<span class="op">=</span><span class="st">'D'</span>))</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>df_prices.plot()</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Simulated Price Series'</span>)</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="ts_03_var_files/figure-html/cell-15-output-1.png" class="img-fluid"></p>
+<p><img src="ts_03_var_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="cell" data-execution_count="279">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>diff <span class="op">=</span> df_prices[<span class="st">'Price1'</span>] <span class="op">-</span> df_prices[<span class="st">'Price2'</span>]</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>diff.plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>diff <span class="op">=</span> df_prices[<span class="st">'Price1'</span>] <span class="op">-</span> df_prices[<span class="st">'Price2'</span>]</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>diff.plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="279">
 <pre><code>&lt;Axes: &gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="ts_03_var_files/figure-html/cell-16-output-2.png" class="img-fluid"></p>
+<p><img src="ts_03_var_files/figure-html/cell-11-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="cell" data-execution_count="281">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tsa.vector_ar.vecm <span class="im">import</span> coint_johansen</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Johansen 공적분 검정 수행</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> coint_johansen(df_prices, det_order<span class="op">=</span><span class="dv">0</span>, k_ar_diff<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 검정 결과 출력</span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"검정 통계량 (Trace Statistic): </span><span class="sc">{</span>result<span class="sc">.</span>lr1<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"임계값 (Critical Values, 90%, 95%, 99%): </span><span class="sc">{</span>result<span class="sc">.</span>cvt<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"검정 통계량 (Max-Eigen Statistic): </span><span class="sc">{</span>result<span class="sc">.</span>lr2<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"임계값 (Critical Values, 90%, 95%, 99%): </span><span class="sc">{</span>result<span class="sc">.</span>cvm<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tsa.vector_ar.vecm <span class="im">import</span> coint_johansen</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Johansen 공적분 검정 수행</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> coint_johansen(df_prices, det_order<span class="op">=</span><span class="dv">0</span>, k_ar_diff<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 검정 결과 출력</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"검정 통계량 (Trace Statistic): </span><span class="sc">{</span>result<span class="sc">.</span>lr1<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"임계값 (Critical Values, 90%, 95%, 99%): </span><span class="sc">{</span>result<span class="sc">.</span>cvt<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"검정 통계량 (Max-Eigen Statistic): </span><span class="sc">{</span>result<span class="sc">.</span>lr2<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"임계값 (Critical Values, 90%, 95%, 99%): </span><span class="sc">{</span>result<span class="sc">.</span>cvm<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>검정 통계량 (Trace Statistic): [5.65405425 0.25595553]
 임계값 (Critical Values, 90%, 95%, 99%): [[13.4294 15.4943 19.9349]
@@ -1222,14 +1039,14 @@ parameter F test:         F=3.2191  , p=0.0082  , df_denom=183, df_num=5</code><
 <li><p>모델 진단: 잔차의 정상성, 자기상관 등을 검토하여 모델의 적합성을 평가</p></li>
 </ul>
 <div class="cell" data-execution_count="181">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tsa.vector_ar.vecm <span class="im">import</span> VECM</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># VECM 모델 적합</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>vecm <span class="op">=</span> VECM(df, coint_rank<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>vecm_fit <span class="op">=</span> vecm.fit()</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 결과 요약 출력</span></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(vecm_fit.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tsa.vector_ar.vecm <span class="im">import</span> VECM</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># VECM 모델 적합</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>vecm <span class="op">=</span> VECM(df, coint_rank<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>vecm_fit <span class="op">=</span> vecm.fit()</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 결과 요약 출력</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(vecm_fit.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Det. terms outside the coint. relation &amp; lagged endog. parameters for equation realgdp
 ==============================================================================
