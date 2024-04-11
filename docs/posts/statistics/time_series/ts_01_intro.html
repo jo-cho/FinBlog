@@ -223,13 +223,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../posts/statistics/time_series/ts_02_arima.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">2. ARIMA 모형</span></a>
+ <span class="menu-text">2. 선형 모형</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/statistics/time_series/ts_03_var.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/statistics/time_series/ts_03_multivariate.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3. 다변량 시계열</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../posts/statistics/time_series/ts_04_volatility.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. 시계열 변동성</span></a>
   </div>
 </li>
       </ul>
@@ -566,7 +572,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <blockquote class="blockquote">
-<p>시계열 분석을 정리하고자 한다. 시계열 데이터의 특징에 대해 알아보자.</p>
+<p>시계열 분석을 정리하고자 한다. 시계열 데이터의 특징(자기상관, 정상성 등)에 대해 알아보자.</p>
 </blockquote>
 <p>일반적으로 변수 <span class="math inline">\(x\)</span>에 대한 시계열은 <span class="math inline">\(x_t\)</span>로 표시되며, 여기서 <span class="math inline">\(t\)</span>는 시간을 나타낸다. 전체 시간 집합 <span class="math inline">\(t=1,2, ..., T\)</span>는 관찰 기간이며, 관측치는 일반적으로 동일한 간격(예: 분, 시간 또는 일 등)으로 측정된다.</p>
 <div class="cell" data-execution_count="21">
@@ -1311,7 +1317,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="../../../posts/statistics/time_series/ts_02_arima.html" class="pagination-link">
-        <span class="nav-page-text">2. ARIMA 모형</span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text">2. 선형 모형</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

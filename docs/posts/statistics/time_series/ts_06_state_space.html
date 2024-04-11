@@ -8,7 +8,7 @@
 
 <meta name="author" content="Cheonghyo Cho">
 
-<title>Cho’s FinBlog - 시스템 리스크 분석: (1) 시스템 리스크 개념</title>
+<title>Cho’s FinBlog - 시계열 - 상태 공간 모델</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,24 +24,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<link href="../../posts/systemic_risk/2_Systemic_Risk_Measures.html" rel="next">
-<link href="../../posts/ml_trading/7_Enhancing_and_Bet_Confidence.html" rel="prev">
-<link href="../../logo.png" rel="icon" type="image/png">
-<script src="../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../logo.png" rel="icon" type="image/png">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -65,7 +63,7 @@ ul.task-list li input[type="checkbox"] {
 <style>html{ scroll-behavior: smooth; }</style>
 
 
-<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../../../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed">
@@ -75,7 +73,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">Cho’s FinBlog</span>
     </a>
   </div>
@@ -86,7 +84,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html" rel="" target="">
+    <a class="nav-link" href="../../../about.html" rel="" target="">
  <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -117,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../posts/systemic_risk/1_Systemic_Risk.html">시스템 리스크 분석</a></li><li class="breadcrumb-item"><a href="../../posts/systemic_risk/1_Systemic_Risk.html">시스템 리스크 개념</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">시계열 - 상태 공간 모델</li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -133,13 +131,13 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">홈</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../listing.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../listing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">모든 글 보기</span></a>
   </div>
 </li>
@@ -163,7 +161,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/statistics/probability_distribution.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/statistics/probability_distribution.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">확률 분포</span></a>
   </div>
 </li>
@@ -180,25 +178,25 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/statistics/time_series/ts_01_intro.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/statistics/time_series/ts_01_intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1. 시계열 서론</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/statistics/time_series/ts_02_arima.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/statistics/time_series/ts_02_arima.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2. 선형 모형</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/statistics/time_series/ts_03_multivariate.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/statistics/time_series/ts_03_multivariate.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3. 다변량 시계열</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/statistics/time_series/ts_04_volatility.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/statistics/time_series/ts_04_volatility.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">4. 시계열 변동성</span></a>
   </div>
 </li>
@@ -217,7 +215,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/fin_data/Fractional_difference.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/fin_data/Fractional_difference.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">분수 차분</span></a>
   </div>
 </li>
@@ -234,49 +232,49 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/ml_trading/0_Introduction.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/ml_trading/0_Introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1. 트레이딩 개요</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/ml_trading/1_Get_Market_Data.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/ml_trading/1_Get_Market_Data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2. 시장 데이터 수집</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/ml_trading/2_Labeling.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/ml_trading/2_Labeling.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3. 가격 모멘텀 라벨링</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/ml_trading/3_Get_Features.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/ml_trading/3_Get_Features.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">4. 피쳐 생성</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/ml_trading/4_Feature_Selection.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/ml_trading/4_Feature_Selection.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">5. 피쳐 선정</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/ml_trading/5_Get_Trading_Signals.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/ml_trading/5_Get_Trading_Signals.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">6. 매매 시그널 분류</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/ml_trading/6_Trading_Rules.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/ml_trading/6_Trading_Rules.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">7. 매매 규칙</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/ml_trading/7_Enhancing_and_Bet_Confidence.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/ml_trading/7_Enhancing_and_Bet_Confidence.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">8. 매매 신뢰도 측정과 전략 강화</span></a>
   </div>
 </li>
@@ -284,16 +282,16 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
  <span class="menu-text">시스템 리스크 분석</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/1_Systemic_Risk.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../../posts/systemic_risk/1_Systemic_Risk.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">시스템 리스크 개념</span></a>
   </div>
 </li>
@@ -308,37 +306,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/2_Systemic_Risk_Measures.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/systemic_risk/2_Systemic_Risk_Measures.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">선행연구 요약</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/2-1_Systemic_Risk_Measures_Macro.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/systemic_risk/2-1_Systemic_Risk_Measures_Macro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">선행연구 (거시경제)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/2-2_Systemic_Risk_Measures_Market.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/systemic_risk/2-2_Systemic_Risk_Measures_Market.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">선행연구 (시장위험)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">선행연구 (금융기관 위험)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/2-4_Systemic_Risk_Measures_Probability_of_Default.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/systemic_risk/2-4_Systemic_Risk_Measures_Probability_of_Default.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">선행연구 (부도확률모형 위험)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/2-5_Systemic_Risk_Measures_Network.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/systemic_risk/2-5_Systemic_Risk_Measures_Network.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">선행연구 (네트워크)</span></a>
   </div>
 </li>
@@ -355,19 +353,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_1.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">선행연구1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_1_2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_1_2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">선행연구2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">향후 연구 방향</span></a>
   </div>
 </li>
@@ -395,49 +393,49 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/machine_learning/GRL_01.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/machine_learning/GRL_01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1. 들어가며</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/machine_learning/GRL_02_1.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/machine_learning/GRL_02_1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2-1. 그래프 통계량과 커널</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/machine_learning/GRL_02_2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/machine_learning/GRL_02_2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2-2. 이웃중복 감지</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/machine_learning/GRL_02_3.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/machine_learning/GRL_02_3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2-3. 라플라시안과 스펙트럼</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/machine_learning/GRL_03_1.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/machine_learning/GRL_03_1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3-1. 인코더-디코더</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/machine_learning/GRL_03_2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/machine_learning/GRL_03_2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3-2. 랜덤워크 임베딩</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/machine_learning/GRL_04_1.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/machine_learning/GRL_04_1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">4. 다중관계 데이터</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/machine_learning/GRL_05_1.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/machine_learning/GRL_05_1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">5-1. 신경망 메시지 전달</span></a>
   </div>
 </li>
@@ -465,13 +463,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/nlp/finance_llm_survey.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/nlp/finance_llm_survey.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">금융분야의 LLM (2023)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/nlp/news_sentiment_index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/nlp/news_sentiment_index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">뉴스심리지수(NSI) - 한국은행</span></a>
   </div>
 </li>
@@ -485,27 +483,18 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">목차</h2>
-   
-  <ul>
-  <li><a href="#시스템-리스크" id="toc-시스템-리스크" class="nav-link active" data-scroll-target="#시스템-리스크">시스템 리스크</a></li>
-  <li><a href="#시스템-리스크의-특징" id="toc-시스템-리스크의-특징" class="nav-link" data-scroll-target="#시스템-리스크의-특징">시스템 리스크의 특징</a></li>
-  <li><a href="#시스템-리스크-요인" id="toc-시스템-리스크-요인" class="nav-link" data-scroll-target="#시스템-리스크-요인">시스템 리스크 요인</a></li>
-  <li><a href="#참고-문헌" id="toc-참고-문헌" class="nav-link" data-scroll-target="#참고-문헌">참고 문헌</a></li>
-  </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">시스템 리스크 분석: (1) 시스템 리스크 개념</h1>
-<p class="subtitle lead">Systemic Risk</p>
+<h1 class="title">시계열 - 상태 공간 모델</h1>
+<p class="subtitle lead">Time Series - State Space Models</p>
   <div class="quarto-categories">
-    <div class="quarto-category">systemic risk</div>
-    <div class="quarto-category">risk</div>
+    <div class="quarto-category">time series</div>
+    <div class="quarto-category">Kalman filter</div>
   </div>
   </div>
 
@@ -527,77 +516,11 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="시스템-리스크" class="level1">
-<h1>시스템 리스크</h1>
 <blockquote class="blockquote">
-<p><strong>시스템 리스크 (systemic risk):</strong> 금융중개기능이 원활히 작동하지 못하여 경제성장과 사회후생에 심각하게 손상을 줄 정도의 심각한 금융불안정을 지칭하는 시스템적 사건이 발생할 위험 - 유럽중앙은행(ECB(2010))</p>
+<p>시계열 분석을 정리하고자 한다. 시계열의 상태공간 모델링에 대해 알아보자.</p>
 </blockquote>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="1_Systemic_Risk_files/figure-html/d44e2590-1-systemic_risk.jpg" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Systemic_Risk</figcaption>
-</figure>
-</div>
-<p>금융에서 시스템리스크는 <strong>금융시스템 또는 한 지역·국가의 전체 시장, 나아가 글로벌 시장의 붕괴</strong>로 이어지는 위기를 말한다. <strong>2008년 글로벌 금융위기</strong>의 강력한 파괴력과 거대한 연쇄반응은 금융안정과 관련하여 시스템리스크의 중요성을 인식하게 했다.</p>
-<p>전통적인 금융 리스크와 다른 가장 중요한 특징은 “<strong>내부 및 외부 요인의 지속적인 반응으로 인해 전체 금융 시스템에 걸친 위험 전이 및 시스템 장애의 문제</strong>”이다. 따라서 시스템 리스크에 따른 결과는 “계단식” 실패로 이어지고 금융 시스템의 개인에게 영향을 미쳐 은행 시스템이 유동성 문제와 지불 불가 상태가 된다. 즉, 시스템 금융 리스크는 <strong>글로벌 또는 지역 금융 시스템의 유동성 위험을 유발하는 연쇄적 위기</strong>로 설명될 수 있다(Silva, Kimura, &amp; Sobreiro, 2017).</p>
-<p>지난 10년이 넘는 기간 동안 금융 생태계의 연구, 금융 감독, 국경 간 자본 흐름 모니터링 등 시스템적 금융 위험에 초점을 맞춘 많은 양의 연구가 있었다. 그러나 현대 금융은 이미 광범위하고 상호 연결된 네트워크를 갖춘 상호의존적 시스템으로 구성되어 있으며, 이는 점점 더 글로벌해지는 사회의 특성을 따르고 있다.</p>
-<p>따라서 현행 금융의 시스템 리스크에 대응하기 위해서는 비정상적인 위험행위를 <strong>자동으로 탐지하고 금융시장의 대규모 금융데이터를 신속하게 처리</strong>함으로써 <strong>정보기술(IT) 기법</strong>을 활용하여 위험 단서와 목적을 신속하게 파악하고 발견할 수 있는 새로운 도구가 개발되어야 한다. <strong>지능적이고 자동화된 기계 학습 방법</strong>은 위험 성향과 함께 점점 더 복잡해지는 금융 네트워크, 금융 거래의 빅데이터, 시장 정서 등으로 인한 시스템 위험을 평가하고 탐지하는 도구가 될 수 있다.</p>
-</section>
-<section id="시스템-리스크의-특징" class="level1">
-<h1>시스템 리스크의 특징</h1>
-<p>시스템 리스크의 특징을 설명한 선행연구</p>
-<ul>
-<li><p>Cifuentes(2003): 금융시스템에 집중도(concentration)가 높아질수록 충격이 금융기관들 간에 신속하게 잘 전파되어 시스템 리스크가 높아진다고 주장</p></li>
-<li><p>De Nicolo et al.(2012): 미시적 금융불안정이 시스템리스크로 확산되는 과정에서 부의 외부성(negative externalities)이 중요한 역할을 한다고 강조</p></li>
-<li><p>BIS(2010): 시스템리스크를 특정 시점을 기준으로 위험도가 금융시스템에 어떤 모습으로 분포되어 있는지에 주목하는 횡단면 위험과 시스템리스크가 시간에 따라 증가하는지 여부에 주목하는 시계열적 위험으로 구분</p>
-<ul>
-<li>소수의 대형 금융기관에 위험이 집중되거나 금융기관들 간에 상호 연계성이 강할수록 시스템리스크는 커짐(횡단면 위험)</li>
-<li>경기호황기의 지나친 신용을 공급은 경기불황기에 나타날 수 있는 금융불안정을 더 심화시킴(시계열적 위험)</li>
-</ul></li>
-</ul>
-</section>
-<section id="시스템-리스크-요인" class="level1">
-<h1>시스템 리스크 요인</h1>
-<p>시스템 리스크를 축적시키는 요인</p>
-<ul>
-<li><p><strong>투자자, 금융기관의 집단적 협조실패(coordination failure)</strong>: 은행예금인출 쇄도(bank run), 자산 급매도(asset fire-sale)</p></li>
-<li><p><strong>정보 요인</strong>: 근시안적 행동(myopia), 정보의 비대칭성, 지나친 위험추구 성향</p></li>
-<li><p><strong>유인체계</strong>: 금융기관의 도덕적 해이, 단기 위험 추구 성향을 부추기는 보상체계</p></li>
-<li><p><strong>규제 및 감독체계 오류</strong>: 그림자 금융(shadow banking), 규제자본의 경기순응성</p></li>
-</ul>
-<p>시스템 리스크를 촉발시키는 요인</p>
-<ul>
-<li><p>금융시스템의 외부(exogenous) 또는 내부(endogenous) <strong>충격(shock)</strong></p></li>
-<li><p>신용위험이나 유동성 위험과 같은 <strong>미시적 성격의 충격</strong> 또는 공통요인의 발현과 같은 <strong>거시적 충격</strong></p></li>
-<li><p>소수의 <strong>대형 금융기관의 도산</strong> 또는 소규모이지만 <strong>다수의 금융기관들이 한꺼번에 도산</strong>하는 형태</p></li>
-</ul>
-<p>시스템 리스크의 전염과 확산</p>
-<ul>
-<li><p>금융기관들 간의 다양한 형태의 부내(balance sheet) 또는 부외(off-balance sheet) <strong>직접적 거래관계</strong></p></li>
-<li><p><strong>정보 경로</strong>: 자산급매도, 쏠림현상(herding), 비이성적 행동 등</p></li>
-<li><p>금융기관들의 <strong>투자나 위험관리 측면에서의 유사성</strong></p></li>
-<li><p><strong>해외은행의 큰 비중</strong> (해외의 외생적 충격)</p></li>
-<li><p>금융시스템의 <strong>구조적 취약성(structural vulnerabilities)</strong></p>
-<ul>
-<li>높은 단기자금조달 의존도</li>
-<li>노출 위험의 높은 유사성</li>
-<li>중앙청산체계가 마련되어 있지 않은 장외거래 시장에 대한 높은 의존도</li>
-<li>큰 비중을 차지하는 그림자 금융</li>
-<li>높은 경기순응성을 보이는 신용공급</li>
-<li>금융기관의 심각한 만기 및 통화의 불일치</li>
-</ul></li>
-</ul>
-</section>
-<section id="참고-문헌" class="level1">
-<h1>참고 문헌</h1>
-<ul>
-<li><p>Kou, G., Chao, X., Peng, Y., Alsaadi, F. E., &amp; Herrera-Viedma, E. (2019). Machine learning methods for systemic risk analysis in financial sectors. Technological and Economic Development of Economy, 25(5), 716-742.</p></li>
-<li><p>Siegmann, A. (2017). Policy Lessons from Systemic Risk Modeling and Measurement. In Systemic Risk Tomography (pp.&nbsp;239-273). Elsevier.</p></li>
-<li><p>서상원. (2018). 시스템리스크의 측정과 관리: 서베이와 제언. 금융안정연구, 19(1), 131-232.</p></li>
-</ul>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -835,21 +758,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <script src="https://giscus.app/client.js" data-repo="jo-cho/FinBlog" data-repo-id="R_kgDOJQ80aw" data-category="General" data-category-id="DIC_kwDOJQ80a84CVb8i" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../../posts/ml_trading/7_Enhancing_and_Bet_Confidence.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">8. 매매 신뢰도 측정과 전략 강화</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../../posts/systemic_risk/2_Systemic_Risk_Measures.html" class="pagination-link">
-        <span class="nav-page-text">선행연구 요약</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 
 
 
-<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></div></div></footer><script src="../../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

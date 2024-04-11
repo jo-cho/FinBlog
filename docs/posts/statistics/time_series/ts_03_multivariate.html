@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
-<link href="../../../posts/fin_data/Fractional_difference.html" rel="next">
+<link href="../../../posts/statistics/time_series/ts_04_volatility.html" rel="next">
 <link href="../../../posts/statistics/time_series/ts_02_arima.html" rel="prev">
 <link href="../../../logo.png" rel="icon" type="image/png">
 <script src="../../../site_libs/quarto-html/quarto.js"></script>
@@ -153,7 +153,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">기초통계</li><li class="breadcrumb-item"><a href="../../../posts/statistics/time_series/ts_01_intro.html">시계열 분석</a></li><li class="breadcrumb-item"><a href="../../../posts/statistics/time_series/ts_03_var.html">3. 다변량 시계열</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">기초통계</li><li class="breadcrumb-item"><a href="../../../posts/statistics/time_series/ts_01_intro.html">시계열 분석</a></li><li class="breadcrumb-item"><a href="../../../posts/statistics/time_series/ts_03_multivariate.html">3. 다변량 시계열</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -223,13 +223,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../posts/statistics/time_series/ts_02_arima.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">2. ARIMA 모형</span></a>
+ <span class="menu-text">2. 선형 모형</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/statistics/time_series/ts_03_var.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../../posts/statistics/time_series/ts_03_multivariate.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">3. 다변량 시계열</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../posts/statistics/time_series/ts_04_volatility.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. 시계열 변동성</span></a>
   </div>
 </li>
       </ul>
@@ -528,6 +534,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#granger-causality-테스트" id="toc-granger-causality-테스트" class="nav-link" data-scroll-target="#granger-causality-테스트">Granger Causality 테스트</a></li>
   <li><a href="#공적분cointegration" id="toc-공적분cointegration" class="nav-link" data-scroll-target="#공적분cointegration">공적분(Cointegration)</a></li>
   <li><a href="#vecm" id="toc-vecm" class="nav-link" data-scroll-target="#vecm">VECM</a></li>
+  <li><a href="#dtwdynamic-time-warping" id="toc-dtwdynamic-time-warping" class="nav-link" data-scroll-target="#dtwdynamic-time-warping">DTW(Dynamic Time Warping)</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -541,11 +548,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="quarto-categories">
     <div class="quarto-category">time series</div>
     <div class="quarto-category">VAR</div>
-    <div class="quarto-category">VECM</div>
-    <div class="quarto-category">SVAR</div>
     <div class="quarto-category">granger causality</div>
     <div class="quarto-category">impulse response</div>
-    <div class="quarto-category">cointegration</div>
+    <div class="quarto-category">DTW</div>
   </div>
   </div>
 
@@ -593,7 +598,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>충격 반응 분석(impulse response analysis): 한 변수에 대한 충격이 시간에 따라 다른 변수에 미치는 영향을 분석한다.</li>
 <li>분산 분해(variance decomposition): 시계열 변동성이 다른 변수의 충격에 의해 얼마나 설명되는지 분석한다.</li>
 </ul>
-<div class="cell" data-execution_count="161">
+<div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tsa.api <span class="im">import</span> VAR</span>
@@ -614,73 +619,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 성능 확인</span></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>model_fitted.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="161">
-<pre><code>  Summary of Regression Results   
-==================================
-Model:                         VAR
-Method:                        OLS
-Date:           Tue, 09, Apr, 2024
-Time:                     17:02:32
---------------------------------------------------------------------
-No. of Equations:         3.00000    BIC:                    1.62001
-Nobs:                     196.000    HQIC:                   1.32139
-Log likelihood:          -913.925    FPE:                    3.06032
-AIC:                      1.11826    Det(Omega_mle):         2.63593
---------------------------------------------------------------------
-Results for equation realgdp
-=============================================================================
-                coefficient       std. error           t-stat            prob
------------------------------------------------------------------------------
-const              1.041322         0.212434            4.902           0.000
-L1.realgdp         1.099091         0.073084           15.039           0.000
-L1.infl            0.232696         0.088422            2.632           0.008
-L1.realint         0.287157         0.095401            3.010           0.003
-L2.realgdp        -0.087680         0.107132           -0.818           0.413
-L2.infl           -0.412487         0.119789           -3.443           0.001
-L2.realint        -0.443348         0.125784           -3.525           0.000
-L3.realgdp        -0.254576         0.069629           -3.656           0.000
-L3.infl            0.111264         0.090740            1.226           0.220
-L3.realint         0.166993         0.094135            1.774           0.076
-=============================================================================
-
-Results for equation infl
-=============================================================================
-                coefficient       std. error           t-stat            prob
------------------------------------------------------------------------------
-const              0.187369         0.476189            0.393           0.694
-L1.realgdp         0.229654         0.163823            1.402           0.161
-L1.infl            0.792730         0.198207            4.000           0.000
-L1.realint         0.515905         0.213849            2.412           0.016
-L2.realgdp        -0.464209         0.240146           -1.933           0.053
-L2.infl           -0.271777         0.268518           -1.012           0.311
-L2.realint        -0.503479         0.281957           -1.786           0.074
-L3.realgdp         0.380054         0.156079            2.435           0.015
-L3.infl            0.306558         0.203402            1.507           0.132
-L3.realint         0.021393         0.211012            0.101           0.919
-=============================================================================
-
-Results for equation realint
-=============================================================================
-                coefficient       std. error           t-stat            prob
------------------------------------------------------------------------------
-const             -0.346976         0.442661           -0.784           0.433
-L1.realgdp        -0.188259         0.152289           -1.236           0.216
-L1.infl            0.159346         0.184251            0.865           0.387
-L1.realint         0.447051         0.198792            2.249           0.025
-L2.realgdp         0.581275         0.223238            2.604           0.009
-L2.infl            0.041864         0.249612            0.168           0.867
-L2.realint         0.220401         0.262105            0.841           0.400
-L3.realgdp        -0.444055         0.145090           -3.061           0.002
-L3.infl           -0.032670         0.189081           -0.173           0.863
-L3.realint         0.195516         0.196155            0.997           0.319
-=============================================================================
-
-Correlation matrix of residuals
-            realgdp      infl   realint
-realgdp    1.000000  0.150341 -0.039671
-infl       0.150341  1.000000 -0.928779
-realint   -0.039671 -0.928779  1.000000
-</code></pre>
+<div class="cell-output cell-output-error">
+<pre><code>AttributeError: module 'statsmodels' has no attribute 'datasets'</code></pre>
 </div>
 </div>
 <section id="예측forecasting" class="level2">
@@ -717,7 +657,7 @@ realint   -0.039671 -0.928779  1.000000
 203    4.502618  1.934530   -1.158138</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="ts_03_var_files/figure-html/cell-3-output-2.png" class="img-fluid"></p>
+<p><img src="ts_03_multivariate_files/figure-html/cell-3-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
@@ -852,13 +792,13 @@ realint   -0.039671 -0.928779  1.000000
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>sirf.plot_cum_effects(response<span class="op">=</span>response, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>), plot_stderr<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="ts_03_var_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
+<p><img src="ts_03_multivariate_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="ts_03_var_files/figure-html/cell-6-output-2.png" class="img-fluid"></p>
+<p><img src="ts_03_multivariate_files/figure-html/cell-6-output-2.png" class="img-fluid"></p>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="ts_03_var_files/figure-html/cell-6-output-3.png" class="img-fluid"></p>
+<p><img src="ts_03_multivariate_files/figure-html/cell-6-output-3.png" class="img-fluid"></p>
 </div>
 </div>
 <p>단, SVAR 모델은 Structural IRF로 측정한다. 이외에도 VAR에서는 Orthogonal IRF(변수 간의 동시 상관관계를 제거한 후 측정), Generalized IRF, Local IRF, Bayesian IRF 등이 있다.</p>
@@ -983,7 +923,7 @@ parameter F test:         F=3.2191  , p=0.0082  , df_denom=183, df_num=5</code><
 <span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Simulated Price Series'</span>)</span>
 <span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="ts_03_var_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
+<p><img src="ts_03_multivariate_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="cell" data-execution_count="279">
@@ -993,7 +933,7 @@ parameter F test:         F=3.2191  , p=0.0082  , df_denom=183, df_num=5</code><
 <pre><code>&lt;Axes: &gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="ts_03_var_files/figure-html/cell-11-output-2.png" class="img-fluid"></p>
+<p><img src="ts_03_multivariate_files/figure-html/cell-11-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="cell" data-execution_count="281">
@@ -1092,6 +1032,32 @@ beta.1         1.0000          0          0      0.000       1.000       1.000
 beta.2        -0.0151      0.132     -0.115      0.909      -0.273       0.243
 beta.3        -1.7533      0.244     -7.186      0.000      -2.232      -1.275
 ==============================================================================</code></pre>
+</div>
+</div>
+</section>
+<section id="dtwdynamic-time-warping" class="level1">
+<h1>DTW(Dynamic Time Warping)</h1>
+<p>동적 시간 왜곡(Dynamic Time Warping, DTW)은 두 시계열 데이터 간의 유사도를 측정하는 방법으로, 두 데이터 사이의 시간 축을 동적으로 매핑하여 최소 거리(또는 최대 유사도)를 찾아내는 기법이다. DTW는 시계열 데이터가 서로 다른 속도로 발생하거나 패턴이 시간 축에서 늘어나거나 줄어들 수 있는 경우에 유용하게 사용된다.</p>
+<ul>
+<li><p>거리 행렬 생성: 두 시계열 사이의 거리(또는 유사도) 행렬을 생성한다. 이 행렬의 각 원소 <span class="math inline">\(D(i,j)\)</span>는 시계열 <span class="math inline">\(X\)</span>의 <span class="math inline">\(i\)</span>번째 요소와 시계열 <span class="math inline">\(Y\)</span>의 <span class="math inline">\(j\)</span>번째 요소 사이의 거리(일반적으로 유클리드 거리)를 나타낸다.</p></li>
+<li><p>누적 거리 계산: 각 셀을 현재 셀의 거리와 이전 셀들의 누적 거리 합의 최소값으로 업데이트하며 누적 거리 행렬을 계산한다. 이는 시작점에서 현재 셀에 이르기까지의 최소 거리 경로를 찾기 위한 과정이다.</p></li>
+<li><p>최적 경로 찾기: 누적 거리 행렬의 마지막 셀에서 시작하여, 시작 셀로 되돌아가는 최적 경로(즉, 최소 누적 거리를 가지는 경로)를 역추적한다. 이 경로는 두 시계열 사이의 최소 거리 매핑을 나타낸다.</p></li>
+</ul>
+<p><span class="math display">\[D(i,j)=d(x_i,y_j)+\min\{D(i-1,j-1),D(i-1,j),D(i,j-1)\}\]</span></p>
+<div class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> dtw</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> np.arange(<span class="dv">100</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>ts_a <span class="op">=</span> np.sin(time <span class="op">/</span> <span class="dv">8</span>) <span class="op">+</span> np.random.normal(scale<span class="op">=</span><span class="fl">0.2</span>, size<span class="op">=</span><span class="dv">100</span>)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>ts_b <span class="op">=</span> np.sin(time <span class="op">/</span> <span class="dv">8</span>) <span class="op">+</span> np.random.normal(scale<span class="op">=</span><span class="fl">0.2</span>, size<span class="op">=</span><span class="dv">100</span>) <span class="op">+</span> <span class="fl">0.3</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>dtw.dtw(ts_a, ts_b, keep_internals<span class="op">=</span><span class="va">True</span>).plot(<span class="bu">type</span><span class="op">=</span><span class="st">"twoway"</span>)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>dtw.dtw(ts_a, ts_b, keep_internals<span class="op">=</span><span class="va">True</span>).distance</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="39">
+<pre><code>20.461779219147516</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="ts_03_multivariate_files/figure-html/cell-14-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 
@@ -1337,12 +1303,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../../../posts/statistics/time_series/ts_02_arima.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">2. ARIMA 모형</span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">2. 선형 모형</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../posts/fin_data/Fractional_difference.html" class="pagination-link">
-        <span class="nav-page-text">분수 차분</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../../posts/statistics/time_series/ts_04_volatility.html" class="pagination-link">
+        <span class="nav-page-text">4. 시계열 변동성</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

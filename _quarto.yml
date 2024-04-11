@@ -40,9 +40,11 @@ website:
               - href: posts/statistics/time_series/ts_01_intro.ipynb
                 text: "1. 시계열 서론"
               - href: posts/statistics/time_series/ts_02_arima.ipynb
-                text: "2. ARIMA 모형"
-              - href: posts/statistics/time_series/ts_03_var.ipynb
+                text: "2. 선형 모형"
+              - href: posts/statistics/time_series/ts_03_multivariate.ipynb
                 text: "3. 다변량 시계열"
+              - href: posts/statistics/time_series/ts_04_volatility.ipynb
+                text: "4. 시계열 변동성"
       - section: "금융 데이터 처리"
         contents:
           - href: posts/fin_data/Fractional_difference.ipynb

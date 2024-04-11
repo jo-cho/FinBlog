@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,6 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
+<link href="../../../posts/fin_data/Fractional_difference.html" rel="next">
+<link href="../../../posts/statistics/time_series/ts_03_multivariate.html" rel="prev">
 <link href="../../../logo.png" rel="icon" type="image/png">
 <script src="../../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../../site_libs/quarto-html/popper.min.js"></script>
@@ -62,6 +98,8 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../../../styles.css">
 </head>
@@ -115,7 +153,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">시계열 - 변동성</li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">기초통계</li><li class="breadcrumb-item"><a href="../../../posts/statistics/time_series/ts_01_intro.html">시계열 분석</a></li><li class="breadcrumb-item"><a href="../../../posts/statistics/time_series/ts_04_volatility.html">4. 시계열 변동성</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -143,13 +181,13 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
  <span class="menu-text">기초통계</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
@@ -169,13 +207,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
  <span class="menu-text">시계열 분석</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../posts/statistics/time_series/ts_01_intro.html" class="sidebar-item-text sidebar-link">
@@ -185,13 +223,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../posts/statistics/time_series/ts_02_arima.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">2. ARIMA 모형</span></a>
+ <span class="menu-text">2. 선형 모형</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/statistics/time_series/ts_03_var.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/statistics/time_series/ts_03_multivariate.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3. 다변량 시계열</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../posts/statistics/time_series/ts_04_volatility.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">4. 시계열 변동성</span></a>
   </div>
 </li>
       </ul>
@@ -481,14 +525,29 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">목차</h2>
    
   <ul>
-  <li><a href="#변동성" id="toc-변동성" class="nav-link active" data-scroll-target="#변동성">변동성</a></li>
+  <li><a href="#변동성" id="toc-변동성" class="nav-link active" data-scroll-target="#변동성">변동성</a>
+  <ul class="collapse">
+  <li><a href="#historical-volatility" id="toc-historical-volatility" class="nav-link" data-scroll-target="#historical-volatility">Historical volatility</a></li>
+  <li><a href="#implied-volatility" id="toc-implied-volatility" class="nav-link" data-scroll-target="#implied-volatility">Implied Volatility</a>
+  <ul class="collapse">
+  <li><a href="#블랙-숄즈-모형" id="toc-블랙-숄즈-모형" class="nav-link" data-scroll-target="#블랙-숄즈-모형">블랙 숄즈 모형</a></li>
+  </ul></li>
+  <li><a href="#conditional-volatility" id="toc-conditional-volatility" class="nav-link" data-scroll-target="#conditional-volatility">Conditional volatility</a></li>
+  </ul></li>
   <li><a href="#arch" id="toc-arch" class="nav-link" data-scroll-target="#arch">ARCH</a></li>
   <li><a href="#garch" id="toc-garch" class="nav-link" data-scroll-target="#garch">GARCH</a>
   <ul class="collapse">
   <li><a href="#egarch" id="toc-egarch" class="nav-link" data-scroll-target="#egarch">EGARCH</a></li>
+  <li><a href="#tgarch" id="toc-tgarch" class="nav-link" data-scroll-target="#tgarch">TGARCH</a></li>
+  <li><a href="#igarch" id="toc-igarch" class="nav-link" data-scroll-target="#igarch">IGARCH</a></li>
+  <li><a href="#다변량-garch" id="toc-다변량-garch" class="nav-link" data-scroll-target="#다변량-garch">다변량 GARCH</a></li>
+  <li><a href="#charma" id="toc-charma" class="nav-link" data-scroll-target="#charma">CHARMA</a></li>
   </ul></li>
-  <li><a href="#high-frequency" id="toc-high-frequency" class="nav-link" data-scroll-target="#high-frequency">High-frequency</a></li>
-  <li><a href="#risk" id="toc-risk" class="nav-link" data-scroll-target="#risk">Risk</a></li>
+  <li><a href="#risk" id="toc-risk" class="nav-link" data-scroll-target="#risk">Risk</a>
+  <ul class="collapse">
+  <li><a href="#var" id="toc-var" class="nav-link" data-scroll-target="#var">VaR</a></li>
+  <li><a href="#cvar조건부-var" id="toc-cvar조건부-var" class="nav-link" data-scroll-target="#cvar조건부-var">CVaR(조건부 VaR)</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -502,7 +561,6 @@ ul.task-list li input[type="checkbox"] {
   <div class="quarto-categories">
     <div class="quarto-category">time series</div>
     <div class="quarto-category">volatility</div>
-    <div class="quarto-category">ARCH</div>
     <div class="quarto-category">GARCH</div>
   </div>
   </div>
@@ -526,27 +584,414 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <blockquote class="blockquote">
-<p>시계열 분석을 정리하고자 한다. 시계열의 변동성 모델링(ARCH, GARCH 등), realized volatility, intraday volatility, VaR 등에 대해 알아보자.</p>
+<p>시계열 분석을 정리하고자 한다. 시계열의 변동성 모델링(ARCH, GARCH 등), VaR 등에 대해 알아보자.</p>
 </blockquote>
 <section id="변동성" class="level1">
 <h1>변동성</h1>
+<p>시계열 변동성은 시계열 데이터의 변화량이 시간에 따라 어떻게 변하는지를 측정하는 것이다.</p>
+<p>시계열 모델에서는, 변동성 클러스터링(volatility clustering) 과 같은 현상을 설명하기 위해 조건부 변동성 모델(conditional volatility models) 을 사용한다. 예를 들어, GARCH(Generalized Autoregressive Conditional Heteroskedasticity) 모델은 시계열 데이터의 변동성이 시간에 따라 변할 수 있으며, 큰 변동성이 뒤따르는 기간 동안 변동성이 높아질 수 있음을 나타낸다.</p>
+<section id="historical-volatility" class="level2">
+<h2 class="anchored" data-anchor-id="historical-volatility">Historical volatility</h2>
+<ul>
+<li>역사적 변동성은 과거 데이터를 바탕으로 계산된 변동성으로, 주로 과거의 가격 변화를 분석하여 계산하며, 시계열 데이터의 표준편차로 측정된다..</li>
+</ul>
+<p><span class="math display">\[\sigma = \sqrt{\frac{1}{N-1} \sum_{i=1}^{N} (r_i - \bar{r})^2}\]</span></p>
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>prices <span class="op">=</span> <span class="dv">100</span> <span class="op">+</span> np.cumsum(np.random.randn(<span class="dv">200</span>)) </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>returns <span class="op">=</span> np.diff(prices) <span class="op">/</span> prices[:<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>mean_return <span class="op">=</span> np.mean(returns)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>historical_volatility <span class="op">=</span> np.sqrt(np.<span class="bu">sum</span>((returns <span class="op">-</span> mean_return)<span class="op">**</span><span class="dv">2</span>) <span class="op">/</span> (<span class="bu">len</span>(returns) <span class="op">-</span> <span class="dv">1</span>))</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>historical_volatility <span class="op">*</span> <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<pre><code>0.9391742262703004</code></pre>
+</div>
+</div>
+</section>
+<section id="implied-volatility" class="level2">
+<h2 class="anchored" data-anchor-id="implied-volatility">Implied Volatility</h2>
+<p>임플라이드 변동성은 옵션 가격을 바탕으로 시장 참가자들이 예상하는 미래 변동성을 의미한다. 이는 블랙-숄즈 모형과 같은 옵션 가격 모형을 이용하여 역산해 낼 수 있다. 옵션 가격, 행사 가격, 만기까지의 남은 기간, 무위험 이자율, 그리고 배당 수익률을 입력 변수로 사용하여 임플라이드 변동성을 계산할 수 있다.</p>
+<section id="블랙-숄즈-모형" class="level3">
+<h3 class="anchored" data-anchor-id="블랙-숄즈-모형">블랙 숄즈 모형</h3>
+<p>블랙-숄즈 모델은 유럽형 콜 옵션과 풋 옵션의 가격을 평가하기 위한 수학적 모델</p>
+<p><span class="math display">\[C(S, t) = S_0 N(d_1) - Xe^{-r(T - t)} N(d_2)\]</span></p>
+<p><span class="math display">\[d_1 = \frac{\ln(\frac{S_0}{X}) + (r + \frac{\sigma^2}{2})(T - t)}{\sigma\sqrt{T - t}}\]</span></p>
+<p><span class="math display">\[d_2 = d_1 - \sigma\sqrt{T - t}\]</span></p>
+<p>여기서</p>
+<ul>
+<li><span class="math inline">\(C(s,t)\)</span>는 t에서 콜 옵션 가격</li>
+<li><span class="math inline">\(S_0\)</span>은 현재 주식 가격, <span class="math inline">\(X\)</span>는 옵션 행사 가격, <span class="math inline">\(T\)</span>는 만기까지 시간, <span class="math inline">\(r\)</span>은 무위험 이자율</li>
+<li><span class="math inline">\(N(\cdot)\)</span>은 표준 정규 분포의 누적 분포 함수</li>
+<li><span class="math inline">\(\sigma\)</span>는 기초자산의 연간 표준 편차, 즉 변동성</li>
+</ul>
+<p>임플라이드 변동성은 이러한 모델을 이용해 역으로 계산되는데, 주어진 옵션 가격과 기타 파라미터를 사용하여 <span class="math inline">\(\sigma\)</span>를 찾는 과정을 의미한다. 이 과정은 수치적 방법을 사용하여 이루어지며, 정확한 해를 직접 구하는 대신 반복적인 방법을 사용하여 근사값을 찾는다.</p>
+<div class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> brentq</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 블랙-숄즈 모델에 의한 콜 옵션 가격 계산 함수</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> black_scholes_call(S, K, T, r, sigma):</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    d1 <span class="op">=</span> (np.log(S <span class="op">/</span> K) <span class="op">+</span> (r <span class="op">+</span> <span class="fl">0.5</span> <span class="op">*</span> sigma <span class="op">**</span> <span class="dv">2</span>) <span class="op">*</span> T) <span class="op">/</span> (sigma <span class="op">*</span> np.sqrt(T))</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    d2 <span class="op">=</span> d1 <span class="op">-</span> sigma <span class="op">*</span> np.sqrt(T)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    call_price <span class="op">=</span> (S <span class="op">*</span> norm.cdf(d1) <span class="op">-</span> K <span class="op">*</span> np.exp(<span class="op">-</span>r <span class="op">*</span> T) <span class="op">*</span> norm.cdf(d2))</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> call_price</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 임플라이드 변동성 계산 함수</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> implied_volatility(S, K, T, r, C_market):</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    func <span class="op">=</span> <span class="kw">lambda</span> sigma: black_scholes_call(S, K, T, r, sigma) <span class="op">-</span> C_market</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    IV <span class="op">=</span> brentq(func, <span class="fl">1e-6</span>, <span class="dv">1</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> IV</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 임의의 파라미터로 예시 계산</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>S <span class="op">=</span> <span class="dv">100</span>  <span class="co"># 현재 주식 가격</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> <span class="dv">100</span>  <span class="co"># 행사 가격</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">1</span>    <span class="co"># 만기까지의 시간 (년)</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> <span class="fl">0.05</span> <span class="co"># 무위험 이자율</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>C_market <span class="op">=</span> <span class="dv">10</span>  <span class="co"># 시장에서 관측된 콜 옵션 가격</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 임플라이드 변동성 계산</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>IV <span class="op">=</span> implied_volatility(S, K, T, r, C_market)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"임플라이드 변동성: </span><span class="sc">{</span>IV<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>임플라이드 변동성: 0.1880</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="conditional-volatility" class="level2">
+<h2 class="anchored" data-anchor-id="conditional-volatility">Conditional volatility</h2>
+<p>조건부 변동성을 모델링하는 방법으로는 ARCH, GARCH 등이 있으며 아래에서 자세히 다룬다.</p>
+</section>
 </section>
 <section id="arch" class="level1">
 <h1>ARCH</h1>
+<p>ARCH(Autoregressive Conditional Heteroskedasticity) 모델은 시계열 데이터의 <strong>변동성이 시간에 따라 변할 수 있음</strong>을 고려하여 개발되었다. 특히 금융 시장 데이터 같이 큰 변동성 이후에 큰 변동성이 계속 발생하는 변동성 클러스터링(volatility clustering) 현상을 포착하는 데 유용하다. ARCH 모델의 기본 아이디어는 시계열 데이터의 변동성이 <strong>과거의 오차 항에 조건부로 달라진다</strong>는 것이다.</p>
+<p>시계열 <span class="math inline">\(y_t\)</span>에 대해, 오차 항 <span class="math inline">\(\epsilon_t\)</span>:</p>
+<p><span class="math display">\[\epsilon_t = \sigma_t z_t\]</span></p>
+<p>여기서 <span class="math inline">\(\{z_t\}\)</span>는 평균이 0이고 분산이 1인 i.i.d. 랜덤 변수이며, <span class="math inline">\(\sigma^2_t\)</span>는 시간 <span class="math inline">\(t\)</span>에서의 조건부 분산을 나타낸다. <span class="math inline">\(\sigma^2_t\)</span>는 과거의 정보, 즉 과거의 오차 항의 제곱에 의해 결정된다고 가정한다.</p>
+<p>ARCH(q) 모델에서의 조건부 분산은 다음과 같이 주어진다:</p>
+<p><span class="math inline">\(ARCH(q)\)</span>:</p>
+<p><span class="math display">\[\sigma^2_t=\alpha_0 + \alpha_1 \epsilon^2_{t-1} + \alpha_2 \epsilon^2_{t-2}+ \dots + \alpha_q \epsilon^2_{t-q}\]</span></p>
+<p>여기서 <span class="math inline">\(\alpha_0&gt;0, \alpha_i \geq0(i=1,\dots,q)\)</span>이며, <span class="math inline">\(q\)</span>는 모델의 차수를 나타낸다.</p>
+<ul>
+<li><p>조건부 분산 모델링: ARCH 모델의 핵심 특징 중 하나는 조건부 분산이 과거의 정보, 특히 과거 오차 항의 제곱에 의존한다는 점이다. 이는 시간에 따라 변하는 변동성을 포착할 수 있게 해준다.</p></li>
+<li><p>변동성 클러스터링: ARCH 모델은 변동성 클러스터링 현상, 즉 높은 변동성이 뒤따르는 기간에 변동성이 집중되는 경향을 잘 포착한다. 이는 금융 시장에서 흔히 관찰되는 현상으로, 큰 가격 변동 뒤에는 종종 또 다른 큰 변동이 올 수 있다는 것을 의미한다.</p></li>
+<li><p>시계열의 두께 꼬리 현상: 금융 시계열 데이터는 종종 정규 분포보다 두꺼운 꼬리(fat tails)를 가진다. ARCH 모델은 이러한 두꺼운 꼬리 현상을 잘 설명할 수 있으며, 이는 금융 시장의 극단적인 사건을 모델링하는 데 유용하다.</p></li>
+<li><p>시간 가변 변동성: ARCH 모델은 시간에 따라 변동성이 달라질 수 있다는 가정 하에 구축되었다. 이는 고정된 변동성 가정을 사용하는 전통적인 시계열 모델과 구별되는 특징이다.</p></li>
+</ul>
+<p>약정상성 조건: <span class="math inline">\(\sum^q_{i=1}{\alpha_i}&lt;1\)</span></p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> arch <span class="im">import</span> arch_model</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 임의의 데이터 생성</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">2000</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>omega <span class="op">=</span> <span class="fl">0.2</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>errors <span class="op">=</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>series <span class="op">=</span> np.zeros(n)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n):</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    series[t] <span class="op">=</span> np.sqrt(omega <span class="op">+</span> alpha <span class="op">*</span> series[t<span class="op">-</span><span class="dv">1</span>]<span class="op">**</span><span class="dv">2</span>) <span class="op">*</span> errors[t]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ARCH(1) 모델 적합</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>am <span class="op">=</span> arch_model(series, vol<span class="op">=</span><span class="st">'Arch'</span>, p<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> am.fit(update_freq<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 결과 출력</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(res.summary())</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 조건부 분산 시각화</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> res.plot(annualize<span class="op">=</span><span class="st">'D'</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Iteration:      5,   Func. Count:     30,   Neg. LLF: 1680.7434992918677
+Optimization terminated successfully    (Exit mode 0)
+            Current function value: 1680.7434992918677
+            Iterations: 5
+            Function evaluations: 30
+            Gradient evaluations: 5
+                      Constant Mean - ARCH Model Results                      
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.000
+Mean Model:             Constant Mean   Adj. R-squared:                  0.000
+Vol Model:                       ARCH   Log-Likelihood:               -1680.74
+Distribution:                  Normal   AIC:                           3367.49
+Method:            Maximum Likelihood   BIC:                           3384.29
+                                        No. Observations:                 2000
+Date:                Thu, Apr 11 2024   Df Residuals:                     1999
+Time:                        11:18:34   Df Model:                            1
+                                 Mean Model                                 
+============================================================================
+                 coef    std err          t      P&gt;|t|      95.0% Conf. Int.
+----------------------------------------------------------------------------
+mu             0.0221  1.079e-02      2.047  4.062e-02 [9.432e-04,4.326e-02]
+                            Volatility Model                            
+========================================================================
+                 coef    std err          t      P&gt;|t|  95.0% Conf. Int.
+------------------------------------------------------------------------
+omega          0.1959  9.873e-03     19.842  1.296e-87 [  0.177,  0.215]
+alpha[1]       0.4854  4.275e-02     11.355  6.987e-30 [  0.402,  0.569]
+========================================================================
+
+Covariance estimator: robust</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="ts_04_volatility_files/figure-html/cell-5-output-2.png" class="img-fluid"></p>
+</div>
+</div>
 </section>
 <section id="garch" class="level1">
 <h1>GARCH</h1>
+<p>GARCH(Generalized Autoregressive Conditional Heteroskedasticity) 모델은 ARCH 모델을 일반화한 것으로, 조건부 분산이 과거의 예측 오차뿐만 아니라 <strong>과거의 조건부 분산 자체</strong>에도 의존한다는 점에서 ARCH 모델을 확장한다.</p>
+<p>GARCH(p, q) 모델에서의 조건부 분산은 다음과 같이 주어진다:</p>
+<p><span class="math inline">\(GARCH(q)\)</span>:</p>
+<p><span class="math display">\[\sigma^2_t=\alpha_0 + \sum_{i=1}^q{\alpha_i \epsilon^2_{t-i}} + \sum_{j=1}^p{\beta_j \sigma^2_{t-j}}\]</span></p>
+<p>여기서 <span class="math inline">\(\alpha_0&gt;0, \alpha_i,\beta_j \geq0(i=1,\dots,q)\)</span>이며, <span class="math inline">\(q\)</span>는 ARCH항, <span class="math inline">\(p\)</span>는 GARCH항 차수를 나타낸다.</p>
+<p>약정상성 조건: <span class="math inline">\(\sum^q_{i=1}{\alpha_i} + \sum^p_{j=1}{\beta_j} &lt; 1\)</span> - 조건부 분산이 시간이 지나면서 안정적인 값을 유지하고, 분산이 무한대로 발산하지 않도록 함으로써 장기적인 예측 가능성을 보장함</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># GARCH(1,1) 모델 적합</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>garch11 <span class="op">=</span> arch_model(series, p<span class="op">=</span><span class="dv">1</span>, q<span class="op">=</span><span class="dv">1</span>)  <span class="co"># GARCH(1,1) 모델 정의</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> garch11.fit(disp<span class="op">=</span><span class="st">'off'</span>)  <span class="co"># 모델 적합, disp='off'는 적합 과정 메시지 끄기</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 적합 결과 요약</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(res.summary())</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 조건부 분산 시각화</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> res.plot(annualize<span class="op">=</span><span class="st">'D'</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                     Constant Mean - GARCH Model Results                      
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.000
+Mean Model:             Constant Mean   Adj. R-squared:                  0.000
+Vol Model:                      GARCH   Log-Likelihood:               -1680.74
+Distribution:                  Normal   AIC:                           3369.49
+Method:            Maximum Likelihood   BIC:                           3391.89
+                                        No. Observations:                 2000
+Date:                Thu, Apr 11 2024   Df Residuals:                     1999
+Time:                        11:19:09   Df Model:                            1
+                                 Mean Model                                 
+============================================================================
+                 coef    std err          t      P&gt;|t|      95.0% Conf. Int.
+----------------------------------------------------------------------------
+mu             0.0221  1.079e-02      2.049  4.051e-02 [9.552e-04,4.325e-02]
+                            Volatility Model                            
+========================================================================
+                 coef    std err          t      P&gt;|t|  95.0% Conf. Int.
+------------------------------------------------------------------------
+omega          0.1959  2.038e-02      9.613  7.027e-22 [  0.156,  0.236]
+alpha[1]       0.4854  4.872e-02      9.962  2.226e-23 [  0.390,  0.581]
+beta[1]    3.8605e-12  6.539e-02  5.904e-11      1.000 [ -0.128,  0.128]
+========================================================================
+
+Covariance estimator: robust</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="ts_04_volatility_files/figure-html/cell-6-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 변동성 예측</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>forecasts <span class="op">=</span> res.forecast(horizon<span class="op">=</span><span class="dv">10</span>)  <span class="co"># 다음 10일간의 변동성 예측</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Forecasted Volatility:"</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(forecasts.variance[<span class="op">-</span><span class="dv">1</span>:])  <span class="co"># 마지막 관측치에 대한 변동성 예측 출력</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 적합된 모델과 예측된 변동성 시각화</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 실제 수익률</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].plot(series)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_title(<span class="st">'Returns'</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 예측된 조건부 변동성</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>predicted_volatility <span class="op">=</span> np.sqrt(res.params[<span class="st">'omega'</span>] <span class="op">+</span> res.params[<span class="st">'alpha[1]'</span>] <span class="op">*</span> series<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> res.params[<span class="st">'beta[1]'</span>] <span class="op">*</span> res.conditional_volatility<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].plot(predicted_volatility)</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_title(<span class="st">'Predicted Volatility'</span>)</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>C:\Users\master\anaconda3\envs\py38\lib\site-packages\arch\__future__\_utility.py:11: FutureWarning: 
+The default for reindex is True. After September 2021 this will change to
+False. Set reindex to True or False to silence this message. Alternatively,
+you can use the import comment
+
+from arch.__future__ import reindexing
+
+to globally set reindex to True and silence this warning.
+
+  warnings.warn(</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Forecasted Volatility:
+          h.01      h.02      h.03      h.04      h.05      h.06      h.07  \
+1999  0.258216  0.321242  0.351836  0.366686  0.373895  0.377394  0.379093   
+
+          h.08      h.09      h.10  
+1999  0.379917  0.380317  0.380512  </code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="ts_04_volatility_files/figure-html/cell-7-output-3.png" class="img-fluid"></p>
+</div>
+</div>
 <section id="egarch" class="level2">
 <h2 class="anchored" data-anchor-id="egarch">EGARCH</h2>
+<p>EGARCH(Exponential Generalized Autoregressive Conditional Heteroskedasticity) 모델은 변동성의 비대칭 효과를 모델링 할 수 있다는 점에서 GARCH 모델을 확장한다. 금융 시장에서는 종종 나쁜 뉴스가 좋은 뉴스보다 더 큰 변동성을 초래하는 현상(레버리지 효과)이 관찰된다.</p>
+<p><span class="math display">\[\log(\sigma^2_t) = \alpha_0 + \sum^q_{i=1}{\alpha_i g(Z_{t-i})} + \sum^p_{j=1}{\beta_j \log(\sigma^2_{t-j})}\]</span></p>
+<p>여기서 <span class="math inline">\(g(Z_t)=\theta Z_t + \gamma(|Z_t|-E|Z_t|)\)</span>, <span class="math inline">\(Z_t = \frac{\epsilon_t}{\sigma_t}\)</span>는 표준화된 잔차, <span class="math inline">\(\theta, \gamma\)</span>는 레버리지 효과를 캡쳐하는 파라미터이며, <span class="math inline">\(\gamma&gt;0\)</span>이면 나쁜 뉴스가 변동성을 더 크게 증가시킨다는 것을 나타낸다.</p>
 </section>
+<section id="tgarch" class="level2">
+<h2 class="anchored" data-anchor-id="tgarch">TGARCH</h2>
+<p>TGARCH(Threshold GARCH) 모델은 또 다른 변동성의 비대칭 효과를 모델링하는 데 사용된다. TGARCH 모델에서는 변동성이 과거의 음의 충격과 양의 충격에 다르게 반응한다고 가정한다. 이 모델은 금융 시계열 데이터에서 관찰되는 레버리지 효과를 포착할 수 있다.</p>
+<p><span class="math display">\[\sigma^2_t = \alpha_0 + \sum_{i=1}^q{(\alpha_i\epsilon_{t-i}^2 + \gamma_i \epsilon_{t-i}^2I_{\{\epsilon_{t-i} &lt; 0\}}}) + \sum_{j=1}^p \beta_j \sigma^2_{t-j}\]</span></p>
+<p>여기서 <span class="math inline">\(I_{\{\epsilon_{t-i} &lt; 0\}}\)</span>는 <span class="math inline">\(\epsilon_{t-i}\)</span>가 음수일 때 1이고, 그렇지 않을 때 0인 지시 함수이다.</p>
 </section>
-<section id="high-frequency" class="level1">
-<h1>High-frequency</h1>
+<section id="igarch" class="level2">
+<h2 class="anchored" data-anchor-id="igarch">IGARCH</h2>
+<p>IGARCH(Integrated GARCH) 모델은 GARCH 모델의 특별한 경우로, 조건부 분산의 계속된 증가를 허용하여 장기적인 변동성의 예측을 개선한다. IGARCH 모델에서는 <span class="math inline">\(\sum^q_{i=1}{\alpha_i} + \sum^p_{j=1}{\beta_j} = 1\)</span> 조건이 만족된다. 이 조건 하에서는 분산이 시간에 따라 적분(integrated)되어 장기적인 메모리를 가지게 된다.</p>
+</section>
+<section id="다변량-garch" class="level2">
+<h2 class="anchored" data-anchor-id="다변량-garch">다변량 GARCH</h2>
+<p>다변량 GARCH(Multivariate GARCH, MGARCH) 모델은 여러 개의 시계열 변수 간의 변동성과 상호작용을 동시에 모델링하는 방법을 제공한다. 이러한 모델은 특히 금융 데이터 분석에서 유용하게 활용되며, 여러 자산의 수익률 시계열이 서로 어떻게 상호작용하는지, 그리고 이들 간의 조건부 변동성과 공변동성을 어떻게 예측할 수 있는지를 이해하는 데 도움을 준다.</p>
+<p><strong>BEKK(Baba, Engle, Kraft, and Kroner)</strong> 모델</p>
+<p><span class="math display">\[H_t = C + A\epsilon_{t-1}\epsilon_{t-1}'A' + BH_{t-1}B'\]</span></p>
+<p>여기서, - <span class="math inline">\(H_t\)</span>는 조건부 공분산 행렬(covariance matrix)이며, 시간 <span class="math inline">\(t\)</span>에서의 예측된 변동성과 공변동성을 포함한다. - <span class="math inline">\(C\)</span>는 상수 행렬이며, 장기 평균 변동성을 나타낸다. - <span class="math inline">\(A, B\)</span>는 모델 파라미터 행렬로, 각각 과거의 충격(<span class="math inline">\(\epsilon_{t-1}\epsilon_{t-1}'\)</span>)과 이전의 조건부 공분산 행렬(<span class="math inline">\(H_{t-1}\)</span>)의 영향을 나타낸다. - <span class="math inline">\(\epsilon_{t-1}\)</span>은 <span class="math inline">\(t-1\)</span> 시점의 오차항 벡터이다.</p>
+<p>BEKK 모델은 공분산 행렬의 양의 정부호성을 보장하며, 변동성의 비대칭 효과와 공변동성의 시간에 따른 변화를 모델링할 수 있다는 장점이 있다. 그러나 파라미터의 수가 많아 계산이 복잡하다는 단점도 있다.</p>
+<p><strong>CCC(Constant Conditional Correlation)</strong> 모델</p>
+<p>CCC 모델은 여러 시계열 변수들 간의 조건부 상관관계가 시간에 따라 변하지 않고 일정하다고 가정한다. CCC 모델은 다음과 같이 구성된다:</p>
+<ul>
+<li>각 변수의 조건부 분산은 개별적인 univariate GARCH 모델로 모델링된다.</li>
+<li>모든 변수 쌍 간의 조건부 상관관계는 상수로 고정된다.</li>
+</ul>
+<p>CCC 모델의 강점은 그 구조의 단순함에 있으며, 이로 인해 계산적으로 효율적이다. 그러나 모든 시계열 쌍의 상관관계가 시간에 따라 변하지 않는다는 가정은 현실적인 금융 데이터에는 항상 적합하지 않을 수 있다.</p>
+<p><strong>DCC(Dynamic Conditional Correlation)</strong> 모델</p>
+<p>CCC 모델은 시간에 따라 변하는 조건부 상관관계를 모델링할 수 있는 주요 장점이 있다. DCC 모델의 공분산 구조는 다음과 같이 주어진다:</p>
+<p><span class="math display">\[H_t = D_tR_tD_t\]</span></p>
+<p>여기서 <span class="math inline">\(D_t\)</span>는 시간<span class="math inline">\(t\)</span>에서의 조건부 분산의 제곱근을 대각선에 배치한 대각행렬이며, <span class="math inline">\(R_t\)</span>는 시간 <span class="math inline">\(t\)</span>에서의 상관관계 행렬이다.</p>
+<p>DCC 모델은 특히 금융 시장에서 자산 간의 변동 상관관계가 시간에 따라 변화하는 현상을 잘 포착한다.</p>
+<p><strong>DVECH(Diagonal VECH)</strong> 모델</p>
+<p>DVECH 모델은 VECH 모델의 특수한 경우로, 조건부 공분산 행렬의 대각성분만이 자신의 과거 값과 과거 충격의 함수로 모델링된다는 특징을 가진다. DVECH 모델은 다음과 같이 표현할 수 있다: <span class="math display">\[H_t = C + A\odot (\epsilon_{t-1}\epsilon_{t-1}') + B\odot H_{t-1}\]</span></p>
+<p>DVECH 모델은 BEKK 모델에 비해 계산이 더 간단하다는 장점이 있지만, 공분산 행렬의 비대각 요소를 직접 모델링하지 않는다는 제한이 있다.</p>
+<p>각각의 다변량 GARCH 모델은 특정한 상황과 데이터의 특성에 따라 선택될 수 있으며, 금융 시장 데이터의 복잡한 동적 변동성을 이해하고 예측하는 데 중요한 도이다.</p>
+<p>이외에도 GOGARCH, FIEGARCH, COGARCH 등의 모델이 있다.</p>
+<ul>
+<li>GOGARCH(Generalized Orthogonal GARCH): 다변량 시계열 데이터의 주성분 분석(PCA)와 유사한 개념을 변동성 모델링에 적용</li>
+<li>FIEGARCH (Fractionally Integrated GARCH): 변동성의 자기상관이 감소하는 속도가 지수적이 아니라 다항식적으로 감소한다는 가정 하에, 장기간에 걸쳐 느리게 감소하는 자기상관 구조를 모델링</li>
+<li>COGARCH (Continuous-time GARCH): 연속 시간에서의 GARCH 모델링, 고빈도 금융 데이터나, 시간 간격이 일정하지 않은 데이터를 분석할 때 유용</li>
+</ul>
+</section>
+<section id="charma" class="level2">
+<h2 class="anchored" data-anchor-id="charma">CHARMA</h2>
+<p>Conditional Heteroscedastic ARMA (CHARMA) 모델은 시계열 데이터의 평균과 변동성이 모두 시간에 따라 변화하는 경우에 사용되는 모델이다. 이 모델은 ARMA모델의 개념을 변동성 모델링에 적용한 것으로, 시계열의 조건부 평균뿐만 아니라 조건부 분산도 모델링한다.</p>
+<p>CHARMA 모델에서, 시계열의 조건부 평균은 ARMA 모델을 통해 모델링되며, 이는 과거의 관측값과 과거의 오차 항들의 선형 조합으로 표현된다. 한편, 시계열의 조건부 분산은 이와 유사한 방식으로 모델링되지만, 여기에는 과거의 분산 값과 과거의 오차 항들이 사용된다. 따라서 CHARMA 모델은 시계열의 평균과 분산이 모두 과거의 정보에 의존한다고 가정한다.</p>
+<ul>
+<li>조건부 평균: <span class="math inline">\(y_t = \phi_0 + \sum_{i=1}^p \phi_i y_{t-i} + \sum_{j=1}^q \theta_j \epsilon_{t-j} + \epsilon_t\)</span></li>
+<li>조건부 분산: <span class="math inline">\(\sigma_t^2 = \alpha_0 + \sum_{i=1}^P \alpha_i \sigma_{t-i}^2 + \sum_{j=1}^Q \beta_j \epsilon_{t-j}^2\)</span></li>
+</ul>
+<p>여기서,</p>
+<ul>
+<li><span class="math inline">\(y_t\)</span>는 시점 t에서의 시계열 값, <span class="math inline">\(\epsilon_t\)</span> 는 시점 t에서의 오차 항, <span class="math inline">\(\sigma_t^2\)</span>는 시점 <span class="math inline">\(t\)</span>에서의 조건부 분산을 나타낸다.</li>
+<li><span class="math inline">\(\phi_i\)</span>와 <span class="math inline">\(\theta_j\)</span>는 ARMA 모델의 파라미터, <span class="math inline">\(\alpha_i\)</span>와 <span class="math inline">\(\beta_j\)</span>는 조건부 분산을 모델링하기 위한 파라미터이다.</li>
+<li><span class="math inline">\(p\)</span>와 <span class="math inline">\(q\)</span>는 ARMA 모델의 차수, <span class="math inline">\(P\)</span>와 <span class="math inline">\(Q\)</span>는 변동성 모델의 차수를 나타낸다.</li>
+</ul>
+</section>
 </section>
 <section id="risk" class="level1">
 <h1>Risk</h1>
+<section id="var" class="level2">
+<h2 class="anchored" data-anchor-id="var">VaR</h2>
+<p>Value at Risk (VaR)는 금융 리스크 관리에서 널리 사용되는 중요한 지표 중 하나이다. VaR은 특정 기간 동안 주어진 확률로 예상되는 최대 손실액을 나타낸다. 간단히 말해, VaR은 “주어진 시간 동안, 특정 신뢰 수준에서, 최악의 경우에 얼마나 많은 손실이 발생할 수 있는가”를 수치로 표현한 것이다.</p>
+<p>VaR은 금융 포트폴리오의 손실 위험을 측정하는 방법으로, 특정 기간(일반적으로 하루, 한 달 등)과 특정 신뢰 수준(예: 95%, 99%)에 대해 정의된다. 예를 들어, 하루 95% VaR이 1백만 달러라면, 하루 동안 5% 확률로 1백만 달러 이상의 손실이 발생할 수 있음을 의미한다.</p>
+<p><strong>VaR의 계산 방법</strong></p>
+<ul>
+<li><p><strong>역사적 시뮬레이션 방법</strong>: 이 방법은 과거 데이터를 기반으로 VaR을 계산한다. 과거 수익률 분포에서 특정 신뢰 수준에 해당하는 손실을 직접 찾아내어 VaR을 결정한다.</p></li>
+<li><p><strong>분산-공분산(Variance-Covariance) 방법</strong>: 이 방법은 수익률이 정규 분포를 따른다고 가정하고, 포트폴리오의 평균 수익률과 표준편차를 이용해 VaR을 계산한다. 계산이 상대적으로 간단하지만, 수익률이 정규 분포를 따르지 않는 경우 정확성이 떨어질 수 있다. parametric-VaR이라고도 한다.</p></li>
+</ul>
+<p><span class="math display">\[VaR_{\alpha} = -(\mu-Z_\alpha \cdot \sigma) \cdot V\]</span></p>
+<p>여기서, - <span class="math inline">\(VaR_\alpha\)</span>는 주어진 신뢰 수준 <span class="math inline">\(\alpha\)</span>에서의 VaR 값 - <span class="math inline">\(\mu\)</span>는 포트폴리오 수익률의 평균 - <span class="math inline">\(Z_\alpha\)</span>는 주어진 신뢰 수준에서의 정규 분포의 <span class="math inline">\(Z\)</span>-값 - <span class="math inline">\(\sigma\)</span>는 포트폴리오 수익률 표준편차 - <span class="math inline">\(V\)</span>는 포트폴리오 현재 가치</p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 예제 데이터: 임의의 일일 수익률 데이터</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>returns <span class="op">=</span> np.random.normal(<span class="fl">0.001</span>, <span class="fl">0.02</span>, <span class="dv">250</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 포트폴리오 가치 설정</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>portfolio_value <span class="op">=</span> <span class="dv">1000000</span>  <span class="co"># 100만 달러</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 신뢰 수준 설정 (95%)</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>confidence_level <span class="op">=</span> <span class="fl">0.95</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co"># VaR 계산</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>mean_return <span class="op">=</span> np.mean(returns)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>std_deviation <span class="op">=</span> np.std(returns)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co"># VaR 계산</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>VaR <span class="op">=</span> <span class="op">-</span>norm.ppf(<span class="dv">1</span> <span class="op">-</span> confidence_level, mean_return, std_deviation) <span class="op">*</span> portfolio_value</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"1-Day 95% VaR: $</span><span class="sc">{</span>VaR2<span class="sc">:,</span><span class="fl">.2</span><span class="er">f</span><span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1-Day 95% VaR: $34,673.59</code></pre>
+</div>
+</div>
+<ul>
+<li><strong>몬테카를로 시뮬레이션 방법</strong>: 이 방법은 컴퓨터 시뮬레이션을 이용하여 수많은 시나리오를 생성하고, 이러한 시나리오를 바탕으로 VaR을 계산한다. 몬테카를로 시뮬레이션은 복잡한 금융 상품이나 비정규 분포를 가진 수익률에 대해서도 VaR을 계산할 수 있는 장점이 있다.</li>
+</ul>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 초기 포트폴리오 가치</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>portfolio_value <span class="op">=</span> <span class="dv">1000000</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 예상 수익률 및 변동성</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>mean_return <span class="op">=</span> <span class="fl">0.001</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>volatility <span class="op">=</span> <span class="fl">0.02</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 시뮬레이션 횟수 및 시간 기간 (일 단위)</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>num_simulations <span class="op">=</span> <span class="dv">10000</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>time_horizon <span class="op">=</span> <span class="dv">1</span>  <span class="co"># 1일</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co"># VaR의 신뢰 수준</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>confidence_level <span class="op">=</span> <span class="fl">0.95</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 일일 수익률 시뮬레이션</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>simulated_returns <span class="op">=</span> np.random.normal(mean_return, volatility, num_simulations)</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 포트폴리오 가치 변화 계산</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>simulated_end_values <span class="op">=</span> portfolio_value <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> simulated_returns)</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 손실 계산</span></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>losses <span class="op">=</span> portfolio_value <span class="op">-</span> simulated_end_values</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="co"># VaR 계산</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>VaR <span class="op">=</span> np.percentile(losses, (<span class="dv">1</span> <span class="op">-</span> confidence_level) <span class="op">*</span> <span class="dv">100</span>)</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"1-Day VaR at </span><span class="sc">{</span>confidence_level <span class="op">*</span> <span class="dv">100</span><span class="sc">}</span><span class="ss">% confidence level: $</span><span class="sc">{</span>VaR<span class="sc">:,</span><span class="fl">.2</span><span class="er">f</span><span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1-Day VaR at 95.0% confidence level: $-34,155.34</code></pre>
+</div>
+</div>
+</section>
+<section id="cvar조건부-var" class="level2">
+<h2 class="anchored" data-anchor-id="cvar조건부-var">CVaR(조건부 VaR)</h2>
+<p>Conditional Value at Risk (CVaR), 또는 Expected Shortfall (ES)은 VaR을 넘어서는 손실의 평균값을 측정한다. CVaR은 주어진 신뢰 수준에서 Value at Risk (VaR)을 초과하는 손실에 대한 조건부 기대값을 나타낸다. CVaR은 VaR보다 더 보수적인 리스크 측정치로, 극단적 손실의 가능성을 더 잘 반영한다.</p>
+<p><strong><span class="math inline">\(CVaR\)</span></strong>:</p>
+<p><span class="math display">\[CVar_\alpha = - \frac{1}{1-\alpha}\int^1_\alpha{VaR_\gamma(L)d\gamma}\]</span></p>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># CVaR 계산</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>CVaR <span class="op">=</span> <span class="op">-</span>(<span class="dv">1</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">-</span> confidence_level)) <span class="op">*</span> norm.pdf(norm.ppf(<span class="dv">1</span> <span class="op">-</span> confidence_level)) <span class="op">*</span> std_deviation <span class="op">-</span> mean_return</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>CVaR <span class="op">=</span> CVaR <span class="op">*</span> portfolio_value</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"1-Day 95% CVaR: $</span><span class="sc">{</span>CVaR<span class="sc">:,</span><span class="fl">.2</span><span class="er">f</span><span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1-Day 95% CVaR: $-46,123.47</code></pre>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -785,6 +1230,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <script src="https://giscus.app/client.js" data-repo="jo-cho/FinBlog" data-repo-id="R_kgDOJQ80aw" data-category="General" data-category-id="DIC_kwDOJQ80a84CVb8i" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../posts/statistics/time_series/ts_03_multivariate.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">3. 다변량 시계열</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../posts/fin_data/Fractional_difference.html" class="pagination-link">
+        <span class="nav-page-text">분수 차분</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 
