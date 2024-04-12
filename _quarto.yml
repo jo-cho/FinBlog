@@ -45,6 +45,10 @@ website:
                 text: "3. 다변량 시계열"
               - href: posts/statistics/time_series/ts_04_volatility.ipynb
                 text: "4. 시계열 변동성"
+              - href: posts/statistics/time_series/ts_05_nonlinear.ipynb
+                text: "5. 비선형 모형"
+              - href: posts/statistics/time_series/ts_06_state_space.ipynb
+                text: "6. 상태 공간 모형"
       - section: "금융 데이터 처리"
         contents:
           - href: posts/fin_data/Fractional_difference.ipynb

@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,6 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
+<link href="../../../posts/fin_data/Fractional_difference.html" rel="next">
+<link href="../../../posts/statistics/time_series/ts_05_nonlinear.html" rel="prev">
 <link href="../../../logo.png" rel="icon" type="image/png">
 <script src="../../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../../site_libs/quarto-html/popper.min.js"></script>
@@ -62,6 +98,8 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../../../styles.css">
 </head>
@@ -115,7 +153,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">시계열 - 상태 공간 모델</li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">기초통계</li><li class="breadcrumb-item"><a href="../../../posts/statistics/time_series/ts_01_intro.html">시계열 분석</a></li><li class="breadcrumb-item"><a href="../../../posts/statistics/time_series/ts_06_state_space.html">6. 상태 공간 모형</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -143,13 +181,13 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
  <span class="menu-text">기초통계</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
@@ -169,13 +207,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
  <span class="menu-text">시계열 분석</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../posts/statistics/time_series/ts_01_intro.html" class="sidebar-item-text sidebar-link">
@@ -198,6 +236,18 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="../../../posts/statistics/time_series/ts_04_volatility.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">4. 시계열 변동성</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../posts/statistics/time_series/ts_05_nonlinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. 비선형 모형</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../posts/statistics/time_series/ts_06_state_space.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">6. 상태 공간 모형</span></a>
   </div>
 </li>
       </ul>
@@ -483,7 +533,20 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">목차</h2>
+   
+  <ul>
+  <li><a href="#kalman-filter" id="toc-kalman-filter" class="nav-link active" data-scroll-target="#kalman-filter">Kalman Filter</a>
+  <ul class="collapse">
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">&lt;예측 단계&gt;</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">&lt;업데이트 단계&gt;</a></li>
+  </ul></li>
+  <li><a href="#unscented-kalman-filter" id="toc-unscented-kalman-filter" class="nav-link" data-scroll-target="#unscented-kalman-filter">Unscented Kalman Filter</a></li>
+  <li><a href="#sarimax" id="toc-sarimax" class="nav-link" data-scroll-target="#sarimax">SARIMAX</a></li>
+  <li><a href="#참고자료" id="toc-참고자료" class="nav-link" data-scroll-target="#참고자료">참고자료</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -519,8 +582,358 @@ ul.task-list li input[type="checkbox"] {
 <blockquote class="blockquote">
 <p>시계열 분석을 정리하고자 한다. 시계열의 상태공간 모델링에 대해 알아보자.</p>
 </blockquote>
+<p>상태 공간 모델(State Space Model)은 시계열 데이터의 복잡한 동적 구조를 설명하기 위해 설계되었으며, 관측되지 않는 상태 변수를 사용하여 시계열 데이터의 변화를 설명한다.</p>
+<p><strong>상태 방정식(State Equation)</strong></p>
+<p>상태 방정식은 시간에 따라 변화하는 내재적 상태 변수의 진화를 설명한다. 이 방정식은 일반적으로 자기회귀 프로세스로 모델링된다.</p>
+<p><span class="math display">\[\mathbf{x}_t = \mathbf{F}_t\mathbf{x}_{t-1} + \mathbf{G}_t \mathbf{w}_t\]</span></p>
+<p>여기서,</p>
+<ul>
+<li><span class="math inline">\(\mathbf{x}_t\)</span>는 시간 <span class="math inline">\(t\)</span>에서의 상태 벡터이다.</li>
+<li><span class="math inline">\(\mathbf{F}_t\)</span>는 상태 전이 행렬로, 이전 상태에서 현재 상태로의 전이를 설명한다.</li>
+<li><span class="math inline">\(\mathbf{G}_t\)</span>는 입력 행렬로, 외부 입력이 상태 변화에 미치는 영향을 나타낸다.</li>
+<li><span class="math inline">\(\mathbf{w}_t\)</span>는 프로세스 노이즈로, 모델에 불확실성을 추가한다.</li>
+</ul>
+<p><strong>관측 방정식 (Observation Equation)</strong></p>
+<p>관측 방정식은 내재적 상태 변수와 실제 관측된 데이터 간의 관계를 설명한다.</p>
+<p><span class="math display">\[\mathbf{y}_t = \mathbf{H}_t\mathbf{x}_{t} + \mathbf{v}_t\]</span></p>
+<p>여기서,</p>
+<ul>
+<li><span class="math inline">\(\mathbf{y}_t\)</span>는 시간 <span class="math inline">\(t\)</span>에서 관측된 데이터 벡터이다.</li>
+<li><span class="math inline">\(\mathbf{H}_t\)</span>는 관측 행렬로, 상태 변수가 관측 데이터에 어떻게 영향을 미치는지 설명한다.</li>
+<li><span class="math inline">\(\mathbf{v}_t\)</span>는 관측 노이즈로, 관측 과정에서 발생하는 오차를 나타낸다.</li>
+</ul>
+<section id="kalman-filter" class="level1">
+<h1>Kalman Filter</h1>
+<p>칼만 필터(Kalman filter)는 선형 동적 시스템에서 시간에 따라 변하는 신호를 최적으로 추정하기 위해 사용되는 재귀적 알고리즘이다. 특히 잡음이 있는 데이터를 처리할 때 유용하다. 칼만 필터는 과거에 수행한 측정값을 바탕으로 현재의 상태 변수의 결합분포를 추정한다. 알고리즘은 예측과 업데이트의 두 단계로 이루어진다.</p>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section">&lt;예측 단계&gt;</h3>
+<p>현재의 상태 추정치와 공분산을 기반으로 다음 시간 단계의 상태 추정치와 공분산을 예측한다.</p>
+<p><strong>상태예측:</strong> - <span class="math inline">\(\hat{x}_{k|k-1} = F_k \hat{x}_{k-1|k-1} + B_k u_k\)</span> - <span class="math inline">\(\hat{x}_{k|k-1}\)</span>는 시간 <span class="math inline">\(k\)</span>에서의 상태 예측값, <span class="math inline">\(F_k\)</span>는 상태 전이 행렬, <span class="math inline">\(\hat{x}_{k-1|k-1}\)</span>는 이전 시간 <span class="math inline">\(k-1\)</span>에서의 상태 추정치, <span class="math inline">\(B_k\)</span>는 제어 입력 행렬, <span class="math inline">\(u_k\)</span>는 제어 입력</p>
+<p><strong>공분산예측:</strong> - <span class="math inline">\(P_{k|k-1} = F_k P_{k-1|k-1} F_k^T + Q_k\)</span> - <span class="math inline">\(P_{k|k-1}\)</span>는 예측 공분산, <span class="math inline">\(P_{k-1|k-1}\)</span>는 이전 추정 공분산, <span class="math inline">\(Q_k\)</span>는 프로세스 잡음의 공분산 행렬</p>
+</section>
+<section id="section-1" class="level3">
+<h3 class="anchored" data-anchor-id="section-1">&lt;업데이트 단계&gt;</h3>
+<p>새로운 측정 데이터를 사용하여 예측된 상태 추정치를 업데이트한다.</p>
+<p><strong>칼만 이득 계산:</strong> - <span class="math inline">\(K_k = P_{k|k-1} H_k^T (H_k P_{k|k-1} H_k^T + R_k)^{-1}\)</span> - <span class="math inline">\(K_k\)</span>는 칼만 이득, <span class="math inline">\(H_k\)</span>는 측정 행렬, <span class="math inline">\(R_k\)</span>는 측정 잡음의 공분산 행렬</p>
+<p><strong>상태 업데이트:</strong> - <span class="math inline">\(\hat{x}_{k|k} = \hat{x}_{k|k-1} + K_k (z_k - H_k \hat{x}_{k|k-1})\)</span> - <span class="math inline">\(z_k\)</span>는 시간 <span class="math inline">\(k\)</span>에서의 실제 측정값</p>
+<p><strong>공분산 업데이트:</strong> - <span class="math inline">\(P_{k|k} = (I - K_k H_k) P_{k|k-1}\)</span></p>
+<div class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pykalman <span class="im">import</span> KalmanFilter</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 인위적 데이터 생성: 선형 추세 + 잡음</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>n_timesteps <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">10</span>, n_timesteps)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>true_signal <span class="op">=</span> x <span class="op">+</span> <span class="dv">3</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>observations <span class="op">=</span> true_signal <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n_timesteps)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 칼만 필터 설정</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>kf <span class="op">=</span> KalmanFilter(initial_state_mean<span class="op">=</span><span class="dv">0</span>, n_dim_obs<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 칼만 필터로 신호 추정</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>state_means, state_covariances <span class="op">=</span> kf.<span class="bu">filter</span>(observations)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 결과 시각화</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>plt.plot(x, observations, label<span class="op">=</span><span class="st">'Observations (noisy data)'</span>, linestyle<span class="op">=</span><span class="st">'dashed'</span>, marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'gray'</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>plt.plot(x, state_means, label<span class="op">=</span><span class="st">'Kalman Filter estimate'</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>plt.plot(x, true_signal, label<span class="op">=</span><span class="st">'True signal'</span>, color<span class="op">=</span><span class="st">'blue'</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Kalman Filter for Time Series Data'</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Time'</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Value'</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="ts_06_state_space_files/figure-html/cell-2-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>칼만 필터의 단점</p>
+<ul>
+<li><p>칼만 필터는 기본적으로 시스템이 선형이고, 잡음이 정규 분포를 따른다고 가정: 아닌 경우 Extended Kalman Filter나 Unscented Kalman Filter와 같은 변형이 필요</p></li>
+<li><p>초기 상태 추정치나 모델 파라미터(예: 전이 행렬)의 정확도가 부족하면 추정의 정확성이 저하</p></li>
+<li><p>(계산 복잡성) 칼만 필터는 매 시간 단계마다 행렬 연산을 수행해야 하므로, 행렬의 크기가 크거나 시스템이 복잡해질 경우 계산 비용이 증가할 수 있습니다.</p></li>
+<li><p>칼만 필터를 적용하기 위해서는 시스템의 동적 모델을 알아야 함</p></li>
+</ul>
+</section>
+</section>
+<section id="unscented-kalman-filter" class="level1">
+<h1>Unscented Kalman Filter</h1>
+<p>무향 칼만 필터(UKF)는 칼만 필터의 비선형 확장이다.</p>
+<p>시스템의 비선형성을 처리하기 위해 ’시그마 포인트’라는 개념을 도입한다. 이는 상태 추정치의 평균과 공분산을 기반으로 선택된 몇 개의 표본 점을 사용하여, 비선형 변환을 통해 이 포인트들을 전파시키는 방식으로 작동한다. 이렇게 전파된 포인트들을 사용하여 업데이트된 평균과 공분산을 계산함으로써 비선형 시스템의 상태를 추정한다.</p>
+<ul>
+<li>시그마 포인트 생성: 상태 추정치의 평균과 공분산으로부터 시그마 포인트를 계산</li>
+<li>시그마 포인트의 전파: 각 시그마 포인트를 시스템의 비선형 모델을 통해 전파</li>
+<li>평균과 공분산 업데이트: 전파된 시그마 포인트들로부터 새로운 평균과 공분산을 계산</li>
+<li>측정 업데이트: 새로운 측정값을 사용하여 상태 추정치와 공분산을 업데이트</li>
+</ul>
+<div class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pykalman <span class="im">import</span> UnscentedKalmanFilter</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># initialize parameters</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> transition_function(state, noise):</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> np.sin(state[<span class="dv">0</span>]) <span class="op">+</span> state[<span class="dv">1</span>] <span class="op">*</span> noise[<span class="dv">0</span>]</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    b <span class="op">=</span> state[<span class="dv">1</span>] <span class="op">+</span> noise[<span class="dv">1</span>]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array([a, b])</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> observation_function(state, noise):</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    C <span class="op">=</span> np.array([[<span class="op">-</span><span class="dv">1</span>, <span class="fl">0.5</span>], [<span class="fl">0.2</span>, <span class="fl">0.1</span>]])</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.dot(C, state) <span class="op">+</span> noise</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>transition_covariance <span class="op">=</span> np.eye(<span class="dv">2</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>random_state <span class="op">=</span> np.random.RandomState(<span class="dv">123</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>observation_covariance <span class="op">=</span> np.eye(<span class="dv">2</span>) <span class="op">+</span> random_state.randn(<span class="dv">2</span>, <span class="dv">2</span>) <span class="op">*</span> <span class="fl">0.1</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>initial_state_mean <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">0</span>]</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>initial_state_covariance <span class="op">=</span> [[<span class="dv">1</span>, <span class="fl">0.1</span>], [<span class="op">-</span><span class="fl">0.1</span>, <span class="dv">1</span>]]</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co"># sample from model</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>kf <span class="op">=</span> UnscentedKalmanFilter(</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    transition_function, observation_function,</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    transition_covariance, observation_covariance,</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    initial_state_mean, initial_state_covariance,</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span>random_state</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>states, observations <span class="op">=</span> kf.sample(<span class="dv">100</span>, initial_state_mean)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate state with filtering and smoothing</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>filtered_state_estimates <span class="op">=</span> kf.<span class="bu">filter</span>(observations)[<span class="dv">0</span>]</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>smoothed_state_estimates <span class="op">=</span> kf.smooth(observations)[<span class="dv">0</span>]</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co"># draw estimates</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">6</span>))</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Unscented Kalman Filter for Time Series Data'</span>)</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>lines_true <span class="op">=</span> plt.plot(states, color<span class="op">=</span><span class="st">'b'</span>)</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>lines_filt <span class="op">=</span> plt.plot(filtered_state_estimates, color<span class="op">=</span><span class="st">'r'</span>, ls<span class="op">=</span><span class="st">'-'</span>)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>lines_smooth <span class="op">=</span> plt.plot(smoothed_state_estimates, color<span class="op">=</span><span class="st">'g'</span>, ls<span class="op">=</span><span class="st">'-.'</span>)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>plt.legend((lines_true[<span class="dv">0</span>], lines_filt[<span class="dv">0</span>], lines_smooth[<span class="dv">0</span>]),</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>          (<span class="st">'true'</span>, <span class="st">'filt'</span>, <span class="st">'smooth'</span>),</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>          loc<span class="op">=</span><span class="st">'lower left'</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="ts_06_state_space_files/figure-html/cell-3-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="sarimax" class="level1">
+<h1>SARIMAX</h1>
+<p>Seasonal AutoRegressive Integrated Moving Average with eXogenous regressors</p>
+<p>SARIMAX 모델은 ARIMA 모델을 기반으로 하면서 계절성 요소와 외생 변수를 추가하여 모델의 유연성과 정확성을 높였다. SARIMAX는 다양한 시계열 데이터, 특히 계절적 패턴과 외부 영향을 받는 데이터에 적합하다.</p>
+<ul>
+<li><p>AR (AutoRegressive) 부분: 과거의 종속 변수 값(지연 값)이 미래 값에 영향을 미친다고 가정</p></li>
+<li><p>MA (Moving Average) 부분: 과거의 예측 오차가 미래 예측에 영향을 미친다고 가정</p></li>
+<li><p>Integration (차분) 부분: 비정상성(Non-stationarity) 데이터를 정상성(Stationarity) 데이터로 변환하기 위해 사용</p></li>
+<li><p>Seasonal 요소: 계절성 패턴을 모델링. 계절성 AR 및 MA 구성 요소와 계절성 차분 차수를 포함할 수 있으며, 이들은 각각 <span class="math inline">\(P, D, Q\)</span> 및 계절 주기 <span class="math inline">\(s\)</span>에 의해 정의됨</p></li>
+<li><p>Exogenous 변수 (<span class="math inline">\(\mathbf{X}\)</span>): 모델에 외부에서 영향을 미치는 변수(예: 경제 지표, 마케팅 캠페인, 기상 조건 등)를 포함. 이 변수들은 종속 변수에 직접적인 영향을 미칠 수 있으며, 모델의 설명력과 예측력을 향상시킴.</p></li>
+</ul>
+<p><span class="math display">\[(1 - \sum_{i=1}^{p}{\phi_i L^i})(1 - L^d)(1 - \sum_{i=1}^{P}{\Phi_i L^{i \cdot s}})^D Y_t = (1 + \sum_{j=1}^{q}{\theta_j L^j})(1 + \sum_{j=1}^{Q}{\Theta_j L^{j \cdot s}}) \epsilon_t + \mathbf{X}_t \beta\]</span></p>
+<p>여기서,</p>
+<ul>
+<li><span class="math inline">\(L\)</span>은 lag operator</li>
+<li><span class="math inline">\(\phi_i\)</span>, <span class="math inline">\(\Phi_i\)</span>는 비계절 및 계절 AR 파라미터</li>
+<li><span class="math inline">\(\theta_j\)</span>, <span class="math inline">\(\Theta_j\)</span>는 비계절 및 계절 MA 파라미터</li>
+<li><span class="math inline">\(\mathbf{X}_t\)</span>는 시점 <span class="math inline">\(t\)</span>에서 외생 변수</li>
+<li><span class="math inline">\(\beta\)</span>는 외생 변수의 계수</li>
+</ul>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_stata(<span class="st">'data/wpi1.dta'</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>data.index <span class="op">=</span> data.t</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the frequency</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>data.index.freq<span class="op">=</span><span class="st">"QS-OCT"</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'ln_wpi'</span>] <span class="op">=</span> np.log(data[<span class="st">'wpi'</span>])</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'D.ln_wpi'</span>] <span class="op">=</span> data[<span class="st">'ln_wpi'</span>].diff()</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Graph data</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">4</span>))</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Levels</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(data.index._mpl_repr(), data[<span class="st">'wpi'</span>], <span class="st">'-'</span>)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].<span class="bu">set</span>(title<span class="op">=</span><span class="st">'US Wholesale Price Index'</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Log difference</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(data.index._mpl_repr(), data[<span class="st">'D.ln_wpi'</span>], <span class="st">'-'</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].hlines(<span class="dv">0</span>, data.index[<span class="dv">0</span>], data.index[<span class="op">-</span><span class="dv">1</span>], <span class="st">'r'</span>)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].<span class="bu">set</span>(title<span class="op">=</span><span class="st">'US Wholesale Price Index - difference of logs'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="ts_06_state_space_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Graph data</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">4</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> sm.graphics.tsa.plot_acf(data.iloc[<span class="dv">1</span>:][<span class="st">'D.ln_wpi'</span>], lags<span class="op">=</span><span class="dv">40</span>, ax<span class="op">=</span>axes[<span class="dv">0</span>])</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> sm.graphics.tsa.plot_pacf(data.iloc[<span class="dv">1</span>:][<span class="st">'D.ln_wpi'</span>], lags<span class="op">=</span><span class="dv">40</span>, ax<span class="op">=</span>axes[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="ts_06_state_space_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>mod <span class="op">=</span> sm.tsa.statespace.SARIMAX(data[<span class="st">'ln_wpi'</span>], trend<span class="op">=</span><span class="st">'c'</span>, order<span class="op">=</span>(<span class="dv">1</span>,<span class="dv">1</span>,(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>)))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> mod.fit(disp<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(res.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                 SARIMAX Results                                 
+=================================================================================
+Dep. Variable:                    ln_wpi   No. Observations:                  124
+Model:             SARIMAX(1, 1, [1, 4])   Log Likelihood                 386.033
+Date:                   Fri, 12 Apr 2024   AIC                           -762.067
+Time:                           15:02:29   BIC                           -748.006
+Sample:                       01-01-1960   HQIC                          -756.355
+                            - 10-01-1990                                         
+Covariance Type:                     opg                                         
+==============================================================================
+                 coef    std err          z      P&gt;|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+intercept      0.0024      0.002      1.487      0.137      -0.001       0.006
+ar.L1          0.7800      0.094      8.263      0.000       0.595       0.965
+ma.L1         -0.3983      0.126     -3.173      0.002      -0.644      -0.152
+ma.L4          0.3106      0.120      2.591      0.010       0.076       0.545
+sigma2         0.0001    9.8e-06     11.111      0.000    8.97e-05       0.000
+===================================================================================
+Ljung-Box (L1) (Q):                   0.01   Jarque-Bera (JB):                45.05
+Prob(Q):                              0.90   Prob(JB):                         0.00
+Heteroskedasticity (H):               2.58   Skew:                             0.29
+Prob(H) (two-sided):                  0.00   Kurtosis:                         5.91
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step).</code></pre>
+</div>
+</div>
+<p><strong>ARIMA Postestimation: Example - Dynamic Forecasting</strong></p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>raw <span class="op">=</span> pd.read_stata(<span class="st">'data/friedman2.dta'</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>raw.index <span class="op">=</span> raw.time</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>raw.index.freq <span class="op">=</span> <span class="st">"QS-OCT"</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> raw.loc[:<span class="st">'1981'</span>]</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Variables</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>endog <span class="op">=</span> data.loc[<span class="st">'1959'</span>:, <span class="st">'consump'</span>]</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>exog <span class="op">=</span> sm.add_constant(data.loc[<span class="st">'1959'</span>:, <span class="st">'m2'</span>])</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>nobs <span class="op">=</span> endog.shape[<span class="dv">0</span>]</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>mod <span class="op">=</span> sm.tsa.statespace.SARIMAX(endog.loc[:<span class="st">'1978-01-01'</span>], exog<span class="op">=</span>exog.loc[:<span class="st">'1978-01-01'</span>], order<span class="op">=</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>fit_res <span class="op">=</span> mod.fit(disp<span class="op">=</span><span class="va">False</span>, maxiter<span class="op">=</span><span class="dv">250</span>)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fit_res.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                               SARIMAX Results                                
+==============================================================================
+Dep. Variable:                consump   No. Observations:                   77
+Model:               SARIMAX(1, 0, 1)   Log Likelihood                -243.316
+Date:                Fri, 12 Apr 2024   AIC                            496.633
+Time:                        15:06:01   BIC                            508.352
+Sample:                    01-01-1959   HQIC                           501.320
+                         - 01-01-1978                                         
+Covariance Type:                  opg                                         
+==============================================================================
+                 coef    std err          z      P&gt;|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          0.6779     18.492      0.037      0.971     -35.565      36.921
+m2             1.0379      0.021     50.329      0.000       0.997       1.078
+ar.L1          0.8775      0.059     14.859      0.000       0.762       0.993
+ma.L1          0.2771      0.108      2.572      0.010       0.066       0.488
+sigma2        31.6978      4.683      6.769      0.000      22.520      40.876
+===================================================================================
+Ljung-Box (L1) (Q):                   0.32   Jarque-Bera (JB):                 6.05
+Prob(Q):                              0.57   Prob(JB):                         0.05
+Heteroskedasticity (H):               6.09   Skew:                             0.57
+Prob(H) (two-sided):                  0.00   Kurtosis:                         3.76
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step).</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get results for the full dataset but using the estimated parameters (on a subset of the data)</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>mod <span class="op">=</span> sm.tsa.statespace.SARIMAX(endog, exog<span class="op">=</span>exog, order<span class="op">=</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> mod.<span class="bu">filter</span>(fit_res.params)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># In-sample one-step-ahead predictions</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>predict <span class="op">=</span> res.get_prediction()</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>predict_ci <span class="op">=</span> predict.conf_int()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dynamic predictions</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>predict_dy <span class="op">=</span> res.get_prediction(dynamic<span class="op">=</span><span class="st">'1978-01-01'</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>predict_dy_ci <span class="op">=</span> predict_dy.conf_int()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Graph</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">9</span>,<span class="dv">4</span>))</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>npre <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="st">'Personal consumption'</span>, xlabel<span class="op">=</span><span class="st">'Date'</span>, ylabel<span class="op">=</span><span class="st">'Billions of dollars'</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot data points</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>data.loc[<span class="st">'1977-07-01'</span>:, <span class="st">'consump'</span>].plot(ax<span class="op">=</span>ax, style<span class="op">=</span><span class="st">'o'</span>, label<span class="op">=</span><span class="st">'Observed'</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot predictions</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>predict.predicted_mean.loc[<span class="st">'1977-07-01'</span>:].plot(ax<span class="op">=</span>ax, style<span class="op">=</span><span class="st">'r--'</span>, label<span class="op">=</span><span class="st">'One-step-ahead forecast'</span>)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>ci <span class="op">=</span> predict_ci.loc[<span class="st">'1977-07-01'</span>:]</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>ax.fill_between(ci.index, ci.iloc[:,<span class="dv">0</span>], ci.iloc[:,<span class="dv">1</span>], color<span class="op">=</span><span class="st">'r'</span>, alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>predict_dy.predicted_mean.loc[<span class="st">'1977-07-01'</span>:].plot(ax<span class="op">=</span>ax, style<span class="op">=</span><span class="st">'g'</span>, label<span class="op">=</span><span class="st">'Dynamic forecast (1978)'</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>ci <span class="op">=</span> predict_dy_ci.loc[<span class="st">'1977-07-01'</span>:]</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>ax.fill_between(ci.index, ci.iloc[:,<span class="dv">0</span>], ci.iloc[:,<span class="dv">1</span>], color<span class="op">=</span><span class="st">'g'</span>, alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>legend <span class="op">=</span> ax.legend(loc<span class="op">=</span><span class="st">'lower right'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="ts_06_state_space_files/figure-html/cell-12-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prediction error</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Graph</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">9</span>,<span class="dv">4</span>))</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>npre <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="st">'Forecast error'</span>, xlabel<span class="op">=</span><span class="st">'Date'</span>, ylabel<span class="op">=</span><span class="st">'Forecast - Actual'</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># In-sample one-step-ahead predictions and 95% confidence intervals</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>predict_error <span class="op">=</span> predict.predicted_mean <span class="op">-</span> endog</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>predict_error.loc[<span class="st">'1977-10-01'</span>:].plot(ax<span class="op">=</span>ax, label<span class="op">=</span><span class="st">'One-step-ahead forecast'</span>)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>ci <span class="op">=</span> predict_ci.loc[<span class="st">'1977-10-01'</span>:].copy()</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>ci.iloc[:,<span class="dv">0</span>] <span class="op">-=</span> endog.loc[<span class="st">'1977-10-01'</span>:]</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>ci.iloc[:,<span class="dv">1</span>] <span class="op">-=</span> endog.loc[<span class="st">'1977-10-01'</span>:]</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>ax.fill_between(ci.index, ci.iloc[:,<span class="dv">0</span>], ci.iloc[:,<span class="dv">1</span>], alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Dynamic predictions and 95% confidence intervals</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>predict_dy_error <span class="op">=</span> predict_dy.predicted_mean <span class="op">-</span> endog</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>predict_dy_error.loc[<span class="st">'1977-10-01'</span>:].plot(ax<span class="op">=</span>ax, style<span class="op">=</span><span class="st">'r'</span>, label<span class="op">=</span><span class="st">'Dynamic forecast (1978)'</span>)</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>ci <span class="op">=</span> predict_dy_ci.loc[<span class="st">'1977-10-01'</span>:].copy()</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>ci.iloc[:,<span class="dv">0</span>] <span class="op">-=</span> endog.loc[<span class="st">'1977-10-01'</span>:]</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>ci.iloc[:,<span class="dv">1</span>] <span class="op">-=</span> endog.loc[<span class="st">'1977-10-01'</span>:]</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>ax.fill_between(ci.index, ci.iloc[:,<span class="dv">0</span>], ci.iloc[:,<span class="dv">1</span>], color<span class="op">=</span><span class="st">'r'</span>, alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>legend <span class="op">=</span> ax.legend(loc<span class="op">=</span><span class="st">'lower left'</span>)<span class="op">;</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>legend.get_frame().set_facecolor(<span class="st">'w'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="ts_06_state_space_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="참고자료" class="level1">
+<h1>참고자료</h1>
+<ul>
+<li>Statsmodels (https://www.statsmodels.org/stable/examples/index.html#state-space-models)</li>
+<li>https://github.com/pykalman/pykalman</li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -758,9 +1171,21 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <script src="https://giscus.app/client.js" data-repo="jo-cho/FinBlog" data-repo-id="R_kgDOJQ80aw" data-category="General" data-category-id="DIC_kwDOJQ80a84CVb8i" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../posts/statistics/time_series/ts_05_nonlinear.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">5. 비선형 모형</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../posts/fin_data/Fractional_difference.html" class="pagination-link">
+        <span class="nav-page-text">분수 차분</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></div></div></footer><script src="../../../site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

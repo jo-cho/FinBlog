@@ -238,6 +238,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">4. 시계열 변동성</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../posts/statistics/time_series/ts_05_nonlinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. 비선형 모형</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../posts/statistics/time_series/ts_06_state_space.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. 상태 공간 모형</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -536,7 +548,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#랜덤워크random-walk" id="toc-랜덤워크random-walk" class="nav-link" data-scroll-target="#랜덤워크random-walk">랜덤워크(Random walk)</a></li>
   <li><a href="#단위근검정unit-root-test" id="toc-단위근검정unit-root-test" class="nav-link" data-scroll-target="#단위근검정unit-root-test">단위근검정(Unit root test)</a></li>
   </ul></li>
-  <li><a href="#시계열-데이터-변형" id="toc-시계열-데이터-변형" class="nav-link" data-scroll-target="#시계열-데이터-변형">시계열 데이터 변형</a></li>
+  <li><a href="#시계열-데이터-변형" id="toc-시계열-데이터-변형" class="nav-link" data-scroll-target="#시계열-데이터-변형">시계열 데이터 변형</a>
+  <ul class="collapse">
+  <li><a href="#차분" id="toc-차분" class="nav-link" data-scroll-target="#차분">차분</a></li>
+  <li><a href="#변환" id="toc-변환" class="nav-link" data-scroll-target="#변환">변환</a></li>
+  <li><a href="#분해" id="toc-분해" class="nav-link" data-scroll-target="#분해">분해</a></li>
+  <li><a href="#평활화" id="toc-평활화" class="nav-link" data-scroll-target="#평활화">평활화</a></li>
+  <li><a href="#필터" id="toc-필터" class="nav-link" data-scroll-target="#필터">필터</a></li>
+  </ul></li>
   <li><a href="#참고자료" id="toc-참고자료" class="nav-link" data-scroll-target="#참고자료">참고자료</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -575,7 +594,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>시계열 분석을 정리하고자 한다. 시계열 데이터의 특징(자기상관, 정상성 등)에 대해 알아보자.</p>
 </blockquote>
 <p>일반적으로 변수 <span class="math inline">\(x\)</span>에 대한 시계열은 <span class="math inline">\(x_t\)</span>로 표시되며, 여기서 <span class="math inline">\(t\)</span>는 시간을 나타낸다. 전체 시간 집합 <span class="math inline">\(t=1,2, ..., T\)</span>는 관찰 기간이며, 관측치는 일반적으로 동일한 간격(예: 분, 시간 또는 일 등)으로 측정된다.</p>
-<div class="cell" data-execution_count="21">
+<div class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -935,13 +954,15 @@ Alternative Hypothesis: The process is weakly stationary.</code></pre>
 <h2 class="anchored" data-anchor-id="시계열-데이터-변형">시계열 데이터 변형</h2>
 <p>차분(differencing), 변환(transformation), 분해(decomposition), 평활화(smoothing), 선형회귀 추세제거, ARIMA 등이 있다.</p>
 <p>비정상 시계열을 정상 시계열로 바꾸는 등의 목적으로 쓰인다.</p>
+<section id="차분" class="level3">
+<h3 class="anchored" data-anchor-id="차분">차분</h3>
+<p>시점 간 차이 등을 이용한다.</p>
 <ul>
-<li><p>차분: 시점 간 차이 등을 이용한다.</p></li>
-<li><p>1차 차분: <span class="math inline">\(\Delta X_t = X_t - X_{t-1}\)</span></p></li>
-<li><p>2차 차분: 1차 차분을 한번 더 차분</p></li>
-<li><p>로그 차분 / 수익률</p></li>
-<li><p>계절차분</p></li>
-<li><p><a href="https://jo-cho.github.io/FinBlog/posts/fin_data/Fractional_difference.html">분수차분(Fractional difference)</a> 등</p></li>
+<li>1차 차분: <span class="math inline">\(\Delta X_t = X_t - X_{t-1}\)</span></li>
+<li>2차 차분: 1차 차분을 한번 더 차분</li>
+<li>로그 차분 / 수익률</li>
+<li>계절차분</li>
+<li><a href="https://jo-cho.github.io/FinBlog/posts/fin_data/Fractional_difference.html">분수차분(Fractional difference)</a> 등</li>
 </ul>
 <div class="cell" data-execution_count="105">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1차 차분</span></span>
@@ -966,9 +987,10 @@ Alternative Hypothesis: The process is weakly stationary.</code></pre>
 <p><img src="ts_01_intro_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<ul>
-<li>변환: 로그 변환, Box-cox 변환 등</li>
-</ul>
+</section>
+<section id="변환" class="level3">
+<h3 class="anchored" data-anchor-id="변환">변환</h3>
+<p>로그 변환, Box-cox 변환 등</p>
 <p><strong>로그 변환</strong>: 로그 변환은 시계열 데이터의 분산을 안정화하고, 비선형 트렌드를 선형화하여 분석을 용이하게 하는 데 도움이 된다. 특히, 시계열 데이터의 값이 시간에 따라 지수적으로 증가하거나 감소하는 경우 유용하다.</p>
 <p><strong>Box-cox 변환</strong>: Box-Cox 변환은 시계열 데이터의 분산을 안정화하고, 정규성을 개선하기 위해 사용되는 일종의 데이터 변환 기법이다. 이 변환은 데이터에 음수 값이 없을 때 사용할 수 있으며, 하나의 파라미터(λ, 람다)를 사용하여 여러 가지 변환을 일반화한 형태이다.</p>
 <div class="cell" data-execution_count="112">
@@ -999,7 +1021,7 @@ Alternative Hypothesis: The process is weakly stationary.</code></pre>
 <p><img src="ts_01_intro_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-execution_count="117">
+<div class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> boxcox</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 양의 값을 가진 임의의 데이터 생성 (ex 분산)</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
@@ -1024,50 +1046,116 @@ Alternative Hypothesis: The process is weakly stationary.</code></pre>
 <pre><code>Optimal Lambda: -0.04</code></pre>
 </div>
 </div>
-<ul>
-<li>분해: 요소 분해 (계절적 분해)
+</section>
+<section id="분해" class="level3">
+<h3 class="anchored" data-anchor-id="분해">분해</h3>
+<p>요소 분해 (계절적 분해)</p>
 <ul>
 <li>위의 statsmodel.tsa 에서 함수를 제공한다.</li>
-</ul></li>
-<li>평활화: 이동평균(moving average), 지수가중 이동평균(EWMA) 등
-<ul>
-<li>평활화(smoothing)은 추세-주기를 측정하기 위해 사용된다.</li>
-</ul></li>
 </ul>
+</section>
+<section id="평활화" class="level3">
+<h3 class="anchored" data-anchor-id="평활화">평활화</h3>
+<ul>
+<li>지수평활화(Exponential smoothing), 이동평균(moving average), 지수가중 이동평균(EWMA) 등</li>
+<li>평활화(smoothing)은 추세-주기를 측정하기 위해 사용된다.</li>
+</ul>
+<p>Exponential smoothing</p>
+<div class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tsa.api <span class="im">import</span> ExponentialSmoothing, SimpleExpSmoothing, Holt</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">50</span>  <span class="co"># 데이터 포인트의 수</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>walk <span class="op">=</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n).cumsum()</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.Series(walk)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>fit1 <span class="op">=</span> SimpleExpSmoothing(data, initialization_method<span class="op">=</span><span class="st">"heuristic"</span>).fit(</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    smoothing_level<span class="op">=</span><span class="fl">0.2</span>, optimized<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>fit2 <span class="op">=</span> SimpleExpSmoothing(data, initialization_method<span class="op">=</span><span class="st">"heuristic"</span>).fit(</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    smoothing_level<span class="op">=</span><span class="fl">0.6</span>, optimized<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>fit3 <span class="op">=</span> SimpleExpSmoothing(data, initialization_method<span class="op">=</span><span class="st">"estimated"</span>).fit()</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">3</span>))</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>plt.plot(data, color<span class="op">=</span><span class="st">"black"</span>)</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>plt.plot(fit1.fittedvalues)</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>plt.plot(fit2.fittedvalues)</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>plt.plot(fit3.fittedvalues)</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>plt.legend([<span class="st">'original'</span>,<span class="st">'alpha=.2'</span>,<span class="st">'alpha=.6'</span>,<span class="st">'estimated'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="42">
+<pre><code>&lt;matplotlib.legend.Legend at 0x1b40c93beb0&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="ts_01_intro_files/figure-html/cell-13-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Moving Average</p>
 <p><span class="math inline">\(SMA_t = \frac{1}{n}\sum_{i=t-n+1}^{t} x_i\)</span></p>
 <p><span class="math inline">\(WMA_t = \sum_{i=t-n+1}^{t} w_i x_i\)</span></p>
 <p><span class="math inline">\(EMA_t = \alpha x_t + (1-\alpha) EMA_{t-1}\)</span></p>
-<div class="cell" data-execution_count="113">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 예제 데이터 생성</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.Series(np.random.randn(<span class="dv">100</span>).cumsum())</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 5일 이동 평균</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>rolling_mean <span class="op">=</span> data.rolling(window<span class="op">=</span><span class="dv">5</span>).mean()</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># EWMA 계산</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>ewma <span class="op">=</span> data.ewm(span<span class="op">=</span><span class="dv">5</span>).mean()</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 원본 데이터와 이동 평균 시각화</span></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">3</span>))</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>plt.plot(data, label<span class="op">=</span><span class="st">'Original Data'</span>)</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>plt.plot(rolling_mean, label<span class="op">=</span><span class="st">'5-Day Moving Average'</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>plt.plot(ewma, label<span class="op">=</span><span class="st">'EWMA (span=5)'</span>, color<span class="op">=</span><span class="st">'green'</span>)</span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 예제 데이터 생성</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.Series(np.random.randn(<span class="dv">100</span>).cumsum())</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 5일 이동 평균</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>rolling_mean <span class="op">=</span> data.rolling(window<span class="op">=</span><span class="dv">5</span>).mean()</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co"># EWMA 계산</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>ewma <span class="op">=</span> data.ewm(span<span class="op">=</span><span class="dv">5</span>).mean()</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 원본 데이터와 이동 평균 시각화</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">3</span>))</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>plt.plot(data, label<span class="op">=</span><span class="st">'Original Data'</span>)</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>plt.plot(rolling_mean, label<span class="op">=</span><span class="st">'5-Day Moving Average'</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>plt.plot(ewma, label<span class="op">=</span><span class="st">'EWMA (span=5)'</span>, color<span class="op">=</span><span class="st">'green'</span>)</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="ts_01_intro_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
+<p><img src="ts_01_intro_files/figure-html/cell-14-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<p>ARIMA에 대해서는 다음 포스트에서 다루며, AR, MA, ARMA 모형에 대해서도 다룬다.</p>
+</section>
+<section id="필터" class="level3">
+<h3 class="anchored" data-anchor-id="필터">필터</h3>
+<ul>
+<li>HP Filter</li>
+</ul>
+<p>The Hodrick-Prescott 필터는 <span class="math inline">\(y_t\)</span>를 트렌드 <span class="math inline">\(\tau_t\)</span>와 순환 성분 <span class="math inline">\(\zeta_t\)</span>로 나눈다.</p>
+<p><span class="math display">\[y_t = \tau_t + \zeta_t\]</span></p>
+<p>다음의 quadratic loss function을 최소화하여 성분을 결정한다.</p>
+<p><span class="math display">\[\min_{\tau} \sum_{t} \zeta_t^2 + \lambda \sum_{t=1}^{T} \left[(\tau_t - \tau_{t-1}) - (\tau_{t-1} - \tau_{t-2})\right]^2\]</span></p>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>dta <span class="op">=</span> sm.datasets.macrodata.load_pandas().data</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>dta.index <span class="op">=</span> pd.Index(sm.tsa.datetools.dates_from_range(<span class="st">"1959Q1"</span>, <span class="st">"2009Q3"</span>))</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> dta[<span class="st">"year"</span>]</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> dta[<span class="st">"quarter"</span>]</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>gdp_cycle, gdp_trend <span class="op">=</span> sm.tsa.filters.hpfilter(dta.realgdp)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>gdp_decomp <span class="op">=</span> dta[[<span class="st">"realgdp"</span>]].copy()</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>gdp_decomp[<span class="st">"cycle"</span>] <span class="op">=</span> gdp_cycle</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>gdp_decomp[<span class="st">"trend"</span>] <span class="op">=</span> gdp_trend</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">3</span>))</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> fig.add_subplot(<span class="dv">111</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>gdp_decomp[[<span class="st">"realgdp"</span>, <span class="st">"trend"</span>]][<span class="st">"2000-03-31"</span>:].plot(ax<span class="op">=</span>ax, fontsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>legend <span class="op">=</span> ax.get_legend()</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>legend.prop.set_size(<span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="ts_01_intro_files/figure-html/cell-16-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
 </section>
 <section id="참고자료" class="level1">
 <h1>참고자료</h1>
 <ul>
 <li><p>Mills, T. C. (2019). Applied time series analysis: A practical guide to modeling and forecasting. Academic press.</p></li>
 <li><p>https://github.com/ehmanori/Data-Analysis/blob/master/시계열%20데이터의%20특징.ipynb</p></li>
-<li><p>ChatGPT (For some codes)</p></li>
+<li><p>https://www.statsmodels.org/stable/examples/index.html#time-series-analysis</p></li>
+<li><p>ChatGPT (For some code generation)</p></li>
 </ul>
 
 
