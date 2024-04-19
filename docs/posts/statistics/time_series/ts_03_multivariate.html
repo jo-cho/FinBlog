@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.335">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -18,9 +18,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -47,43 +48,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -121,11 +92,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../../../styles.css">
@@ -142,123 +115,139 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <span class="navbar-title">Cho’s FinBlog</span>
     </a>
   </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../about.html">
+    <a class="nav-link" href="../../../about.html" rel="" target="">
  <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
       <i class="bi bi-github" role="img">
 </i> 
  <span class="menu-text"></span>
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">    
         <li>
-    <a class="dropdown-item" href="https://github.com/jo-cho/FinBlog/tree/main/docs">
+    <a class="dropdown-item" href="https://github.com/jo-cho/FinBlog/tree/main/docs" rel="" target="">
  <span class="dropdown-text">Source Code</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="https://github.com/jo-cho/FinBlog/issues">
+    <a class="dropdown-item" href="https://github.com/jo-cho/FinBlog/issues" rel="" target="">
  <span class="dropdown-text">Report a Bug</span></a>
   </li>  
     </ul>
   </li>
 </ul>
-              <div id="quarto-search" class="" title="Search"></div>
+            <div class="quarto-navbar-tools">
+</div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">시계열 - 다변량시계열</h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">기초통계</li><li class="breadcrumb-item"><a href="../../../posts/statistics/time_series/ts_01_intro.html">시계열 분석</a></li><li class="breadcrumb-item"><a href="../../../posts/statistics/time_series/ts_03_multivariate.html">3. 다변량 시계열</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
     </div>
   </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto"><div class="quarto-sidebar-header"><div class="sidebar-header-item">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto"><div class="quarto-sidebar-header"><div class="sidebar-header-item">
 <p>FinBlog</p>
 </div></div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../index.html" class="sidebar-item-text sidebar-link">홈</a>
+  <a href="../../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">홈</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../listing.html" class="sidebar-item-text sidebar-link">모든 글 보기</a>
+  <a href="../../../listing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모든 글 보기</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">기초통계</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">기초통계</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">확률과 통계</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">확률과 통계</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/statistics/probability_distribution.html" class="sidebar-item-text sidebar-link">확률 분포</a>
+  <a href="../../../posts/statistics/probability_distribution.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">확률 분포</span></a>
   </div>
 </li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">시계열 분석</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">시계열 분석</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/statistics/time_series/ts_01_intro.html" class="sidebar-item-text sidebar-link">1. 시계열 서론</a>
+  <a href="../../../posts/statistics/time_series/ts_01_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. 시계열 서론</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/statistics/time_series/ts_02_arima.html" class="sidebar-item-text sidebar-link">2. 선형 모형</a>
+  <a href="../../../posts/statistics/time_series/ts_02_arima.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. 선형 모형</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/statistics/time_series/ts_03_multivariate.html" class="sidebar-item-text sidebar-link active">3. 다변량 시계열</a>
+  <a href="../../../posts/statistics/time_series/ts_03_multivariate.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">3. 다변량 시계열</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/statistics/time_series/ts_04_volatility.html" class="sidebar-item-text sidebar-link">4. 시계열 변동성</a>
+  <a href="../../../posts/statistics/time_series/ts_04_volatility.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. 시계열 변동성</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/statistics/time_series/ts_05_nonlinear.html" class="sidebar-item-text sidebar-link">5. 비선형 모형</a>
+  <a href="../../../posts/statistics/time_series/ts_05_nonlinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. 비선형 모형</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/statistics/time_series/ts_06_state_space.html" class="sidebar-item-text sidebar-link">6. 상태 공간 모형</a>
+  <a href="../../../posts/statistics/time_series/ts_06_state_space.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. 상태 공간 모형</span></a>
   </div>
 </li>
       </ul>
@@ -267,143 +256,167 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">금융 데이터 처리</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+ <span class="menu-text">금융 데이터 처리</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/fin_data/Fractional_difference.html" class="sidebar-item-text sidebar-link">분수 차분</a>
+  <a href="../../../posts/fin_data/Fractional_difference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">분수 차분</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">알고리즘 트레이딩</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text">알고리즘 트레이딩</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/ml_trading/0_Introduction.html" class="sidebar-item-text sidebar-link">1. 트레이딩 개요</a>
+  <a href="../../../posts/ml_trading/0_Introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. 트레이딩 개요</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/ml_trading/1_Get_Market_Data.html" class="sidebar-item-text sidebar-link">2. 시장 데이터 수집</a>
+  <a href="../../../posts/ml_trading/1_Get_Market_Data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. 시장 데이터 수집</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/ml_trading/2_Labeling.html" class="sidebar-item-text sidebar-link">3. 가격 모멘텀 라벨링</a>
+  <a href="../../../posts/ml_trading/2_Labeling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. 가격 모멘텀 라벨링</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/ml_trading/3_Get_Features.html" class="sidebar-item-text sidebar-link">4. 피쳐 생성</a>
+  <a href="../../../posts/ml_trading/3_Get_Features.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. 피쳐 생성</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/ml_trading/4_Feature_Selection.html" class="sidebar-item-text sidebar-link">5. 피쳐 선정</a>
+  <a href="../../../posts/ml_trading/4_Feature_Selection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. 피쳐 선정</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/ml_trading/5_Get_Trading_Signals.html" class="sidebar-item-text sidebar-link">6. 매매 시그널 분류</a>
+  <a href="../../../posts/ml_trading/5_Get_Trading_Signals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. 매매 시그널 분류</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/ml_trading/6_Trading_Rules.html" class="sidebar-item-text sidebar-link">7. 매매 규칙</a>
+  <a href="../../../posts/ml_trading/6_Trading_Rules.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7. 매매 규칙</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/ml_trading/7_Enhancing_and_Bet_Confidence.html" class="sidebar-item-text sidebar-link">8. 매매 신뢰도 측정과 전략 강화</a>
+  <a href="../../../posts/ml_trading/7_Enhancing_and_Bet_Confidence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8. 매매 신뢰도 측정과 전략 강화</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">시스템 리스크 분석</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text">시스템 리스크 분석</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/systemic_risk/1_Systemic_Risk.html" class="sidebar-item-text sidebar-link">시스템 리스크 개념</a>
+  <a href="../../../posts/systemic_risk/1_Systemic_Risk.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">시스템 리스크 개념</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">시스템 리스크 측정</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+ <span class="menu-text">시스템 리스크 측정</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/systemic_risk/2_Systemic_Risk_Measures.html" class="sidebar-item-text sidebar-link">선행연구 요약</a>
+  <a href="../../../posts/systemic_risk/2_Systemic_Risk_Measures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">선행연구 요약</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/systemic_risk/2-1_Systemic_Risk_Measures_Macro.html" class="sidebar-item-text sidebar-link">선행연구 (거시경제)</a>
+  <a href="../../../posts/systemic_risk/2-1_Systemic_Risk_Measures_Macro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">선행연구 (거시경제)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/systemic_risk/2-2_Systemic_Risk_Measures_Market.html" class="sidebar-item-text sidebar-link">선행연구 (시장위험)</a>
+  <a href="../../../posts/systemic_risk/2-2_Systemic_Risk_Measures_Market.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">선행연구 (시장위험)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.html" class="sidebar-item-text sidebar-link">선행연구 (금융기관 위험)</a>
+  <a href="../../../posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">선행연구 (금융기관 위험)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/systemic_risk/2-4_Systemic_Risk_Measures_Probability_of_Default.html" class="sidebar-item-text sidebar-link">선행연구 (부도확률모형 위험)</a>
+  <a href="../../../posts/systemic_risk/2-4_Systemic_Risk_Measures_Probability_of_Default.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">선행연구 (부도확률모형 위험)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/systemic_risk/2-5_Systemic_Risk_Measures_Network.html" class="sidebar-item-text sidebar-link">선행연구 (네트워크)</a>
+  <a href="../../../posts/systemic_risk/2-5_Systemic_Risk_Measures_Network.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">선행연구 (네트워크)</span></a>
   </div>
 </li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">시스템 리스크와 머신러닝</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+ <span class="menu-text">시스템 리스크와 머신러닝</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_1.html" class="sidebar-item-text sidebar-link">선행연구1</a>
+  <a href="../../../posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">선행연구1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_1_2.html" class="sidebar-item-text sidebar-link">선행연구2</a>
+  <a href="../../../posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_1_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">선행연구2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_2.html" class="sidebar-item-text sidebar-link">향후 연구 방향</a>
+  <a href="../../../posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">향후 연구 방향</span></a>
   </div>
 </li>
       </ul>
@@ -412,58 +425,68 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">그래프 머신러닝</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+ <span class="menu-text">그래프 머신러닝</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">그래프 머신러닝 이론</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+ <span class="menu-text">그래프 머신러닝 이론</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/machine_learning/GRL_01.html" class="sidebar-item-text sidebar-link">1. 들어가며</a>
+  <a href="../../../posts/machine_learning/GRL_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. 들어가며</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/machine_learning/GRL_02_1.html" class="sidebar-item-text sidebar-link">2-1. 그래프 통계량과 커널</a>
+  <a href="../../../posts/machine_learning/GRL_02_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2-1. 그래프 통계량과 커널</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/machine_learning/GRL_02_2.html" class="sidebar-item-text sidebar-link">2-2. 이웃중복 감지</a>
+  <a href="../../../posts/machine_learning/GRL_02_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2-2. 이웃중복 감지</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/machine_learning/GRL_02_3.html" class="sidebar-item-text sidebar-link">2-3. 라플라시안과 스펙트럼</a>
+  <a href="../../../posts/machine_learning/GRL_02_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2-3. 라플라시안과 스펙트럼</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/machine_learning/GRL_03_1.html" class="sidebar-item-text sidebar-link">3-1. 인코더-디코더</a>
+  <a href="../../../posts/machine_learning/GRL_03_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3-1. 인코더-디코더</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/machine_learning/GRL_03_2.html" class="sidebar-item-text sidebar-link">3-2. 랜덤워크 임베딩</a>
+  <a href="../../../posts/machine_learning/GRL_03_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3-2. 랜덤워크 임베딩</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/machine_learning/GRL_04_1.html" class="sidebar-item-text sidebar-link">4. 다중관계 데이터</a>
+  <a href="../../../posts/machine_learning/GRL_04_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. 다중관계 데이터</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/machine_learning/GRL_05_1.html" class="sidebar-item-text sidebar-link">5-1. 신경망 메시지 전달</a>
+  <a href="../../../posts/machine_learning/GRL_05_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5-1. 신경망 메시지 전달</span></a>
   </div>
 </li>
       </ul>
@@ -472,28 +495,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">자연어 처리</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">
+ <span class="menu-text">자연어 처리</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false">선행연구</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false">
+ <span class="menu-text">선행연구</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/nlp/finance_llm_survey.html" class="sidebar-item-text sidebar-link">금융분야의 LLM (2023)</a>
+  <a href="../../../posts/nlp/finance_llm_survey.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">금융분야의 LLM (2023)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/nlp/news_sentiment_index.html" class="sidebar-item-text sidebar-link">뉴스심리지수(NSI) - 한국은행</a>
+  <a href="../../../posts/nlp/news_sentiment_index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">뉴스심리지수(NSI) - 한국은행</span></a>
   </div>
 </li>
       </ul>
@@ -503,6 +530,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -527,7 +555,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">시계열 - 다변량시계열</h1>
+<h1 class="title">시계열 - 다변량시계열</h1>
 <p class="subtitle lead">Time Series - Multivariate time series</p>
   <div class="quarto-categories">
     <div class="quarto-category">time series</div>
@@ -582,13 +610,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>충격 반응 분석(impulse response analysis): 한 변수에 대한 충격이 시간에 따라 다른 변수에 미치는 영향을 분석한다.</li>
 <li>분산 분해(variance decomposition): 시계열 변동성이 다른 변수의 충격에 의해 얼마나 설명되는지 분석한다.</li>
 </ul>
-<div class="cell" data-execution_count="3">
+<div class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tsa.api <span class="im">import</span> VAR</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tsa.api <span class="im">import</span> VAR, SVAR</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.datasets</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>mdatagen <span class="op">=</span> statsmodels.datasets.macrodata.load().data</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>mdata <span class="op">=</span> mdatagen[[<span class="st">'realgdp'</span>,<span class="st">'infl'</span>,<span class="st">'realint'</span>]]</span>
@@ -603,8 +631,73 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 성능 확인</span></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>model_fitted.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>AttributeError: module 'statsmodels' has no attribute 'datasets'</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>  Summary of Regression Results   
+==================================
+Model:                         VAR
+Method:                        OLS
+Date:           Fri, 19, Apr, 2024
+Time:                     14:35:59
+--------------------------------------------------------------------
+No. of Equations:         3.00000    BIC:                    1.62001
+Nobs:                     196.000    HQIC:                   1.32139
+Log likelihood:          -913.925    FPE:                    3.06032
+AIC:                      1.11826    Det(Omega_mle):         2.63593
+--------------------------------------------------------------------
+Results for equation realgdp
+=============================================================================
+                coefficient       std. error           t-stat            prob
+-----------------------------------------------------------------------------
+const              1.041322         0.212434            4.902           0.000
+L1.realgdp         1.099091         0.073084           15.039           0.000
+L1.infl            0.232696         0.088422            2.632           0.008
+L1.realint         0.287157         0.095401            3.010           0.003
+L2.realgdp        -0.087680         0.107132           -0.818           0.413
+L2.infl           -0.412487         0.119789           -3.443           0.001
+L2.realint        -0.443348         0.125784           -3.525           0.000
+L3.realgdp        -0.254576         0.069629           -3.656           0.000
+L3.infl            0.111264         0.090740            1.226           0.220
+L3.realint         0.166993         0.094135            1.774           0.076
+=============================================================================
+
+Results for equation infl
+=============================================================================
+                coefficient       std. error           t-stat            prob
+-----------------------------------------------------------------------------
+const              0.187369         0.476189            0.393           0.694
+L1.realgdp         0.229654         0.163823            1.402           0.161
+L1.infl            0.792730         0.198207            4.000           0.000
+L1.realint         0.515905         0.213849            2.412           0.016
+L2.realgdp        -0.464209         0.240146           -1.933           0.053
+L2.infl           -0.271777         0.268518           -1.012           0.311
+L2.realint        -0.503479         0.281957           -1.786           0.074
+L3.realgdp         0.380054         0.156079            2.435           0.015
+L3.infl            0.306558         0.203402            1.507           0.132
+L3.realint         0.021393         0.211012            0.101           0.919
+=============================================================================
+
+Results for equation realint
+=============================================================================
+                coefficient       std. error           t-stat            prob
+-----------------------------------------------------------------------------
+const             -0.346976         0.442661           -0.784           0.433
+L1.realgdp        -0.188259         0.152289           -1.236           0.216
+L1.infl            0.159346         0.184251            0.865           0.387
+L1.realint         0.447051         0.198792            2.249           0.025
+L2.realgdp         0.581275         0.223238            2.604           0.009
+L2.infl            0.041864         0.249612            0.168           0.867
+L2.realint         0.220401         0.262105            0.841           0.400
+L3.realgdp        -0.444055         0.145090           -3.061           0.002
+L3.infl           -0.032670         0.189081           -0.173           0.863
+L3.realint         0.195516         0.196155            0.997           0.319
+=============================================================================
+
+Correlation matrix of residuals
+            realgdp      infl   realint
+realgdp    1.000000  0.150341 -0.039671
+infl       0.150341  1.000000 -0.928779
+realint   -0.039671 -0.928779  1.000000
+</code></pre>
 </div>
 </div>
 <section id="예측forecasting" class="level2">
@@ -615,7 +708,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>모델 추정: 최적의 lag를 선택하고 모델을 추정</li>
 <li>예측 수행: 학습된 모델을 이용해 미래의 값 예측</li>
 </ul>
-<div class="cell" data-execution_count="157">
+<div class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 예측 (Forecasting)</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 학습된 모델로부터 다음 5일간의 데이터를 예측합니다.</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>forecast <span class="op">=</span> model_fitted.forecast(model_fitted.endog, steps<span class="op">=</span><span class="dv">5</span>)</span>
@@ -634,11 +727,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     realgdp_2d   infl_2d  realint_2d
-199    0.205683  1.047822   -1.198425
-200    2.301223 -0.262928    0.143380
-201    3.912961  0.818659   -0.595124
-202    4.611803  1.598119   -1.178770
-203    4.502618  1.934530   -1.158138</code></pre>
+199   -0.688487  2.144457   -2.336378
+200    1.206527  1.962201   -2.020657
+201    2.915662  1.954942   -1.665079
+202    4.227067  1.817433   -1.211757
+203    5.012108  1.944107   -0.980159</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="ts_03_multivariate_files/figure-html/cell-3-output-2.png" class="img-fluid"></p>
@@ -661,7 +754,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>A형 모형: 오차항 분산을 정규화해주어 <span class="math inline">\(B=I\)</span> 인 형태, 변수들 사이의 동시방정식 모델을 식별하기 위해 동시성 제약을 사용</li>
 <li>B형 모형: 피설명변수를 정규화해주어 <span class="math inline">\(A=I\)</span> 인 형태, 주로 충격의 전파 방식을 모델링하는 데 사용</li>
 </ul>
-<div class="cell" data-execution_count="158">
+<div class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#define structural inputs</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.asarray([[<span class="dv">1</span>, <span class="st">'E'</span>, <span class="dv">0</span>],[<span class="st">'E'</span>, <span class="dv">1</span>, <span class="st">'E'</span>],[<span class="dv">0</span>, <span class="st">'E'</span>, <span class="dv">1</span>]])</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>B <span class="op">=</span> np.asarray([[<span class="st">'E'</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>]])</span>
@@ -673,7 +766,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   warnings.warn("Maximum Likelihood optimization failed to "</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="159">
+<div class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>res.k_exog_user <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(res.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -681,8 +774,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ==================================
 Model:                        SVAR
 Method:                        OLS
-Date:           Tue, 09, Apr, 2024
-Time:                     17:02:06
+Date:           Fri, 19, Apr, 2024
+Time:                     14:36:07
 --------------------------------------------------------------------
 No. of Equations:         3.00000    BIC:                    1.62001
 Nobs:                     196.000    HQIC:                   1.32139
@@ -766,7 +859,7 @@ realint   -0.039671 -0.928779  1.000000
 <p>VAR 모델을 떠올려보자.</p>
 <p><span class="math inline">\(Y_t = A_1 Y_{t-1} + A_2 Y_{t-2} + ... + A_p Y_{t-p} + \epsilon_t\)</span></p>
 <p>IRF를 나타내는 데 있어서, 충격 <span class="math inline">\(\epsilon_t\)</span>가 시스템에 미치는 영향을 시간에 걸쳐 추적하는 것이 목적이다. 특정 시점 <span class="math inline">\(t\)</span>에서 <span class="math inline">\(i\)</span>번째 변수에 단위 충격이 가해졌을 때, 이 충격이 시스템에 미치는 영향을 시간 <span class="math inline">\(h\)</span>에 걸쳐 추적하는 IRF는 다음과 같이 표현될 수 있다: <span class="math display">\[IRF_{i,h} = \frac{\partial Y_{t+h}}{\partial \epsilon_{i,t}}\]</span></p>
-<div class="cell" data-execution_count="163">
+<div class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>irf <span class="op">=</span> model_fitted.irf(<span class="dv">20</span>) <span class="co">#var result</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>sirf <span class="op">=</span> res.irf(<span class="dv">20</span>) <span class="co">#svar result</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>impulse <span class="op">=</span> [<span class="st">'realint'</span>,<span class="st">'infl'</span>]</span>
@@ -796,7 +889,7 @@ realint   -0.039671 -0.928779  1.000000
 <p><span class="math inline">\(Y_t = \alpha_0 + \sum_{i=1}^{p} \alpha_i Y_{t-i} + \epsilon_t\)</span></p>
 <p><span class="math inline">\(Y_t = \beta_0 + \sum_{i=1}^{p} \beta_i Y_{t-i} + \sum_{j=1}^{q} \gamma_j X_{t-j} + u_t\)</span></p>
 <p>그레인저 인과성 검정 절차 - 모델 설정: 두 변수 <span class="math inline">\(X\)</span>와 <span class="math inline">\(Y\)</span>에 대해, <span class="math inline">\(Y\)</span>를 예측하기 위한 두 가지 모델을 설정한다. 첫 번째 모델은 <span class="math inline">\(Y\)</span>의 과거 값만을 사용하고, 두 번째 모델은 <span class="math inline">\(Y\)</span>의 과거 값과 <span class="math inline">\(X\)</span>의 과거 값을 모두 사용한다. - 모델 추정: 두 모델을 데이터에 적합시킨다. - 통계적 검정: 두 모델의 적합도를 비교하여, <span class="math inline">\(X\)</span>의 과거 값이 <span class="math inline">\(Y\)</span>의 예측에 유의미하게 기여하는지 검정한다. 이를 위해 보통 F-통계량을 사용한다.</p>
-<div class="cell" data-execution_count="178">
+<div class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> df[[<span class="st">'realgdp'</span>,<span class="st">'infl'</span>]]   </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tsa.stattools <span class="im">import</span> grangercausalitytests</span>
@@ -825,7 +918,7 @@ likelihood ratio test: chi2=12.7580 , p=0.0258  , df=5
 parameter F test:         F=2.4878  , p=0.0330  , df_denom=183, df_num=5</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="177">
+<div class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> df[[<span class="st">'realgdp'</span>,<span class="st">'realint'</span>]]    </span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>gc_res <span class="op">=</span> grangercausalitytests(data, [<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -852,7 +945,7 @@ likelihood ratio test: chi2=4.9228  , p=0.4254  , df=5
 parameter F test:         F=0.9406  , p=0.4560  , df_denom=183, df_num=5</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="179">
+<div class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> df[[<span class="st">'infl'</span>,<span class="st">'realint'</span>]]   </span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>gc_res <span class="op">=</span> grangercausalitytests(data, [<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -887,7 +980,7 @@ parameter F test:         F=3.2191  , p=0.0082  , df_denom=183, df_num=5</code><
 <p>시계열 데이터의 공적분(Cointegration)은 두 개 이상의 비정상 시계열 변수들이 장기적으로 공통된 추세를 공유하고, 이들 간의 일정한 관계가 시간에 따라 안정적으로 유지되는 현상을 의미한다. 이러한 관계는 단기적으로는 변수들이 서로 다른 패턴을 보일 수 있지만, 장기적으로는 같은 균형 상태로 돌아가려는 성질을 가지고 있다.</p>
 <p>두 시계열 <span class="math inline">\(X_t\)</span>, <span class="math inline">\(Y_t\)</span>가 있을 때, 만약 이들이 각각 비정상이지만, 이들의 선형 조합 <span class="math inline">\(Y_t-\beta X_t = u_t\)</span>가 정상(stationary) 시계열을 이룬다면, <span class="math inline">\(X_t, Y_t\)</span>는 공적분 관계에 있다고 말한다.</p>
 <p>공적분의 존재 여부는 여러 통계적 검정을 통해 결정할 수 있으며, 가장 널리 사용되는 방법 중 하나는 <strong>Johansen 공적분 검정</strong>이다.</p>
-<div class="cell" data-execution_count="278">
+<div class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>timesteps <span class="op">=</span> <span class="dv">300</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>common_trend <span class="op">=</span> np.cumsum(np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, timesteps))</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -910,17 +1003,17 @@ parameter F test:         F=3.2191  , p=0.0082  , df_denom=183, df_num=5</code><
 <p><img src="ts_03_multivariate_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-execution_count="279">
+<div class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>diff <span class="op">=</span> df_prices[<span class="st">'Price1'</span>] <span class="op">-</span> df_prices[<span class="st">'Price2'</span>]</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>diff.plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="279">
+<div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>&lt;Axes: &gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="ts_03_multivariate_files/figure-html/cell-11-output-2.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-execution_count="281">
+<div class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tsa.vector_ar.vecm <span class="im">import</span> coint_johansen</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Johansen 공적분 검정 수행</span></span>
@@ -932,10 +1025,10 @@ parameter F test:         F=3.2191  , p=0.0082  , df_denom=183, df_num=5</code><
 <span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"검정 통계량 (Max-Eigen Statistic): </span><span class="sc">{</span>result<span class="sc">.</span>lr2<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"임계값 (Critical Values, 90%, 95%, 99%): </span><span class="sc">{</span>result<span class="sc">.</span>cvm<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>검정 통계량 (Trace Statistic): [5.65405425 0.25595553]
+<pre><code>검정 통계량 (Trace Statistic): [9.41170433 0.65886094]
 임계값 (Critical Values, 90%, 95%, 99%): [[13.4294 15.4943 19.9349]
  [ 2.7055  3.8415  6.6349]]
-검정 통계량 (Max-Eigen Statistic): [5.39809871 0.25595553]
+검정 통계량 (Max-Eigen Statistic): [8.75284339 0.65886094]
 임계값 (Critical Values, 90%, 95%, 99%): [[12.2971 14.2639 18.52  ]
  [ 2.7055  3.8415  6.6349]]</code></pre>
 </div>
@@ -962,7 +1055,7 @@ parameter F test:         F=3.2191  , p=0.0082  , df_denom=183, df_num=5</code><
 <li><p>VECM 추정: 공적분 관계와 단기 동적을 포함하는 VECM을 추정</p></li>
 <li><p>모델 진단: 잔차의 정상성, 자기상관 등을 검토하여 모델의 적합성을 평가</p></li>
 </ul>
-<div class="cell" data-execution_count="181">
+<div class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tsa.vector_ar.vecm <span class="im">import</span> VECM</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># VECM 모델 적합</span></span>
@@ -1028,7 +1121,7 @@ beta.3        -1.7533      0.244     -7.186      0.000      -2.232      -1.275
 <li><p>최적 경로 찾기: 누적 거리 행렬의 마지막 셀에서 시작하여, 시작 셀로 되돌아가는 최적 경로(즉, 최소 누적 거리를 가지는 경로)를 역추적한다. 이 경로는 두 시계열 사이의 최소 거리 매핑을 나타낸다.</p></li>
 </ul>
 <p><span class="math display">\[D(i,j)=d(x_i,y_j)+\min\{D(i-1,j-1),D(i-1,j),D(i,j-1)\}\]</span></p>
-<div class="cell" data-execution_count="39">
+<div class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> dtw</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> np.arange(<span class="dv">100</span>)</span>
@@ -1037,11 +1130,17 @@ beta.3        -1.7533      0.244     -7.186      0.000      -2.232      -1.275
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>dtw.dtw(ts_a, ts_b, keep_internals<span class="op">=</span><span class="va">True</span>).plot(<span class="bu">type</span><span class="op">=</span><span class="st">"twoway"</span>)</span>
 <span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>dtw.dtw(ts_a, ts_b, keep_internals<span class="op">=</span><span class="va">True</span>).distance</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="39">
-<pre><code>20.461779219147516</code></pre>
+<div class="cell-output cell-output-stdout">
+<pre><code>Importing the dtw module. When using in academic works please cite:
+  T. Giorgino. Computing and Visualizing Dynamic Time Warping Alignments in R: The dtw Package.
+  J. Stat. Soft., doi:10.18637/jss.v031.i07.
+</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>24.51251354832234</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="ts_03_multivariate_files/figure-html/cell-14-output-2.png" class="img-fluid"></p>
+<p><img src="ts_03_multivariate_files/figure-html/cell-14-output-3.png" class="img-fluid"></p>
 </div>
 </div>
 
@@ -1076,9 +1175,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1143,6 +1256,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
