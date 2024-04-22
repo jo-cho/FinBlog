@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
-<link href="../../../posts/fin_data/Fractional_difference.html" rel="next">
+<link href="../../../posts/statistics/time_series/ts_07_deep_learning.html" rel="next">
 <link href="../../../posts/statistics/time_series/ts_05_nonlinear.html" rel="prev">
 <link href="../../../logo.png" rel="icon" type="image/png">
 <script src="../../../site_libs/quarto-html/quarto.js"></script>
@@ -203,6 +203,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">확률 분포</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../posts/statistics/estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">추정</span></a>
+  </div>
+</li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
@@ -248,6 +254,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../../posts/statistics/time_series/ts_06_state_space.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">6. 상태 공간 모형</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../posts/statistics/time_series/ts_07_deep_learning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7. 머신러닝 딥러닝 모형</span></a>
   </div>
 </li>
       </ul>
@@ -925,12 +937,89 @@ Warnings:
 <p>은닉 마르코프 모델(Hidden Markov Model, HMM)은 시간에 따라 변하는 시스템의 상태를 모델링하기 위한 통계적 모델이다. 이 모델은 관측할 수 없는(은닉된) 상태가 시간에 따라 마르코프 과정(Markov process)에 따라 변화하며, 각 상태는 특정 확률 분포를 가지고 관측 가능한 결과를 생성한다고 가정한다. HMM은 이러한 은닉 상태와 관측된 데이터 사이의 관계를 모델링하는 데 사용된다.</p>
 <p>HMM의 구성 요소</p>
 <ul>
-<li>상태(state): 모델의 각 상태는 시스템이 취할 수 있는 잠재적 상태를 나타내며, 이 상태들은 직접 관찰할 수 없음.</li>
-<li>관찰(observation): 각 상태에서 특정 관찰이 나타날 확률을 나타내며, 이 관찰은 실제로 측정되거나 관찰할 수 있는 데이터 포인트</li>
-<li>전이 확률(transition probabilities): 한 상태에서 다음 상태로 이동할 확률</li>
-<li>발생 확률(emission probabilities): 각 상태에서 특정 관찰이 발생할 확률</li>
-<li>초기 상태 확률(initial state probabilities): 시퀀스의 시작에서 각 상태가 초기 상태일 확률</li>
+<li>상태(state): 모델의 각 상태는 시스템이 취할 수 있는 잠재적 상태를 나타내며, 이 상태들은 직접 관찰할 수 없음.
+<ul>
+<li>은닉 상태 <span class="math inline">\(S=\{s_1,s_2, \dots, s_N \}\)</span></li>
+</ul></li>
+<li>관찰(observation): 각 상태에서 특정 관찰이 나타날 확률을 나타내며, 이 관찰은 실제로 측정되거나 관찰할 수 있는 데이터 포인트
+<ul>
+<li>관찰 <span class="math inline">\(O = \{o_1,o_2,\dots,o_T\}\)</span></li>
+</ul></li>
+<li>전이 확률(transition probabilities): 한 상태(<span class="math inline">\(s_i\)</span>)에서 다음 상태(<span class="math inline">\(s_j\)</span>)로 이동할 확률
+<ul>
+<li><span class="math inline">\(a_{ij}=P(q_{t+1}=s_j|q_t=s_i)\)</span></li>
+</ul></li>
+<li>발생 확률(emission probabilities): 각 상태(<span class="math inline">\(s_i\)</span>)에서 특정 관찰(<span class="math inline">\(o_k\)</span>)이 발생할 확률
+<ul>
+<li><span class="math inline">\(b_{ik}=P(o_t=v_k|q_t=s_i)\)</span></li>
+</ul></li>
+<li>초기 상태 확률(initial state probabilities) <span class="math inline">\(\pi\)</span>: 시퀀스의 시작에서 각 상태가 초기 상태(<span class="math inline">\(s_i\)</span>)일 확률
+<ul>
+<li><span class="math inline">\(\pi_i = P(q_1=s_i)\)</span></li>
+</ul></li>
 </ul>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/HiddenMarkovModel.svg/1280px-HiddenMarkovModel.svg.png" width="500"></p>
+<p><strong>확률 계산(Forward 알고리즘)</strong></p>
+<p>주어진 모델 <span class="math inline">\(\lambda = (A,B,\pi)\)</span>과 관찰 시퀀스 <span class="math inline">\(O\)</span>에 대해, <span class="math inline">\(P(O|\lambda)\)</span>를 계산한다. 이는 Forward 알고리즘을 사용해 해결할 수 있다.</p>
+<ul>
+<li>Forward 변수 : <span class="math inline">\(\alpha_t(i)\)</span> 시간 <span class="math inline">\(t\)</span>에서 상태 <span class="math inline">\(i\)</span>에 있을 확률, 관찰 <span class="math inline">\(O\)</span>가 주어졌을 때의 확률을 의미한다. <span class="math display">\[\alpha_t(j) = \left(\sum_{i=1}^N \alpha_{t-1}(i) a_{ij}\right) b_j(o_t)\]</span></li>
+<li>초기화: <span class="math display">\[\alpha_1(i) = \pi_i b_i(o_1)\]</span></li>
+<li>종료: <span class="math display">\[P(O \mid \lambda) = \sum_{i=1}^N \alpha_T(i)\]</span></li>
+</ul>
+<p><strong>경로 추정 문제(Viterbi 알고리즘)</strong></p>
+<p>주어진 관찰 시퀀스와 모델에 대해 가장 가능성 높은 은닉 상태 시퀀스를 찾는다.(decoding) 이는 Viterbi 알고리즘을 사용하여 해결할 수 있다.</p>
+<ul>
+<li><p>Viterbi 변수: 최적 경로의 확률로, 시간 <span class="math inline">\(t\)</span>에서 상태 <span class="math inline">\(i\)</span>에 도달하기까지의 최대 확률을 의미한다. <span class="math display">\[\delta_t(j) = \max_{1 \leq i \leq N} (\delta_{t-1}(i) a_{ij}) b_j(o_t)\]</span></p></li>
+<li><p>초기화: <span class="math display">\[\delta_1(i) = \pi_i b_i(o_1)\]</span></p></li>
+<li><p>종료: <span class="math display">\[P^* = \max_{1 \leq i \leq N} \delta_T(i)\]</span></p></li>
+</ul>
+<p><strong>모델 학습 (Baum-Welch 알고리즘)</strong></p>
+<ul>
+<li>주어진 관찰 시퀀스를 가장 잘 설명할 수 있는 모델 매개변수를 추정한다. Baum-Welch 알고리즘(EM 알고리즘의 한 형태)을 사용하여 반복적으로 매개변수를 최적화한다.</li>
+</ul>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yfinance <span class="im">as</span> yf</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> hmmlearn.hmm <span class="im">import</span> GaussianHMM</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> yf.download(<span class="st">'^GSPC'</span>, <span class="st">'2010-01-01'</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> data[<span class="st">'Close'</span>]</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>log_returns <span class="op">=</span> np.log(data <span class="op">/</span> data.shift(<span class="dv">1</span>))[<span class="dv">1</span>:]  <span class="co"># 로그 수익률 계산</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>log_returns <span class="op">=</span> log_returns.values.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)  <span class="co"># HMM 입력 형태 맞추기</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[*********************100%%**********************]  1 of 1 completed</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># HMM 모델 초기화 (은닉 상태의 수: 3)</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>hmm_model <span class="op">=</span> GaussianHMM(n_components<span class="op">=</span><span class="dv">3</span>, covariance_type<span class="op">=</span><span class="st">"diag"</span>, n_iter<span class="op">=</span><span class="dv">1000</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>hmm_model.fit(log_returns)  <span class="co"># 모델 학습</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 은닉 상태 예측</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>hidden_states <span class="op">=</span> hmm_model.predict(log_returns)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co">## hidden_states = hmm_model.decode(log_returns)[1]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Model is not converging.  Current: 11839.472901701653 is not greater than 11839.483144542859. Delta is -0.010242841206490993</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 결과 시각화</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">8</span>))</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>data_t <span class="op">=</span> data[<span class="dv">1</span>:]</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(hmm_model.n_components):</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    state <span class="op">=</span> (hidden_states <span class="op">==</span> i)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    plt.plot(data_t.index[state], data_t[state], <span class="st">'.'</span>, label<span class="op">=</span><span class="ss">f'State </span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Hidden States of Stock Market Returns'</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="ts_06_state_space_files/figure-html/cell-16-output-1.png" class="img-fluid"></p>
+</div>
+</div>
 </section>
 <section id="참고자료" class="level1">
 <h1>참고자료</h1>
@@ -1185,8 +1274,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../posts/fin_data/Fractional_difference.html" class="pagination-link">
-        <span class="nav-page-text">분수 차분</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../../posts/statistics/time_series/ts_07_deep_learning.html" class="pagination-link">
+        <span class="nav-page-text">7. 머신러닝 딥러닝 모형</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

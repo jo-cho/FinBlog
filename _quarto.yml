@@ -35,6 +35,8 @@ website:
             contents:
               - href: posts/statistics/probability_distribution.ipynb
                 text: "확률 분포"
+              - href: posts/statistics/estimation.ipynb
+                text: "추정"
           - section: "시계열 분석"
             contents:
               - href: posts/statistics/time_series/ts_01_intro.ipynb
@@ -49,6 +51,8 @@ website:
                 text: "5. 비선형 모형"
               - href: posts/statistics/time_series/ts_06_state_space.ipynb
                 text: "6. 상태 공간 모형"
+              - href: posts/statistics/time_series/ts_07_deep_learning.ipynb
+                text: "7. 머신러닝 딥러닝 모형"
       - section: "금융 데이터 처리"
         contents:
           - href: posts/fin_data/Fractional_difference.ipynb
