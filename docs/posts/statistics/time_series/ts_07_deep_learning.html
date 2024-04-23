@@ -549,7 +549,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">목차</h2>
    
   <ul>
-  <li><a href="#예측forecasting" id="toc-예측forecasting" class="nav-link active" data-scroll-target="#예측forecasting">예측(Forecasting)</a>
+  <li><a href="#예측forecasting-분류" id="toc-예측forecasting-분류" class="nav-link active" data-scroll-target="#예측forecasting-분류">예측(Forecasting), 분류</a>
   <ul class="collapse">
   <li><a href="#facebook-prophet" id="toc-facebook-prophet" class="nav-link" data-scroll-target="#facebook-prophet">Facebook Prophet</a></li>
   <li><a href="#svm-ensemblebagging-boosting" id="toc-svm-ensemblebagging-boosting" class="nav-link" data-scroll-target="#svm-ensemblebagging-boosting">SVM, Ensemble(Bagging, Boosting)</a></li>
@@ -598,10 +598,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <blockquote class="blockquote">
 <p>시계열 분석을 정리하고자 한다. 머신러닝과 딥러닝을 이용한 시계열 분석에 대해 알아보자. 다만 각 모델에 대해서는 간단히 다룬다.</p>
 </blockquote>
-<section id="예측forecasting" class="level1">
-<h1>예측(Forecasting)</h1>
+<section id="예측forecasting-분류" class="level1">
+<h1>예측(Forecasting), 분류</h1>
 <section id="facebook-prophet" class="level2">
 <h2 class="anchored" data-anchor-id="facebook-prophet">Facebook Prophet</h2>
+<p>Prophet은 Facebook에서 개발한 시계열 예측을 위한 도구로, 특히 경제적, 금융적 시계열 데이터에서 강력한 성능을 발휘한다.</p>
+<p>Prophet은 시계열 데이터를 세 가지 주요 구성 요소로 모델링한다.</p>
+<ul>
+<li><p>트렌드(Trend): 데이터의 장기적인 증가 또는 감소 경향을 낸냅니다. Prophet은 비선형 트렌드를 감지하기 위해 변경점(change points)을 자동으로 선택한다.</p></li>
+<li><p>계절성(Seasonality): 연간, 월간, 주간, 일간 등의 주기적인 패턴을 모델링합니다. Prophet은 Fourier series를 사용하여 이러한 계절성을 유연하게 캡처한다.</p></li>
+<li><p>휴일(Holidays): 공휴일이나 특정 이벤트 같은 비정기적인 영향을 모델링할 수 있습니다. 사용자는 특정 휴일의 날짜를 모델에 직접 제공해야 한다.</p></li>
+</ul>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> prophet <span class="im">import</span> Prophet</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/facebook/prophet/main/examples/example_wp_log_peyton_manning.csv'</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'cap'</span>] <span class="op">=</span> <span class="fl">8.5</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> Prophet(growth<span class="op">=</span><span class="st">'logistic'</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>m.fit(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>11:03:19 - cmdstanpy - INFO - Chain [1] start processing
+11:03:20 - cmdstanpy - INFO - Chain [1] done processing</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>&lt;prophet.forecaster.Prophet at 0x1992aa56d60&gt;</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>future <span class="op">=</span> m.make_future_dataframe(periods<span class="op">=</span><span class="dv">1826</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>future[<span class="st">'cap'</span>] <span class="op">=</span> <span class="fl">8.5</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>fcst <span class="op">=</span> m.predict(future)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> m.plot(fcst)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="ts_07_deep_learning_files/figure-html/cell-4-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># saturating minimum</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'y'</span>] <span class="op">=</span> <span class="dv">10</span> <span class="op">-</span> df[<span class="st">'y'</span>]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'cap'</span>] <span class="op">=</span> <span class="dv">6</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'floor'</span>] <span class="op">=</span> <span class="fl">1.5</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>future[<span class="st">'cap'</span>] <span class="op">=</span> <span class="dv">6</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>future[<span class="st">'floor'</span>] <span class="op">=</span> <span class="fl">1.5</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> Prophet(growth<span class="op">=</span><span class="st">'logistic'</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>m.fit(df)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>fcst <span class="op">=</span> m.predict(future)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> m.plot(fcst)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>11:03:53 - cmdstanpy - INFO - Chain [1] start processing
+11:03:54 - cmdstanpy - INFO - Chain [1] done processing</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="ts_07_deep_learning_files/figure-html/cell-5-output-2.png" class="img-fluid"></p>
+</div>
+</div>
 </section>
 <section id="svm-ensemblebagging-boosting" class="level2">
 <h2 class="anchored" data-anchor-id="svm-ensemblebagging-boosting">SVM, Ensemble(Bagging, Boosting)</h2>
@@ -643,64 +700,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>결측치 처리: XGBoost는 내부적으로 결측치를 처리할 수 있는 기능을 가지고 있다. 사용자가 각 특성의 결측치를 어떻게 처리할지 지정할 수 있으며, 자동으로 최적의 방향을 찾는다.</li>
 <li>사용자 정의 가능성: 사용자는 손실 함수를 자유롭게 정의할 수 있으며, 이를 최적화하는 방향으로 알고리즘을 조정할 수 있다. 이는 XGBoost를 다양한 문제에 맞춰 유연하게 사용할 수 있게 한다.</li>
 </ul>
-<div class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <div class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, f1_score, confusion_matrix</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xgboost <span class="im">as</span> xgb</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>tn <span class="op">=</span> <span class="dv">10000</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>dates <span class="op">=</span> pd.date_range(<span class="st">'20200101'</span>, periods<span class="op">=</span>tn)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.DataFrame(np.random.randn(tn, <span class="dv">5</span>), index<span class="op">=</span>dates)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># y 생성</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>noise <span class="op">=</span> np.random.normal(<span class="dv">0</span>, <span class="fl">0.5</span>, tn)</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'y'</span>] <span class="op">=</span> ((<span class="dv">2</span> <span class="op">*</span> data[<span class="dv">0</span>]<span class="op">/</span>data[<span class="dv">1</span>] <span class="op">-</span> <span class="fl">1.5</span> <span class="op">*</span> data[<span class="dv">2</span>]<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> noise) <span class="op">&gt;</span> <span class="dv">0</span>).astype(<span class="bu">int</span>)</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 분할</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> data.drop(<span class="st">'y'</span>, axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> data[<span class="st">'y'</span>]</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, shuffle<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>X_train_scaled <span class="op">=</span> scaler.fit_transform(X_train)</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>X_test_scaled <span class="op">=</span> scaler.transform(X_test)</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 학습 및 평가</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> train_evaluate(model, X_train, y_train, X_test, y_test):</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    model.fit(X_train, y_train)</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> model.predict(X_test)</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 성능 지표 계산</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    accuracy <span class="op">=</span> accuracy_score(y_test, predictions)</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    f1 <span class="op">=</span> f1_score(y_test, predictions)</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    conf_matrix <span class="op">=</span> confusion_matrix(y_test, predictions)</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 결과 출력</span></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'Accuracy of </span><span class="sc">{</span>model<span class="sc">.</span>__class__<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>accuracy<span class="sc">:.2f}</span><span class="ss">'</span>)</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'F1 Score of </span><span class="sc">{</span>model<span class="sc">.</span>__class__<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>f1<span class="sc">:.2f}</span><span class="ss">'</span>)</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'Confusion Matrix of </span><span class="sc">{</span>model<span class="sc">.</span>__class__<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">:</span><span class="ch">\n</span><span class="sc">{</span>conf_matrix<span class="sc">}</span><span class="ch">\n</span><span class="ss">'</span>)</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">''</span>)</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="co"># SVC</span></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>svc_model <span class="op">=</span> SVC()</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>train_evaluate(svc_model, X_train_scaled, y_train, X_test_scaled, y_test)</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Random Forest</span></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>rf_model <span class="op">=</span> RandomForestClassifier(random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>train_evaluate(rf_model, X_train, y_train, X_test, y_test)</span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="co"># XGBoost</span></span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>xgb_model <span class="op">=</span> xgb.XGBClassifier(use_label_encoder<span class="op">=</span><span class="va">False</span>, eval_metric<span class="op">=</span><span class="st">'logloss'</span>)</span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>train_evaluate(xgb_model, X_train, y_train, X_test, y_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, f1_score, confusion_matrix</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xgboost <span class="im">as</span> xgb</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>tn <span class="op">=</span> <span class="dv">10000</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>dates <span class="op">=</span> pd.date_range(<span class="st">'20200101'</span>, periods<span class="op">=</span>tn)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.DataFrame(np.random.randn(tn, <span class="dv">5</span>), index<span class="op">=</span>dates)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># y 생성</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>noise <span class="op">=</span> np.random.normal(<span class="dv">0</span>, <span class="fl">0.5</span>, tn)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'y'</span>] <span class="op">=</span> ((<span class="dv">2</span> <span class="op">*</span> data[<span class="dv">0</span>]<span class="op">/</span>data[<span class="dv">1</span>] <span class="op">-</span> <span class="fl">1.5</span> <span class="op">*</span> data[<span class="dv">2</span>]<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> noise) <span class="op">&gt;</span> <span class="dv">0</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 분할</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> data.drop(<span class="st">'y'</span>, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> data[<span class="st">'y'</span>]</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, shuffle<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>X_train_scaled <span class="op">=</span> scaler.fit_transform(X_train)</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>X_test_scaled <span class="op">=</span> scaler.transform(X_test)</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 학습 및 평가</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> train_evaluate(model, X_train, y_train, X_test, y_test):</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    model.fit(X_train, y_train)</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> model.predict(X_test)</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 성능 지표 계산</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>    accuracy <span class="op">=</span> accuracy_score(y_test, predictions)</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>    f1 <span class="op">=</span> f1_score(y_test, predictions)</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>    conf_matrix <span class="op">=</span> confusion_matrix(y_test, predictions)</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 결과 출력</span></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'Accuracy of </span><span class="sc">{</span>model<span class="sc">.</span>__class__<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>accuracy<span class="sc">:.2f}</span><span class="ss">'</span>)</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'F1 Score of </span><span class="sc">{</span>model<span class="sc">.</span>__class__<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>f1<span class="sc">:.2f}</span><span class="ss">'</span>)</span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'Confusion Matrix of </span><span class="sc">{</span>model<span class="sc">.</span>__class__<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">:</span><span class="ch">\n</span><span class="sc">{</span>conf_matrix<span class="sc">}</span><span class="ch">\n</span><span class="ss">'</span>)</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">''</span>)</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a><span class="co"># SVC</span></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>svc_model <span class="op">=</span> SVC()</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>train_evaluate(svc_model, X_train_scaled, y_train, X_test_scaled, y_test)</span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Random Forest</span></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>rf_model <span class="op">=</span> RandomForestClassifier(random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>train_evaluate(rf_model, X_train, y_train, X_test, y_test)</span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a><span class="co"># XGBoost</span></span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>xgb_model <span class="op">=</span> xgb.XGBClassifier(use_label_encoder<span class="op">=</span><span class="va">False</span>, eval_metric<span class="op">=</span><span class="st">'logloss'</span>)</span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>train_evaluate(xgb_model, X_train, y_train, X_test, y_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy of SVC: 0.90
 F1 Score of SVC: 0.85
@@ -763,42 +813,42 @@ Confusion Matrix of XGBClassifier:
 <li>계산 효율성: LSTM에 비해 더 적은 계산을 요구하며, 비교적 적은 양의 데이터로도 좋은 성능을 발휘할 수 있다.</li>
 </ul>
 <div class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tensorflow <span class="im">as</span> tf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tensorflow <span class="im">as</span> tf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras.models <span class="im">import</span> Sequential</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras.layers <span class="im">import</span> SimpleRNN, LSTM, GRU, Dense</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras.optimizers <span class="im">import</span> Adam</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>X_train_scaled <span class="op">=</span> scaler.fit_transform(X_train).reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>X_test_scaled <span class="op">=</span> scaler.transform(X_test).reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>)</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 정의 함수</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> build_model(model_type):</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> Sequential()</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> model_type <span class="op">==</span> <span class="st">'RNN'</span>:</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        model.add(SimpleRNN(<span class="dv">50</span>, input_shape<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">5</span>), activation<span class="op">=</span><span class="st">'tanh'</span>))</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> model_type <span class="op">==</span> <span class="st">'LSTM'</span>:</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        model.add(LSTM(<span class="dv">50</span>, input_shape<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">5</span>), activation<span class="op">=</span><span class="st">'tanh'</span>))</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> model_type <span class="op">==</span> <span class="st">'GRU'</span>:</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        model.add(GRU(<span class="dv">50</span>, input_shape<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">5</span>), activation<span class="op">=</span><span class="st">'tanh'</span>))</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    model.add(Dense(<span class="dv">1</span>, activation<span class="op">=</span><span class="st">'sigmoid'</span>))</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    model.<span class="bu">compile</span>(optimizer<span class="op">=</span>Adam(learning_rate<span class="op">=</span><span class="fl">0.01</span>), loss<span class="op">=</span><span class="st">'binary_crossentropy'</span>, metrics<span class="op">=</span>[<span class="st">'accuracy'</span>])</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> model</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 학습 및 평가</span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> train_evaluate(model_type):</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> build_model(model_type)</span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    model.fit(X_train_scaled, y_train, epochs<span class="op">=</span><span class="dv">30</span>, verbose<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    loss, accuracy <span class="op">=</span> model.evaluate(X_test_scaled, y_test, verbose<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>model_type<span class="sc">}</span><span class="ss"> Model Accuracy: </span><span class="sc">{</span>accuracy<span class="sc">:.2f}</span><span class="ss">'</span>)</span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>train_evaluate(<span class="st">'RNN'</span>)</span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>train_evaluate(<span class="st">'LSTM'</span>)</span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>train_evaluate(<span class="st">'GRU'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras.models <span class="im">import</span> Sequential</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras.layers <span class="im">import</span> SimpleRNN, LSTM, GRU, Dense</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras.optimizers <span class="im">import</span> Adam</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>X_train_scaled <span class="op">=</span> scaler.fit_transform(X_train).reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>X_test_scaled <span class="op">=</span> scaler.transform(X_test).reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 정의 함수</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> build_model(model_type):</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> Sequential()</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> model_type <span class="op">==</span> <span class="st">'RNN'</span>:</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>        model.add(SimpleRNN(<span class="dv">50</span>, input_shape<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">5</span>), activation<span class="op">=</span><span class="st">'tanh'</span>))</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> model_type <span class="op">==</span> <span class="st">'LSTM'</span>:</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>        model.add(LSTM(<span class="dv">50</span>, input_shape<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">5</span>), activation<span class="op">=</span><span class="st">'tanh'</span>))</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> model_type <span class="op">==</span> <span class="st">'GRU'</span>:</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>        model.add(GRU(<span class="dv">50</span>, input_shape<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">5</span>), activation<span class="op">=</span><span class="st">'tanh'</span>))</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    model.add(Dense(<span class="dv">1</span>, activation<span class="op">=</span><span class="st">'sigmoid'</span>))</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>    model.<span class="bu">compile</span>(optimizer<span class="op">=</span>Adam(learning_rate<span class="op">=</span><span class="fl">0.01</span>), loss<span class="op">=</span><span class="st">'binary_crossentropy'</span>, metrics<span class="op">=</span>[<span class="st">'accuracy'</span>])</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> model</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 학습 및 평가</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> train_evaluate(model_type):</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> build_model(model_type)</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>    model.fit(X_train_scaled, y_train, epochs<span class="op">=</span><span class="dv">30</span>, verbose<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>    loss, accuracy <span class="op">=</span> model.evaluate(X_test_scaled, y_test, verbose<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>model_type<span class="sc">}</span><span class="ss"> Model Accuracy: </span><span class="sc">{</span>accuracy<span class="sc">:.2f}</span><span class="ss">'</span>)</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>train_evaluate(<span class="st">'RNN'</span>)</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>train_evaluate(<span class="st">'LSTM'</span>)</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>train_evaluate(<span class="st">'GRU'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>RNN Model Accuracy: 0.93
 LSTM Model Accuracy: 0.94
@@ -832,40 +882,40 @@ GRU Model Accuracy: 0.94</code></pre>
 </ul></li>
 </ul>
 <div class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras.models <span class="im">import</span> Model</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras.layers <span class="im">import</span> Input,  MultiHeadAttention, LayerNormalization, Dropout, Flatten</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>X_train_scaled <span class="op">=</span> scaler.fit_transform(X_train).reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">5</span>)  <span class="co"># 10 타임스텝, 5 피처</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>X_test_scaled <span class="op">=</span> scaler.transform(X_test).reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">5</span>)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Transformer 레이어 구성</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> transformer_encoder(inputs):</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Multi-head attention</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    attn_output <span class="op">=</span> MultiHeadAttention(num_heads<span class="op">=</span><span class="dv">2</span>, key_dim<span class="op">=</span><span class="dv">5</span>)(inputs, inputs)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    attn_output <span class="op">=</span> Dropout(<span class="fl">0.1</span>)(attn_output)</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    out1 <span class="op">=</span> LayerNormalization(epsilon<span class="op">=</span><span class="fl">1e-6</span>)(inputs <span class="op">+</span> attn_output)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Feed-forward network</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    ffn_output <span class="op">=</span> Dense(<span class="dv">20</span>, activation<span class="op">=</span><span class="st">"relu"</span>)(out1)</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    ffn_output <span class="op">=</span> Dense(inputs.shape[<span class="op">-</span><span class="dv">1</span>])(ffn_output)</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    ffn_output <span class="op">=</span> Dropout(<span class="fl">0.1</span>)(ffn_output)</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> LayerNormalization(epsilon<span class="op">=</span><span class="fl">1e-6</span>)(out1 <span class="op">+</span> ffn_output)</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 정의</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>input_layer <span class="op">=</span> Input(shape<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> transformer_encoder(input_layer)</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> transformer_encoder(x)</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> Flatten()(x)</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>output_layer <span class="op">=</span> Dense(<span class="dv">1</span>, activation<span class="op">=</span><span class="st">'sigmoid'</span>)(x)</span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Model(inputs<span class="op">=</span>input_layer, outputs<span class="op">=</span>output_layer)</span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>model.<span class="bu">compile</span>(optimizer<span class="op">=</span>Adam(learning_rate<span class="op">=</span><span class="fl">0.01</span>), loss<span class="op">=</span><span class="st">'binary_crossentropy'</span>, metrics<span class="op">=</span>[<span class="st">'accuracy'</span>])</span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 학습</span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>y_train_adjusted <span class="op">=</span> y_train[::<span class="dv">10</span>]</span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>y_test_adjusted <span class="op">=</span> y_test[::<span class="dv">10</span>]</span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>model.fit(X_train_scaled, y_train_adjusted, epochs<span class="op">=</span><span class="dv">100</span>, verbose<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>loss, accuracy <span class="op">=</span> model.evaluate(X_test_scaled, y_test_adjusted, verbose<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Transformer Model Accuracy: </span><span class="sc">{</span>accuracy<span class="sc">:.2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras.models <span class="im">import</span> Model</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras.layers <span class="im">import</span> Input,  MultiHeadAttention, LayerNormalization, Dropout, Flatten</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>X_train_scaled <span class="op">=</span> scaler.fit_transform(X_train).reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">5</span>)  <span class="co"># 10 타임스텝, 5 피처</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>X_test_scaled <span class="op">=</span> scaler.transform(X_test).reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">5</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Transformer 레이어 구성</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> transformer_encoder(inputs):</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Multi-head attention</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    attn_output <span class="op">=</span> MultiHeadAttention(num_heads<span class="op">=</span><span class="dv">2</span>, key_dim<span class="op">=</span><span class="dv">5</span>)(inputs, inputs)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    attn_output <span class="op">=</span> Dropout(<span class="fl">0.1</span>)(attn_output)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    out1 <span class="op">=</span> LayerNormalization(epsilon<span class="op">=</span><span class="fl">1e-6</span>)(inputs <span class="op">+</span> attn_output)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Feed-forward network</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    ffn_output <span class="op">=</span> Dense(<span class="dv">20</span>, activation<span class="op">=</span><span class="st">"relu"</span>)(out1)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    ffn_output <span class="op">=</span> Dense(inputs.shape[<span class="op">-</span><span class="dv">1</span>])(ffn_output)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    ffn_output <span class="op">=</span> Dropout(<span class="fl">0.1</span>)(ffn_output)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> LayerNormalization(epsilon<span class="op">=</span><span class="fl">1e-6</span>)(out1 <span class="op">+</span> ffn_output)</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 정의</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>input_layer <span class="op">=</span> Input(shape<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> transformer_encoder(input_layer)</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> transformer_encoder(x)</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> Flatten()(x)</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>output_layer <span class="op">=</span> Dense(<span class="dv">1</span>, activation<span class="op">=</span><span class="st">'sigmoid'</span>)(x)</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Model(inputs<span class="op">=</span>input_layer, outputs<span class="op">=</span>output_layer)</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>model.<span class="bu">compile</span>(optimizer<span class="op">=</span>Adam(learning_rate<span class="op">=</span><span class="fl">0.01</span>), loss<span class="op">=</span><span class="st">'binary_crossentropy'</span>, metrics<span class="op">=</span>[<span class="st">'accuracy'</span>])</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 학습</span></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>y_train_adjusted <span class="op">=</span> y_train[::<span class="dv">10</span>]</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>y_test_adjusted <span class="op">=</span> y_test[::<span class="dv">10</span>]</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>model.fit(X_train_scaled, y_train_adjusted, epochs<span class="op">=</span><span class="dv">100</span>, verbose<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>loss, accuracy <span class="op">=</span> model.evaluate(X_test_scaled, y_test_adjusted, verbose<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Transformer Model Accuracy: </span><span class="sc">{</span>accuracy<span class="sc">:.2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Transformer Model Accuracy: 0.83</code></pre>
 </div>
@@ -884,217 +934,220 @@ GRU Model Accuracy: 0.94</code></pre>
 <li><p>손실 함수(Loss function): 재구성된 데이터<span class="math inline">\(x'\)</span>와 원본 데이터 <span class="math inline">\(x\)</span> 사이의 차이를 측정한다. 일반적으로 사용되는 손실 함수는 Mean Squared Error (MSE)이다.</p></li>
 </ul>
 <p>Autoencoder의 활용 - 이상 탐지(Anomaly Detection): 정상 데이터만을 사용해 Autoencoder를 훈련시키면, 훈련되지 않은 이상 데이터는 재구성 오류가 크게 나타나므로 이상치를 감지하는 데 사용할 수 있다.</p>
-<div class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras.models <span class="im">import</span> Model</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras.layers <span class="im">import</span> Input, LSTM, RepeatVector, TimeDistributed, Dense</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> MinMaxScaler</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 생성 함수</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_data(timesteps, num_samples<span class="op">=</span><span class="dv">1000</span>, anomaly<span class="op">=</span><span class="va">False</span>):</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> []</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(num_samples):</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">2</span> <span class="op">*</span> np.pi, timesteps)</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> anomaly <span class="kw">and</span> np.random.rand() <span class="op">&gt;</span> <span class="fl">0.95</span>:  <span class="co"># 5%의 이상치 생성</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>            signal <span class="op">=</span> np.sin(x) <span class="op">+</span> np.random.normal(size<span class="op">=</span>(timesteps,)) <span class="op">*</span> <span class="fl">0.5</span> <span class="op">+</span> <span class="dv">5</span>  <span class="co"># 이상치 추가</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>            signal <span class="op">=</span> np.sin(x) <span class="op">+</span> np.random.normal(size<span class="op">=</span>(timesteps,)) <span class="op">*</span> <span class="fl">0.5</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>        data.append(signal)</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array(data)</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 준비</span></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>timesteps <span class="op">=</span> <span class="dv">50</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>num_samples <span class="op">=</span> <span class="dv">3000</span></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> generate_data(timesteps, num_samples)</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>data_anomaly <span class="op">=</span> generate_data(timesteps, <span class="dv">100</span>, anomaly<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 스케일링</span></span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> MinMaxScaler()</span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>data_scaled <span class="op">=</span> scaler.fit_transform(data)</span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>data_anomaly_scaled <span class="op">=</span> scaler.transform(data_anomaly)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><p>재구성 오류는 일반적으로 입력 데이터 <span class="math inline">\(x\)</span>와 재구성된 데이터 <span class="math inline">\(x'\)</span> 사이의 거리로 계산된다. 이 거리는 보통 평균 제곱 오차(Mean Squared Error, MSE)로 계산된다.</p></li>
+<li><p>Autoencoder를 훈련할 때 사용한 정상 데이터 샘플을 기반으로 재구성 오류를 계산하면, 대부분의 정상 샘플은 낮은 재구성 오류를 보일 것이며, 이상 데이터 또는 훈련 샘플에 포함되지 않은 데이터를 사용하여 재구성 오류를 계산하면, 이들은 보통 더 높은 재구성 오류를 가지게 된다.</p></li>
+<li><p>재구성 오류의 분포를 분석한 후, 이상치를 식별하기 위한 임계값을 설정한다: <span class="math inline">\(Threshold = Mean(errors) + K \times Std(errors)\)</span>, 여기서 <span class="math inline">\(k\)</span>는 경험적으로 결정되며 보통 2.5~3을 사용.</p></li>
+</ul>
+<div class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras.models <span class="im">import</span> Model</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras.layers <span class="im">import</span> Input, LSTM, RepeatVector, TimeDistributed, Dense</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras.optimizers <span class="im">import</span> Adam</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> MinMaxScaler</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 로드 및 전처리 함수</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_data():</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 이 예제에서는 임의의 시계열 데이터를 생성합니다</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    np.random.seed(<span class="dv">0</span>)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    normal_data <span class="op">=</span> np.random.normal(size<span class="op">=</span>(<span class="dv">100</span>, <span class="dv">500</span>, <span class="dv">1</span>))  <span class="co"># 정상 데이터</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    anomaly_data <span class="op">=</span> np.random.normal(loc<span class="op">=</span><span class="fl">.5</span>, size<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">500</span>, <span class="dv">1</span>))  <span class="co"># 이상 데이터 (10개)</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> normal_data, anomaly_data</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Autoencoder 모델을 구축하는 함수</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> build_autoencoder(timesteps, encoding_dim<span class="op">=</span><span class="dv">64</span>):</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    input_seq <span class="op">=</span> Input(shape<span class="op">=</span>(timesteps, <span class="dv">1</span>))</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 인코더 부분: LSTM을 사용하여 시계열 데이터를 encoding_dim 차원으로 인코딩</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    encoded <span class="op">=</span> LSTM(encoding_dim<span class="op">*</span><span class="dv">2</span>, activation<span class="op">=</span><span class="st">'relu'</span>, return_sequences<span class="op">=</span><span class="va">True</span>)(input_seq)</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>    encoded <span class="op">=</span> LSTM(encoding_dim, activation<span class="op">=</span><span class="st">'relu'</span>, return_sequences<span class="op">=</span><span class="va">False</span>)(encoded)</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 디코더 부분: 인코딩된 상태를 다시 원래 시계열 길이로 복원</span></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>    decoded <span class="op">=</span> RepeatVector(timesteps)(encoded)</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>    decoded <span class="op">=</span> LSTM(encoding_dim, activation<span class="op">=</span><span class="st">'relu'</span>, return_sequences<span class="op">=</span><span class="va">True</span>)(decoded)</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>    decoded <span class="op">=</span> LSTM(encoding_dim<span class="op">*</span><span class="dv">2</span>, activation<span class="op">=</span><span class="st">'relu'</span>, return_sequences<span class="op">=</span><span class="va">True</span>)(decoded)</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>    decoded <span class="op">=</span> TimeDistributed(Dense(<span class="dv">1</span>))(decoded)</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 모델 정의 (입력과 출력 연결)</span></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>    autoencoder <span class="op">=</span> Model(input_seq, decoded)</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>    autoencoder.<span class="bu">compile</span>(optimizer<span class="op">=</span>Adam(learning_rate<span class="op">=</span><span class="fl">0.001</span>), loss<span class="op">=</span><span class="st">'mse'</span>)</span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> autoencoder</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="32">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>plt.plot(data[:,<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="ts_07_deep_learning_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
-</div>
-</div>
-<div class="cell" data-execution_count="34">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>plt.plot(data_anomaly[:,<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="ts_07_deep_learning_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
-</div>
-</div>
-<div class="cell" data-execution_count="35">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Autoencoder 모델</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>input_seq <span class="op">=</span> Input(shape<span class="op">=</span>(timesteps, <span class="dv">1</span>))</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>encoded <span class="op">=</span> LSTM(<span class="dv">128</span>, activation<span class="op">=</span><span class="st">'relu'</span>, return_sequences<span class="op">=</span><span class="va">True</span>)(input_seq)</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>encoded <span class="op">=</span> LSTM(<span class="dv">64</span>, activation<span class="op">=</span><span class="st">'relu'</span>, return_sequences<span class="op">=</span><span class="va">False</span>)(encoded)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>decoded <span class="op">=</span> RepeatVector(timesteps)(encoded)</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>decoded <span class="op">=</span> LSTM(<span class="dv">64</span>, activation<span class="op">=</span><span class="st">'relu'</span>, return_sequences<span class="op">=</span><span class="va">True</span>)(decoded)</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>decoded <span class="op">=</span> LSTM(<span class="dv">128</span>, activation<span class="op">=</span><span class="st">'relu'</span>, return_sequences<span class="op">=</span><span class="va">True</span>)(decoded)</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>decoded <span class="op">=</span> TimeDistributed(Dense(<span class="dv">1</span>))(decoded)</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>autoencoder <span class="op">=</span> Model(input_seq, decoded)</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>autoencoder.<span class="bu">compile</span>(optimizer<span class="op">=</span>Adam(learning_rate<span class="op">=</span><span class="fl">0.001</span>), loss<span class="op">=</span><span class="st">'mse'</span>)</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>autoencoder.summary()</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 학습</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>history <span class="op">=</span> autoencoder.fit(data_scaled.reshape(<span class="op">-</span><span class="dv">1</span>, timesteps, <span class="dv">1</span>), data_scaled.reshape(<span class="op">-</span><span class="dv">1</span>, timesteps, <span class="dv">1</span>),</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>                          epochs<span class="op">=</span><span class="dv">50</span>, batch_size<span class="op">=</span><span class="dv">128</span>, validation_split<span class="op">=</span><span class="fl">0.2</span>, verbose<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 이상 감지</span></span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>reconstructions <span class="op">=</span> autoencoder.predict(data_scaled.reshape(<span class="op">-</span><span class="dv">1</span>, timesteps, <span class="dv">1</span>))</span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>reconstruction_errors <span class="op">=</span> np.mean(np.<span class="bu">abs</span>(data_scaled.reshape(<span class="op">-</span><span class="dv">1</span>, timesteps, <span class="dv">1</span>) <span class="op">-</span> reconstructions), axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>threshold <span class="op">=</span> np.mean(reconstruction_errors) <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> np.std(reconstruction_errors)</span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 이상치 데이터 테스트</span></span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>reconstructions_anomaly <span class="op">=</span> autoencoder.predict(data_anomaly_scaled.reshape(<span class="op">-</span><span class="dv">1</span>, timesteps, <span class="dv">1</span>))</span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>reconstruction_errors_anomaly <span class="op">=</span> np.mean(np.<span class="bu">abs</span>(data_anomaly_scaled.reshape(<span class="op">-</span><span class="dv">1</span>, timesteps, <span class="dv">1</span>) <span class="op">-</span> reconstructions_anomaly), axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="co"># 결과 시각화</span></span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>plt.hist(reconstruction_errors, bins<span class="op">=</span><span class="dv">50</span>, label<span class="op">=</span><span class="st">'Normal'</span>)</span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>plt.hist(reconstruction_errors_anomaly, bins<span class="op">=</span><span class="dv">50</span>, label<span class="op">=</span><span class="st">'Anomaly'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
-<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>plt.axvline(threshold, color<span class="op">=</span><span class="st">'r'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, linestyle<span class="op">=</span><span class="st">'dashed'</span>, label<span class="op">=</span><span class="st">'Threshold'</span>)</span>
-<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Reconstruction error'</span>)</span>
-<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Frequency'</span>)</span>
-<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Reconstruction Error Distribution'</span>)</span>
-<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터를 로드합니다</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>normal_data, anomaly_data <span class="op">=</span> load_data()</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델을 구축합니다</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>encoding_dim <span class="op">=</span> <span class="dv">32</span>  <span class="co"># 임의의 인코딩 차원 크기</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>autoencoder <span class="op">=</span> build_autoencoder(normal_data.shape[<span class="dv">1</span>], encoding_dim)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>autoencoder.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Model: "model_4"
+<pre><code>Model: "model_8"
 _________________________________________________________________
  Layer (type)                Output Shape              Param #   
 =================================================================
- input_6 (InputLayer)        [(None, 50, 1)]           0         
+ input_9 (InputLayer)        [(None, 500, 1)]          0         
                                                                  
- lstm_3 (LSTM)               (None, 50, 128)           66560     
+ lstm_22 (LSTM)              (None, 500, 64)           16896     
                                                                  
- lstm_4 (LSTM)               (None, 64)                49408     
+ lstm_23 (LSTM)              (None, 32)                12416     
                                                                  
- repeat_vector (RepeatVecto  (None, 50, 64)            0         
- r)                                                              
+ repeat_vector_6 (RepeatVec  (None, 500, 32)           0         
+ tor)                                                            
                                                                  
- lstm_5 (LSTM)               (None, 50, 64)            33024     
+ lstm_24 (LSTM)              (None, 500, 32)           8320      
                                                                  
- lstm_6 (LSTM)               (None, 50, 128)           98816     
+ lstm_25 (LSTM)              (None, 500, 64)           24832     
                                                                  
- time_distributed (TimeDist  (None, 50, 1)             129       
- ributed)                                                        
+ time_distributed_5 (TimeDi  (None, 500, 1)            65        
+ stributed)                                                      
                                                                  
 =================================================================
-Total params: 247937 (968.50 KB)
-Trainable params: 247937 (968.50 KB)
+Total params: 62529 (244.25 KB)
+Trainable params: 62529 (244.25 KB)
 Non-trainable params: 0 (0.00 Byte)
-_________________________________________________________________
-Epoch 1/50
-19/19 [==============================] - 11s 334ms/step - loss: 0.1433 - val_loss: 0.0526
-Epoch 2/50
-19/19 [==============================] - 6s 314ms/step - loss: 0.0409 - val_loss: 0.0357
-Epoch 3/50
-19/19 [==============================] - 6s 305ms/step - loss: 0.0328 - val_loss: 0.0306
-Epoch 4/50
-19/19 [==============================] - 6s 304ms/step - loss: 0.0285 - val_loss: 0.0275
-Epoch 5/50
-19/19 [==============================] - 6s 328ms/step - loss: 0.0261 - val_loss: 0.0253
-Epoch 6/50
-19/19 [==============================] - 6s 318ms/step - loss: 0.0241 - val_loss: 0.0235
-Epoch 7/50
-19/19 [==============================] - 6s 310ms/step - loss: 0.0225 - val_loss: 0.0220
-Epoch 8/50
-19/19 [==============================] - 6s 294ms/step - loss: 0.0214 - val_loss: 0.0212
-Epoch 9/50
-19/19 [==============================] - 7s 367ms/step - loss: 0.0208 - val_loss: 0.0208
-Epoch 10/50
-19/19 [==============================] - 7s 363ms/step - loss: 0.0208 - val_loss: 0.0211
-Epoch 11/50
-19/19 [==============================] - 7s 337ms/step - loss: 0.0207 - val_loss: 0.0208
-Epoch 12/50
-19/19 [==============================] - 6s 319ms/step - loss: 0.0207 - val_loss: 0.0208
-Epoch 13/50
-19/19 [==============================] - 7s 358ms/step - loss: 0.0206 - val_loss: 0.0208
-Epoch 14/50
-19/19 [==============================] - 7s 360ms/step - loss: 0.0206 - val_loss: 0.0208
-Epoch 15/50
-19/19 [==============================] - 7s 348ms/step - loss: 0.0206 - val_loss: 0.0212
-Epoch 16/50
-19/19 [==============================] - 7s 377ms/step - loss: 0.0207 - val_loss: 0.0208
-Epoch 17/50
-19/19 [==============================] - 6s 313ms/step - loss: 0.0206 - val_loss: 0.0208
-Epoch 18/50
-19/19 [==============================] - 6s 341ms/step - loss: 0.0206 - val_loss: 0.0209
-Epoch 19/50
-19/19 [==============================] - 6s 331ms/step - loss: 0.0206 - val_loss: 0.0208
-Epoch 20/50
-19/19 [==============================] - 7s 359ms/step - loss: 0.0206 - val_loss: 0.0207
-Epoch 21/50
-19/19 [==============================] - 7s 390ms/step - loss: 0.0207 - val_loss: 0.0207
-Epoch 22/50
-19/19 [==============================] - 7s 375ms/step - loss: 0.0209 - val_loss: 0.0208
-Epoch 23/50
-19/19 [==============================] - 6s 335ms/step - loss: 0.0206 - val_loss: 0.0207
-Epoch 24/50
-19/19 [==============================] - 6s 322ms/step - loss: 0.0205 - val_loss: 0.0206
-Epoch 25/50
-19/19 [==============================] - 6s 341ms/step - loss: 0.0272 - val_loss: 0.0256
-Epoch 26/50
-19/19 [==============================] - 6s 301ms/step - loss: 0.0238 - val_loss: 0.0227
-Epoch 27/50
-19/19 [==============================] - 6s 331ms/step - loss: 0.0220 - val_loss: 0.0217
-Epoch 28/50
-19/19 [==============================] - 6s 314ms/step - loss: 0.0212 - val_loss: 0.0211
-Epoch 29/50
-19/19 [==============================] - 6s 331ms/step - loss: 0.0209 - val_loss: 0.0210
-Epoch 30/50
-19/19 [==============================] - 6s 325ms/step - loss: 0.0208 - val_loss: 0.0209
-Epoch 31/50
-19/19 [==============================] - 6s 329ms/step - loss: 0.0207 - val_loss: 0.0210
-Epoch 32/50
-19/19 [==============================] - 6s 319ms/step - loss: 0.0207 - val_loss: 0.0208
-Epoch 33/50
-19/19 [==============================] - 6s 309ms/step - loss: 0.0206 - val_loss: 0.0210
-Epoch 34/50
-19/19 [==============================] - 6s 337ms/step - loss: 0.0207 - val_loss: 0.0208
-Epoch 35/50
-19/19 [==============================] - 6s 303ms/step - loss: 0.0206 - val_loss: 0.0207
-Epoch 36/50
-19/19 [==============================] - 7s 346ms/step - loss: 0.0206 - val_loss: 0.0208
-Epoch 37/50
-19/19 [==============================] - 6s 339ms/step - loss: 0.0206 - val_loss: 0.0207
-Epoch 38/50
-19/19 [==============================] - 7s 364ms/step - loss: 0.0205 - val_loss: 0.0209
-Epoch 39/50
-19/19 [==============================] - 6s 342ms/step - loss: 0.0219 - val_loss: 0.0212
-Epoch 40/50
-19/19 [==============================] - 7s 379ms/step - loss: 0.0209 - val_loss: 0.0210
-Epoch 41/50
-19/19 [==============================] - 7s 350ms/step - loss: 0.0208 - val_loss: 0.0209
-Epoch 42/50
-19/19 [==============================] - 6s 309ms/step - loss: 0.0207 - val_loss: 0.0209
-Epoch 43/50
-19/19 [==============================] - 7s 350ms/step - loss: 0.0207 - val_loss: 0.0209
-Epoch 44/50
-19/19 [==============================] - 6s 321ms/step - loss: 0.0207 - val_loss: 0.0209
-Epoch 45/50
-19/19 [==============================] - 6s 333ms/step - loss: 0.0207 - val_loss: 0.0209
-Epoch 46/50
-19/19 [==============================] - 6s 331ms/step - loss: 0.0207 - val_loss: 0.0209
-Epoch 47/50
-19/19 [==============================] - 6s 317ms/step - loss: 0.0207 - val_loss: 0.0208
-Epoch 48/50
-19/19 [==============================] - 6s 314ms/step - loss: 0.0207 - val_loss: 0.0209
-Epoch 49/50
-19/19 [==============================] - 6s 321ms/step - loss: 0.0206 - val_loss: 0.0208
-Epoch 50/50
-19/19 [==============================] - 6s 324ms/step - loss: 0.0206 - val_loss: 0.0208
-94/94 [==============================] - 5s 44ms/step
-4/4 [==============================] - 0s 36ms/step</code></pre>
+_________________________________________________________________</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 정상 데이터만 사용하여 모델을 훈련합니다</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>autoencoder.fit(normal_data, normal_data, epochs<span class="op">=</span><span class="dv">50</span>, batch_size<span class="op">=</span><span class="dv">64</span>, validation_split<span class="op">=</span><span class="fl">0.2</span>, verbose<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 모든 데이터(정상 + 이상)에 대해 재구성 오류를 계산합니다</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>test_data <span class="op">=</span> np.concatenate([normal_data, anomaly_data])</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>reconstructed <span class="op">=</span> autoencoder.predict(test_data)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>mse <span class="op">=</span> np.mean(np.power(test_data <span class="op">-</span> reconstructed, <span class="dv">2</span>), axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 오류 기반으로 이상치 감지</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>threshold <span class="op">=</span> np.mean(mse) <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> np.std(mse)  <span class="co"># 임계값 설정</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"MSE Threshold: "</span>, threshold)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>outliers <span class="op">=</span> mse <span class="op">&gt;</span> threshold</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 이상치를 플롯으로 표시</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">6</span>))</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>plt.hist(mse, bins<span class="op">=</span><span class="dv">50</span>)</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>plt.axvline(threshold, color<span class="op">=</span><span class="st">'r'</span>, linestyle<span class="op">=</span><span class="st">'dashed'</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Histogram of Reconstruction Errors'</span>)</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Reconstruction error'</span>)</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Frequency'</span>)</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 이상치 표시</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Detected outliers: "</span>, np.<span class="bu">sum</span>(outliers))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>4/4 [==============================] - 1s 238ms/step
+MSE Threshold:  1.1976556399636464
+Detected outliers:  5</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="ts_07_deep_learning_files/figure-html/cell-10-output-2.png" class="img-fluid"></p>
+<p><img src="ts_07_deep_learning_files/figure-html/cell-12-output-2.png" class="img-fluid"></p>
 </div>
 </div>
-<p><em>.. 작성중 ..</em></p>
+<div class="cell" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">6</span>))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, (data, is_outlier) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(test_data, outliers)):</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    plt.plot(data.flatten(), color<span class="op">=</span><span class="st">'blue'</span> <span class="cf">if</span> <span class="kw">not</span> is_outlier <span class="cf">else</span> <span class="st">'red'</span>, alpha<span class="op">=</span><span class="fl">0.1</span> <span class="cf">if</span> <span class="kw">not</span> is_outlier <span class="cf">else</span> <span class="fl">1.0</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Time Series Data (Red: Outliers, Blue: Normal)'</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Time Steps'</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Value'</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="ts_07_deep_learning_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="53">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#VAE(Variational AE)</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> keras.models <span class="im">import</span> Model</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> keras.layers <span class="im">import</span> Input, LSTM, Dense, Lambda, RepeatVector</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> keras <span class="im">import</span> backend <span class="im">as</span> K</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> keras.losses <span class="im">import</span> mean_squared_error</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> keras.optimizers <span class="im">import</span> Adam</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co"># VAE의 샘플링 함수</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sampling(args):</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    z_mean, z_log_var <span class="op">=</span> args</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    batch <span class="op">=</span> K.shape(z_mean)[<span class="dv">0</span>]</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    dim <span class="op">=</span> K.int_shape(z_mean)[<span class="dv">1</span>]</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    epsilon <span class="op">=</span> K.random_normal(shape<span class="op">=</span>(batch, dim))</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> z_mean <span class="op">+</span> K.exp(<span class="fl">0.5</span> <span class="op">*</span> z_log_var) <span class="op">*</span> epsilon</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="co"># VAE 모델 구축 함수</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> build_vae(timesteps, features, latent_dim):</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 인코더</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    inputs <span class="op">=</span> Input(shape<span class="op">=</span>(timesteps, features))</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>    encoded <span class="op">=</span> LSTM(<span class="dv">32</span>)(inputs)</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>    z_mean <span class="op">=</span> Dense(latent_dim)(encoded)</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>    z_log_var <span class="op">=</span> Dense(latent_dim)(encoded)</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> Lambda(sampling, output_shape<span class="op">=</span>(latent_dim,))([z_mean, z_log_var])</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 디코더</span></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>    decoder_h <span class="op">=</span> LSTM(<span class="dv">32</span>, return_sequences<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>    decoder_mean <span class="op">=</span> Dense(features, activation<span class="op">=</span><span class="st">'linear'</span>)</span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>    h_decoded <span class="op">=</span> RepeatVector(timesteps)(z)</span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>    x_decoded_mean <span class="op">=</span> decoder_h(h_decoded)</span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>    x_decoded_mean <span class="op">=</span> decoder_mean(x_decoded_mean)</span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 모델 정의</span></span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a>    vae <span class="op">=</span> Model(inputs, x_decoded_mean)</span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>    vae_loss <span class="op">=</span> mean_squared_error(K.flatten(inputs), K.flatten(x_decoded_mean)) <span class="op">*</span> timesteps</span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a>    kl_loss <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span> <span class="op">*</span> K.<span class="bu">sum</span>(<span class="dv">1</span> <span class="op">+</span> z_log_var <span class="op">-</span> K.square(z_mean) <span class="op">-</span> K.exp(z_log_var), axis<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a>    vae.add_loss(K.mean(vae_loss <span class="op">+</span> kl_loss))</span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a>    vae.<span class="bu">compile</span>(optimizer<span class="op">=</span>Adam())</span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> vae</span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 생성 함수</span></span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_data(num_samples):</span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 이 예제에서는 사인파와 코사인파의 조합으로 데이터를 생성합니다.</span></span>
+<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a>    timesteps <span class="op">=</span> <span class="dv">500</span>  <span class="co"># 각 시계열의 길이</span></span>
+<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> np.empty((num_samples, timesteps, <span class="dv">1</span>))</span>
+<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_samples):</span>
+<span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(timesteps):</span>
+<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a>            x[i, t, <span class="dv">0</span>] <span class="op">=</span> np.sin(<span class="fl">0.1</span> <span class="op">*</span> t) <span class="op">+</span> np.cos(<span class="fl">0.05</span> <span class="op">*</span> t) <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="fl">0.1</span>)</span>
+<span id="cb21-48"><a href="#cb21-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span>
+<span id="cb21-49"><a href="#cb21-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-50"><a href="#cb21-50" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 로드</span></span>
+<span id="cb21-51"><a href="#cb21-51" aria-hidden="true" tabindex="-1"></a>x_train <span class="op">=</span> generate_data(<span class="dv">100</span>)</span>
+<span id="cb21-52"><a href="#cb21-52" aria-hidden="true" tabindex="-1"></a>x_test <span class="op">=</span> generate_data(<span class="dv">20</span>)</span>
+<span id="cb21-53"><a href="#cb21-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-54"><a href="#cb21-54" aria-hidden="true" tabindex="-1"></a><span class="co"># 이상치 데이터 생성</span></span>
+<span id="cb21-55"><a href="#cb21-55" aria-hidden="true" tabindex="-1"></a>x_anomaly <span class="op">=</span> generate_data(<span class="dv">10</span>)</span>
+<span id="cb21-56"><a href="#cb21-56" aria-hidden="true" tabindex="-1"></a>x_anomaly[:, :<span class="dv">25</span>, :] <span class="op">+=</span> <span class="fl">.5</span>  <span class="co"># 첫 반을 더 높은 값으로 변경하여 이상치 생성</span></span>
+<span id="cb21-57"><a href="#cb21-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-58"><a href="#cb21-58" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 구축 및 훈련</span></span>
+<span id="cb21-59"><a href="#cb21-59" aria-hidden="true" tabindex="-1"></a>vae <span class="op">=</span> build_vae(timesteps<span class="op">=</span><span class="dv">500</span>, features<span class="op">=</span><span class="dv">1</span>, latent_dim<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb21-60"><a href="#cb21-60" aria-hidden="true" tabindex="-1"></a>vae.fit(x_train, epochs<span class="op">=</span><span class="dv">50</span>, batch_size<span class="op">=</span><span class="dv">32</span>, validation_data<span class="op">=</span>(x_test, <span class="va">None</span>), verbose<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb21-61"><a href="#cb21-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-62"><a href="#cb21-62" aria-hidden="true" tabindex="-1"></a><span class="co"># 테스트 데이터와 이상치 데이터에 대한 재구성 오류 계산</span></span>
+<span id="cb21-63"><a href="#cb21-63" aria-hidden="true" tabindex="-1"></a>x_test_encoded <span class="op">=</span> vae.predict(x_test)</span>
+<span id="cb21-64"><a href="#cb21-64" aria-hidden="true" tabindex="-1"></a>x_anomaly_encoded <span class="op">=</span> vae.predict(x_anomaly)</span>
+<span id="cb21-65"><a href="#cb21-65" aria-hidden="true" tabindex="-1"></a>mse_test <span class="op">=</span> np.mean(np.power(x_test <span class="op">-</span> x_test_encoded, <span class="dv">2</span>), axis<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb21-66"><a href="#cb21-66" aria-hidden="true" tabindex="-1"></a>mse_anomaly <span class="op">=</span> np.mean(np.power(x_anomaly <span class="op">-</span> x_anomaly_encoded, <span class="dv">2</span>), axis<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb21-67"><a href="#cb21-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-68"><a href="#cb21-68" aria-hidden="true" tabindex="-1"></a><span class="co"># 오류 기반으로 이상치 감지</span></span>
+<span id="cb21-69"><a href="#cb21-69" aria-hidden="true" tabindex="-1"></a>threshold <span class="op">=</span> np.mean(mse_test) <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> np.std(mse_test)</span>
+<span id="cb21-70"><a href="#cb21-70" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"MSE Threshold: "</span>, threshold)</span>
+<span id="cb21-71"><a href="#cb21-71" aria-hidden="true" tabindex="-1"></a>outliers <span class="op">=</span> mse_anomaly <span class="op">&gt;</span> threshold</span>
+<span id="cb21-72"><a href="#cb21-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-73"><a href="#cb21-73" aria-hidden="true" tabindex="-1"></a><span class="co"># 결과 시각화</span></span>
+<span id="cb21-74"><a href="#cb21-74" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb21-75"><a href="#cb21-75" aria-hidden="true" tabindex="-1"></a>plt.hist(mse_test, bins<span class="op">=</span><span class="dv">50</span>, alpha<span class="op">=</span><span class="fl">0.75</span>, label<span class="op">=</span><span class="st">'Normal'</span>)</span>
+<span id="cb21-76"><a href="#cb21-76" aria-hidden="true" tabindex="-1"></a>plt.hist(mse_anomaly, bins<span class="op">=</span><span class="dv">50</span>, alpha<span class="op">=</span><span class="fl">0.75</span>, label<span class="op">=</span><span class="st">'Anomaly'</span>)</span>
+<span id="cb21-77"><a href="#cb21-77" aria-hidden="true" tabindex="-1"></a>plt.axvline(threshold, color<span class="op">=</span><span class="st">'r'</span>, linestyle<span class="op">=</span><span class="st">'dashed'</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb21-78"><a href="#cb21-78" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Histogram of Reconstruction Errors'</span>)</span>
+<span id="cb21-79"><a href="#cb21-79" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb21-80"><a href="#cb21-80" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb21-81"><a href="#cb21-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-82"><a href="#cb21-82" aria-hidden="true" tabindex="-1"></a><span class="co"># 이상치 수 출력</span></span>
+<span id="cb21-83"><a href="#cb21-83" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Number of anomalies detected:"</span>, np.<span class="bu">sum</span>(outliers))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1/1 [==============================] - 1s 703ms/step
+1/1 [==============================] - 0s 88ms/step
+MSE Threshold:  1.0092991314633937
+Number of anomalies detected: 10</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="ts_07_deep_learning_files/figure-html/cell-14-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>딥러닝을 이용한 시계열의 이상치 감지 방법으로는 AE 외에도 다양한 기법이 있다. 이에 대해서는 따로 포스트를 만들어 업로드하도록 하겠다.</p>
 
 
 </section>
