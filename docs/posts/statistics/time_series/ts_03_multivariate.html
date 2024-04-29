@@ -501,6 +501,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">5-1. 신경망 메시지 전달</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../posts/machine_learning/GRL_05_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5-2. 일반화된 집계 및 업데이트</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -896,11 +902,17 @@ realint   -0.039671 -0.928779  1.000000
 <h1>Granger Causality 테스트</h1>
 <p>그레인저 인과성(Granger Causality) 테스트는 두 시계열 변수 간의 인과 관계를 통계적으로 검정하는 방법이다. 한 변수의 과거 값이 다른 변수의 현재 값을 예측하는 데 유용한지 여부를 판단하여 인과 관계의 존재를 검증한다.</p>
 <ul>
-<li>시간 우선성(Temporal Precedence): 인과 관계를 주장하기 위해서는 원인이 되는 사건이 결과에 앞서 발생해야 한다.- 정보 증가(Information Gain): 원인으로 여겨지는 변수의 과거 값이 결과 변수의 현재 값 예측에 추가적인 정보를 제공해야 한다.</li>
+<li>시간 우선성(Temporal Precedence): 인과 관계를 주장하기 위해서는 원인이 되는 사건이 결과에 앞서 발생해야 한다.</li>
+<li>정보 증가(Information Gain): 원인으로 여겨지는 변수의 과거 값이 결과 변수의 현재 값 예측에 추가적인 정보를 제공해야 한다.</li>
 </ul>
 <p><span class="math inline">\(Y_t = \alpha_0 + \sum_{i=1}^{p} \alpha_i Y_{t-i} + \epsilon_t\)</span></p>
 <p><span class="math inline">\(Y_t = \beta_0 + \sum_{i=1}^{p} \beta_i Y_{t-i} + \sum_{j=1}^{q} \gamma_j X_{t-j} + u_t\)</span></p>
-<p>그레인저 인과성 검정 절차 - 모델 설정: 두 변수 <span class="math inline">\(X\)</span>와 <span class="math inline">\(Y\)</span>에 대해, <span class="math inline">\(Y\)</span>를 예측하기 위한 두 가지 모델을 설정한다. 첫 번째 모델은 <span class="math inline">\(Y\)</span>의 과거 값만을 사용하고, 두 번째 모델은 <span class="math inline">\(Y\)</span>의 과거 값과 <span class="math inline">\(X\)</span>의 과거 값을 모두 사용한다. - 모델 추정: 두 모델을 데이터에 적합시킨다. - 통계적 검정: 두 모델의 적합도를 비교하여, <span class="math inline">\(X\)</span>의 과거 값이 <span class="math inline">\(Y\)</span>의 예측에 유의미하게 기여하는지 검정한다. 이를 위해 보통 F-통계량을 사용한다.</p>
+<p>그레인저 인과성 검정 절차</p>
+<ul>
+<li><p>모델 설정: 두 변수 <span class="math inline">\(X\)</span>와 <span class="math inline">\(Y\)</span>에 대해, <span class="math inline">\(Y\)</span>를 예측하기 위한 두 가지 모델을 설정한다. 첫 번째 모델은 <span class="math inline">\(Y\)</span>의 과거 값만을 사용하고, 두 번째 모델은 <span class="math inline">\(Y\)</span>의 과거 값과 <span class="math inline">\(X\)</span>의 과거 값을 모두 사용한다.</p></li>
+<li><p>모델 추정: 두 모델을 데이터에 적합시킨다.</p></li>
+<li><p>통계적 검정: 두 모델의 적합도를 비교하여, <span class="math inline">\(X\)</span>의 과거 값이 <span class="math inline">\(Y\)</span>의 예측에 유의미하게 기여하는지 검정한다. 이를 위해 보통 F-통계량을 사용한다.</p></li>
+</ul>
 <div class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> df[[<span class="st">'realgdp'</span>,<span class="st">'infl'</span>]]   </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -985,7 +997,12 @@ parameter F test:         F=3.2191  , p=0.0082  , df_denom=183, df_num=5</code><
 </div>
 </div>
 <p>(이자율 –&gt; 인플레이션율)은 꽤나 명확해 보이며, (인플레이션율 –&gt; GDP증가율)도 인과성이 있어보인다.</p>
-<p>다만, - 양방향 인과성: <span class="math inline">\(X\)</span>가 <span class="math inline">\(Y\)</span>에 대해 그레인저 인과성을 가지고, 동시에 <span class="math inline">\(Y\)</span>도 <span class="math inline">\(X\)</span>에 대해 그레인저 인과성을 가질 수 있다. - 제3의 원인: <span class="math inline">\(X\)</span>와 <span class="math inline">\(Y\)</span>간의 그레인저 인과성이 관찰되더라도, 이는 둘 사이에 직접적인 인과 관계가 있다는 것을 의미하지 않을 수 있다. 제3의 변수 <span class="math inline">\(Z\)</span>가 <span class="math inline">\(X\)</span>와 <span class="math inline">\(Y\)</span> 모두에 영향을 줄 수 있으며, 이를 고려해야 한다. - 데이터의 특성: 그레인저 인과성 검정은 시계열 데이터가 정상성(stationarity)을 만족해야 유효하다. 비정상 시계열의 경우 차분(differencing) 등의 방법으로 데이터를 전처리해야 한다.</p>
+<p>다만,</p>
+<ul>
+<li><p>양방향 인과성: <span class="math inline">\(X\)</span>가 <span class="math inline">\(Y\)</span>에 대해 그레인저 인과성을 가지고, 동시에 <span class="math inline">\(Y\)</span>도 <span class="math inline">\(X\)</span>에 대해 그레인저 인과성을 가질 수 있다.</p></li>
+<li><p>제3의 원인: <span class="math inline">\(X\)</span>와 <span class="math inline">\(Y\)</span>간의 그레인저 인과성이 관찰되더라도, 이는 둘 사이에 직접적인 인과 관계가 있다는 것을 의미하지 않을 수 있다. 제3의 변수 <span class="math inline">\(Z\)</span>가 <span class="math inline">\(X\)</span>와 <span class="math inline">\(Y\)</span> 모두에 영향을 줄 수 있으며, 이를 고려해야 한다.</p></li>
+<li><p>데이터의 특성: 그레인저 인과성 검정은 시계열 데이터가 정상성(stationarity)을 만족해야 유효하다. 비정상 시계열의 경우 차분(differencing) 등의 방법으로 데이터를 전처리해야 한다.</p></li>
+</ul>
 </section>
 <section id="공적분cointegration" class="level1">
 <h1>공적분(Cointegration)</h1>
