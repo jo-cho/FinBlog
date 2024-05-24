@@ -120,9 +120,11 @@ website:
             - href: posts/machine_learning/GRL_04_1.ipynb
               text: "4. 다중관계 데이터"
             - href: posts/machine_learning/GRL_05_1.ipynb
-              text: "5-1. 신경망 메시지 전달"
+              text: "5-1. GNN - 신경망 메시지 전달"
             - href: posts/machine_learning/GRL_05_2.ipynb
-              text: "5-2. 일반화된 집계 및 업데이트"
+              text: "5-2. GNN - 일반화된 집계 및 업데이트"
+            - href: posts/machine_learning/GRL_05_3.ipynb
+              text: "5-3. GNN - 다중관계와 그래프 수준"
       - section: "자연어 처리"
         contents:
           - section: "선행연구"

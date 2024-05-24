@@ -8,7 +8,7 @@
 
 <meta name="author" content="Cheonghyo Cho">
 
-<title>Cho’s FinBlog - 시스템 리스크 분석: (2-1) 거시경제지표를 활용한 경제전체 위험도 측정 방법</title>
+<title>Cho’s FinBlog - 그래프 머신러닝: (5-3) GNN: 다양한 그래프</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../posts/systemic_risk/2-2_Systemic_Risk_Measures_Market.html" rel="next">
-<link href="../../posts/systemic_risk/2_Systemic_Risk_Measures.html" rel="prev">
+<link href="../../posts/nlp/finance_llm_survey.html" rel="next">
+<link href="../../posts/machine_learning/GRL_05_2.html" rel="prev">
 <link href="../../logo.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -119,7 +119,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../posts/systemic_risk/1_Systemic_Risk.html">시스템 리스크 분석</a></li><li class="breadcrumb-item"><a href="../../posts/systemic_risk/2_Systemic_Risk_Measures.html">시스템 리스크 측정</a></li><li class="breadcrumb-item"><a href="../../posts/systemic_risk/2-1_Systemic_Risk_Measures_Macro.html">선행연구 (거시경제)</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">그래프 머신러닝</li><li class="breadcrumb-item"><a href="../../posts/machine_learning/GRL_01.html">그래프 머신러닝 이론</a></li><li class="breadcrumb-item"><a href="../../posts/machine_learning/GRL_05_3.html">5-3. GNN - 다중관계와 그래프 수준</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -310,13 +310,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
  <span class="menu-text">시스템 리스크 분석</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/systemic_risk/1_Systemic_Risk.html" class="sidebar-item-text sidebar-link">
@@ -325,13 +325,13 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
  <span class="menu-text">시스템 리스크 측정</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/systemic_risk/2_Systemic_Risk_Measures.html" class="sidebar-item-text sidebar-link">
@@ -340,7 +340,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/2-1_Systemic_Risk_Measures_Macro.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../posts/systemic_risk/2-1_Systemic_Risk_Measures_Macro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">선행연구 (거시경제)</span></a>
   </div>
 </li>
@@ -403,22 +403,22 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
  <span class="menu-text">그래프 머신러닝</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true">
  <span class="menu-text">그래프 머신러닝 이론</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/machine_learning/GRL_01.html" class="sidebar-item-text sidebar-link">
@@ -475,7 +475,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/machine_learning/GRL_05_3.html" class="sidebar-item-text sidebar-link">
+  <a href="../../posts/machine_learning/GRL_05_3.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">5-3. GNN - 다중관계와 그래프 수준</span></a>
   </div>
 </li>
@@ -527,15 +527,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">목차</h2>
    
   <ul>
-  <li><a href="#거시경제지표를-활용한-경제전체-위험도" id="toc-거시경제지표를-활용한-경제전체-위험도" class="nav-link active" data-scroll-target="#거시경제지표를-활용한-경제전체-위험도">거시경제지표를 활용한 경제전체 위험도</a>
+  <li><a href="#edge-features-and-multi-relational-gnns" id="toc-edge-features-and-multi-relational-gnns" class="nav-link active" data-scroll-target="#edge-features-and-multi-relational-gnns">Edge features and Multi-relational GNNs</a>
   <ul class="collapse">
-  <li><a href="#fcycl-financial-cycle" id="toc-fcycl-financial-cycle" class="nav-link" data-scroll-target="#fcycl-financial-cycle">FCYCL: Financial Cycle</a></li>
-  <li><a href="#ccycl-credit-cycle" id="toc-ccycl-credit-cycle" class="nav-link" data-scroll-target="#ccycl-credit-cycle">CCYCL: Credit cycle</a></li>
-  <li><a href="#ews-se-early-warning-system-signal-extraction" id="toc-ews-se-early-warning-system-signal-extraction" class="nav-link" data-scroll-target="#ews-se-early-warning-system-signal-extraction">EWS-SE (Early warning system-Signal extraction)</a></li>
-  <li><a href="#ews-lr-early-warning-system-logit-regression" id="toc-ews-lr-early-warning-system-logit-regression" class="nav-link" data-scroll-target="#ews-lr-early-warning-system-logit-regression">EWS-LR (Early warning system-Logit regression)</a></li>
-  <li><a href="#ews-hybrid-early-warning-system-hybrid" id="toc-ews-hybrid-early-warning-system-hybrid" class="nav-link" data-scroll-target="#ews-hybrid-early-warning-system-hybrid">EWS-Hybrid (Early warning system-Hybrid)</a></li>
+  <li><a href="#relational-graph-neural-networks" id="toc-relational-graph-neural-networks" class="nav-link" data-scroll-target="#relational-graph-neural-networks">Relational Graph Neural Networks</a></li>
+  <li><a href="#attention-and-feature-concatenation" id="toc-attention-and-feature-concatenation" class="nav-link" data-scroll-target="#attention-and-feature-concatenation">Attention and Feature Concatenation</a></li>
   </ul></li>
-  <li><a href="#참고문헌" id="toc-참고문헌" class="nav-link" data-scroll-target="#참고문헌">참고문헌</a></li>
+  <li><a href="#graph-pooling" id="toc-graph-pooling" class="nav-link" data-scroll-target="#graph-pooling">Graph Pooling</a></li>
+  <li><a href="#generalized-message-passing" id="toc-generalized-message-passing" class="nav-link" data-scroll-target="#generalized-message-passing">Generalized Message Passing</a></li>
+  <li><a href="#참고자료" id="toc-참고자료" class="nav-link" data-scroll-target="#참고자료">참고자료</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -544,11 +543,13 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">시스템 리스크 분석: (2-1) 거시경제지표를 활용한 경제전체 위험도 측정 방법</h1>
-<p class="subtitle lead">Systemic Risk Measure - Macroeconomic risk</p>
+<h1 class="title">그래프 머신러닝: (5-3) GNN: 다양한 그래프</h1>
+<p class="subtitle lead">(GRL) GNN: Graphs</p>
   <div class="quarto-categories">
-    <div class="quarto-category">systemic risk</div>
-    <div class="quarto-category">cycle</div>
+    <div class="quarto-category">graph</div>
+    <div class="quarto-category">network</div>
+    <div class="quarto-category">GNN</div>
+    <div class="quarto-category">deep learning</div>
   </div>
   </div>
 
@@ -570,153 +571,79 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>서상원 (2018)</p>
-<p>시스템리스크 측정 방법 중 거시경제지표를 활용한 경제전체 위험도를 살펴본다.</p>
-<section id="거시경제지표를-활용한-경제전체-위험도" class="level1">
-<h1>거시경제지표를 활용한 경제전체 위험도</h1>
-<section id="fcycl-financial-cycle" class="level2">
-<h2 class="anchored" data-anchor-id="fcycl-financial-cycle">FCYCL: Financial Cycle</h2>
-<p><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2084835">Drehmann, Borio and Tsatsaronis(2012)</a></p>
-<p>실물부문에서 호황과 불황이 교대로 나타나는 경기변동이 있듯이 금융부문에서도 그와 유사한 변동으로 금융변동을 제시</p>
-<ul>
-<li><p>금융사이클 산출을 위한 변수 5개</p>
-<ul>
-<li>민간신용</li>
-<li>GDP 대비 신용 비율</li>
-<li>주가</li>
-<li>주택가격</li>
-<li>(주거용, 상업용 부동산 가격, 주가 등) 종합자산 가격</li>
-</ul></li>
-<li><p>Band-pass 필터: 5개의 금융변수 각각에 대해 특정주기에 대한 정보만을 추출 (단기 사이클 1-8년 / 중기 사이클 8-30년)</p></li>
-<li><p>전환점 분석법(turning-point analysis): 사이클의 정점(peak)과 저점(trough)을 특정</p>
-<ul>
-<li>단기 사이클
-<ul>
-<li>매 분기마다 그 분기를 중심으로 전후 5분기 범위에서 그 분기의 값이 가장 크면 그 분기를 국지적 극대, 가장 작으면 국지적 극소로 정의</li>
-<li>이 국지적 극대와 극소 중에서 각 사이클의 최소 길이가 5분기 보다 길고 확장 또는 수축 국면의 기간이 최소 2분기 이상인 경우를 정점 또는 저점으로 지정</li>
-</ul></li>
-<li>중기 사이클
-<ul>
-<li>전후 9분기 범위에서 국지적 극대와 극소를 정하고 사이클의 최소 길이는 8년으로 정한다. 전환점 분석법을 금융사이클 및 개별지 수에 적용하여 각각의 정점과 저점들을 정한 후</li>
-<li>금융사이클의 정점(저점)을 중심으로 개별 정점(저점)들이 6분기 이내에 있으면 정규(regular) 전환점으로, 그리고 6~12분기 이내에 있으면 약(weak) 전환점이라고 정의</li>
-</ul></li>
-</ul></li>
-<li><p>실험: 1960~2011년 기간동안 7개국에 대해 적용<br>
-</p></li>
-<li><p>분석 결과: 금융사이클과 실물 경기변동간에 긴밀한 관계가 있음. 특히, 금융사이클 수축국면에 실물의 경기하락이 겹칠 경우에는 상대적으로 심한 경기하락을 경험. 이러한 분석결과는 금융사이클로 인한 추가적인 경기하락을 방지하고 경기변동을 완화하기 위해서는 금융 사이클을 함께 고려하여야 한다는 점을 시사.</p></li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="2-1_Systemic_Risk_Measures_Macro_files/figure-html/a3675e8b-1-Drehmann_Borio_Tsatsaronis_2012_Fig1.PNG" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Drehmann, Borio, and Tsatsaronis (2012) Figure 1</figcaption>
-</figure>
-</div>
+<p>Hamilton,W.L. <em>Graph Representation Learning</em>. 2020</p>
+<p>지금까지는 심플 그래프에서의 GNN을 가정했으나, 그래프가 다중관계이거나 hetrogenous(예: 지식 그래프)할 때를 다루지 못했다. 이러한 그래프를 다루는 몇 가지 전략을 알아보자.</p>
+<section id="edge-features-and-multi-relational-gnns" class="level1">
+<h1>Edge features and Multi-relational GNNs</h1>
+<section id="relational-graph-neural-networks" class="level2">
+<h2 class="anchored" data-anchor-id="relational-graph-neural-networks">Relational Graph Neural Networks</h2>
+<p>Relational GNN 중 Relational Graph Convolutional Network(RGCN)[Schlichtkrull et al., 2017] 방법이 대표적이다.</p>
+<p>이 방법은 관계 유형별로 별도의 변환 행렬을 지정하여 여러 관계 유형을 수용하도록 집계(aggregation) 함수를 보강한다.</p>
+<p><span class="math display">\[\mathbf{m}_{\mathcal{N}(u)} = \sum_{\tau \in \mathcal{R}} \sum_{v \in \mathcal{N}_{\tau}(u)} \frac{\mathbf{W}_{\tau} \mathbf{h}_v}{f_n(\mathcal{N}(u), \mathcal{N}(v))},\]</span></p>
+<p>여기서, <span class="math inline">\(f_n\)</span>은 노드 <span class="math inline">\(u\)</span>의 이웃과 집계되는 이웃 <span class="math inline">\(v\)</span>에 모두 의존하는 정규화 함수이다.</p>
+<p>전반적으로 RGCN의 다중 관계형 집계는 정규화를 사용하는 기본 GNN 접근 방식과 유사하지만 서로 다른 엣지 유형에 따라 정보를 별도로 집계한다.</p>
+<p><strong>Parameter Sharing</strong></p>
+<p>Naive한 RGCN의 단점으로는 관계 유형당 trainable matrix가 있기 때문에 파라미터 수가 매우 크다는 것이다. Schlichtkrull et al.[2017]은 따라서 basis 행렬들을 이용한 parameter sharing을 제안하였다:</p>
+<p><span class="math display">\[\mathbf{W}_{\tau} = \sum_{i=1}^{b} \alpha_{i,\tau} \mathbf{B}_i\]</span></p>
+<p>이러한 방식에서 모든 관계 행렬은 basis 행렬 <span class="math inline">\(\mathbf{B}_1, \dots, \mathbf{B}_b\)</span>의 선형 조합이 되고, 관계와 관련된 파라미터는 각 관계 <span class="math inline">\(\tau\)</span>에 대한 <span class="math inline">\(b\)</span>개의 조합 가중 <span class="math inline">\(\alpha_{1,\tau}, \dots, \alpha_{b,\tau}\)</span>이다.</p>
+<p>Basis sharing 방식에서 집계 함수를 다음과 같이 정의한다:</p>
+<p><span class="math display">\[\mathbf{m}_{\mathcal{N}(u)} = \sum_{\tau \in \mathcal{R}} \sum_{v \in \mathcal{N}_{\tau}(u)} \frac{\alpha_{\tau} \times_1 \mathbf{B} \times_2 \mathbf{h}_v}{f_n(\mathcal{N}(u), \mathcal{N}(v))}\]</span></p>
 </section>
-<section id="ccycl-credit-cycle" class="level2">
-<h2 class="anchored" data-anchor-id="ccycl-credit-cycle">CCYCL: Credit cycle</h2>
-<p><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2604099">Juselius and Drehmann(2015)</a></p>
-<ul>
-<li><p>GDP대비 신용 비율이 담고 있는 정보를 활용: 지속가능 부분(sustainable)과 지속가능하지 않은 부분(unsustainable)으로 구분</p>
-<ul>
-<li>sustainable: 레버리지와 원리금부담(debt service burden)이 GDP대비 신용 비율과 장기적 관계를 가질 것이라고 가정하고 GDP대비 신용 비율 중에서 이 장기적 관계에 의해 설명되는 부분</li>
-</ul></li>
-<li><p><span class="math inline">\({slev}_t = constant + \sum^{b}_{i=1} \psi_i (p_{A_i,t}-p_t)\)</span></p>
-<ul>
-<li><span class="math inline">\({slev}_t\)</span>는 레버리지를 감안한 지속가능한 GDP대비 신용 비율(로그), <span class="math inline">\(p_{A_i,t}\)</span>는 <span class="math inline">\(i\)</span>번째 자산가격(로그), <span class="math inline">\(p_t\)</span>는 물가지수(로그), <span class="math inline">\(\sum^{b}_{i=1} \psi_i = 1\)</span> 제약</li>
-</ul></li>
-<li><p>${sleb}_t = constant + r_t $</p>
-<ul>
-<li><span class="math inline">\({sleb}_t\)</span>는 원리금부담을 감안한 지속가능한 GDP대비 신용 비율(로그), <span class="math inline">\(r_t\)</span>는 신용잔고에 대한 평균 명목대출이자율</li>
-</ul></li>
-<li><p>두 가지의 장기균형관계를 공적분(co-integration) 방법으로 추정</p></li>
-<li><p>실험: 미국 글로벌 금융위기 이전 기간 케이스</p></li>
-<li><p>분석 결과:</p>
-<ul>
-<li>실제 GDP대비 신용 비율이 레버리지를 감안한 지속가능한 GDP대비 신용 비율에 비해 낮게 나타남 <span class="math inline">\(\rightarrow\)</span> 높은 레버리지를 가지고 주택시장에 신규진입</li>
-<li>실제 GDP대비 신용 비율은 원리금부담을 감안한 지속가능한 GDP대비 신용 비율에 비해 높아짐 <span class="math inline">\(\rightarrow\)</span> 원리금부담이 높아지면 소비 및 투자 지출을 감소</li>
-</ul></li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="2-1_Systemic_Risk_Measures_Macro_files/figure-html/5c9091c3-1-Juselius_Drehmann_2015_Fig1.PNG" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Juselius &amp; Drehmann (2015) Figure 1</figcaption>
-</figure>
-</div>
-</section>
-<section id="ews-se-early-warning-system-signal-extraction" class="level2">
-<h2 class="anchored" data-anchor-id="ews-se-early-warning-system-signal-extraction">EWS-SE (Early warning system-Signal extraction)</h2>
-<p><a href="https://link.springer.com/article/10.2307/3867328">Kaminsky, Lizondo and Reinhart(1998)</a></p>
-<p>신호접근법(Signal extraction approach)는 여러 정보변수들을 비모수적 방법으로 활용하여 금융위기의 발생가능성을 예측하는 방법</p>
-<ul>
-<li>각 국가별로 먼저 위기에 대한 조작적 정의(operational definition)를 하고 그에 기반하여 위기를 나타내면 1을, 아니면 0을 갖는 더미변수 <span class="math inline">\(S_{j,t}\)</span>를 구성 (<span class="math inline">\(j\)</span>는 국가, <span class="math inline">\(t\)</span>는 시간, <span class="math inline">\(n\)</span>은 n번째 정보변수) - 정보변수는 거시경제변수 등</li>
-</ul>
-<table class="table">
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"></td>
-<td style="text-align: left;"><strong>crisis</strong></td>
-<td style="text-align: left;"><strong>no-crisis</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>signal</strong></td>
-<td style="text-align: left;"><span class="math inline">\(A^j_{n,t}\)</span></td>
-<td style="text-align: left;"><span class="math inline">\(B^j_{n,t}\)</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>no-signal</strong></td>
-<td style="text-align: left;"><span class="math inline">\(C^j_{n,t}\)</span></td>
-<td style="text-align: left;"><span class="math inline">\(D^j_{n,t}\)</span></td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><p>in-sample 기간의 경우 합산하여 <span class="math inline">\(A^j_{n}, B^j_{n}, C^j_{n}, D^j_{n}\)</span> 구함</p></li>
-<li><p>NSR(Noise-to-signal ratio)</p>
-<ul>
-<li><span class="math inline">\(w^j_n = \frac{B^j_{n}}{B^j_{n}+D^j_{n}} \div \frac{A^j_{n}}{A^j_{n}+C^j_{n}}\)</span></li>
-<li>예측이 정확할수록 0에 가까움</li>
-<li>NSR이 최소가 되도록 각 정보변수별 임계치를 설정</li>
-</ul></li>
-<li><p>여러 정보변수 중에서 몇 개가 위기신호가 발생하는지를 각 시점별로 관측</p>
-<ul>
-<li><span class="math inline">\(K^j_{1t} \equiv \sum^{N}_{n=1}I^j_{nt}\)</span></li>
-<li><span class="math inline">\(I^j_{nt}\)</span>는 n번째 정보변수가 위기신호를 보내는지의 더미변수</li>
-<li>이러한 종합지수들에 대해 NSR이 최소가 되는 종합지수의 임계치를 설정</li>
-</ul></li>
-<li><p>외표본기간에서도 위기발생에 대해 높은 예측력을 보이는지를 점검</p></li>
-</ul>
-</section>
-<section id="ews-lr-early-warning-system-logit-regression" class="level2">
-<h2 class="anchored" data-anchor-id="ews-lr-early-warning-system-logit-regression">EWS-LR (Early warning system-Logit regression)</h2>
-<ul>
-<li>로짓모형은 위기발생 확률을 직접 제시해줌. 그러나 통상 위기발생 확률을 직접 사용하기 보다는 그 확률을 이용하여 NSR을 구하고 내표본기간의 NSR을 최소화하는 임계치를 설정</li>
-<li>위기발생 확률이 임계치를 상회하는 경우 위기신호가 발생하는 방식으로 로짓모형을 조기경보 목적에 활용</li>
-</ul>
-</section>
-<section id="ews-hybrid-early-warning-system-hybrid" class="level2">
-<h2 class="anchored" data-anchor-id="ews-hybrid-early-warning-system-hybrid">EWS-Hybrid (Early warning system-Hybrid)</h2>
-<p><a href="https://www.sciencedirect.com/science/article/abs/pii/S1059056016303732">Suh(2017)</a></p>
-<p>조기경보모형으로 널리 사용되고 있는 신호접근법과 로짓모형의 각기 장단점을 서로 보완적으로 활용</p>
-<ul>
-<li>먼저 여러 정보변수들을 그 경제적 내용에 따라 소수의 하위부문으로 구분
-<ul>
-<li>급작스런 자본유입의 중단 현상의 예측에 대해 17개의 개별 정보변수를 4개의 하위부문(거시경제, 금융, 대외부문 및 해외경제)으로 분류</li>
-<li>각 국가간 차이를 나타내는 변수 중에서 시기별로 큰 변동을 보이지 않는 5개의 변수를 따로 국가간 차이 변수로서 추가</li>
-</ul></li>
-<li>4개의 하위부문에 대해 각각 신호접근법을 적용하여 하위종합지수를 구성</li>
-<li>이렇게 구성된 4개의 하위종합지수와 5개의 국가간 차이변수 등 9개의 정보변수를 로짓 예측모형에 적용</li>
-</ul>
+<section id="attention-and-feature-concatenation" class="level2">
+<h2 class="anchored" data-anchor-id="attention-and-feature-concatenation">Attention and Feature Concatenation</h2>
+<p>관계별로 별도의 집계 파라미터를 정의하는 관계형 GNN 접근 방식은 다중 관계형 그래프 및 개별 edge feature가 있는 경우에 적용할 수 있다. 일반적인 형태의 edge feature가 있는 경우를 수용하기 위해 이러한 feature을 활용하거나 메시지 패싱 중에 이 정보를 인접 임베딩과 연결(concatenate)하여 활용할 수 있다.</p>
+<p>예를 들어 기본 집계가 주어지면 edge feature를 leverage해 다음과 같은 새로운 집계 함수를 정의할 수 있다:</p>
+<p><span class="math display">\[\mathbf{m}_{\mathcal{N}(u)} = \text{AGGREGATE}_{\text{base}}(\{\mathbf{h}_v \oplus \mathbf{e}_{(u,\tau,v)}, \forall v \in \mathcal{N}(u)\})
+\]</span></p>
+<p><span class="math inline">\(\mathbf{e}_{(u,\tau,v)}\)</span>는 엣지 <span class="math inline">\((u,\tau,v)\)</span>에 대한 임의의 vector-valued feature이다.</p>
 </section>
 </section>
-<section id="참고문헌" class="level1">
-<h1>참고문헌</h1>
+<section id="graph-pooling" class="level1">
+<h1>Graph Pooling</h1>
+<p>신경망 메시지 전달로 그래프 수준에서 예측하는 방법을 알아보자.</p>
+<p>노드 임베딩 집합 <span class="math inline">\(\{\mathbf{z}_1, \dots , \mathbf{z}_{|V|} \}\)</span>를 전체 그래프를 나타내는 임베딩 <span class="math inline">\(\mathbf{z}_\mathcal{G}\)</span>에 매핑하는 풀링 함수 <span class="math inline">\(f_p\)</span>를 설계한다. 이웃 임베딩 세트를 학습하기 위해 논의된 모든 방법은 그래프 수준 풀링에 사용할 수 있다.</p>
+<p>실제로 집합 풀링을 통해 그래프 수준 임베딩을 학습하는 데 가장 일반적으로 적용되는 두 가지 방법이 있다. 첫 번째는 단순히 노드 임베딩의 합계(또는 평균)를 취하는 것이다:</p>
+<p><span class="math display">\[\mathbf{z}_G = \frac{\sum_{v \in \mathcal{V}} \mathbf{z}_c}{f_n(|\mathcal{V}|)}
+\]</span></p>
+<p>두 번째는 LSTM과 attention을 조합하여 노드 임베딩을 풀링하는 방법이다. <span class="math inline">\(t=1,...,T\)</span> 단계에 대해 반복되는 방정식의 집합으로 정의된 일련의 attention 기반 집계를 반복한다:</p>
+<p><span class="math display">\[\begin{align*}
+\mathbf{q}_t &amp;= \text{LSTM}(\mathbf{o}_{t-1}, \mathbf{q}_{t-1}), \\
+e_{v,t} &amp;= f_a(\mathbf{z}_v, \mathbf{q}_t), \quad \forall v \in \mathcal{V}, \\
+a_{v,t} &amp;= \frac{\exp(e_{v,i})}{\sum_{u \in \mathcal{V}} \exp(e_{u,t})}, \quad \forall v \in \mathcal{V}, \\
+\mathbf{o}_t &amp;= \sum_{v \in \mathcal{V}} a_{v,t} \mathbf{z}_v.
+\end{align*}\]</span></p>
+<p>여기서, <span class="math inline">\(\mathbf{q}_t\)</span>는 각 반복에서 attention에 대한 쿼리 벡터이다. 이 쿼리 벡터는 각 노드에 대해 attention score를 계산하기 위해 사용된다(<span class="math inline">\(f_a\)</span>는 어텐션 함수).</p>
+<p>정규화된 attention score <span class="math inline">\(a_{v,t}\)</span>는 노드 임베딩에 대한 가중치 역할을 하여 가중합을 계산한다.</p>
+<p>마지막으로 <span class="math inline">\(T\)</span>번의 반복을 통해 전체 그래프에 대한 임베딩을 계산한다:</p>
+<p><span class="math display">\[\mathbf{z}_G = \mathbf{o}_1 \oplus \mathbf{o}_2 \oplus \ldots \oplus \mathbf{o}_T\]</span></p>
+<p>이 방법은 집합에 대한 어텐션 기반 풀링을 위한 정교한 아키텍처를 나타내며 많은 그래프 수준 분류 작업에서 널리 사용되는 풀링 방법이 되었다.</p>
+<p><strong>Graph Coarsening Approaches</strong></p>
+<p>집합 풀링 방법의 한계점은 그래프의 구조를 이용하지 않는다는 것이다. 이에 따라 노드 표현을 풀링하는 수단으로 그래프 clustering 혹은 coarsening을 수행한다.</p>
+<p><span class="math display">\[f_c \rightarrow \mathcal{G} \times \mathbb{R}^{|\mathcal{V}| \times d} \rightarrow \mathbb{R}^{+|\mathcal{V}| \times c}\]</span></p>
+<p>이 클러스터링 함수는 그래프의 모든 노드를 <span class="math inline">\(c\)</span>개 클러스터에 할당한다.</p>
+<p>이러한 매핑의 결과물을 <span class="math inline">\(\mathbf{S} = f_c(\mathcal{G},\mathbf{Z})\)</span>라고 하고, 이를 사용해 그래프를 coarsen한다. 구체적으로는 인접행렬과 노드 피쳐 집합을 새로 만든다.</p>
+<p><span class="math display">\[\mathbf{A}^{\text{new}} = \mathbf{S}^{\top} \mathbf{A} \mathbf{S} \in \mathbb{R}^{+c \times c}\]</span></p>
+<p><span class="math display">\[\mathbf{X}^{\text{new}} = \mathbf{S}^{\top} \mathbf{X} \in \mathbb{R}^{c \times d}\]</span></p>
+<p>이 coarsening 방식은 CNN에서 사용되는 풀링 접근 방식에서 영감을 받았으며 입력 그래프의 다양한 granularity에서 작동하는 hierarchical GNN을 구축할 수 있다는 직관에 의존한다. 실제로 이러한 방식은 강력한 성능으로 이어질 수 있지만 불안정하고 훈련하기 어려울 수도 있다.</p>
+</section>
+<section id="generalized-message-passing" class="level1">
+<h1>Generalized Message Passing</h1>
+<p>GNN 메시지 패싱 방법을 일반화하여 메시지 패싱의 각 단계에서 엣지 및 그래프 수준 정보를 활용할 수도 있다.</p>
+<p><span class="math display">\[\begin{align*}
+\mathbf{h}^{(k)}_{(u,v)} &amp;= \text{UPDATE}_{\text{edge}} \left( \mathbf{h}^{(k-1)}_{(u,v)}, \mathbf{h}^{(k-1)}_u, \mathbf{h}^{(k-1)}_v, \mathbf{h}^{(k-1)}_\mathcal{G} \right) \\
+\mathbf{m}_{\mathcal{N}(u)} &amp;= \text{AGGREGATE}_{\text{node}} \left( \left\{ \mathbf{h}^{(k)}_{(u,v)} \forall v \in \mathcal{N}(u) \right\} \right) \\
+\mathbf{h}^{(k)}_u &amp;= \text{UPDATE}_{\text{node}} \left( \mathbf{h}^{(k-1)}_u, \mathbf{m}_{\mathcal{N}(u)}, \mathbf{h}^{(k-1)}_\mathcal{G} \right) \\
+\mathbf{h}^{(k)}_\mathcal{G} &amp;= \text{UPDATE}_{\text{graph}} \left( \mathbf{h}^{(k-1)}_\mathcal{G}, \left\{ \mathbf{h}^{(k)}_u  \forall u \in \mathcal{V} \right\}, \left\{ \mathbf{h}^{(k)}_{(u,v)} \forall (u,v) \in \mathcal{E} \right\} \right)
+\end{align*}\]</span></p>
 <ul>
-<li><p>서상원. (2018). 시스템리스크의 측정과 관리: 서베이와 제언. 금융안정연구, 19(1), 131-232.</p></li>
-<li><p>Drehmann, M., Borio, C. E., &amp; Tsatsaronis, K. (2012). Characterising the financial cycle: don’t lose sight of the medium term!.</p></li>
-<li><p>Juselius, M., &amp; Drehmann, M. (2015). Leverage dynamics and the real burden of debt.</p></li>
-<li><p>Kaminsky, G., Lizondo, S., &amp; Reinhart, C. M. (1998). Leading indicators of currency crises. Staff Papers, 45(1), 1-48.</p></li>
-<li><p>Suh, S. (2017). Sudden stops of capital flows to emerging markets: A new prediction approach. International Review of Economics &amp; Finance, 48, 289-308.</p></li>
+<li><p>이 일반화된 메시지 패싱 프레임워크의 메시지 전달 작업과 관련하여 먼저 인시던트 노드의 임베딩을 기반으로 엣지 임베딩을 업데이트한다.</p></li>
+<li><p>다음으로, 모든 인시던트 엣지에 대한 엣지 임베딩을 집계하여 노드 임베딩을 업데이트한다.</p></li>
+<li><p>그래프 임베딩은 노드 및 엣지 표현 모두에 대한 업데이트 방정식에 사용되며, 그래프 수준 임베딩 자체는 각 반복이 끝날 때 모든 노드 및 엣지 임베딩을 집계하여 업데이트된다).</p></li>
 </ul>
+</section>
+<section id="참고자료" class="level1">
+<h1>참고자료</h1>
+<p>[1] Hamilton, W. L. (2020). <em>Graph Representation Learning.</em> Morgan &amp; Claypool Publishers.</p>
 
 
 </section>
@@ -959,13 +886,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../posts/systemic_risk/2_Systemic_Risk_Measures.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">선행연구 요약</span>
+      <a href="../../posts/machine_learning/GRL_05_2.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">5-2. GNN - 일반화된 집계 및 업데이트</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../posts/systemic_risk/2-2_Systemic_Risk_Measures_Market.html" class="pagination-link">
-        <span class="nav-page-text">선행연구 (시장위험)</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../posts/nlp/finance_llm_survey.html" class="pagination-link">
+        <span class="nav-page-text">금융분야의 LLM (2023)</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
