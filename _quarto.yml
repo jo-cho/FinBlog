@@ -57,6 +57,10 @@ website:
         contents:
           - href: posts/fin_data/Fractional_difference.ipynb
             text: "분수 차분"
+      - section: "이상탐지"
+        contents:
+          - href: posts/anomaly_detection/deep_learning_for_anomaly_detection.ipynb
+            text: "선행연구 - 딥러닝을 이용한 이상탐지"
       - section: "알고리즘 트레이딩"
         contents:
           - href: posts/ml_trading/0_Introduction.ipynb
