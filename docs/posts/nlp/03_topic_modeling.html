@@ -8,7 +8,7 @@
 
 <meta name="author" content="Cheonghyo Cho">
 
-<title>Cho’s FinBlog - 시스템 리스크 분석: (2-1) 거시경제지표를 활용한 경제전체 위험도 측정 방법</title>
+<title>Cho’s FinBlog - 자연어처리: 토픽모델링 - LSA, LDA</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../posts/systemic_risk/2-2_Systemic_Risk_Measures_Market.html" rel="next">
-<link href="../../posts/systemic_risk/2_Systemic_Risk_Measures.html" rel="prev">
 <link href="../../logo.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -64,8 +62,6 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -119,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../posts/systemic_risk/1_Systemic_Risk.html">시스템 리스크 분석</a></li><li class="breadcrumb-item"><a href="../../posts/systemic_risk/2_Systemic_Risk_Measures.html">시스템 리스크 측정</a></li><li class="breadcrumb-item"><a href="../../posts/systemic_risk/2-1_Systemic_Risk_Measures_Macro.html">선행연구 (거시경제)</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">자연어처리: 토픽모델링 - LSA, LDA</li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -327,13 +323,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
  <span class="menu-text">시스템 리스크 분석</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/systemic_risk/1_Systemic_Risk.html" class="sidebar-item-text sidebar-link">
@@ -342,13 +338,13 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
  <span class="menu-text">시스템 리스크 측정</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/systemic_risk/2_Systemic_Risk_Measures.html" class="sidebar-item-text sidebar-link">
@@ -357,7 +353,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/2-1_Systemic_Risk_Measures_Macro.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../posts/systemic_risk/2-1_Systemic_Risk_Measures_Macro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">선행연구 (거시경제)</span></a>
   </div>
 </li>
@@ -573,15 +569,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">목차</h2>
    
   <ul>
-  <li><a href="#거시경제지표를-활용한-경제전체-위험도" id="toc-거시경제지표를-활용한-경제전체-위험도" class="nav-link active" data-scroll-target="#거시경제지표를-활용한-경제전체-위험도">거시경제지표를 활용한 경제전체 위험도</a>
+  <li><a href="#lsa" id="toc-lsa" class="nav-link active" data-scroll-target="#lsa">LSA</a></li>
+  <li><a href="#lda" id="toc-lda" class="nav-link" data-scroll-target="#lda">LDA</a>
   <ul class="collapse">
-  <li><a href="#fcycl-financial-cycle" id="toc-fcycl-financial-cycle" class="nav-link" data-scroll-target="#fcycl-financial-cycle">FCYCL: Financial Cycle</a></li>
-  <li><a href="#ccycl-credit-cycle" id="toc-ccycl-credit-cycle" class="nav-link" data-scroll-target="#ccycl-credit-cycle">CCYCL: Credit cycle</a></li>
-  <li><a href="#ews-se-early-warning-system-signal-extraction" id="toc-ews-se-early-warning-system-signal-extraction" class="nav-link" data-scroll-target="#ews-se-early-warning-system-signal-extraction">EWS-SE (Early warning system-Signal extraction)</a></li>
-  <li><a href="#ews-lr-early-warning-system-logit-regression" id="toc-ews-lr-early-warning-system-logit-regression" class="nav-link" data-scroll-target="#ews-lr-early-warning-system-logit-regression">EWS-LR (Early warning system-Logit regression)</a></li>
-  <li><a href="#ews-hybrid-early-warning-system-hybrid" id="toc-ews-hybrid-early-warning-system-hybrid" class="nav-link" data-scroll-target="#ews-hybrid-early-warning-system-hybrid">EWS-Hybrid (Early warning system-Hybrid)</a></li>
+  <li><a href="#참고자료" id="toc-참고자료" class="nav-link" data-scroll-target="#참고자료">참고자료</a></li>
   </ul></li>
-  <li><a href="#참고문헌" id="toc-참고문헌" class="nav-link" data-scroll-target="#참고문헌">참고문헌</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -590,11 +582,13 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">시스템 리스크 분석: (2-1) 거시경제지표를 활용한 경제전체 위험도 측정 방법</h1>
-<p class="subtitle lead">Systemic Risk Measure - Macroeconomic risk</p>
+<h1 class="title">자연어처리: 토픽모델링 - LSA, LDA</h1>
+<p class="subtitle lead">Topic modeling - LSA, LDA</p>
   <div class="quarto-categories">
-    <div class="quarto-category">systemic risk</div>
-    <div class="quarto-category">cycle</div>
+    <div class="quarto-category">nlp</div>
+    <div class="quarto-category">topic modeling</div>
+    <div class="quarto-category">LSA</div>
+    <div class="quarto-category">LDA</div>
   </div>
   </div>
 
@@ -616,155 +610,25 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>서상원 (2018)</p>
-<p>시스템리스크 측정 방법 중 거시경제지표를 활용한 경제전체 위험도를 살펴본다.</p>
-<section id="거시경제지표를-활용한-경제전체-위험도" class="level1">
-<h1>거시경제지표를 활용한 경제전체 위험도</h1>
-<section id="fcycl-financial-cycle" class="level2">
-<h2 class="anchored" data-anchor-id="fcycl-financial-cycle">FCYCL: Financial Cycle</h2>
-<p><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2084835">Drehmann, Borio and Tsatsaronis(2012)</a></p>
-<p>실물부문에서 호황과 불황이 교대로 나타나는 경기변동이 있듯이 금융부문에서도 그와 유사한 변동으로 금융변동을 제시</p>
-<ul>
-<li><p>금융사이클 산출을 위한 변수 5개</p>
-<ul>
-<li>민간신용</li>
-<li>GDP 대비 신용 비율</li>
-<li>주가</li>
-<li>주택가격</li>
-<li>(주거용, 상업용 부동산 가격, 주가 등) 종합자산 가격</li>
-</ul></li>
-<li><p>Band-pass 필터: 5개의 금융변수 각각에 대해 특정주기에 대한 정보만을 추출 (단기 사이클 1-8년 / 중기 사이클 8-30년)</p></li>
-<li><p>전환점 분석법(turning-point analysis): 사이클의 정점(peak)과 저점(trough)을 특정</p>
-<ul>
-<li>단기 사이클
-<ul>
-<li>매 분기마다 그 분기를 중심으로 전후 5분기 범위에서 그 분기의 값이 가장 크면 그 분기를 국지적 극대, 가장 작으면 국지적 극소로 정의</li>
-<li>이 국지적 극대와 극소 중에서 각 사이클의 최소 길이가 5분기 보다 길고 확장 또는 수축 국면의 기간이 최소 2분기 이상인 경우를 정점 또는 저점으로 지정</li>
-</ul></li>
-<li>중기 사이클
-<ul>
-<li>전후 9분기 범위에서 국지적 극대와 극소를 정하고 사이클의 최소 길이는 8년으로 정한다. 전환점 분석법을 금융사이클 및 개별지 수에 적용하여 각각의 정점과 저점들을 정한 후</li>
-<li>금융사이클의 정점(저점)을 중심으로 개별 정점(저점)들이 6분기 이내에 있으면 정규(regular) 전환점으로, 그리고 6~12분기 이내에 있으면 약(weak) 전환점이라고 정의</li>
-</ul></li>
-</ul></li>
-<li><p>실험: 1960~2011년 기간동안 7개국에 대해 적용<br>
-</p></li>
-<li><p>분석 결과: 금융사이클과 실물 경기변동간에 긴밀한 관계가 있음. 특히, 금융사이클 수축국면에 실물의 경기하락이 겹칠 경우에는 상대적으로 심한 경기하락을 경험. 이러한 분석결과는 금융사이클로 인한 추가적인 경기하락을 방지하고 경기변동을 완화하기 위해서는 금융 사이클을 함께 고려하여야 한다는 점을 시사.</p></li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="2-1_Systemic_Risk_Measures_Macro_files/figure-html/a3675e8b-1-Drehmann_Borio_Tsatsaronis_2012_Fig1.PNG" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Drehmann, Borio, and Tsatsaronis (2012) Figure 1</figcaption>
-</figure>
-</div>
+<p>토픽 모델링은 문서 집합 내에 존재하는 숨겨진 주제들을 자동으로 식별하고 추출하는 기술이다. 대표적인 방법으로는 잠재 의미 분석(LSA)과 잠재 디리클레 할당(LDA)이 있으며, 이들은 각각 통계적 및 확률적 접근법을 통해 문서의 주제 구조를 파악한다.</p>
+<p><img src="img/nlp_03_1.png" width="600"></p>
+<section id="lsa" class="level1">
+<h1>LSA</h1>
 </section>
-<section id="ccycl-credit-cycle" class="level2">
-<h2 class="anchored" data-anchor-id="ccycl-credit-cycle">CCYCL: Credit cycle</h2>
-<p><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2604099">Juselius and Drehmann(2015)</a></p>
+<section id="lda" class="level1">
+<h1>LDA</h1>
+<section id="참고자료" class="level2">
+<h2 class="anchored" data-anchor-id="참고자료">참고자료</h2>
 <ul>
-<li><p>GDP대비 신용 비율이 담고 있는 정보를 활용: 지속가능 부분(sustainable)과 지속가능하지 않은 부분(unsustainable)으로 구분</p>
-<ul>
-<li>sustainable: 레버리지와 원리금부담(debt service burden)이 GDP대비 신용 비율과 장기적 관계를 가질 것이라고 가정하고 GDP대비 신용 비율 중에서 이 장기적 관계에 의해 설명되는 부분</li>
-</ul></li>
-<li><p><span class="math inline">\({slev}_t = constant + \sum^{b}_{i=1} \psi_i (p_{A_i,t}-p_t)\)</span></p>
-<ul>
-<li><span class="math inline">\({slev}_t\)</span>는 레버리지를 감안한 지속가능한 GDP대비 신용 비율(로그), <span class="math inline">\(p_{A_i,t}\)</span>는 <span class="math inline">\(i\)</span>번째 자산가격(로그), <span class="math inline">\(p_t\)</span>는 물가지수(로그), <span class="math inline">\(\sum^{b}_{i=1} \psi_i = 1\)</span> 제약</li>
-</ul></li>
-<li><p>${sleb}_t = constant + r_t $</p>
-<ul>
-<li><span class="math inline">\({sleb}_t\)</span>는 원리금부담을 감안한 지속가능한 GDP대비 신용 비율(로그), <span class="math inline">\(r_t\)</span>는 신용잔고에 대한 평균 명목대출이자율</li>
-</ul></li>
-<li><p>두 가지의 장기균형관계를 공적분(co-integration) 방법으로 추정</p></li>
-<li><p>실험: 미국 글로벌 금융위기 이전 기간 케이스</p></li>
-<li><p>분석 결과:</p>
-<ul>
-<li>실제 GDP대비 신용 비율이 레버리지를 감안한 지속가능한 GDP대비 신용 비율에 비해 낮게 나타남 <span class="math inline">\(\rightarrow\)</span> 높은 레버리지를 가지고 주택시장에 신규진입</li>
-<li>실제 GDP대비 신용 비율은 원리금부담을 감안한 지속가능한 GDP대비 신용 비율에 비해 높아짐 <span class="math inline">\(\rightarrow\)</span> 원리금부담이 높아지면 소비 및 투자 지출을 감소</li>
-</ul></li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="2-1_Systemic_Risk_Measures_Macro_files/figure-html/5c9091c3-1-Juselius_Drehmann_2015_Fig1.PNG" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Juselius &amp; Drehmann (2015) Figure 1</figcaption>
-</figure>
-</div>
-</section>
-<section id="ews-se-early-warning-system-signal-extraction" class="level2">
-<h2 class="anchored" data-anchor-id="ews-se-early-warning-system-signal-extraction">EWS-SE (Early warning system-Signal extraction)</h2>
-<p><a href="https://link.springer.com/article/10.2307/3867328">Kaminsky, Lizondo and Reinhart(1998)</a></p>
-<p>신호접근법(Signal extraction approach)는 여러 정보변수들을 비모수적 방법으로 활용하여 금융위기의 발생가능성을 예측하는 방법</p>
-<ul>
-<li>각 국가별로 먼저 위기에 대한 조작적 정의(operational definition)를 하고 그에 기반하여 위기를 나타내면 1을, 아니면 0을 갖는 더미변수 <span class="math inline">\(S_{j,t}\)</span>를 구성 (<span class="math inline">\(j\)</span>는 국가, <span class="math inline">\(t\)</span>는 시간, <span class="math inline">\(n\)</span>은 n번째 정보변수) - 정보변수는 거시경제변수 등</li>
-</ul>
-<table class="table">
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"></td>
-<td style="text-align: left;"><strong>crisis</strong></td>
-<td style="text-align: left;"><strong>no-crisis</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>signal</strong></td>
-<td style="text-align: left;"><span class="math inline">\(A^j_{n,t}\)</span></td>
-<td style="text-align: left;"><span class="math inline">\(B^j_{n,t}\)</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>no-signal</strong></td>
-<td style="text-align: left;"><span class="math inline">\(C^j_{n,t}\)</span></td>
-<td style="text-align: left;"><span class="math inline">\(D^j_{n,t}\)</span></td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><p>in-sample 기간의 경우 합산하여 <span class="math inline">\(A^j_{n}, B^j_{n}, C^j_{n}, D^j_{n}\)</span> 구함</p></li>
-<li><p>NSR(Noise-to-signal ratio)</p>
-<ul>
-<li><span class="math inline">\(w^j_n = \frac{B^j_{n}}{B^j_{n}+D^j_{n}} \div \frac{A^j_{n}}{A^j_{n}+C^j_{n}}\)</span></li>
-<li>예측이 정확할수록 0에 가까움</li>
-<li>NSR이 최소가 되도록 각 정보변수별 임계치를 설정</li>
-</ul></li>
-<li><p>여러 정보변수 중에서 몇 개가 위기신호가 발생하는지를 각 시점별로 관측</p>
-<ul>
-<li><span class="math inline">\(K^j_{1t} \equiv \sum^{N}_{n=1}I^j_{nt}\)</span></li>
-<li><span class="math inline">\(I^j_{nt}\)</span>는 n번째 정보변수가 위기신호를 보내는지의 더미변수</li>
-<li>이러한 종합지수들에 대해 NSR이 최소가 되는 종합지수의 임계치를 설정</li>
-</ul></li>
-<li><p>외표본기간에서도 위기발생에 대해 높은 예측력을 보이는지를 점검</p></li>
-</ul>
-</section>
-<section id="ews-lr-early-warning-system-logit-regression" class="level2">
-<h2 class="anchored" data-anchor-id="ews-lr-early-warning-system-logit-regression">EWS-LR (Early warning system-Logit regression)</h2>
-<ul>
-<li>로짓모형은 위기발생 확률을 직접 제시해줌. 그러나 통상 위기발생 확률을 직접 사용하기 보다는 그 확률을 이용하여 NSR을 구하고 내표본기간의 NSR을 최소화하는 임계치를 설정</li>
-<li>위기발생 확률이 임계치를 상회하는 경우 위기신호가 발생하는 방식으로 로짓모형을 조기경보 목적에 활용</li>
-</ul>
-</section>
-<section id="ews-hybrid-early-warning-system-hybrid" class="level2">
-<h2 class="anchored" data-anchor-id="ews-hybrid-early-warning-system-hybrid">EWS-Hybrid (Early warning system-Hybrid)</h2>
-<p><a href="https://www.sciencedirect.com/science/article/abs/pii/S1059056016303732">Suh(2017)</a></p>
-<p>조기경보모형으로 널리 사용되고 있는 신호접근법과 로짓모형의 각기 장단점을 서로 보완적으로 활용</p>
-<ul>
-<li>먼저 여러 정보변수들을 그 경제적 내용에 따라 소수의 하위부문으로 구분
-<ul>
-<li>급작스런 자본유입의 중단 현상의 예측에 대해 17개의 개별 정보변수를 4개의 하위부문(거시경제, 금융, 대외부문 및 해외경제)으로 분류</li>
-<li>각 국가간 차이를 나타내는 변수 중에서 시기별로 큰 변동을 보이지 않는 5개의 변수를 따로 국가간 차이 변수로서 추가</li>
-</ul></li>
-<li>4개의 하위부문에 대해 각각 신호접근법을 적용하여 하위종합지수를 구성</li>
-<li>이렇게 구성된 4개의 하위종합지수와 5개의 국가간 차이변수 등 9개의 정보변수를 로짓 예측모형에 적용</li>
-</ul>
-</section>
-</section>
-<section id="참고문헌" class="level1">
-<h1>참고문헌</h1>
-<ul>
-<li><p>서상원. (2018). 시스템리스크의 측정과 관리: 서베이와 제언. 금융안정연구, 19(1), 131-232.</p></li>
-<li><p>Drehmann, M., Borio, C. E., &amp; Tsatsaronis, K. (2012). Characterising the financial cycle: don’t lose sight of the medium term!.</p></li>
-<li><p>Juselius, M., &amp; Drehmann, M. (2015). Leverage dynamics and the real burden of debt.</p></li>
-<li><p>Kaminsky, G., Lizondo, S., &amp; Reinhart, C. M. (1998). Leading indicators of currency crises. Staff Papers, 45(1), 1-48.</p></li>
-<li><p>Suh, S. (2017). Sudden stops of capital flows to emerging markets: A new prediction approach. International Review of Economics &amp; Finance, 48, 289-308.</p></li>
+<li>딥 러닝을 이용한 자연어 처리 입문(https://wikidocs.net/book/2155)</li>
+<li>ratsgo’s blog (https://ratsgo.github.io/from%20frequency%20to%20semantics/2017/06/01/LDA/)</li>
+<li>Simon’s Research Center (https://zerojsh00.github.io/posts/BERTopic/)</li>
+<li>Unstructured Data Analysis (Graduate) <span class="citation" data-cites="Korea">@Korea</span> University (https://github.com/pilsung-kang/text-analytics)</li>
+<li>Sievert, Carson, and Kenneth Shirley. “LDAvis: A method for visualizing and interpreting topics.” Proceedings of the workshop on interactive language learning, visualization, and interfaces. 2014.</li>
 </ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1003,18 +867,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <script src="https://giscus.app/client.js" data-repo="jo-cho/FinBlog" data-repo-id="R_kgDOJQ80aw" data-category="General" data-category-id="DIC_kwDOJQ80a84CVb8i" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../../posts/systemic_risk/2_Systemic_Risk_Measures.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">선행연구 요약</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../../posts/systemic_risk/2-2_Systemic_Risk_Measures_Market.html" class="pagination-link">
-        <span class="nav-page-text">선행연구 (시장위험)</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 
 

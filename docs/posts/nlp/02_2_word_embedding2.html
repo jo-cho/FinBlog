@@ -8,7 +8,7 @@
 
 <meta name="author" content="Cheonghyo Cho">
 
-<title>Cho’s FinBlog - Word Embedding 2: GloVe, FastText</title>
+<title>Cho’s FinBlog - 자연어처리: 워드임베딩 - Glove, FastText</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -153,7 +153,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">자연어 처리</li><li class="breadcrumb-item"><a href="../../posts/nlp/01_tf-idf.html">기초이론</a></li><li class="breadcrumb-item"><a href="../../posts/nlp/02_2_word_embedding2.html">2. 워드임베딩: GloVe, FastText</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">자연어 처리</li><li class="breadcrumb-item"><a href="../../posts/nlp/01_tf-idf.html">기초이론</a></li><li class="breadcrumb-item"><a href="../../posts/nlp/02_2_word_embedding2.html">2-2. 워드임베딩: GloVe, FastText</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -561,13 +561,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/nlp/02_1_word_embedding1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">2. 워드임베딩: Word2Vec</span></a>
+ <span class="menu-text">2-1. 워드임베딩: Word2Vec</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/nlp/02_2_word_embedding2.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">2. 워드임베딩: GloVe, FastText</span></a>
+ <span class="menu-text">2-2. 워드임베딩: GloVe, FastText</span></a>
   </div>
 </li>
       </ul>
@@ -607,12 +607,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">목차</h2>
    
   <ul>
-  <li><a href="#워드-임베딩" id="toc-워드-임베딩" class="nav-link active" data-scroll-target="#워드-임베딩">워드 임베딩</a>
-  <ul class="collapse">
-  <li><a href="#글로브glove" id="toc-글로브glove" class="nav-link" data-scroll-target="#글로브glove">글로브(GloVe)</a></li>
+  <li><a href="#글로브glove" id="toc-글로브glove" class="nav-link active" data-scroll-target="#글로브glove">글로브(GloVe)</a></li>
   <li><a href="#fasttext" id="toc-fasttext" class="nav-link" data-scroll-target="#fasttext">FastText</a></li>
   <li><a href="#참고자료" id="toc-참고자료" class="nav-link" data-scroll-target="#참고자료">참고자료</a></li>
-  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -621,8 +618,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Word Embedding 2: GloVe, FastText</h1>
-<p class="subtitle lead">Glove, FastText, Elmo</p>
+<h1 class="title">자연어처리: 워드임베딩 - Glove, FastText</h1>
+<p class="subtitle lead">Glove, FastText</p>
   <div class="quarto-categories">
     <div class="quarto-category">nlp</div>
     <div class="quarto-category">word embedding</div>
@@ -649,9 +646,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="워드-임베딩" class="level1">
-<h1>워드 임베딩</h1>
-<p>Word Embedding</p>
+<p>워드 임베딩(Word Embedding)은 자연어 처리(NLP)에서 단어를 고정된 크기의 실수 벡터로 변환하는 기술이다. 이번에는 GloVe와 FastText에 대해 알아보자.</p>
 <p><strong>카운트 기반</strong> - LSA(Latent Semantic Analysis): DTM이나 TF-IDF 행렬과 같이 각 문서에서의 각 단어의 빈도수를 카운트 한 행렬이라는 전체적인 통계 정보를 입력으로 받아 차원을 축소(Truncated SVD)하여 잠재된 의미를 끌어내는 방법론 - 단어 의미의 유추 작업(Analogy task)에 성능이 떨어짐</p>
 <p><strong>예측 기반</strong> - Word2Vec: 실제값과 예측값에 대한 오차를 손실 함수를 통해 줄여나가며 학습 - 임베딩 벡터가 윈도우 크기 내에서만 주변 단어를 고려하기 때문에 코퍼스의 전체적인 통계 정보를 반영하지 못함</p>
 <p><img src="img/nlp_02_16.png" width="600"></p>
@@ -1039,7 +1034,6 @@ computers: 0.19721049070358276</code></pre>
 
 
 </section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1280,7 +1274,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../../posts/nlp/02_1_word_embedding1.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">2. 워드임베딩: Word2Vec</span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">2-1. 워드임베딩: Word2Vec</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

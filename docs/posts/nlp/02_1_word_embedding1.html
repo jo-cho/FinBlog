@@ -8,7 +8,7 @@
 
 <meta name="author" content="Cheonghyo Cho">
 
-<title>Cho’s FinBlog - Word Embedding 1: Word2vec</title>
+<title>Cho’s FinBlog - 자연어처리: 워드임베딩 - Word2vec</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -153,7 +153,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">자연어 처리</li><li class="breadcrumb-item"><a href="../../posts/nlp/01_tf-idf.html">기초이론</a></li><li class="breadcrumb-item"><a href="../../posts/nlp/02_1_word_embedding1.html">2. 워드임베딩: Word2Vec</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">자연어 처리</li><li class="breadcrumb-item"><a href="../../posts/nlp/01_tf-idf.html">기초이론</a></li><li class="breadcrumb-item"><a href="../../posts/nlp/02_1_word_embedding1.html">2-1. 워드임베딩: Word2Vec</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -561,13 +561,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/nlp/02_1_word_embedding1.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">2. 워드임베딩: Word2Vec</span></a>
+ <span class="menu-text">2-1. 워드임베딩: Word2Vec</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/nlp/02_2_word_embedding2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">2. 워드임베딩: GloVe, FastText</span></a>
+ <span class="menu-text">2-2. 워드임베딩: GloVe, FastText</span></a>
   </div>
 </li>
       </ul>
@@ -607,9 +607,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">목차</h2>
    
   <ul>
-  <li><a href="#워드-임베딩" id="toc-워드-임베딩" class="nav-link active" data-scroll-target="#워드-임베딩">워드 임베딩</a>
-  <ul class="collapse">
-  <li><a href="#희소-표현sparse-representation-vs-밀집-표현dense-representation" id="toc-희소-표현sparse-representation-vs-밀집-표현dense-representation" class="nav-link" data-scroll-target="#희소-표현sparse-representation-vs-밀집-표현dense-representation">희소 표현(sparse representation) vs 밀집 표현(dense representation)</a></li>
+  <li><a href="#희소-표현sparse-representation-vs-밀집-표현dense-representation" id="toc-희소-표현sparse-representation-vs-밀집-표현dense-representation" class="nav-link active" data-scroll-target="#희소-표현sparse-representation-vs-밀집-표현dense-representation">희소 표현(sparse representation) vs 밀집 표현(dense representation)</a></li>
   <li><a href="#워드투벡터word2vec" id="toc-워드투벡터word2vec" class="nav-link" data-scroll-target="#워드투벡터word2vec">워드투벡터(Word2Vec)</a>
   <ul class="collapse">
   <li><a href="#cbowcontinuous-bag-of-words" id="toc-cbowcontinuous-bag-of-words" class="nav-link" data-scroll-target="#cbowcontinuous-bag-of-words">CBOW(Continuous Bag of Words)</a></li>
@@ -617,7 +615,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#네거티브-샘플링" id="toc-네거티브-샘플링" class="nav-link" data-scroll-target="#네거티브-샘플링">네거티브 샘플링</a></li>
   </ul></li>
   <li><a href="#참고자료" id="toc-참고자료" class="nav-link" data-scroll-target="#참고자료">참고자료</a></li>
-  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -626,8 +623,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Word Embedding 1: Word2vec</h1>
-<p class="subtitle lead">Word2vec: CBOW, Skip-gram and SGNS</p>
+<h1 class="title">자연어처리: 워드임베딩 - Word2vec</h1>
+<p class="subtitle lead">Word Embedding - Word2vec: CBOW, Skip-gram and SGNS</p>
   <div class="quarto-categories">
     <div class="quarto-category">nlp</div>
     <div class="quarto-category">word embedding</div>
@@ -653,9 +650,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="워드-임베딩" class="level1">
-<h1>워드 임베딩</h1>
-<p>Word Embedding</p>
+<p>워드 임베딩(Word Embedding)은 자연어 처리(NLP)에서 단어를 고정된 크기의 실수 벡터로 변환하는 기술이다. 이러한 벡터는 단어의 의미를 수치적으로 표현하며, 비슷한 의미를 가진 단어들은 유사한 벡터로 표현된다. 이 중 가장 대표적인 방법인 Word2Vec에 대해 알아보자.</p>
 <section id="희소-표현sparse-representation-vs-밀집-표현dense-representation" class="level3">
 <h3 class="anchored" data-anchor-id="희소-표현sparse-representation-vs-밀집-표현dense-representation">희소 표현(sparse representation) vs 밀집 표현(dense representation)</h3>
 <ul>
@@ -860,7 +855,6 @@ Vocabulary:
 </ul>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1107,7 +1101,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="../../posts/nlp/02_2_word_embedding2.html" class="pagination-link">
-        <span class="nav-page-text">2. 워드임베딩: GloVe, FastText</span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text">2-2. 워드임베딩: GloVe, FastText</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -8,7 +8,7 @@
 
 <meta name="author" content="Cheonghyo Cho">
 
-<title>Cho’s FinBlog - DTM, TF-IDF</title>
+<title>Cho’s FinBlog - 자연어처리: DTM, TF-IDF</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -561,13 +561,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/nlp/02_1_word_embedding1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">2. 워드임베딩: Word2Vec</span></a>
+ <span class="menu-text">2-1. 워드임베딩: Word2Vec</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/nlp/02_2_word_embedding2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">2. 워드임베딩: GloVe, FastText</span></a>
+ <span class="menu-text">2-2. 워드임베딩: GloVe, FastText</span></a>
   </div>
 </li>
       </ul>
@@ -607,16 +607,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">목차</h2>
    
   <ul>
-  <li><a href="#dtm-tf-idf" id="toc-dtm-tf-idf" class="nav-link active" data-scroll-target="#dtm-tf-idf">DTM, TF-IDF</a>
-  <ul class="collapse">
-  <li><a href="#bag-of-words-bow" id="toc-bag-of-words-bow" class="nav-link" data-scroll-target="#bag-of-words-bow">Bag of Words (BoW)</a></li>
+  <li><a href="#bag-of-words-bow" id="toc-bag-of-words-bow" class="nav-link active" data-scroll-target="#bag-of-words-bow">Bag of Words (BoW)</a></li>
   <li><a href="#문서-단어-행렬-document-term-matrix-dtm" id="toc-문서-단어-행렬-document-term-matrix-dtm" class="nav-link" data-scroll-target="#문서-단어-행렬-document-term-matrix-dtm">문서 단어 행렬 (Document-Term Matrix, DTM)</a>
   <ul class="collapse">
   <li><a href="#dtm의-한계점" id="toc-dtm의-한계점" class="nav-link" data-scroll-target="#dtm의-한계점">DTM의 한계점</a></li>
   </ul></li>
   <li><a href="#tf-idf-term-frequency-inverse-document-frequency" id="toc-tf-idf-term-frequency-inverse-document-frequency" class="nav-link" data-scroll-target="#tf-idf-term-frequency-inverse-document-frequency">TF-IDF (Term Frequency-Inverse Document Frequency)</a></li>
   <li><a href="#참고자료" id="toc-참고자료" class="nav-link" data-scroll-target="#참고자료">참고자료</a></li>
-  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -625,8 +622,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">DTM, TF-IDF</h1>
-<p class="subtitle lead">Document-Term Matrix and Term Frequency - Inverse Document Frequency</p>
+<h1 class="title">자연어처리: DTM, TF-IDF</h1>
+<p class="subtitle lead">Document-Term Matrix and Term Frequency-Inverse Document Frequency</p>
   <div class="quarto-categories">
     <div class="quarto-category">nlp</div>
     <div class="quarto-category">tfidf</div>
@@ -651,8 +648,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="dtm-tf-idf" class="level1">
-<h1>DTM, TF-IDF</h1>
+<p>문서의 의미를 효과적으로 분석하기 위해서는 단어의 출현 빈도를 수치화하는 것이 중요하다. 이를 위해 사용하는 대표적인 방법으로는 DTM(Document-Term Matrix)와 TF-IDF(Term Frequency-Inverse Document Frequency)가 있다. 이러한 방법들은 문서의 핵심 정보를 추출하고, 자연어 처리 작업에서 문서 간의 유사성을 평가하는 데 유용하다.</p>
 <section id="bag-of-words-bow" class="level2">
 <h2 class="anchored" data-anchor-id="bag-of-words-bow">Bag of Words (BoW)</h2>
 <p>Bag of words는 단어의 등장 순서를 고려하지 않는 빈도수 기반의 단어 표현 방법이다. BoW는 각 단어가 등장한 횟수를 수치화하는 텍스트 표현 방법으로, 주로 어떤 단어가 얼마나 등장했는지를 기준으로 문서의 성격을 판단하는 작업에 쓰인다.</p>
@@ -778,7 +774,6 @@ TF-IDF Vocabulary:
 </ul>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1025,7 +1020,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="../../posts/nlp/02_1_word_embedding1.html" class="pagination-link">
-        <span class="nav-page-text">2. 워드임베딩: Word2Vec</span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text">2-1. 워드임베딩: Word2Vec</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
