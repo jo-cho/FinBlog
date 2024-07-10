@@ -2,6 +2,9 @@
   {
     "listing": "/listing.html",
     "items": [
+      "/posts/nlp/01_tf-idf.html",
+      "/posts/nlp/02_1_word_embedding1.html",
+      "/posts/nlp/02_2_word_embedding2.html",
       "/posts/machine_learning/GRL_01.html",
       "/posts/machine_learning/GRL_02_1.html",
       "/posts/machine_learning/GRL_02_2.html",

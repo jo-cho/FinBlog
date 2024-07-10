@@ -131,6 +131,14 @@ website:
               text: "5-3. GNN - 다중관계와 그래프 수준"
       - section: "자연어 처리"
         contents:
+          - section: "기초이론"
+            contents:
+            - href: posts/nlp/01_tf-idf.ipynb
+              text: "1. DTM과 TF-IDF"
+            - href: posts/nlp/02_1_word_embedding1.ipynb
+              text: "2. 워드임베딩: Word2Vec"
+            - href: posts/nlp/02_2_word_embedding2.ipynb
+              text: "2. 워드임베딩: GloVe, FastText"
           - section: "선행연구"
             contents:
             - href: posts/nlp/finance_llm_survey.ipynb

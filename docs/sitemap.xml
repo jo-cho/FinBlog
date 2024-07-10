@@ -2,182 +2,194 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_2.html</loc>
-    <lastmod>2024-05-30T11:00:49.396Z</lastmod>
+    <lastmod>2024-07-10T06:05:22.050Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_1.html</loc>
-    <lastmod>2024-05-30T11:00:44.313Z</lastmod>
+    <lastmod>2024-07-10T06:05:18.310Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/systemic_risk/2-5_Systemic_Risk_Measures_Network.html</loc>
-    <lastmod>2024-05-30T11:00:38.071Z</lastmod>
+    <lastmod>2024-07-10T06:05:12.875Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.html</loc>
-    <lastmod>2024-05-30T11:00:33.884Z</lastmod>
+    <lastmod>2024-07-10T06:05:08.850Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/systemic_risk/2-1_Systemic_Risk_Measures_Macro.html</loc>
-    <lastmod>2024-05-30T11:00:29.119Z</lastmod>
+    <lastmod>2024-07-10T06:05:04.870Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/statistics/time_series/ts_07_deep_learning.html</loc>
-    <lastmod>2024-05-30T11:00:24.584Z</lastmod>
+    <lastmod>2024-07-10T06:05:00.924Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/statistics/time_series/ts_05_nonlinear.html</loc>
-    <lastmod>2024-05-30T11:00:19.669Z</lastmod>
+    <lastmod>2024-07-10T06:04:56.269Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/statistics/time_series/ts_03_multivariate.html</loc>
-    <lastmod>2024-05-30T11:00:14.269Z</lastmod>
+    <lastmod>2024-07-10T06:04:51.136Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/statistics/time_series/ts_01_intro.html</loc>
-    <lastmod>2024-05-30T11:00:09.255Z</lastmod>
+    <lastmod>2024-07-10T06:04:45.466Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/statistics/probability_distribution.html</loc>
-    <lastmod>2024-05-30T11:00:04.677Z</lastmod>
+    <lastmod>2024-07-10T06:04:39.402Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/nlp/news_sentiment_index.html</loc>
-    <lastmod>2024-05-30T11:00:00.620Z</lastmod>
+    <lastmod>2024-07-10T06:04:34.812Z</lastmod>
   </url>
   <url>
-    <loc>https://jo-cho.github.io/FinBlog/posts/ml_trading/7_Enhancing_and_Bet_Confidence.html</loc>
-    <lastmod>2024-05-30T10:59:56.652Z</lastmod>
+    <loc>https://jo-cho.github.io/FinBlog/posts/nlp/02_2_word_embedding2.html</loc>
+    <lastmod>2024-07-10T06:06:12.401Z</lastmod>
   </url>
   <url>
-    <loc>https://jo-cho.github.io/FinBlog/posts/ml_trading/5_Get_Trading_Signals.html</loc>
-    <lastmod>2024-05-30T10:59:51.688Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jo-cho.github.io/FinBlog/posts/ml_trading/3_Get_Features.html</loc>
-    <lastmod>2024-05-30T10:59:47.874Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jo-cho.github.io/FinBlog/posts/ml_trading/1_Get_Market_Data.html</loc>
-    <lastmod>2024-05-30T10:59:43.849Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jo-cho.github.io/FinBlog/posts/machine_learning/GRL_05_3.html</loc>
-    <lastmod>2024-05-30T11:02:10.929Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jo-cho.github.io/FinBlog/posts/machine_learning/GRL_05_1.html</loc>
-    <lastmod>2024-05-30T10:59:36.336Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jo-cho.github.io/FinBlog/posts/machine_learning/GRL_03_2.html</loc>
-    <lastmod>2024-05-30T10:59:32.394Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jo-cho.github.io/FinBlog/posts/machine_learning/GRL_02_3.html</loc>
-    <lastmod>2024-05-30T10:59:28.834Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jo-cho.github.io/FinBlog/posts/machine_learning/GRL_02_1.html</loc>
-    <lastmod>2024-05-30T10:59:25.086Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jo-cho.github.io/FinBlog/posts/fin_data/Fractional_difference.html</loc>
-    <lastmod>2024-05-30T10:59:21.305Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jo-cho.github.io/FinBlog/listing.html</loc>
-    <lastmod>2024-05-30T11:01:59.668Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jo-cho.github.io/FinBlog/about.html</loc>
-    <lastmod>2024-05-30T10:59:07.609Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jo-cho.github.io/FinBlog/index.html</loc>
-    <lastmod>2024-05-30T10:59:08.917Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jo-cho.github.io/FinBlog/posts/anomaly_detection/deep_learning_for_anomaly_detection.html</loc>
-    <lastmod>2024-05-30T11:01:30.308Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jo-cho.github.io/FinBlog/posts/machine_learning/GRL_01.html</loc>
-    <lastmod>2024-05-30T10:59:23.182Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jo-cho.github.io/FinBlog/posts/machine_learning/GRL_02_2.html</loc>
-    <lastmod>2024-05-30T10:59:27.005Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jo-cho.github.io/FinBlog/posts/machine_learning/GRL_03_1.html</loc>
-    <lastmod>2024-05-30T10:59:30.583Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jo-cho.github.io/FinBlog/posts/machine_learning/GRL_04_1.html</loc>
-    <lastmod>2024-05-30T10:59:34.412Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jo-cho.github.io/FinBlog/posts/machine_learning/GRL_05_2.html</loc>
-    <lastmod>2024-05-30T10:59:38.933Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jo-cho.github.io/FinBlog/posts/ml_trading/0_Introduction.html</loc>
-    <lastmod>2024-05-30T10:59:42.156Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jo-cho.github.io/FinBlog/posts/ml_trading/2_Labeling.html</loc>
-    <lastmod>2024-05-30T10:59:45.873Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jo-cho.github.io/FinBlog/posts/ml_trading/4_Feature_Selection.html</loc>
-    <lastmod>2024-05-30T10:59:49.647Z</lastmod>
+    <loc>https://jo-cho.github.io/FinBlog/posts/nlp/01_tf-idf.html</loc>
+    <lastmod>2024-07-10T06:05:47.747Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/ml_trading/6_Trading_Rules.html</loc>
-    <lastmod>2024-05-30T10:59:54.556Z</lastmod>
+    <lastmod>2024-07-10T06:04:22.561Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jo-cho.github.io/FinBlog/posts/ml_trading/4_Feature_Selection.html</loc>
+    <lastmod>2024-07-10T06:04:17.699Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jo-cho.github.io/FinBlog/posts/ml_trading/2_Labeling.html</loc>
+    <lastmod>2024-07-10T06:04:13.555Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jo-cho.github.io/FinBlog/posts/ml_trading/0_Introduction.html</loc>
+    <lastmod>2024-07-10T06:04:10.763Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jo-cho.github.io/FinBlog/posts/machine_learning/GRL_05_2.html</loc>
+    <lastmod>2024-07-10T06:04:07.264Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jo-cho.github.io/FinBlog/posts/machine_learning/GRL_04_1.html</loc>
+    <lastmod>2024-07-10T06:04:03.553Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jo-cho.github.io/FinBlog/posts/machine_learning/GRL_03_1.html</loc>
+    <lastmod>2024-07-10T06:04:00.027Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jo-cho.github.io/FinBlog/posts/machine_learning/GRL_02_2.html</loc>
+    <lastmod>2024-07-10T06:03:56.611Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jo-cho.github.io/FinBlog/posts/machine_learning/GRL_01.html</loc>
+    <lastmod>2024-07-10T06:03:52.577Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jo-cho.github.io/FinBlog/posts/anomaly_detection/deep_learning_for_anomaly_detection.html</loc>
+    <lastmod>2024-07-10T06:05:40.522Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jo-cho.github.io/FinBlog/index.html</loc>
+    <lastmod>2024-07-10T06:03:38.854Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jo-cho.github.io/FinBlog/about.html</loc>
+    <lastmod>2024-07-10T06:03:37.273Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jo-cho.github.io/FinBlog/listing.html</loc>
+    <lastmod>2024-07-10T06:07:31.948Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jo-cho.github.io/FinBlog/posts/fin_data/Fractional_difference.html</loc>
+    <lastmod>2024-07-10T06:03:50.518Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jo-cho.github.io/FinBlog/posts/machine_learning/GRL_02_1.html</loc>
+    <lastmod>2024-07-10T06:03:54.793Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jo-cho.github.io/FinBlog/posts/machine_learning/GRL_02_3.html</loc>
+    <lastmod>2024-07-10T06:03:58.363Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jo-cho.github.io/FinBlog/posts/machine_learning/GRL_03_2.html</loc>
+    <lastmod>2024-07-10T06:04:01.813Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jo-cho.github.io/FinBlog/posts/machine_learning/GRL_05_1.html</loc>
+    <lastmod>2024-07-10T06:04:05.230Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jo-cho.github.io/FinBlog/posts/machine_learning/GRL_05_3.html</loc>
+    <lastmod>2024-07-10T06:07:20.564Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jo-cho.github.io/FinBlog/posts/ml_trading/1_Get_Market_Data.html</loc>
+    <lastmod>2024-07-10T06:04:12.072Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jo-cho.github.io/FinBlog/posts/ml_trading/3_Get_Features.html</loc>
+    <lastmod>2024-07-10T06:04:15.879Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jo-cho.github.io/FinBlog/posts/ml_trading/5_Get_Trading_Signals.html</loc>
+    <lastmod>2024-07-10T06:04:19.612Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jo-cho.github.io/FinBlog/posts/ml_trading/7_Enhancing_and_Bet_Confidence.html</loc>
+    <lastmod>2024-07-10T06:04:25.028Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jo-cho.github.io/FinBlog/posts/nlp/02_1_word_embedding1.html</loc>
+    <lastmod>2024-07-10T06:06:00.280Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/nlp/finance_llm_survey.html</loc>
-    <lastmod>2024-05-30T10:59:58.847Z</lastmod>
+    <lastmod>2024-07-10T06:04:33.117Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/statistics/estimation.html</loc>
-    <lastmod>2024-05-30T11:01:50.176Z</lastmod>
+    <lastmod>2024-07-10T06:04:36.560Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/statistics/time_complexity.html</loc>
-    <lastmod>2024-05-30T11:00:06.381Z</lastmod>
+    <lastmod>2024-07-10T06:04:42.129Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/statistics/time_series/ts_02_arima.html</loc>
-    <lastmod>2024-05-30T11:00:12.029Z</lastmod>
+    <lastmod>2024-07-10T06:04:48.679Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/statistics/time_series/ts_04_volatility.html</loc>
-    <lastmod>2024-05-30T11:00:16.856Z</lastmod>
+    <lastmod>2024-07-10T06:04:53.691Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/statistics/time_series/ts_06_state_space.html</loc>
-    <lastmod>2024-05-30T11:00:21.807Z</lastmod>
+    <lastmod>2024-07-10T06:04:58.578Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/systemic_risk/1_Systemic_Risk.html</loc>
-    <lastmod>2024-05-30T11:00:26.818Z</lastmod>
+    <lastmod>2024-07-10T06:05:02.627Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/systemic_risk/2-2_Systemic_Risk_Measures_Market.html</loc>
-    <lastmod>2024-05-30T11:00:31.231Z</lastmod>
+    <lastmod>2024-07-10T06:05:06.752Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/systemic_risk/2-4_Systemic_Risk_Measures_Probability_of_Default.html</loc>
-    <lastmod>2024-05-30T11:00:36.179Z</lastmod>
+    <lastmod>2024-07-10T06:05:10.904Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/systemic_risk/2_Systemic_Risk_Measures.html</loc>
-    <lastmod>2024-05-30T11:00:41.290Z</lastmod>
+    <lastmod>2024-07-10T06:05:16.228Z</lastmod>
   </url>
   <url>
     <loc>https://jo-cho.github.io/FinBlog/posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_1_2.html</loc>
-    <lastmod>2024-05-30T11:00:46.588Z</lastmod>
+    <lastmod>2024-07-10T06:05:20.053Z</lastmod>
   </url>
 </urlset>
