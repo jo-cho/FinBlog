@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,6 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
+<link href="../../posts/nlp/finance_llm_survey.html" rel="next">
+<link href="../../posts/nlp/02_2_word_embedding2.html" rel="prev">
 <link href="../../logo.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -62,6 +98,8 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -115,7 +153,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">자연어처리: 토픽모델링 - LSA, LDA</li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">자연어 처리</li><li class="breadcrumb-item"><a href="../../posts/nlp/01_tf-idf.html">기초이론</a></li><li class="breadcrumb-item"><a href="../../posts/nlp/03_topic_modeling.html">3. 토픽모델링: LSA, LDA</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -498,22 +536,22 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true">
  <span class="menu-text">자연어 처리</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true">
  <span class="menu-text">기초이론</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/nlp/01_tf-idf.html" class="sidebar-item-text sidebar-link">
@@ -530,6 +568,12 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="../../posts/nlp/02_2_word_embedding2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2-2. 워드임베딩: GloVe, FastText</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/nlp/03_topic_modeling.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">3. 토픽모델링: LSA, LDA</span></a>
   </div>
 </li>
       </ul>
@@ -569,9 +613,30 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">목차</h2>
    
   <ul>
-  <li><a href="#lsa" id="toc-lsa" class="nav-link active" data-scroll-target="#lsa">LSA</a></li>
+  <li><a href="#lsa" id="toc-lsa" class="nav-link active" data-scroll-target="#lsa">LSA</a>
+  <ul class="collapse">
+  <li><a href="#특이값-분해singular-value-decomposition-svd" id="toc-특이값-분해singular-value-decomposition-svd" class="nav-link" data-scroll-target="#특이값-분해singular-value-decomposition-svd">특이값 분해(Singular Value Decomposition, SVD)</a></li>
+  <li><a href="#lsa-1" id="toc-lsa-1" class="nav-link" data-scroll-target="#lsa-1">LSA</a></li>
+  </ul></li>
   <li><a href="#lda" id="toc-lda" class="nav-link" data-scroll-target="#lda">LDA</a>
   <ul class="collapse">
+  <li><a href="#lda-실행-순서" id="toc-lda-실행-순서" class="nav-link" data-scroll-target="#lda-실행-순서">LDA 실행 순서</a></li>
+  <li><a href="#lda-모델-아키텍처" id="toc-lda-모델-아키텍처" class="nav-link" data-scroll-target="#lda-모델-아키텍처">LDA 모델 아키텍처</a>
+  <ul class="collapse">
+  <li><a href="#𝜙_𝑘" id="toc-𝜙_𝑘" class="nav-link" data-scroll-target="#𝜙_𝑘"><span class="math inline">\(𝜙_𝑘\)</span></a></li>
+  <li><a href="#𝜃_𝑑" id="toc-𝜃_𝑑" class="nav-link" data-scroll-target="#𝜃_𝑑"><span class="math inline">\(𝜃_𝑑\)</span></a></li>
+  <li><a href="#𝑧_𝑑𝑛" id="toc-𝑧_𝑑𝑛" class="nav-link" data-scroll-target="#𝑧_𝑑𝑛"><span class="math inline">\(𝑧_{(𝑑,𝑛)}\)</span></a></li>
+  <li><a href="#𝑤_𝑑𝑛" id="toc-𝑤_𝑑𝑛" class="nav-link" data-scroll-target="#𝑤_𝑑𝑛"><span class="math inline">\(𝑤_{(𝑑,𝑛)}\)</span></a></li>
+  </ul></li>
+  <li><a href="#lda-inference" id="toc-lda-inference" class="nav-link" data-scroll-target="#lda-inference">LDA inference</a>
+  <ul class="collapse">
+  <li><a href="#collapsed-gibbs-sampling" id="toc-collapsed-gibbs-sampling" class="nav-link" data-scroll-target="#collapsed-gibbs-sampling">Collapsed Gibbs Sampling</a></li>
+  <li><a href="#디리클레-분포-dirichlet-distribution" id="toc-디리클레-분포-dirichlet-distribution" class="nav-link" data-scroll-target="#디리클레-분포-dirichlet-distribution">디리클레 분포 (Dirichlet distribution)</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#다른-토픽모델링-기법---bertopic" id="toc-다른-토픽모델링-기법---bertopic" class="nav-link" data-scroll-target="#다른-토픽모델링-기법---bertopic">다른 토픽모델링 기법 - BERTopic</a>
+  <ul class="collapse">
+  <li><a href="#bertopic" id="toc-bertopic" class="nav-link" data-scroll-target="#bertopic">BERTopic</a></li>
   <li><a href="#참고자료" id="toc-참고자료" class="nav-link" data-scroll-target="#참고자료">참고자료</a></li>
   </ul></li>
   </ul>
@@ -614,9 +679,373 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="img/nlp_03_1.png" width="600"></p>
 <section id="lsa" class="level1">
 <h1>LSA</h1>
+<p>잠재 의미 분석(Latent Semantic Analysis, LSA)</p>
+<p>Bag of words 기반의 DTM(document-term matrix), TF-IDF는 단어의 의미를 고려하지 못한다는 단점이 있음</p>
+<p>LSA는 DTM의 잠재된(Latent) 의미를 이끌어내는 방법</p>
+<section id="특이값-분해singular-value-decomposition-svd" class="level2">
+<h2 class="anchored" data-anchor-id="특이값-분해singular-value-decomposition-svd">특이값 분해(Singular Value Decomposition, SVD)</h2>
+<p>차원 축소, 노이즈 제거, 토픽 모델링 등 분야에서 활용</p>
+<p><span class="math display">\[\begin{equation}
+A = U \Sigma V^T
+\end{equation}\]</span></p>
+<ul>
+<li><span class="math inline">\(A: m\times n\)</span> 행렬</li>
+<li><span class="math inline">\(U: m\times m\)</span> 직교행렬 (좌 특이벡터를 포함)</li>
+<li><span class="math inline">\(\Sigma: m\times n\)</span> 대각행렬 (특이값을 포함, 대각성분이 <span class="math inline">\(\sigma_i\)</span>)</li>
+<li><span class="math inline">\(V: n\times n\)</span> 직교행렬 (우 특이벡터를 포함)</li>
+</ul>
+<p><strong>절단된 SVD(Truncated SVD): </strong> - 대각 행렬 <span class="math inline">\(\Sigma\)</span>의 대각 원소의 값 중에서 상위값 <span class="math inline">\(t\)</span>개만 남김, <span class="math inline">\(U\)</span>행렬과 <span class="math inline">\(V\)</span>행렬의 <span class="math inline">\(t\)</span>열까지만 남김 - 계산 비용이 낮아지는 것 외에도 상대적으로 중요하지 않은 정보를 삭제하는 효과 - 여기서, <span class="math inline">\(t\)</span>는 토픽의 수</p>
+<p><img src="img/nlp_03_2.png" width="300"></p>
+</section>
+<section id="lsa-1" class="level2">
+<h2 class="anchored" data-anchor-id="lsa-1">LSA</h2>
+<p>LSA: DTM이나 TF-IDF 행렬에 truncated SVD 사용해 차원을 축소</p>
+<p><img src="img/nlp_03_3.png" width="400"></p>
+<p><img src="img/nlp_03_4.png" width="200"></p>
+<p><img src="img/nlp_03_5.png" width="180"></p>
+<p><img src="img/nlp_03_6.png" width="400"></p>
+<ul>
+<li><p>축소된 <span class="math inline">\(U (4 × 2)\)</span>는 문서의 개수 × 토픽의 수 <span class="math inline">\(t\)</span>의 크기 <span class="math inline">\(U\)</span>의 각 행은 잠재 의미를 표현하기 위해 수치화 된 각각의 문서 벡터</p></li>
+<li><p>축소된 <span class="math inline">\(V^{T} (2 × 9)\)</span>는 토픽의 수 <span class="math inline">\(t\)</span> × 단어의 개수의 크기 <span class="math inline">\(V^{T}\)</span>의 각 열은 잠재 의미를 표현하기 위해 수치화 된 각각의 단어 벡터</p></li>
+</ul>
+<p>이 문서 벡터들과 단어 벡터들을 통해 <strong>다른 문서의 유사도, 다른 단어의 유사도, 단어(쿼리)로부터 문서의 유사도</strong>를 구하는 것들이 가능</p>
+<ol type="1">
+<li>문서-토픽 행렬 (<span class="math inline">\(U\)</span>):</li>
+</ol>
+<ul>
+<li>각 행은 원본 문서를 나타내고, 각 열은 하나의 토픽을 나타냄.</li>
+<li>이 행렬의 값은 해당 문서가 각 토픽과 얼마나 관련이 있는지를 나타내는 가중치임. 값이 클수록 문서가 그 토픽과 더 관련이 깊다는 것을 의미함.</li>
+</ul>
+<ol start="2" type="1">
+<li>토픽의 중요도를 나타내는 대각 행렬 (<span class="math inline">\(\Sigma\)</span>):</li>
+</ol>
+<ul>
+<li>이 대각선에 위치한 값들은 각 토픽의 중요도 또는 “특이값”을 나타냄.</li>
+<li>값이 큰 토픽은 데이터 세트 전체에 걸쳐 더 많은 정보를 담고 있다고 해석할 수 있음. 이를 통해 가장 중요한 토픽을 식별할 수 있음.</li>
+</ul>
+<ol start="3" type="1">
+<li>토픽-단어 행렬 (<span class="math inline">\(V^T\)</span>):</li>
+</ol>
+<ul>
+<li>각 행은 하나의 토픽을 나타내고, 각 열은 원본 데이터 세트의 단어를 나타냄.</li>
+<li>이 행렬의 값은 특정 단어가 토픽에 속하는 정도를 나타내는 가중치임. 값이 클수록 해당 단어는 그 토픽을 잘 대표한다는 의미임.</li>
+</ul>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.feature_extraction.text <span class="im">import</span> TfidfVectorizer</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> TruncatedSVD</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 샘플 문서들</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>documents <span class="op">=</span> [</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"The cat in the hat disabled the server."</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"A quick brown fox jumps over the lazy dog."</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"The server is down for maintenance."</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Foxes are wild animals."</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"The cat is resting in the sun."</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># TF-IDF 벡터라이저를 사용하여 문서-단어 행렬 생성</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>vectorizer <span class="op">=</span> TfidfVectorizer()</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> vectorizer.fit_transform(documents)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># TruncatedSVD를 사용하여 LSA 적용</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>num_topics <span class="op">=</span> <span class="dv">2</span>  <span class="co"># 원하는 토픽의 수</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>lsa <span class="op">=</span> TruncatedSVD(n_components<span class="op">=</span>num_topics)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>X_lsa <span class="op">=</span> lsa.fit_transform(X)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 결과 출력</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>terms <span class="op">=</span> vectorizer.get_feature_names_out()</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co"># 각 토픽 별 단어 중요도 출력</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, comp <span class="kw">in</span> <span class="bu">enumerate</span>(lsa.components_):</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    terms_in_comp <span class="op">=</span> <span class="bu">zip</span>(terms, comp)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    sorted_terms <span class="op">=</span> <span class="bu">sorted</span>(terms_in_comp, key<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="dv">1</span>], reverse<span class="op">=</span><span class="va">True</span>)[:<span class="dv">10</span>]</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Topic </span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">:"</span>)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> term <span class="kw">in</span> sorted_terms:</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(term)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co"># 각 문서의 토픽 분포 출력</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(X_lsa, columns<span class="op">=</span>[<span class="ss">f'Topic </span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_topics)])</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Topic 1:
+('the', 0.6473084354851257)
+('cat', 0.304334539836252)
+('in', 0.304334539836252)
+('is', 0.28625756983257633)
+('server', 0.2694365147712516)
+('resting', 0.1990320409722673)
+('sun', 0.1990320409722673)
+('disabled', 0.17818277679407304)
+('hat', 0.17818277679407304)
+('down', 0.15577683841661172)
+
+
+Topic 2:
+('animals', 0.5000000000000002)
+('are', 0.5000000000000001)
+('foxes', 0.5)
+('wild', 0.5)
+('down', 2.1118350735486854e-15)
+('for', 2.1118350735486854e-15)
+('maintenance', 2.1118350735486854e-15)
+('is', 1.9845721454232923e-15)
+('server', 1.713391890252546e-15)
+('resting', 3.68023505977461e-16)
+
+
+        Topic 1       Topic 2
+0  8.273175e-01 -2.626982e-17
+1  2.915757e-01 -1.291761e-14
+2  5.957191e-01  4.034852e-15
+3  9.437687e-16  1.000000e+00
+4  8.093002e-01  6.583664e-16</code></pre>
+</div>
+</div>
+<p>LSA는 쉽고 빠르게 구현이 가능할 뿐만 아니라 단어의 잠재적인 의미를 이끌어낼 수 있어 문서의 유사도 계산 등에서 좋은 성능을 보임</p>
+<ul>
+<li><p>하지만 SVD의 특성상 이미 계산된 LSA에 새로운 데이터를 추가하여 계산하려고 하면 처음부터 다시 계산해야 함. 즉, 새로운 정보에 대해 업데이트가 어려움</p></li>
+<li><p>Word2Vec 등 단어의 의미를 벡터화할 수 있는 또 다른 방법론인 인공 신경망 기반의 방법론 사용</p></li>
+<li><p>SVD는 normally distribute을 가정하지만, term occurrence는 보통 normally distributed 되지 않음</p></li>
+</ul>
+</section>
 </section>
 <section id="lda" class="level1">
 <h1>LDA</h1>
+<p><strong>잠재 디리클레 할당(Latent Dirichlet Allocation, LDA)은 토픽 모델링의 대표적인 알고리즘</strong></p>
+<ul>
+<li><p>LDA는 문서들은 토픽들의 혼합으로 구성되어져 있으며, 토픽들은 확률 분포에 기반하여 단어들을 생성한다고 가정</p></li>
+<li><p>LDA는 각 문서의 토픽 분포와 각 토픽 내의 단어 분포를 추정</p></li>
+<li><p>데이터가 주어지면, LDA는 문서가 생성되던 과정을 역추적</p></li>
+</ul>
+<p>LDA는 DTM 또는 TF-IDF 행렬을 입력으로 함. 즉, LDA는 단어의 순서는 신경쓰지 않음</p>
+<section id="lda-실행-순서" class="level2">
+<h2 class="anchored" data-anchor-id="lda-실행-순서">LDA 실행 순서</h2>
+<ol type="1">
+<li>사용자는 토픽의 개수 k를 설정</li>
+</ol>
+<ul>
+<li>LDA는 토픽의 개수 k를 입력 받으면, k개의 토픽이 M개의 전체 문서에 걸쳐 분포되어 있다고 가정</li>
+</ul>
+<ol start="2" type="1">
+<li>모든 단어를 k개 중 하나의 토픽에 할당</li>
+</ol>
+<ul>
+<li>모든 문서의 모든 단어에 대해서 k개 중 하나의 토픽을 랜덤으로 할당</li>
+<li>각 문서는 토픽을 가지며, 토픽은 단어 분포를 가지는 상태</li>
+</ul>
+<ol start="3" type="1">
+<li>이제 모든 문서의 모든 단어에 대해서 아래 사항을 반복 진행(iterative)</li>
+</ol>
+<ul>
+<li>어떤 문서의 각 단어 w는 자신은 잘못된 토픽에 할당되어져 있지만, 다른 단어들은 전부 올바른 토픽에 할당되어져 있는 상태라고 가정</li>
+</ul>
+<p><img src="img/nlp_03_7.png" width="250"></p>
+<ul>
+<li>이에 따라 단어 w는 아래의 두 가지 기준에 따라서 토픽 재할당</li>
+</ul>
+<p>p(topic t | document d) : 문서 d의 단어들 중 토픽 t에 해당하는 단어들의 비율</p>
+<p><img src="img/nlp_03_8.png" width="250"></p>
+<p>p(word w | topic t) : 각 토픽들 t에서 해당 단어 w의 분포</p>
+<p><img src="img/nlp_03_9.png" width="250"></p>
+</section>
+<section id="lda-모델-아키텍처" class="level2">
+<h2 class="anchored" data-anchor-id="lda-모델-아키텍처">LDA 모델 아키텍처</h2>
+<p>LDA의 문서생성과정</p>
+<p><img src="img/nlp_03_10.png" width="500"></p>
+<ul>
+<li><p>D는 말뭉치 전체 문서 개수, K는 전체 토픽 수, N은 d번째 문서의 단어 수</p></li>
+<li><p>네모 칸은 해당 횟수만큼 반복하라는 의미, 동그라미는 변수</p></li>
+<li><p>화살표가 시작되는 변수는 조건, 화살표가 향하는 변수는 결과에 해당하는 변수</p></li>
+<li><p>우리가 관찰 가능한 변수는 d번째 문서에 등장한 n번째 단어 𝑤_(𝑑,𝑛) 가 유일(음영 표시)</p></li>
+<li><p>이 정보만을 가지고 하이퍼파라미터(사용자 지정) α, β를 제외한 모든 잠재 변수를 추정</p></li>
+</ul>
+<section id="𝜙_𝑘" class="level3">
+<h3 class="anchored" data-anchor-id="𝜙_𝑘"><span class="math inline">\(𝜙_𝑘\)</span></h3>
+<p><span class="math inline">\(𝜙_𝑘\)</span>는&nbsp;k번째 토픽에 해당하는 벡터 - <span class="math inline">\(𝜙_𝑘\)</span>의 각 요소값은 해당 단어가&nbsp;k번째 토픽에서 차지하는 비중 - <span class="math inline">\(𝜙_𝑘\)</span>의 각 요소는 확률이므로 모든 요소의 합은 1이 됨. 벡터 길이는 말뭉치 전체 단어 수. - <span class="math inline">\(𝜙_𝑘\)</span>는 하이퍼파라메터 <span class="math inline">\(β\)</span>에 영향을 받으며, 이는 LDA가 토픽의 단어비중 <span class="math inline">\(𝜙_𝑘\)</span>이 디리클레분포를 따른다는 가정을 취하기 때문 <span class="math inline">\(𝜙_(𝑘 )~ 𝐷𝑖𝑟(𝛽)\)</span> - 디리클레분포란 k차원의 실수 벡터 중 벡터의 요소가 양수이며 모든 요소를 더한 값이 1인 경우에 확률값이 정의되는 연속확률분포</p>
+<p><img src="img/nlp_03_11.png" width="800"></p>
+</section>
+<section id="𝜃_𝑑" class="level3">
+<h3 class="anchored" data-anchor-id="𝜃_𝑑"><span class="math inline">\(𝜃_𝑑\)</span></h3>
+<ul>
+<li><span class="math inline">\(𝜃_𝑑\)</span>는 d번째 문서가 가진 토픽 비중을 나타내는 벡터
+<ul>
+<li><span class="math inline">\(𝜃_𝑑\)</span>의 각 요소값은 k번째 토픽이 해당 d번째 문서에서 차지하는 비중</li>
+<li><span class="math inline">\(𝜃_𝑑\)</span>는 확률이므로 모든 요소의 합은 1. 벡터 길이는 전체 토픽 개수 K.</li>
+<li><span class="math inline">\(𝜃_𝑑\)</span>는 하이퍼파라메터 <span class="math inline">\(𝛼\)</span>에 영향을 받으며, 이는 LDA가 문서의 토픽비중 <span class="math inline">\(𝜃_𝑑\)</span>이 디리클레분포를 따른다는 가정을 취하기 때문 <span class="math inline">\(𝜃_𝑑~𝐷𝑖𝑟(𝛼)\)</span></li>
+</ul></li>
+</ul>
+<p><img src="img/nlp_03_12.png" width="800"></p>
+</section>
+<section id="𝑧_𝑑𝑛" class="level3">
+<h3 class="anchored" data-anchor-id="𝑧_𝑑𝑛"><span class="math inline">\(𝑧_{(𝑑,𝑛)}\)</span></h3>
+<p><span class="math inline">\(𝑧_{(𝑑,𝑛)}\)</span>은 d번째 문서 n번째 단어가 어떤 토픽에 해당하는지 할당해주는 역할</p>
+<ul>
+<li>예: 세번째 문서의 첫번째 단어 <span class="math inline">\(𝑧_{3,1}\)</span>는 ’Topic2’일 가능성이 높음.</li>
+</ul>
+<p><img src="img/nlp_03_13.png" width="800"></p>
+</section>
+<section id="𝑤_𝑑𝑛" class="level3">
+<h3 class="anchored" data-anchor-id="𝑤_𝑑𝑛"><span class="math inline">\(𝑤_{(𝑑,𝑛)}\)</span></h3>
+<ul>
+<li><span class="math inline">\(𝑤_{(𝑑,𝑛)}\)</span>은 문서에 등장하는 단어를 할당해주는 역할
+<ul>
+<li><span class="math inline">\(𝜙_𝑘\)</span>와 <span class="math inline">\(𝑧_{(𝑑,𝑛)}\)</span>에 동시에 영향을 받음.</li>
+<li>직전 예에서 <span class="math inline">\(𝑧_{3,1}\)</span> 이 실제로 Topic2에 할당됐다고 쳤을 때, <span class="math inline">\(𝜙_2\)</span>를 보면 <span class="math inline">\(𝑤_{3,1}\)</span>은 Money가 될 가능성이 높음</li>
+</ul></li>
+</ul>
+<p><img src="img/nlp_03_14.png" width="800"></p>
+</section>
+</section>
+<section id="lda-inference" class="level2">
+<h2 class="anchored" data-anchor-id="lda-inference">LDA inference</h2>
+<p>이제 𝑤_(𝑑,𝑛)를 가지고 잠재변수를 역으로 추정하는 inference 과정을 살펴보자.</p>
+<p>실제 관찰가능한 문서 내 단어를 가지고 우리가 알고 싶은 토픽의 단어분포, 문서의 토픽분포를 추정하는 과정</p>
+<p>LDA가 가정하는 문서생성과정이 합리적이라면 해당 확률과정이 갖고 있는 말뭉치를 제대로 설명할 수 있어야함.</p>
+<p>즉, 토픽의 단어분포와 문서의 토픽분포의 결합확률이 커지도록 해야 함.</p>
+<p><img src="img/nlp_03_15.png" width="400"></p>
+<p>위 수식에서 사용자가 지정한 <span class="math inline">\(𝛼\)</span>, <span class="math inline">\(𝛽\)</span>와 관찰가능한 <span class="math inline">\(𝑤_{(𝑑,𝑛)}\)</span>을 제외한 모든 변수는 미지수</p>
+<p>따라서 사후확률(posterior) <span class="math inline">\(𝑝(𝜙, 𝜃,𝑧|𝑤)\)</span>를 최대로 만드는 <span class="math inline">\(𝑧,𝜙, 𝜃\)</span>를 찾아야 함.</p>
+<p>그러나, 이를 계산하는 것은 매우 어려움 (분모인 p(w)을 단번에 계산할 수 없음 <span class="math inline">\(z,ϕ,θ\)</span>의 모든 경우의 수 알아야함)</p>
+<p>–&gt; Approximate : Collapsed Gibbs sampling을 사용</p>
+<section id="collapsed-gibbs-sampling" class="level3">
+<h3 class="anchored" data-anchor-id="collapsed-gibbs-sampling">Collapsed Gibbs Sampling</h3>
+<p><img src="img/nlp_03_16.png" width="600"></p>
+<p><img src="img/nlp_03_17.png" width="600"></p>
+<p><img src="img/nlp_03_18.png" width="500"></p>
+</section>
+<section id="디리클레-분포-dirichlet-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="디리클레-분포-dirichlet-distribution">디리클레 분포 (Dirichlet distribution)</h3>
+<p><img src="img/nlp_03_19.png" width="500"></p>
+<p><img src="img/nlp_03_20.png" width="400"></p>
+<ul>
+<li><p>사용자가 지정하는 하이퍼파라미터 <span class="math inline">\(α\)</span> 존재 덕분에 <span class="math inline">\(A\)</span>가 아예 0으로 되는 일을 막을 수 있게 됨</p></li>
+<li><p>일종의 smoothing 역할</p></li>
+<li><p><span class="math inline">\(α\)</span>는 mean shape와 <span class="math inline">\(𝜃\)</span>의 sparsity를 조정</p></li>
+<li><p><span class="math inline">\(α\)</span>가 클수록 토픽들의 분포가 비슷해지고, 작을 수록 특정 토픽이 크게 나타남.</p></li>
+<li><p><span class="math inline">\(β\)</span>가 <span class="math inline">\(B\)</span>에서 차지하는 역할도 같음</p></li>
+</ul>
+<p><img src="img/nlp_03_21.png" width="600"></p>
+<div class="cell" data-execution_count="51">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gensim</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gensim <span class="im">import</span> corpora</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gensim.models.ldamodel <span class="im">import</span> LdaModel</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.corpus <span class="im">import</span> stopwords</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_20newsgroups</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.tokenize <span class="im">import</span> word_tokenize</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> nltk</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>nltk.download(<span class="st">'punkt'</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>nltk.download(<span class="st">'stopwords'</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 다운로드 및 불러오기 (예: UCI의 20 뉴스그룹 데이터셋)</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>newsgroups_data <span class="op">=</span> fetch_20newsgroups(subset<span class="op">=</span><span class="st">'all'</span>)[<span class="st">'data'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[nltk_data] Downloading package punkt to
+[nltk_data]     C:\Users\master\AppData\Roaming\nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[nltk_data] Downloading package stopwords to
+[nltk_data]     C:\Users\master\AppData\Roaming\nltk_data...
+[nltk_data]   Package stopwords is already up-to-date!</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="53">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 전처리: 토큰화 및 불용어 제거</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>stop_words <span class="op">=</span> <span class="bu">set</span>(stopwords.words(<span class="st">'english'</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> preprocess(text):</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    tokens <span class="op">=</span> word_tokenize(text.lower())</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    tokens <span class="op">=</span> [word <span class="cf">for</span> word <span class="kw">in</span> tokens <span class="cf">if</span> word.isalpha()]</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    tokens <span class="op">=</span> [word <span class="cf">for</span> word <span class="kw">in</span> tokens <span class="cf">if</span> word <span class="kw">not</span> <span class="kw">in</span> stop_words]</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> tokens</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터프레임으로 변환하고 전처리 수행</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.DataFrame({<span class="st">'content'</span>: newsgroups_data})</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'tokens'</span>] <span class="op">=</span> data[<span class="st">'content'</span>].<span class="bu">apply</span>(preprocess)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="54">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 사전과 코퍼스 생성</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>dictionary <span class="op">=</span> corpora.Dictionary(data[<span class="st">'tokens'</span>].dropna().tolist())</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>corpus <span class="op">=</span> [dictionary.doc2bow(text) <span class="cf">for</span> text <span class="kw">in</span> data[<span class="st">'tokens'</span>].dropna().tolist()]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="55">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LDA 모델 학습</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>num_topics <span class="op">=</span> <span class="dv">5</span>  <span class="co"># 원하는 토픽의 수</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>lda_model <span class="op">=</span> LdaModel(corpus, num_topics<span class="op">=</span>num_topics, id2word<span class="op">=</span>dictionary, passes<span class="op">=</span><span class="dv">15</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="56">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 각 토픽별 단어 중요도 출력</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, topic <span class="kw">in</span> lda_model.print_topics(num_topics<span class="op">=</span>num_topics, num_words<span class="op">=</span><span class="dv">10</span>):</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Topic </span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Topic 1: 0.007*"lines" + 0.007*"subject" + 0.007*"organization" + 0.006*"writes" + 0.005*"game" + 0.005*"would" + 0.005*"article" + 0.005*"university" + 0.004*"team" + 0.004*"one"
+Topic 2: 0.014*"lines" + 0.014*"subject" + 0.013*"organization" + 0.007*"writes" + 0.006*"university" + 0.006*"would" + 0.006*"one" + 0.006*"article" + 0.005*"like" + 0.005*"get"
+Topic 3: 0.006*"subject" + 0.006*"lines" + 0.005*"file" + 0.005*"organization" + 0.005*"use" + 0.005*"space" + 0.004*"program" + 0.004*"x" + 0.004*"image" + 0.004*"data"
+Topic 4: 0.026*"r" + 0.026*"x" + 0.025*"p" + 0.024*"q" + 0.024*"max" + 0.023*"g" + 0.018*"n" + 0.016*"w" + 0.015*"b" + 0.014*"c"
+Topic 5: 0.008*"would" + 0.007*"people" + 0.007*"one" + 0.006*"subject" + 0.005*"writes" + 0.005*"lines" + 0.005*"organization" + 0.005*"article" + 0.004*"think" + 0.004*"god"</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="57">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 각 문서의 토픽 분포 출력</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>doc_topics <span class="op">=</span> lda_model.get_document_topics(corpus)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 각 문서별로 토픽 분포를 정리하여 데이터프레임으로 변환</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>doc_topic_dist <span class="op">=</span> []</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> doc <span class="kw">in</span> doc_topics:</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    topic_dist <span class="op">=</span> [<span class="dv">0</span>] <span class="op">*</span> num_topics</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> topic_num, prob <span class="kw">in</span> doc:</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        topic_dist[topic_num] <span class="op">=</span> prob</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    doc_topic_dist.append(topic_dist)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>topic_df <span class="op">=</span> pd.DataFrame(doc_topic_dist, columns<span class="op">=</span>[<span class="ss">f'Topic </span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_topics)])</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(topic_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        Topic 1   Topic 2   Topic 3   Topic 4   Topic 5
+0      0.990418  0.000000  0.000000  0.000000  0.000000
+1      0.000000  0.826492  0.041091  0.126618  0.000000
+2      0.606416  0.000000  0.014516  0.000000  0.377670
+3      0.000000  0.948293  0.049253  0.000000  0.000000
+4      0.000000  0.893016  0.098035  0.000000  0.000000
+...         ...       ...       ...       ...       ...
+18841  0.000000  0.090004  0.181294  0.000000  0.726448
+18842  0.000000  0.989984  0.000000  0.000000  0.000000
+18843  0.000000  0.965179  0.000000  0.000000  0.025780
+18844  0.000000  0.000000  0.895867  0.000000  0.097351
+18845  0.000000  0.874560  0.016912  0.000000  0.105507
+
+[18846 rows x 5 columns]</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="다른-토픽모델링-기법---bertopic" class="level1">
+<h1>다른 토픽모델링 기법 - BERTopic</h1>
+<p>앞에서 본 LSA, LDA는 문서들의 단어 출현 빈도 기반의 BoW로 설명되기 때문에, 단어들 간의 의미론적 관계를 포착하지 못하는 한계가 있음</p>
+<p>한편, BERT와 같은 트랜스포머 인코더 기반의 모델은 단어들 간의 양방향 문맥이 반영된 표현을 생성할 수 있음</p>
+<section id="bertopic" class="level3">
+<h3 class="anchored" data-anchor-id="bertopic">BERTopic</h3>
+<ol type="1">
+<li>document의 정보를 파악한 임베딩 생성</li>
+</ol>
+<ul>
+<li>임베딩 방법론으로는 보통 Sentence-BERT(SBERT), distil-BERT 등 사용</li>
+</ul>
+<ol start="2" type="1">
+<li>해당 임베딩으로 차원 축소 및 클러스터링 수행</li>
+</ol>
+<ul>
+<li>UMAP을 활용한 차원 축소 방식, k-Means나 HDBSCAN 클러스터링과 함께 사용</li>
+</ul>
+<ol start="3" type="1">
+<li>Class-based TF-IDF를 통해 토픽의 representation 생성</li>
+</ol>
+<ul>
+<li>class-based TF-IDF는 개별 document가 아닌, document 클러스터(토픽) 관점에서 각 단어들의 중요도를 모델링</li>
+</ul>
+</section>
 <section id="참고자료" class="level2">
 <h2 class="anchored" data-anchor-id="참고자료">참고자료</h2>
 <ul>
@@ -867,6 +1296,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <script src="https://giscus.app/client.js" data-repo="jo-cho/FinBlog" data-repo-id="R_kgDOJQ80aw" data-category="General" data-category-id="DIC_kwDOJQ80a84CVb8i" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../posts/nlp/02_2_word_embedding2.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">2-2. 워드임베딩: GloVe, FastText</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../posts/nlp/finance_llm_survey.html" class="pagination-link">
+        <span class="nav-page-text">금융분야의 LLM (2023)</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 
