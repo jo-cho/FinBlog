@@ -45,9 +45,11 @@
       "/posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_2.html",
       "/posts/statistics/time_complexity.html",
       "/posts/nlp/01_tf-idf.html",
+      "/posts/nlp/04_attention.html",
       "/posts/nlp/02_2_word_embedding2.html",
       "/posts/nlp/02_1_word_embedding1.html",
-      "/posts/nlp/03_topic_modeling.html"
+      "/posts/nlp/03_topic_modeling.html",
+      "/posts/nlp/05_transformer.html"
     ]
   }
 ]

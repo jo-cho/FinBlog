@@ -141,6 +141,10 @@ website:
               text: "2-2. 워드임베딩: GloVe, FastText"
             - href: posts/nlp/03_topic_modeling.ipynb
               text: "3. 토픽모델링: LSA, LDA"
+            - href: posts/nlp/04_attention.ipynb
+              text: "4. 어텐션 메커니즘"
+            - href: posts/nlp/05_transformer.ipynb
+              text: "5. 트랜스포머"
           - section: "선행연구"
             contents:
             - href: posts/nlp/finance_llm_survey.ipynb
