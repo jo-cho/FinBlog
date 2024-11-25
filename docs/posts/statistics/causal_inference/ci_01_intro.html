@@ -30,7 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
-<link href="../../../posts/fin_data/Fractional_difference.html" rel="next">
+<link href="../../../posts/statistics/causal_inference/ci_02_dag.html" rel="next">
 <link href="../../../posts/statistics/time_series/ts_07_deep_learning.html" rel="prev">
 <link href="../../../logo.png" rel="icon" type="image/png">
 <script src="../../../site_libs/quarto-html/quarto.js"></script>
@@ -243,6 +243,12 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="../../../posts/statistics/causal_inference/ci_01_intro.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">1. 인과추론 서론</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../posts/statistics/causal_inference/ci_02_dag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. DAG</span></a>
   </div>
 </li>
       </ul>
@@ -634,6 +640,20 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<blockquote class="blockquote">
+<p>인과관계(causation)를 상관관계(correlation)와 혼동하지 말자</p>
+</blockquote>
+<p>중앙은행이 경기 침체의 조짐을 파악하기 위해 다양한 지표를 해석하는 상황을 가정해 보자. 경기 침체가 나타나고 있다는 증거를 확인하면, 중앙은행은 공개시장 조작에 나서서 채권을 매입하고 경제에 유동성을 공급한다. 이러한 조치들이 최적의 방식으로 이루어진다면, 실제 산출(output)과 공개시장 조작 간에는 아무런 상관관계가 나타나지 않을 것이다. 이상적인 경우, 은행은 경기 침체를 막기 위해 공격적인 거래에 나설 수 있지만, 그것이 효과를 발휘하고 있다는 증거조차 발견하지 못할 수도 있다.</p>
+<p><strong>인간이 최적의 행동을 한다는 점은 상관관계가 인과 관계를 거의 드러내지 못하는 주요 이유이다</strong>. 왜냐하면 인간은 거의 무작위적으로 행동하지 않기 때문이다. 그리고 우리가 알게 될 중요한 점은, 인과 효과를 식별하는 데 있어 무작위성(randomness)의 존재가 결정적으로 중요하다는 것이다.</p>
+<blockquote class="blockquote">
+<p>Optimization makes everyting endogenous</p>
+</blockquote>
+<p>경제 이론은 관찰 데이터에서 발견된 상관관계에 대해 의심을 가져야 한다고 경고한다. 관찰 데이터에서 상관관계는 대부분 인과 관계를 반영하지 않는다. 이는 사람들이 자신에게 <strong>가장 최적이라고 생각한 선택을 하기 때문에 변수들이 내생적으로(endogenously) 결정되었기 때문</strong>이다. 선택은 제약 조건 속에서 이루어지고, 이는 다른 변수와의 가짜 상관관계(spurious correlation)를 만들어낸다. 따라서 상관관계가 인과 효과를 반영하려면 선택이 결과와 독립적으로 이루어져야 하지만, 실제로는 대부분의 선택이 잠재적 결과에 기반하기 때문에 이 조건을 만족하지 않는다.</p>
+<p>결과적으로, 인과 효과를 식별하려면 신뢰할 수 있는 가정을 세워야 하며, 연구는 결과 지향적(outcome-oriented)이 아닌 <strong>과정 지향적</strong>(<strong>process-oriented</strong>)이어야 한다. 과학적 방법론은 특정 결과를 입증하려는 목적이 아니라 예상치 못한 답변도 수용할 수 있는 태도를 형성하는 데 초점이 있다.</p>
+<p><strong>비교정태</strong></p>
+<p>인과 추론에 중요한 기여 중 하나는 <strong>비교정태</strong>(<strong>comparative statics</strong>)의 개념이다.</p>
+<p>비교정태는 모델 내에서 인과 효과를 이론적으로 설명하는 방식이 다. 이는 항상불변(ceteris parius)**의 가정, 즉 “다른 모든 조건은 동일하다”는 전제에 기반한다. 예를 들어, 특정 개입(intervention)의 인과 효과를 설명하려고 할 때, 다른 변수들이 변하지 않는다고 가정한다. 만약 다른 변수들이 변화하면, 관심 변수와 상관관계를 가지게 되어 추정이 왜곡(confounded)될 수 있다.</p>
+<p><strong>참고자료</strong> - Scott Cunningham (2021) “Causal Inference: The Mixtape”. Yale University Press.</p>
 
 
 
@@ -880,8 +900,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../posts/fin_data/Fractional_difference.html" class="pagination-link">
-        <span class="nav-page-text">분수 차분</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../../posts/statistics/causal_inference/ci_02_dag.html" class="pagination-link">
+        <span class="nav-page-text">2. DAG</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

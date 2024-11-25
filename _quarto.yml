@@ -57,6 +57,8 @@ website:
         contents:
           - href: posts/statistics/causal_inference/ci_01_intro.ipynb
             text: "1. 인과추론 서론"
+          - href: posts/statistics/causal_inference/ci_02_dag.ipynb
+            text: "2. DAG"
       - section: "금융 데이터 처리"
         contents:
           - href: posts/fin_data/Fractional_difference.ipynb
