@@ -8,7 +8,7 @@
 
 <meta name="author" content="Cheonghyo Cho">
 
-<title>Cho’s FinBlog - 머신러닝을 이용한 트레이딩: (1) 시장 데이터 수집</title>
+<title>Cho’s FinBlog - 인과추론 - 서론</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,61 +21,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<link href="../../posts/ml_trading/2_Labeling.html" rel="next">
-<link href="../../posts/ml_trading/0_Introduction.html" rel="prev">
-<link href="../../logo.png" rel="icon" type="image/png">
-<script src="../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../posts/fin_data/Fractional_difference.html" rel="next">
+<link href="../../../posts/statistics/time_series/ts_07_deep_learning.html" rel="prev">
+<link href="../../../logo.png" rel="icon" type="image/png">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -99,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <style>html{ scroll-behavior: smooth; }</style>
 
 
-<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../../../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed">
@@ -109,7 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">Cho’s FinBlog</span>
     </a>
   </div>
@@ -120,7 +86,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html" rel="" target="">
+    <a class="nav-link" href="../../../about.html" rel="" target="">
  <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -151,7 +117,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../posts/ml_trading/0_Introduction.html">알고리즘 트레이딩</a></li><li class="breadcrumb-item"><a href="../../posts/ml_trading/1_Get_Market_Data.html">2. 시장 데이터 수집</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../posts/statistics/causal_inference/ci_01_intro.html">인과추론</a></li><li class="breadcrumb-item"><a href="../../../posts/statistics/causal_inference/ci_01_intro.html">1. 인과추론 서론</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -167,13 +133,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">홈</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../listing.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../listing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">모든 글 보기</span></a>
   </div>
 </li>
@@ -197,13 +163,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/statistics/probability_distribution.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/statistics/probability_distribution.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">확률 분포</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/statistics/estimation.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/statistics/estimation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">추정</span></a>
   </div>
 </li>
@@ -222,43 +188,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/statistics/time_series/ts_01_intro.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/statistics/time_series/ts_01_intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1. 시계열 서론</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/statistics/time_series/ts_02_arima.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/statistics/time_series/ts_02_arima.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2. 선형 모형</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/statistics/time_series/ts_03_multivariate.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/statistics/time_series/ts_03_multivariate.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3. 다변량 시계열</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/statistics/time_series/ts_04_volatility.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/statistics/time_series/ts_04_volatility.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">4. 시계열 변동성</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/statistics/time_series/ts_05_nonlinear.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/statistics/time_series/ts_05_nonlinear.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">5. 비선형 모형</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/statistics/time_series/ts_06_state_space.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/statistics/time_series/ts_06_state_space.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">6. 상태 공간 모형</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/statistics/time_series/ts_07_deep_learning.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/statistics/time_series/ts_07_deep_learning.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">7. 머신러닝 딥러닝 모형</span></a>
   </div>
 </li>
@@ -266,16 +232,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
  <span class="menu-text">인과추론</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/statistics/causal_inference/ci_01_intro.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/statistics/causal_inference/ci_01_intro.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">1. 인과추론 서론</span></a>
   </div>
 </li>
@@ -292,7 +258,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/fin_data/Fractional_difference.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/fin_data/Fractional_difference.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">분수 차분</span></a>
   </div>
 </li>
@@ -309,7 +275,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/anomaly_detection/deep_learning_for_anomaly_detection.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/anomaly_detection/deep_learning_for_anomaly_detection.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">선행연구 - 딥러닝을 이용한 이상탐지</span></a>
   </div>
 </li>
@@ -317,58 +283,58 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
  <span class="menu-text">알고리즘 트레이딩</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/ml_trading/0_Introduction.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/ml_trading/0_Introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1. 트레이딩 개요</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/ml_trading/1_Get_Market_Data.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../../posts/ml_trading/1_Get_Market_Data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2. 시장 데이터 수집</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/ml_trading/2_Labeling.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/ml_trading/2_Labeling.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3. 가격 모멘텀 라벨링</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/ml_trading/3_Get_Features.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/ml_trading/3_Get_Features.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">4. 피쳐 생성</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/ml_trading/4_Feature_Selection.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/ml_trading/4_Feature_Selection.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">5. 피쳐 선정</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/ml_trading/5_Get_Trading_Signals.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/ml_trading/5_Get_Trading_Signals.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">6. 매매 시그널 분류</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/ml_trading/6_Trading_Rules.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/ml_trading/6_Trading_Rules.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">7. 매매 규칙</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/ml_trading/7_Enhancing_and_Bet_Confidence.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/ml_trading/7_Enhancing_and_Bet_Confidence.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">8. 매매 신뢰도 측정과 전략 강화</span></a>
   </div>
 </li>
@@ -385,7 +351,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/1_Systemic_Risk.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/systemic_risk/1_Systemic_Risk.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">시스템 리스크 개념</span></a>
   </div>
 </li>
@@ -400,37 +366,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/2_Systemic_Risk_Measures.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/systemic_risk/2_Systemic_Risk_Measures.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">선행연구 요약</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/2-1_Systemic_Risk_Measures_Macro.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/systemic_risk/2-1_Systemic_Risk_Measures_Macro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">선행연구 (거시경제)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/2-2_Systemic_Risk_Measures_Market.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/systemic_risk/2-2_Systemic_Risk_Measures_Market.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">선행연구 (시장위험)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/systemic_risk/2-3_Systemic_Risk_Measures_Cross-sectional.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">선행연구 (금융기관 위험)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/2-4_Systemic_Risk_Measures_Probability_of_Default.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/systemic_risk/2-4_Systemic_Risk_Measures_Probability_of_Default.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">선행연구 (부도확률모형 위험)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/2-5_Systemic_Risk_Measures_Network.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/systemic_risk/2-5_Systemic_Risk_Measures_Network.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">선행연구 (네트워크)</span></a>
   </div>
 </li>
@@ -447,19 +413,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_1.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">선행연구1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_1_2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_1_2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">선행연구2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/systemic_risk/3_Systemic_Risk_And_Machine_Learning_2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">향후 연구 방향</span></a>
   </div>
 </li>
@@ -487,61 +453,61 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/machine_learning/GRL_01.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/machine_learning/GRL_01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1. 들어가며</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/machine_learning/GRL_02_1.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/machine_learning/GRL_02_1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2-1. 그래프 통계량과 커널</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/machine_learning/GRL_02_2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/machine_learning/GRL_02_2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2-2. 이웃중복 감지</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/machine_learning/GRL_02_3.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/machine_learning/GRL_02_3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2-3. 라플라시안과 스펙트럼</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/machine_learning/GRL_03_1.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/machine_learning/GRL_03_1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3-1. 인코더-디코더</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/machine_learning/GRL_03_2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/machine_learning/GRL_03_2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3-2. 랜덤워크 임베딩</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/machine_learning/GRL_04_1.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/machine_learning/GRL_04_1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">4. 다중관계 데이터</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/machine_learning/GRL_05_1.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/machine_learning/GRL_05_1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">5-1. GNN - 신경망 메시지 전달</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/machine_learning/GRL_05_2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/machine_learning/GRL_05_2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">5-2. GNN - 일반화된 집계 및 업데이트</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/machine_learning/GRL_05_3.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/machine_learning/GRL_05_3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">5-3. GNN - 다중관계와 그래프 수준</span></a>
   </div>
 </li>
@@ -569,37 +535,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/nlp/01_tf-idf.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/nlp/01_tf-idf.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1. DTM과 TF-IDF</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/nlp/02_1_word_embedding1.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/nlp/02_1_word_embedding1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2-1. 워드임베딩: Word2Vec</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/nlp/02_2_word_embedding2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/nlp/02_2_word_embedding2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2-2. 워드임베딩: GloVe, FastText</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/nlp/03_topic_modeling.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/nlp/03_topic_modeling.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3. 토픽모델링: LSA, LDA</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/nlp/04_attention.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/nlp/04_attention.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">4. 어텐션 메커니즘</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/nlp/05_transformer.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/nlp/05_transformer.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">5. 트랜스포머</span></a>
   </div>
 </li>
@@ -616,13 +582,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/nlp/finance_llm_survey.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/nlp/finance_llm_survey.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">금융분야의 LLM (2023)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/nlp/news_sentiment_index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/nlp/news_sentiment_index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">뉴스심리지수(NSI) - 한국은행</span></a>
   </div>
 </li>
@@ -643,11 +609,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">머신러닝을 이용한 트레이딩: (1) 시장 데이터 수집</h1>
-<p class="subtitle lead">Get Market Data</p>
+<h1 class="title">인과추론 - 서론</h1>
+<p class="subtitle lead">Causal Inference - Introduction</p>
   <div class="quarto-categories">
-    <div class="quarto-category">trading</div>
-    <div class="quarto-category">data</div>
+    <div class="quarto-category">causal inference</div>
   </div>
   </div>
 
@@ -669,37 +634,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<ul>
-<li>기간: 2005년 7월 27일부터 2022년 1월 17일 까지</li>
-<li>삼성전자의 OHLCV(시가, 고가, 저가, 종가, 거래량)</li>
-<li>투자주체별 거래량: 개인, 외국인 기관</li>
-</ul>
-<p>파이썬 라이브러리인 <em>FinanceDataReader</em>와 <em>yfinance</em>을 이용한다. 순매수량 데이터는 대신증권 API로 받은 데이터를 이용한다.</p>
-<p>모든 시장 데이터는 일별 데이터이다.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lib</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns<span class="op">;</span>sns.<span class="bu">set</span>()</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> FinanceDataReader <span class="im">as</span> fdr</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yfinance <span class="im">as</span> yf</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>df_ohlc <span class="op">=</span> fdr.DataReader(<span class="st">'005930'</span>,<span class="st">'2005-7-27'</span>,<span class="st">'2022-1-17'</span>).iloc[:,<span class="dv">0</span>:<span class="dv">4</span>] <span class="co">#가격 수정되어 있음</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>volume_yf <span class="op">=</span> yf.download(<span class="st">'005930.KS'</span>,<span class="st">'2005-7-27'</span>,<span class="st">'2022-1-17'</span>,auto_adjust<span class="op">=</span><span class="va">True</span>).Volume <span class="co"># 수정거래량</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>df_ohlcv <span class="op">=</span> df_ohlc.join(volume_yf).dropna()</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> tautil.ohlcv(df_ohlcv)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>quantity_ <span class="op">=</span> pd.read_csv(<span class="st">'C:data/순매수량.csv'</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>quantity_ <span class="op">=</span> quantity_.iloc[:<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>:<span class="dv">5</span>]</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>quantity_.columns <span class="op">=</span> [<span class="st">'Date'</span>,<span class="st">'individual'</span>,<span class="st">'foreign'</span>,<span class="st">'institutional'</span>]</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>quantity_.index <span class="op">=</span> quantity_[<span class="st">'Date'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: pd.to_datetime(<span class="bu">str</span>(x), <span class="bu">format</span><span class="op">=</span><span class="st">'%Y%m</span><span class="sc">%d</span><span class="st">'</span>))</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>quantity_.drop(columns<span class="op">=</span><span class="st">'Date'</span>,inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.join(quantity_).dropna()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>얻은 데이터는 <a href="https://jo-cho.github.io/FinBlog/posts/ml_trading/3_Get_Features.html">뒤</a>에서 시각화하기로 한다.</p>
 
 
 
@@ -941,13 +875,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../posts/ml_trading/0_Introduction.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">1. 트레이딩 개요</span>
+      <a href="../../../posts/statistics/time_series/ts_07_deep_learning.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">7. 머신러닝 딥러닝 모형</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../posts/ml_trading/2_Labeling.html" class="pagination-link">
-        <span class="nav-page-text">3. 가격 모멘텀 라벨링</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../../posts/fin_data/Fractional_difference.html" class="pagination-link">
+        <span class="nav-page-text">분수 차분</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -955,5 +889,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></div></div></footer><script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></div></div></footer><script src="../../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

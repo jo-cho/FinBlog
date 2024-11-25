@@ -37,22 +37,26 @@ website:
                 text: "확률 분포"
               - href: posts/statistics/estimation.ipynb
                 text: "추정"
-          - section: "시계열 분석"
-            contents:
-              - href: posts/statistics/time_series/ts_01_intro.ipynb
-                text: "1. 시계열 서론"
-              - href: posts/statistics/time_series/ts_02_arima.ipynb
-                text: "2. 선형 모형"
-              - href: posts/statistics/time_series/ts_03_multivariate.ipynb
-                text: "3. 다변량 시계열"
-              - href: posts/statistics/time_series/ts_04_volatility.ipynb
-                text: "4. 시계열 변동성"
-              - href: posts/statistics/time_series/ts_05_nonlinear.ipynb
-                text: "5. 비선형 모형"
-              - href: posts/statistics/time_series/ts_06_state_space.ipynb
-                text: "6. 상태 공간 모형"
-              - href: posts/statistics/time_series/ts_07_deep_learning.ipynb
-                text: "7. 머신러닝 딥러닝 모형"
+      - section: "시계열 분석"
+        contents:
+          - href: posts/statistics/time_series/ts_01_intro.ipynb
+            text: "1. 시계열 서론"
+          - href: posts/statistics/time_series/ts_02_arima.ipynb
+            text: "2. 선형 모형"
+          - href: posts/statistics/time_series/ts_03_multivariate.ipynb
+            text: "3. 다변량 시계열"
+          - href: posts/statistics/time_series/ts_04_volatility.ipynb
+            text: "4. 시계열 변동성"
+          - href: posts/statistics/time_series/ts_05_nonlinear.ipynb
+            text: "5. 비선형 모형"
+          - href: posts/statistics/time_series/ts_06_state_space.ipynb
+            text: "6. 상태 공간 모형"
+          - href: posts/statistics/time_series/ts_07_deep_learning.ipynb
+            text: "7. 머신러닝 딥러닝 모형"
+      - section: "인과추론"
+        contents:
+          - href: posts/statistics/causal_inference/ci_01_intro.ipynb
+            text: "1. 인과추론 서론"
       - section: "금융 데이터 처리"
         contents:
           - href: posts/fin_data/Fractional_difference.ipynb
