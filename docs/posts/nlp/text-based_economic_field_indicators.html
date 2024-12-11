@@ -8,7 +8,7 @@
 
 <meta name="author" content="Cheonghyo Cho">
 
-<title>Cho’s FinBlog - 머신러닝을 이용한 트레이딩: (1) 시장 데이터 수집</title>
+<title>Cho’s FinBlog - 경제부문별 텍스트 지표 (서범석, 2022)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -64,8 +30,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../posts/ml_trading/2_Labeling.html" rel="next">
-<link href="../../posts/ml_trading/0_Introduction.html" rel="prev">
+<link href="../../posts/nlp/news_sentiment_index.html" rel="prev">
 <link href="../../logo.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -98,6 +63,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -151,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../posts/ml_trading/0_Introduction.html">알고리즘 트레이딩</a></li><li class="breadcrumb-item"><a href="../../posts/ml_trading/1_Get_Market_Data.html">2. 시장 데이터 수집</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">자연어 처리</li><li class="breadcrumb-item"><a href="../../posts/nlp/finance_llm_survey.html">선행연구</a></li><li class="breadcrumb-item"><a href="../../posts/nlp/text-based_economic_field_indicators.html">경제부문별 텍스트 지표</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -323,13 +290,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
  <span class="menu-text">알고리즘 트레이딩</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/ml_trading/0_Introduction.html" class="sidebar-item-text sidebar-link">
@@ -338,7 +305,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/ml_trading/1_Get_Market_Data.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../posts/ml_trading/1_Get_Market_Data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2. 시장 데이터 수집</span></a>
   </div>
 </li>
@@ -557,13 +524,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true">
  <span class="menu-text">자연어 처리</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false">
@@ -613,13 +580,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="true">
  <span class="menu-text">선행연구</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/nlp/finance_llm_survey.html" class="sidebar-item-text sidebar-link">
@@ -634,7 +601,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/nlp/text-based_economic_filed_indicator.ipynb" class="sidebar-item-text sidebar-link">
+  <a href="../../posts/nlp/text-based_economic_field_indicators.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">경제부문별 텍스트 지표</span></a>
   </div>
 </li>
@@ -648,18 +615,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">목차</h2>
+   
+  <ul>
+  <li><a href="#선행연구" id="toc-선행연구" class="nav-link active" data-scroll-target="#선행연구">선행연구</a>
+  <ul class="collapse">
+  <li><a href="#주제-설정과-추출-방법" id="toc-주제-설정과-추출-방법" class="nav-link" data-scroll-target="#주제-설정과-추출-방법">주제 설정과 추출 방법</a></li>
+  <li><a href="#적합한-방법-선택" id="toc-적합한-방법-선택" class="nav-link" data-scroll-target="#적합한-방법-선택">적합한 방법 선택</a></li>
+  <li><a href="#기존-연구-사례" id="toc-기존-연구-사례" class="nav-link" data-scroll-target="#기존-연구-사례">기존 연구 사례</a></li>
+  </ul></li>
+  <li><a href="#데이터" id="toc-데이터" class="nav-link" data-scroll-target="#데이터">데이터</a></li>
+  <li><a href="#경제지표-작성" id="toc-경제지표-작성" class="nav-link" data-scroll-target="#경제지표-작성">경제지표 작성</a></li>
+  <li><a href="#유용성-검토-결과" id="toc-유용성-검토-결과" class="nav-link" data-scroll-target="#유용성-검토-결과">유용성 검토 결과</a></li>
+  <li><a href="#경기-예측모형" id="toc-경기-예측모형" class="nav-link" data-scroll-target="#경기-예측모형">경기 예측모형</a>
+  <ul class="collapse">
+  <li><a href="#비선형모형" id="toc-비선형모형" class="nav-link" data-scroll-target="#비선형모형">비선형모형</a></li>
+  <li><a href="#선형-모형" id="toc-선형-모형" class="nav-link" data-scroll-target="#선형-모형">선형 모형</a>
+  <ul class="collapse">
+  <li><a href="#dfm의-구성" id="toc-dfm의-구성" class="nav-link" data-scroll-target="#dfm의-구성">DFM의 구성</a></li>
+  <li><a href="#dfm의-활용-장점" id="toc-dfm의-활용-장점" class="nav-link" data-scroll-target="#dfm의-활용-장점">DFM의 활용 장점</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">머신러닝을 이용한 트레이딩: (1) 시장 데이터 수집</h1>
-<p class="subtitle lead">Get Market Data</p>
+<h1 class="title">경제부문별 텍스트 지표 (서범석, 2022)</h1>
+<p class="subtitle lead">Text-based Economic Field Indicators</p>
   <div class="quarto-categories">
-    <div class="quarto-category">trading</div>
-    <div class="quarto-category">data</div>
+    <div class="quarto-category">sentiment</div>
+    <div class="quarto-category">natural language processing</div>
+    <div class="quarto-category">transformer</div>
   </div>
   </div>
 
@@ -681,39 +672,202 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
+<blockquote class="blockquote">
+<p>서범석(2022)에서 소개한 경제부문별 텍스트 지표를 소개한다. 경기 예측에 대한 내용도 포함한다.</p>
+</blockquote>
+<p><strong>논문 요약</strong></p>
+<section id="선행연구" class="level1">
+<h1>선행연구</h1>
+<section id="주제-설정과-추출-방법" class="level3">
+<h3 class="anchored" data-anchor-id="주제-설정과-추출-방법">주제 설정과 추출 방법</h3>
 <ul>
-<li>기간: 2005년 7월 27일부터 2022년 1월 17일 까지</li>
-<li>삼성전자의 OHLCV(시가, 고가, 저가, 종가, 거래량)</li>
-<li>투자주체별 거래량: 개인, 외국인 기관</li>
+<li><p>주제 설정: 텍스트 지표를 작성하기 위해서는 먼저 추출하고자 하는 주제를 명확히 해야 함. 주제가 너무 광범위하면 정보의 가치가 떨어지고, 너무 좁으면 텍스트에 관련 정보가 부족할 수 있음.</p></li>
+<li><p>추출 방법</p>
+<ul>
+<li>통계 모델링 (Stochastic Approach)
+<ul>
+<li>지도학습 (Supervised Learning): 예시 문장을 통해 학습하여 텍스트에서 주제를 추출, 복잡하고 추상적인 주제에 적합함.</li>
+<li>비지도학습 (Unsupervised Learning): 예시 문장 없이 텍스트 간의 분포 차이를 이용해 학습함. 예) 주제별 텍스트 클러스터링</li>
+</ul></li>
+<li>사람이 정의한 규칙 (Rule-Based Approach): 사람이 직접 텍스트에서 추출하려는 단어나 조건을 정해 놓고, 이를 기반으로 지표를 작성. 주로 문어체 텍스트 분석에 유용, 해석이 직관적임.</li>
+</ul></li>
 </ul>
-<p>파이썬 라이브러리인 <em>FinanceDataReader</em>와 <em>yfinance</em>을 이용한다. 순매수량 데이터는 대신증권 API로 받은 데이터를 이용한다.</p>
-<p>모든 시장 데이터는 일별 데이터이다.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lib</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns<span class="op">;</span>sns.<span class="bu">set</span>()</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> FinanceDataReader <span class="im">as</span> fdr</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yfinance <span class="im">as</span> yf</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>df_ohlc <span class="op">=</span> fdr.DataReader(<span class="st">'005930'</span>,<span class="st">'2005-7-27'</span>,<span class="st">'2022-1-17'</span>).iloc[:,<span class="dv">0</span>:<span class="dv">4</span>] <span class="co">#가격 수정되어 있음</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>volume_yf <span class="op">=</span> yf.download(<span class="st">'005930.KS'</span>,<span class="st">'2005-7-27'</span>,<span class="st">'2022-1-17'</span>,auto_adjust<span class="op">=</span><span class="va">True</span>).Volume <span class="co"># 수정거래량</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>df_ohlcv <span class="op">=</span> df_ohlc.join(volume_yf).dropna()</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> tautil.ohlcv(df_ohlcv)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>quantity_ <span class="op">=</span> pd.read_csv(<span class="st">'C:data/순매수량.csv'</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>quantity_ <span class="op">=</span> quantity_.iloc[:<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>:<span class="dv">5</span>]</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>quantity_.columns <span class="op">=</span> [<span class="st">'Date'</span>,<span class="st">'individual'</span>,<span class="st">'foreign'</span>,<span class="st">'institutional'</span>]</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>quantity_.index <span class="op">=</span> quantity_[<span class="st">'Date'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: pd.to_datetime(<span class="bu">str</span>(x), <span class="bu">format</span><span class="op">=</span><span class="st">'%Y%m</span><span class="sc">%d</span><span class="st">'</span>))</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>quantity_.drop(columns<span class="op">=</span><span class="st">'Date'</span>,inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.join(quantity_).dropna()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>얻은 데이터는 <a href="https://jo-cho.github.io/FinBlog/posts/ml_trading/3_Get_Features.html">뒤</a>에서 시각화하기로 한다.</p>
+</section>
+<section id="적합한-방법-선택" class="level3">
+<h3 class="anchored" data-anchor-id="적합한-방법-선택">적합한 방법 선택</h3>
+<ul>
+<li>텍스트 데이터의 성격과 추출하려는 주제에 따라 어떤 방법을 사용할지 결정해야 함. 비정형 텍스트일수록 통계 모델링 방식이 우수한 성능을 보임.</li>
+</ul>
+</section>
+<section id="기존-연구-사례" class="level3">
+<h3 class="anchored" data-anchor-id="기존-연구-사례">기존 연구 사례</h3>
+<ul>
+<li>샌프란시스코 연준: 뉴스 기사를 긍정적/부정적 기사로 분류하여 뉴스심리지수를 개발.</li>
+<li>Baker et al.&nbsp;(2016): 경제불확실성 지수를 사전접근법 방식으로 작성.</li>
+<li>Bybee et al.&nbsp;(2020): 경제 뉴스 토픽 모델링을 통해 경기 변동을 설명.</li>
+<li>IMF의 Caldara et al.&nbsp;(2022): 지정학적 리스크 평가를 위한 사전접근법 방식의 리스크 지표 작성.</li>
+<li>한국은행: 지도학습 방식으로 뉴스심리지수를 개발하여 실험적 통계로 공개.</li>
+</ul>
+</section>
+</section>
+<section id="데이터" class="level1">
+<h1>데이터</h1>
+<p>뉴스기사 텍스트 데이터의 웹크롤링(web crawling) - 경제분야 뉴스 기사 약 70여개 언론사에서 수집 - 수집 대상기간: 2005년 ~ 2022년 3월 - 평일 기준 일평균 약 3000건, 문장 단위로 환산 시 약 1천8백만 문장</p>
+</section>
+<section id="경제지표-작성" class="level1">
+<h1>경제지표 작성</h1>
+<p>15개 부문의 주요 거시변수 및 일부 산업 관련 미시변수를 선정</p>
+<p><strong>사전접근법 방식</strong> 사용</p>
+<p>부문별 텍스트 기반 경제지표는 주제가 명확하고, 뉴스 데이터가 정형화된 문어체이므로 사전접근법 방식을 사용하는 것이 적합함</p>
+<ul>
+<li>지도학습 방식은 다음과 같은 문제로 인해 부적합함: 시간과 비용, 과적합 문제</li>
+<li>토픽모델링과 같은 비지도학습 방식은 추출 주제가 명확하지 않을 때 적합하지만, 구체적인 주제를 다룰 경우 적합하지 않음</li>
+</ul>
+<p>특정 단어의 포함 여부를 <strong>문장</strong> 단위에 적용한 뒤, 해당 문장의 포함 여부를 기준으로 뉴스 기사를 분류하여 작성 (기존 연구들은 기사 단위에 적용)</p>
+<p>분야별 단어군을 사전에 정의하고, 이들 단어군을 포함하는 문장이 등장한 기사들의 기간중 상대빈도수를 계산하여 작성</p>
+<p>&lt;부문별 텍스트 지표 작성을 위한 단어군&gt;</p>
+<table class="table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 70%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>부문</strong></th>
+<th><strong>작성 방법</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>생산</td>
+<td>(생산)&amp;(상승, 급등, 증가, 개선, 가속, 늘) - (생산)&amp;(하락, 급감, 감소, 약화, 둔화, 줄)</td>
+</tr>
+<tr class="even">
+<td>산업</td>
+<td>(선박)&amp;(수주)&amp;(상승, 급등, 증가, 개선, 늘) - (선박)&amp;(수주)&amp;(하락, 급감, 감소, 약화, 줄)</td>
+</tr>
+<tr class="odd">
+<td>자동차</td>
+<td>(자동차, 승용차)&amp;(상승, 급등, 증가, 개선, 가속) - (자동차, 승용차)&amp;(하락, 급감, 감소, 약화, 둔화)</td>
+</tr>
+<tr class="even">
+<td>반도체</td>
+<td>(반도체)&amp;(상승, 급등, 증가, 개선, 가속) - (반도체)&amp;(하락, 급감, 감소, 약화, 둔화)</td>
+</tr>
+<tr class="odd">
+<td>설비투자</td>
+<td>(설비투자, R&amp;D)&amp;(상승, 급등, 증가, 개선, 가속, 늘, 확대) - (설비투자, R&amp;D)&amp;(하락, 급락, 감소, 약화, 둔화, 줄, 감소)</td>
+</tr>
+<tr class="even">
+<td>주택건설</td>
+<td>(주택, 아파트)&amp;(건설, 건축, 착공, 시공)</td>
+</tr>
+<tr class="odd">
+<td>실업</td>
+<td>(실업)&amp;(상승, 증가, 늘, 악화)</td>
+</tr>
+<tr class="even">
+<td>고용</td>
+<td>(채용, 고용)&amp;(상승, 증가, 개선, 늘) - (채용, 고용)&amp;(하락, 감소, 약화, 줄)</td>
+</tr>
+<tr class="odd">
+<td>취업</td>
+<td>(취업, 구직)&amp;(상승, 증가, 늘) - (취업, 구직)&amp;(하락, 감소, 줄)</td>
+</tr>
+<tr class="even">
+<td>도소매</td>
+<td>(도매, 소매, 도소매)&amp;(상승, 급등, 증가, 개선, 가속, 늘) - (도매, 소매, 도소매)&amp;(하락, 급감, 감소, 약화, 둔화, 줄)</td>
+</tr>
+<tr class="odd">
+<td>정부지출</td>
+<td>(정부)&amp;(지원, 보조, 지출)</td>
+</tr>
+<tr class="even">
+<td>물가전망</td>
+<td>(물가)&amp;(전망, 예측, 예상)&amp;(상승, 급등, 올라, 높) - (물가)&amp;(전망, 예측, 예상)&amp;(하락, 급락, 내려, 낮)</td>
+</tr>
+<tr class="odd">
+<td>주가전망</td>
+<td>(코스피, 코스닥, 주가, 주식)&amp;(전망, 예측)&amp;(상승, 증가, 개선, 늘, 높) - (코스피, 코스닥, 주가, 주식)&amp;(전망, 예측)&amp;(하락, 감소, 약화, 줄, 낮)</td>
+</tr>
+<tr class="even">
+<td>주택가격</td>
+<td>(주택, 아파트)&amp;(가격, 매매가, 전세가, 분양가)&amp;(전망, 예측)&amp;(상승, 급등, 확대, 개선, 가속, 높) - (주택, 아파트)&amp;(가격, 매매가, 전세가, 분양가)&amp;(하락, 감소, 낮)</td>
+</tr>
+<tr class="odd">
+<td>세계교역</td>
+<td>(세계, 글로벌)&amp;(교역, 무역, 수출, 수입)&amp;(상승, 급등, 증가, 개선, 가속, 늘, 확대) - (세계, 글로벌)&amp;(교역, 무역, 수출, 수입)&amp;(하락, 급감, 의미.소, 약화, 둔화, 줄)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>주석</strong>:</p>
+<ol type="1">
+<li><p>(a, b, …)는 하나의 문장 안에서 나열된 원소(a, b, …) 중 하나 이상의 원소가 포함되는 경우를 의미.</p></li>
+<li><p>a &amp; b … 는 하나의 문장 안에서 나열된 원소(a, b, …) 모두가 포함되는 경우를 의미.</p></li>
+<li><p><strong>‘|’</strong>는 AND 조건을 만족하는 문장을 포함하는 것이며, 기여 지수를 의미.</p></li>
+</ol>
+<p><strong>수식 설명</strong></p>
+<p><span class="math inline">\(t\)</span> 시점에 발간된 뉴스 기사 집합: <span class="math inline">\(\Omega_t = \{ A_1, A_2, \dots, A_N \},\)</span></p>
+<ul>
+<li><span class="math inline">\(N\)</span>은 <span class="math inline">\(t\)</span>시점에 발간된 뉴스 기사 개수</li>
+</ul>
+<p>각 뉴스 기사 <span class="math inline">\(A_i\)</span>는 문장 <span class="math inline">\(S_{im}\)</span>의 집합 표현:</p>
+<p><span class="math display">\[A_i = \{ S_{i1}, S_{i2}, \dots, S_{iM_i} \},\]</span></p>
+<p>여기서: - <span class="math inline">\(M_i\)</span>는 기사 <span class="math inline">\(A_i\)</span>에 포함된 문장의 총 개수 - <span class="math inline">\(S_{im}\)</span>는 $A_i $에 포함된 <span class="math inline">\(m\)</span>-번째 문장</p>
+<p><span class="math inline">\(t\)</span>시점의 텍스트 기반 지표 <span class="math inline">\(R_t\)</span>는 특정 분야 단어군 <span class="math inline">\(W^{(k)} = \{W^{(k)}_1\}, \cdots, \{W^{(k)}_{Lk}\}\)</span>와 그 단어군 <span class="math inline">\(k\)</span>에 속하는 단어 <span class="math inline">\(w^{(k)}_j(j=1,\cdots,l_k)\)</span>에 대하여 다음과 같이 나타낸다.</p>
+<p><span class="math display">\[R_t = \frac{\sum_{i=1}^{N} \hat{A}_i}{N},\]</span></p>
+<p><span class="math display">\[\hat{A}_i = \bigvee_{m=1}^{M_i} C_{im},\]</span></p>
+<p><span class="math display">\[C_{im} = \prod_{k=1}^{K} \bigvee_{l=1}^{L_k} I_{S_{im}}\left(w_l^{(k)}\right).\]</span></p>
+<p>여기서 <span class="math inline">\(I_{S}(w)\)</span>는 지시 함수(indicator function):</p>
+<p><span class="math inline">\(I_{S}(w) = \begin{cases} 1, &amp; \text{if } w \in S \\ 0, &amp; \text{otherwise.} \end{cases}\)</span></p>
+<p><span class="math inline">\(\bigvee_{m=1}^{M} C_m = \max(C_1, \cdots, C_M)\)</span> 는 최대값 함수이다.</p>
+<p>이 때, <span class="math inline">\(R_t = R_t^{pos} - R_t^{neg}\)</span></p>
+<p>즉, 긍정 단어군을 기준으로 추출한 긍정 지표에서 부정 단어군을 기준으로 추출한 부정 지표를 차감하여 작성.</p>
+</section>
+<section id="유용성-검토-결과" class="level1">
+<h1>유용성 검토 결과</h1>
+<ul>
+<li><p>텍스트 지표가 각 부문의 관련 공식 통계와 0 ~ 9개월 선행시점에서 0.35~0.73의 비교적 높은 상관관계를 보임</p></li>
+<li><p>또한 Granger 인과성 검정 결과를 통해서도 텍스트 지표가 1~7개월 선행시점에서 대부분 유의한 인과성을 보이는 것으로 나타남</p></li>
+</ul>
+<p><img src="img/tefi_f4.png" width="800"></p>
+</section>
+<section id="경기-예측모형" class="level1">
+<h1>경기 예측모형</h1>
+<p>텍스트 지표는 공식 통계에 비해 노이즈가 크며, 이를 정상 시계열로 변환하기 어렵다. 비정상성(non-stationarity)이 명백하지 않으나, 변동성이 크고 경제적 시그널과 노이즈를 구분하기 어려운 문제가 있다.</p>
+<p>선형모형과 비선형모형의 한계 - 선형모형: 정상성 가정이 완벽히 충족되지 않아 예측오차가 증가할 가능성이 있음. - 비선형모형: 노이즈를 과적합하여 과적합(overfitting) 문제가 발생할 가능성이 있음.</p>
+<p>본 연구의 접근 방법 - 선형모형: 경기 예측에서 널리 활용되는 <strong>동적인자모형</strong> (<strong>Dynamic Factor Model, DFM</strong>)을 사용. - 비선형모형: <strong>Convolutional Recurrent Neural Network</strong> (<strong>CRNN</strong>)을 사용하여 경제 시계열 데이터에 맞게 구성.</p>
+<section id="비선형모형" class="level2">
+<h2 class="anchored" data-anchor-id="비선형모형">비선형모형</h2>
+<p>비선형모형(CRNN)의 구성 - CRNN 구조: - Convolutional Layer: 64개의 필터를 3개월 단위로 적용. - LSTM Layer: 32개 유닛으로 구성된 Long Short-Term Memory (LSTM) 레이어를 사용. - 작동 방식: - Convolutional Layer는 관측변수 간 관계를 추정. - LSTM Layer는 이 관계의 시계열 추세를 모형에 반영.</p>
+<p>자료 처리: - 월 및 분기 단위의 시계열 자료를 분기 단위로 집계하여 혼합주기 시계열 데이터를 CRNN 모형이 처리할 수 있도록 설계.</p>
+<p><img src="img/tefi_f5.png" width="400"></p>
+</section>
+<section id="선형-모형" class="level2">
+<h2 class="anchored" data-anchor-id="선형-모형">선형 모형</h2>
+<ul>
+<li>Nowcasting에 널리 활용되는 동적인자모형(Dynamic Factor Model, DFM) 사용</li>
+<li>다변량 관측변수들을 소수의 <strong>잠재요인</strong>(latent factor)으로 추정하여, 고차원 시계열 변수들의 동조적 변동성을 효과적으로 적합</li>
+</ul>
+<section id="dfm의-구성" class="level3">
+<h3 class="anchored" data-anchor-id="dfm의-구성">DFM의 구성</h3>
+<ul>
+<li>관측변수에 대한 선형모형: 각 관측변수는 잠재요인과의 선형 관계를 통해 설명됨</li>
+<li>잠재요인에 대한 선형모형: 잠재요인은 시계열적으로 상호 관련되어 있으며, 그 변화를 선형적으로 설명함</li>
+</ul>
+</section>
+<section id="dfm의-활용-장점" class="level3">
+<h3 class="anchored" data-anchor-id="dfm의-활용-장점">DFM의 활용 장점</h3>
+<ul>
+<li>복잡한 다변량 시계열 데이터를 간결하게 요약할 수 있음</li>
+<li>경제적 변동성을 설명하는 데 적합하며, Nowcasting 및 경기 예측 모형에서 효과적으로 활용됨</li>
+</ul>
+<p><span class="math display">\[X_t' = \lambda(L)f_t + e_t\]</span> <span class="math display">\[f_t = \psi(L)f_{t-1} + \eta_t\]</span> - <span class="math inline">\(X_t'\)</span>: <span class="math inline">\(t\)</span>시점의 <span class="math inline">\(p\)</span>개 관측변수 - <span class="math inline">\(f_t\)</span>: <span class="math inline">\(q\)</span>개 잠재요인 - <span class="math inline">\(e_t\)</span> 및 <span class="math inline">\(\eta_t\)</span>: <span class="math inline">\(t\)</span>시점의 idiosyncratic disturbance 및 factor innovation - <span class="math inline">\(L\)</span>: 시차연산자 - <span class="math inline">\(\lambda(L)\)</span> 및 <span class="math inline">\(\psi(L)\)</span>: 각각 두 식의 시차 다항행렬식</p>
 
 
+</section>
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -953,19 +1107,16 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../posts/ml_trading/0_Introduction.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">1. 트레이딩 개요</span>
+      <a href="../../posts/nlp/news_sentiment_index.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">뉴스심리지수(NSI) - 한국은행</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../posts/ml_trading/2_Labeling.html" class="pagination-link">
-        <span class="nav-page-text">3. 가격 모멘텀 라벨링</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></div></div></footer><script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

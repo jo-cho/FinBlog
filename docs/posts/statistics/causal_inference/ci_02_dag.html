@@ -637,6 +637,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">뉴스심리지수(NSI) - 한국은행</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../posts/nlp/text-based_economic_filed_indicator.ipynb" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">경제부문별 텍스트 지표</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -741,12 +747,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="dag의-특징" class="level2">
 <h2 class="anchored" data-anchor-id="dag의-특징">DAG의 특징</h2>
 <ul>
-<li><strong>인과 경로</strong>(causal pathway)를 명시적으로 나타냄.</li>
-<li>인과 경로의 부재도 명시적으로 드러냄(화살표가 없는 경우).
+<li><p><strong>인과 경로</strong>(causal pathway)를 명시적으로 나타냄.</p></li>
+<li><p>인과 경로의 부재도 명시적으로 드러냄(화살표가 없는 경우).</p>
 <ul>
 <li>화살표의 부재는 해당 데이터에 인과 관계가 없다는 강한 신념을 반영.</li>
 </ul></li>
-<li>완전한 DAG는:
+<li><p>완전한 DAG는:</p>
 <ul>
 <li>그래프에 포함된 모든 변수 간의 직접적인 인과 효과를 포함.</li>
 <li>모든 변수 쌍의 공통 원인을 포함.</li>
@@ -794,8 +800,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>충돌자(Colliding)</h1>
 <p><img src="img/ci_02_3.png" width="300"></p>
 <p>이 DAG에서 <span class="math inline">\(D\)</span>에서 <span class="math inline">\(Y\)</span>로 가는 두 가지 경로가 있다: 1. 직접 경로: <span class="math inline">\(D→Y\)</span>. 이는 인과적 경로(causal path)이다. 2. 백도어 경로: <span class="math inline">\(D→X←Y\)</span></p>
-<p>여기서 백도어 경로의 중요한 차이점은 <span class="math inline">\(X\)</span>가 <strong>콜라이더</strong>(collidor)라는 점이다. - <span class="math inline">\(X\)</span>는 <span class="math inline">\(D\)</span>와 <span class="math inline">\(Y\)</span>로부터 화살표를 받는 변수다. - 경로상에서 두 변수가 제3의 변수에 영향을 미칠 때, 이를 콜라이더라고 한다.</p>
-<p>콜라이더의 특징: - 콜라이더가 백도어 경로에 등장하면, 백도어 경로는 콜라이더의 존재로 인해 닫히게(closed) 된다. - 즉, 별다른 조치를 취하지 않아도, 콜라이더는 자동으로 특정 백도어 경로를 차단한다.</p>
+<p>여기서 백도어 경로의 중요한 차이점은 <span class="math inline">\(X\)</span>가 <strong>콜라이더</strong>(collidor)라는 점이다.</p>
+<ul>
+<li><span class="math inline">\(X\)</span>는 <span class="math inline">\(D\)</span>와 <span class="math inline">\(Y\)</span>로부터 화살표를 받는 변수다.</li>
+<li>경로상에서 두 변수가 제3의 변수에 영향을 미칠 때, 이를 콜라이더라고 한다.</li>
+</ul>
+<p>콜라이더의 특징:</p>
+<ul>
+<li>콜라이더가 백도어 경로에 등장하면, 백도어 경로는 콜라이더의 존재로 인해 닫히게(closed) 된다.</li>
+<li>즉, 별다른 조치를 취하지 않아도, 콜라이더는 자동으로 특정 백도어 경로를 차단한다.</li>
+</ul>
 <section id="backdoor-criterion" class="level2">
 <h2 class="anchored" data-anchor-id="backdoor-criterion">Backdoor criterion</h2>
 <p><strong>백도어 경로</strong>(<strong>open backdoor path</strong>)는 인과 추론에서 중요한 문제로, 관심 있는 인과 변수와 결과 변수 사이에 체계적이면서도 비인과적인 상관관계를 만들어낸다.</p>

@@ -30,6 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
+<link href="../../posts/nlp/text-based_economic_field_indicator.ipynb" rel="next">
 <link href="../../posts/nlp/finance_llm_survey.html" rel="prev">
 <link href="../../logo.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
@@ -599,6 +600,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">뉴스심리지수(NSI) - 한국은행</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/nlp/text-based_economic_field_indicator.ipynb" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">경제부문별 텍스트 지표</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -676,8 +683,16 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>논문 요약</strong></p>
 <section id="데이터" class="level1">
 <h1>데이터</h1>
-<p>뉴스기사 텍스트 데이터의 웹크롤링(web crawling) - 경제분야로 한정하여 인터넷 포털사이트(약 50여개 언론사)에서 뉴스기사 수집 - 수집 대상기간: 2005년 이후</p>
-<p>데이터 무결성(data integrity) 처리 - 중복된 뉴스기사 또는 광고성 기사 등 - 새로 수집한 뉴스기사 원문이 직전 30일 내에 한번이라도 동일하게 데이터베이스에 등장하는 경우, 이 뉴스기사를 배제제 년 이후이후</p>
+<p>뉴스기사 텍스트 데이터의 웹크롤링(web crawling)</p>
+<ul>
+<li>경제분야로 한정하여 인터넷 포털사이트(약 50여개 언론사)에서 뉴스기사 수집</li>
+<li>수집 대상기간: 2005년 이후</li>
+</ul>
+<p>데이터 무결성(data integrity) 처리</p>
+<ul>
+<li>중복된 뉴스기사 또는 광고성 기사 등</li>
+<li>새로 수집한 뉴스기사 원문이 직전 30일 내에 한번이라도 동일하게 데이터베이스에 등장하는 경우, 이 뉴스기사를 배제</li>
+</ul>
 <p><img src="img/nsi_f1.png" width="500"></p>
 </section>
 <section id="작성-방법" class="level1">
@@ -1044,6 +1059,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../../posts/nlp/text-based_economic_field_indicator.ipynb" class="pagination-link">
+        <span class="nav-page-text">경제부문별 텍스트 지표</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

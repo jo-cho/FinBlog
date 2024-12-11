@@ -157,6 +157,8 @@ website:
               text: "금융분야의 LLM (2023)"
             - href: posts/nlp/news_sentiment_index.ipynb
               text: "뉴스심리지수(NSI) - 한국은행"
+            - href: posts/nlp/text-based_economic_field_indicators.ipynb
+              text: "경제부문별 텍스트 지표"
 format:
   html:
     theme: flatly
