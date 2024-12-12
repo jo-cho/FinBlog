@@ -626,7 +626,10 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#기존-연구-사례" id="toc-기존-연구-사례" class="nav-link" data-scroll-target="#기존-연구-사례">기존 연구 사례</a></li>
   </ul></li>
   <li><a href="#데이터" id="toc-데이터" class="nav-link" data-scroll-target="#데이터">데이터</a></li>
-  <li><a href="#경제지표-작성" id="toc-경제지표-작성" class="nav-link" data-scroll-target="#경제지표-작성">경제지표 작성</a></li>
+  <li><a href="#경제지표-작성" id="toc-경제지표-작성" class="nav-link" data-scroll-target="#경제지표-작성">경제지표 작성</a>
+  <ul class="collapse">
+  <li><a href="#수식-설명" id="toc-수식-설명" class="nav-link" data-scroll-target="#수식-설명">수식 설명</a></li>
+  </ul></li>
   <li><a href="#유용성-검토-결과" id="toc-유용성-검토-결과" class="nav-link" data-scroll-target="#유용성-검토-결과">유용성 검토 결과</a></li>
   <li><a href="#경기-예측모형" id="toc-경기-예측모형" class="nav-link" data-scroll-target="#경기-예측모형">경기 예측모형</a>
   <ul class="collapse">
@@ -634,9 +637,11 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#선형-모형" id="toc-선형-모형" class="nav-link" data-scroll-target="#선형-모형">선형 모형</a>
   <ul class="collapse">
   <li><a href="#dfm의-구성" id="toc-dfm의-구성" class="nav-link" data-scroll-target="#dfm의-구성">DFM의 구성</a></li>
-  <li><a href="#dfm의-활용-장점" id="toc-dfm의-활용-장점" class="nav-link" data-scroll-target="#dfm의-활용-장점">DFM의 활용 장점</a></li>
   </ul></li>
   </ul></li>
+  <li><a href="#학습-데이터-구성" id="toc-학습-데이터-구성" class="nav-link" data-scroll-target="#학습-데이터-구성">학습 데이터 구성</a></li>
+  <li><a href="#예측모형의-추정-결과" id="toc-예측모형의-추정-결과" class="nav-link" data-scroll-target="#예측모형의-추정-결과">예측모형의 추정 결과</a></li>
+  <li><a href="#dfm-모형-해석" id="toc-dfm-모형-해석" class="nav-link" data-scroll-target="#dfm-모형-해석">DFM 모형 해석</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -673,7 +678,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <blockquote class="blockquote">
-<p>서범석(2022)에서 소개한 경제부문별 텍스트 지표를 소개한다. 경기 예측에 대한 내용도 포함한다.</p>
+<p>서범석(2022)에서 소개한 경제부문별 텍스트 지표를 소개한다. 또한 경기 예측 모형에 대한 내용도 포함한다.</p>
 </blockquote>
 <p><strong>논문 요약</strong></p>
 <section id="선행연구" class="level1">
@@ -712,20 +717,27 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="데이터" class="level1">
 <h1>데이터</h1>
-<p>뉴스기사 텍스트 데이터의 웹크롤링(web crawling) - 경제분야 뉴스 기사 약 70여개 언론사에서 수집 - 수집 대상기간: 2005년 ~ 2022년 3월 - 평일 기준 일평균 약 3000건, 문장 단위로 환산 시 약 1천8백만 문장</p>
+<ul>
+<li>뉴스기사 텍스트 데이터의 웹크롤링(web crawling)</li>
+<li>경제분야 뉴스 기사 약 70여개 언론사에서 수집</li>
+<li>수집 대상기간: 2005년 ~ 2022년 3월</li>
+<li>평일 기준 일평균 약 3000건, 문장 단위로 환산 시 약 1천8백만 문장</li>
+</ul>
 </section>
 <section id="경제지표-작성" class="level1">
 <h1>경제지표 작성</h1>
-<p>15개 부문의 주요 거시변수 및 일부 산업 관련 미시변수를 선정</p>
-<p><strong>사전접근법 방식</strong> 사용</p>
-<p>부문별 텍스트 기반 경제지표는 주제가 명확하고, 뉴스 데이터가 정형화된 문어체이므로 사전접근법 방식을 사용하는 것이 적합함</p>
 <ul>
-<li>지도학습 방식은 다음과 같은 문제로 인해 부적합함: 시간과 비용, 과적합 문제</li>
+<li><p><strong>15개 부문</strong>의 주요 거시변수 및 일부 산업 관련 미시변수를 선정</p></li>
+<li><p><strong>사전접근법 방식</strong> 사용</p>
+<ul>
+<li>부문별 텍스트 기반 경제지표는 주제가 명확하고, 뉴스 데이터가 정형화된 문어체이므로 사전접근법 방식을 사용하는 것이 적합함</li>
+<li>지도학습 방식은 시간과 비용, 과적합 문제 등으로 부적합함:</li>
 <li>토픽모델링과 같은 비지도학습 방식은 추출 주제가 명확하지 않을 때 적합하지만, 구체적인 주제를 다룰 경우 적합하지 않음</li>
+</ul></li>
+<li><p>특정 단어의 포함 여부를 <strong>문장</strong> 단위에 적용한 뒤, 해당 문장의 포함 여부를 기준으로 뉴스 기사를 분류하여 작성 (기존 연구들은 기사 단위에 적용)</p></li>
+<li><p>분야별 단어군을 사전에 정의하고, 이들 단어군을 포함하는 문장이 등장한 기사들의 기간중 상대빈도수를 계산하여 작성</p></li>
 </ul>
-<p>특정 단어의 포함 여부를 <strong>문장</strong> 단위에 적용한 뒤, 해당 문장의 포함 여부를 기준으로 뉴스 기사를 분류하여 작성 (기존 연구들은 기사 단위에 적용)</p>
-<p>분야별 단어군을 사전에 정의하고, 이들 단어군을 포함하는 문장이 등장한 기사들의 기간중 상대빈도수를 계산하여 작성</p>
-<p>&lt;부문별 텍스트 지표 작성을 위한 단어군&gt;</p>
+<p><strong>&lt;부문별 텍스트 지표 작성을 위한 단어군&gt;</strong></p>
 <table class="table">
 <colgroup>
 <col style="width: 30%">
@@ -806,23 +818,33 @@ ul.task-list li input[type="checkbox"] {
 <li><p>a &amp; b … 는 하나의 문장 안에서 나열된 원소(a, b, …) 모두가 포함되는 경우를 의미.</p></li>
 <li><p><strong>‘|’</strong>는 AND 조건을 만족하는 문장을 포함하는 것이며, 기여 지수를 의미.</p></li>
 </ol>
-<p><strong>수식 설명</strong></p>
-<p><span class="math inline">\(t\)</span> 시점에 발간된 뉴스 기사 집합: <span class="math inline">\(\Omega_t = \{ A_1, A_2, \dots, A_N \},\)</span></p>
+<section id="수식-설명" class="level3">
+<h3 class="anchored" data-anchor-id="수식-설명">수식 설명</h3>
+<ul>
+<li><p><span class="math inline">\(t\)</span> 시점에 발간된 뉴스 기사 집합: <span class="math inline">\(\Omega_t = \{ A_1, A_2, \dots, A_N \},\)</span></p>
 <ul>
 <li><span class="math inline">\(N\)</span>은 <span class="math inline">\(t\)</span>시점에 발간된 뉴스 기사 개수</li>
+</ul></li>
+<li><p>각 뉴스 기사 <span class="math inline">\(A_i\)</span>는 문장 <span class="math inline">\(S_{im}\)</span>의 집합 표현:</p></li>
 </ul>
-<p>각 뉴스 기사 <span class="math inline">\(A_i\)</span>는 문장 <span class="math inline">\(S_{im}\)</span>의 집합 표현:</p>
 <p><span class="math display">\[A_i = \{ S_{i1}, S_{i2}, \dots, S_{iM_i} \},\]</span></p>
-<p>여기서: - <span class="math inline">\(M_i\)</span>는 기사 <span class="math inline">\(A_i\)</span>에 포함된 문장의 총 개수 - <span class="math inline">\(S_{im}\)</span>는 $A_i $에 포함된 <span class="math inline">\(m\)</span>-번째 문장</p>
-<p><span class="math inline">\(t\)</span>시점의 텍스트 기반 지표 <span class="math inline">\(R_t\)</span>는 특정 분야 단어군 <span class="math inline">\(W^{(k)} = \{W^{(k)}_1\}, \cdots, \{W^{(k)}_{Lk}\}\)</span>와 그 단어군 <span class="math inline">\(k\)</span>에 속하는 단어 <span class="math inline">\(w^{(k)}_j(j=1,\cdots,l_k)\)</span>에 대하여 다음과 같이 나타낸다.</p>
+<ul>
+<li>여기서:
+<ul>
+<li><span class="math inline">\(M_i\)</span>는 기사 <span class="math inline">\(A_i\)</span>에 포함된 문장의 총 개수</li>
+<li><span class="math inline">\(S_{im}\)</span>는 $A_i $에 포함된 <span class="math inline">\(m\)</span>-번째 문장</li>
+</ul></li>
+<li><span class="math inline">\(t\)</span>시점의 텍스트 기반 지표 <span class="math inline">\(R_t\)</span>는 특정 분야 단어군 <span class="math inline">\(W^{(k)} = \{W^{(k)}_1\}, \cdots, \{W^{(k)}_{Lk}\}\)</span>와 그 단어군 <span class="math inline">\(k\)</span>에 속하는 단어 <span class="math inline">\(w^{(k)}_j(j=1,\cdots,l_k)\)</span>에 대하여 다음과 같이 나타냄</li>
+</ul>
 <p><span class="math display">\[R_t = \frac{\sum_{i=1}^{N} \hat{A}_i}{N},\]</span></p>
 <p><span class="math display">\[\hat{A}_i = \bigvee_{m=1}^{M_i} C_{im},\]</span></p>
 <p><span class="math display">\[C_{im} = \prod_{k=1}^{K} \bigvee_{l=1}^{L_k} I_{S_{im}}\left(w_l^{(k)}\right).\]</span></p>
 <p>여기서 <span class="math inline">\(I_{S}(w)\)</span>는 지시 함수(indicator function):</p>
 <p><span class="math inline">\(I_{S}(w) = \begin{cases} 1, &amp; \text{if } w \in S \\ 0, &amp; \text{otherwise.} \end{cases}\)</span></p>
-<p><span class="math inline">\(\bigvee_{m=1}^{M} C_m = \max(C_1, \cdots, C_M)\)</span> 는 최대값 함수이다.</p>
-<p>이 때, <span class="math inline">\(R_t = R_t^{pos} - R_t^{neg}\)</span></p>
-<p>즉, 긍정 단어군을 기준으로 추출한 긍정 지표에서 부정 단어군을 기준으로 추출한 부정 지표를 차감하여 작성.</p>
+<p><span class="math inline">\(\bigvee_{m=1}^{M} C_m = \max(C_1, \cdots, C_M)\)</span> 는 최대값 함수</p>
+<p>긍정 단어군을 기준으로 추출한 긍정 지표에서 부정 단어군을 기준으로 추출한 부정 지표를 차감하여 작성</p>
+<p><span class="math display">\[R_t = R_t^{pos} - R_t^{neg}\]</span></p>
+</section>
 </section>
 <section id="유용성-검토-결과" class="level1">
 <h1>유용성 검토 결과</h1>
@@ -834,13 +856,38 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="경기-예측모형" class="level1">
 <h1>경기 예측모형</h1>
-<p>텍스트 지표는 공식 통계에 비해 노이즈가 크며, 이를 정상 시계열로 변환하기 어렵다. 비정상성(non-stationarity)이 명백하지 않으나, 변동성이 크고 경제적 시그널과 노이즈를 구분하기 어려운 문제가 있다.</p>
-<p>선형모형과 비선형모형의 한계 - 선형모형: 정상성 가정이 완벽히 충족되지 않아 예측오차가 증가할 가능성이 있음. - 비선형모형: 노이즈를 과적합하여 과적합(overfitting) 문제가 발생할 가능성이 있음.</p>
-<p>본 연구의 접근 방법 - 선형모형: 경기 예측에서 널리 활용되는 <strong>동적인자모형</strong> (<strong>Dynamic Factor Model, DFM</strong>)을 사용. - 비선형모형: <strong>Convolutional Recurrent Neural Network</strong> (<strong>CRNN</strong>)을 사용하여 경제 시계열 데이터에 맞게 구성.</p>
+<ul>
+<li><p>텍스트 지표는 공식 통계에 비해 노이즈가 크며, 이를 정상 시계열로 변환하기 어렵다. 비정상성(non-stationarity)이 명백하지 않으나, 변동성이 크고 경제적 시그널과 노이즈를 구분하기 어려운 문제가 있음.</p></li>
+<li><p>선형모형과 비선형모형의 한계</p>
+<ul>
+<li>선형모형: 정상성 가정이 완벽히 충족되지 않아 예측오차가 증가할 가능성이 있음.</li>
+<li>비선형모형: 노이즈를 과적합하여 과적합(overfitting) 문제가 발생할 가능성이 있음.</li>
+</ul></li>
+<li><p>본 연구의 접근 방법</p>
+<ul>
+<li>선형모형: 경기 예측에서 널리 활용되는 <strong>동적인자모형</strong> (<strong>Dynamic Factor Model, DFM</strong>)을 사용</li>
+<li>비선형모형: <strong>Convolutional Recurrent Neural Network</strong> (<strong>CRNN</strong>)을 사용하여 경제 시계열 데이터에 맞게 구성</li>
+</ul></li>
+</ul>
 <section id="비선형모형" class="level2">
 <h2 class="anchored" data-anchor-id="비선형모형">비선형모형</h2>
-<p>비선형모형(CRNN)의 구성 - CRNN 구조: - Convolutional Layer: 64개의 필터를 3개월 단위로 적용. - LSTM Layer: 32개 유닛으로 구성된 Long Short-Term Memory (LSTM) 레이어를 사용. - 작동 방식: - Convolutional Layer는 관측변수 간 관계를 추정. - LSTM Layer는 이 관계의 시계열 추세를 모형에 반영.</p>
-<p>자료 처리: - 월 및 분기 단위의 시계열 자료를 분기 단위로 집계하여 혼합주기 시계열 데이터를 CRNN 모형이 처리할 수 있도록 설계.</p>
+<p>비선형모형(CRNN)의 구성</p>
+<ul>
+<li>CRNN 구조:
+<ul>
+<li>Convolutional Layer: 64개의 필터를 3개월 단위로 적용</li>
+<li>LSTM Layer: 32개 유닛으로 구성된 Long Short-Term Memory (LSTM) 레이어를 사용</li>
+</ul></li>
+<li>작동 방식:
+<ul>
+<li>Convolutional Layer는 관측변수 간 관계를 추정</li>
+<li>LSTM Layer는 이 관계의 시계열 추세를 모형에 반영</li>
+</ul></li>
+<li>자료 처리:
+<ul>
+<li>월 및 분기 단위의 시계열 자료를 분기 단위로 집계하여 혼합주기 시계열 데이터를 CRNN 모형이 처리할 수 있도록 설계</li>
+</ul></li>
+</ul>
 <p><img src="img/tefi_f5.png" width="400"></p>
 </section>
 <section id="선형-모형" class="level2">
@@ -848,6 +895,7 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li>Nowcasting에 널리 활용되는 동적인자모형(Dynamic Factor Model, DFM) 사용</li>
 <li>다변량 관측변수들을 소수의 <strong>잠재요인</strong>(latent factor)으로 추정하여, 고차원 시계열 변수들의 동조적 변동성을 효과적으로 적합</li>
+<li>복잡한 다변량 시계열 데이터를 간결하게 요약할 수 있음. 경제적 변동성을 설명하는 데 적합하며, Nowcasting 및 경기 예측 모형에서 효과적으로 활용됨</li>
 </ul>
 <section id="dfm의-구성" class="level3">
 <h3 class="anchored" data-anchor-id="dfm의-구성">DFM의 구성</h3>
@@ -855,18 +903,148 @@ ul.task-list li input[type="checkbox"] {
 <li>관측변수에 대한 선형모형: 각 관측변수는 잠재요인과의 선형 관계를 통해 설명됨</li>
 <li>잠재요인에 대한 선형모형: 잠재요인은 시계열적으로 상호 관련되어 있으며, 그 변화를 선형적으로 설명함</li>
 </ul>
-</section>
-<section id="dfm의-활용-장점" class="level3">
-<h3 class="anchored" data-anchor-id="dfm의-활용-장점">DFM의 활용 장점</h3>
+<p><span class="math display">\[X_t' = \lambda(L)f_t + e_t\]</span> <span class="math display">\[f_t = \psi(L)f_{t-1} + \eta_t\]</span></p>
 <ul>
-<li>복잡한 다변량 시계열 데이터를 간결하게 요약할 수 있음</li>
-<li>경제적 변동성을 설명하는 데 적합하며, Nowcasting 및 경기 예측 모형에서 효과적으로 활용됨</li>
+<li><p><span class="math inline">\(X_t'\)</span>: <span class="math inline">\(t\)</span>시점의 <span class="math inline">\(p\)</span>개 관측변수</p></li>
+<li><p><span class="math inline">\(f_t\)</span>: <span class="math inline">\(q\)</span>개 잠재요인</p></li>
+<li><p><span class="math inline">\(e_t\)</span> 및 <span class="math inline">\(\eta_t\)</span>: <span class="math inline">\(t\)</span>시점의 idiosyncratic disturbance 및 factor innovation</p></li>
+<li><p><span class="math inline">\(L\)</span>: 시차연산자</p></li>
+<li><p><span class="math inline">\(\lambda(L)\)</span> 및 <span class="math inline">\(\psi(L)\)</span>: 각각 두 식의 시차 다항행렬식</p></li>
+<li><p>잠재요인 13개</p>
+<ul>
+<li>모든 변수 고려한 종합요인 2개</li>
+<li>63개 관측변수를 부문별로 나누어 구성한 부문별요인 11개</li>
+</ul></li>
+<li><p>시차변수</p>
+<ul>
+<li>종합요인은 4기</li>
+<li>부문별요인은 1기</li>
+</ul></li>
 </ul>
-<p><span class="math display">\[X_t' = \lambda(L)f_t + e_t\]</span> <span class="math display">\[f_t = \psi(L)f_{t-1} + \eta_t\]</span> - <span class="math inline">\(X_t'\)</span>: <span class="math inline">\(t\)</span>시점의 <span class="math inline">\(p\)</span>개 관측변수 - <span class="math inline">\(f_t\)</span>: <span class="math inline">\(q\)</span>개 잠재요인 - <span class="math inline">\(e_t\)</span> 및 <span class="math inline">\(\eta_t\)</span>: <span class="math inline">\(t\)</span>시점의 idiosyncratic disturbance 및 factor innovation - <span class="math inline">\(L\)</span>: 시차연산자 - <span class="math inline">\(\lambda(L)\)</span> 및 <span class="math inline">\(\psi(L)\)</span>: 각각 두 식의 시차 다항행렬식</p>
-
-
+<table class="table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 89%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>요인</th>
+<th>관측변수</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>종합1</td>
+<td>모든 변수</td>
+</tr>
+<tr class="even">
+<td>종합2</td>
+<td>모든 변수</td>
+</tr>
+<tr class="odd">
+<td>생산</td>
+<td>제조업출하지수, 제조업재고지수, 서비스업생산지수, 광공업생산지수, 전산업매출BSI, 전산업황실적BSI, 제조업수출BSI, 제조업경기동률BSI, 제조업신규수주BSI, 제조업내수판매BSI, 제조업업황실적(SA)BSI, GDP(분기), <strong>생산(뉴스)</strong>, <strong>선박(뉴스)</strong>, <strong>자동차(뉴스)</strong>, <strong>반도체(뉴스)</strong></td>
+</tr>
+<tr class="even">
+<td>대외</td>
+<td>수출, 수입, GDP수출(분기), <strong>세계교역(뉴스)</strong></td>
+</tr>
+<tr class="odd">
+<td>투자</td>
+<td>설비투자지수, GDP설비투자(분기), GDP건설투자(분기), <strong>설비투자(뉴스)</strong>, <strong>주택건설(뉴스)</strong></td>
+</tr>
+<tr class="even">
+<td>고용</td>
+<td>실업률, 고용률, 구인배수, 취업률, 취업자수, <strong>실업(뉴스)</strong>, <strong>채용(뉴스)</strong>, <strong>취업(뉴스)</strong></td>
+</tr>
+<tr class="odd">
+<td>소비</td>
+<td>소매판매액지수, 현재경제판단CSI, 소비자심리지수, GDP민간소비(분기), <strong>도소매(뉴스)</strong></td>
+</tr>
+<tr class="even">
+<td>물가</td>
+<td>수출물가지수, 수입물가지수, 소비자물가지수, 생산자물가지수, 농산물및석유류제외지수, 식료품및에너지제외지수, WTI선물, 금선물, <strong>물가전망(뉴스)</strong></td>
+</tr>
+<tr class="odd">
+<td>주식</td>
+<td>원달러환율, KOSPI, KOSDAQ, VKOSPI, <strong>주가전망(뉴스)</strong></td>
+</tr>
+<tr class="even">
+<td>부동산</td>
+<td>주택매매가격지수–서울, 주택매매가격지수–전국, 주택전세가격지수–서울, 주택전세가격지수–전국, <strong>주택가격전망(뉴스)</strong></td>
+</tr>
+<tr class="odd">
+<td>금리</td>
+<td>콜금리, CD금리, 국고채3년금리</td>
+</tr>
+<tr class="even">
+<td>심리</td>
+<td>경제심리지수, <strong>뉴스심리지수(뉴스)</strong>, <strong>경제불확실성지수(뉴스)</strong></td>
+</tr>
+<tr class="odd">
+<td>정부</td>
+<td><strong>정부지출(뉴스)</strong></td>
+</tr>
+</tbody>
+</table>
+<p>주: 1) 모든 관측변수는 추세적으로 상승하는 경우 전년동기대비 증가율을 사용하였으며, 진한 글씨는 텍스트 지표를 의미</p>
 </section>
 </section>
+</section>
+<section id="학습-데이터-구성" class="level1">
+<h1>학습 데이터 구성</h1>
+<p><strong>학습 데이터 구성</strong></p>
+<ul>
+<li>과거 시점 기준으로 작성된 데이터를 vintage 데이터라고 부르며, 이는 서로 다른 공표 주기와 시차를 가진 자료로 구성됨.</li>
+</ul>
+<p><strong>Vintage 데이터 문제점</strong></p>
+<ul>
+<li>혼합주기문제 (Mixed Frequency Problem): 공표 주기가 다른 자료를 하나의 데이터로 구성할 때 발생.</li>
+<li>최종시점차이문제 (Ragged Edge Problem): 최종 시점의 자료가 누락되어 발생.</li>
+</ul>
+<p><strong>문제 해결 방법</strong></p>
+<ul>
+<li><p>일반적으로 보간법 (Interpolation) 또는 집계법 (Aggregation)을 사용</p>
+<ul>
+<li>보간법: 고차원 주기의 변수를 저차원 주기로 변환.</li>
+<li>집계법: 데이터의 시차를 일치시키기 위해 저차원 주기로 집계.</li>
+</ul></li>
+<li><p>DFM: 보간법을 활용.</p></li>
+<li><p>CRNN: 집계법을 활용.</p></li>
+<li><p>예측 수행시점은 분기 종료 당일로 하고, 예측 대상시점은 당분기로 한정</p></li>
+<li><p>모형 학습</p>
+<ul>
+<li>2005년부터 2021년까지의 46개 공식 통계자료(월 41개, 분기 5개)와 17개 뉴스 텍스트 기반 경제지표를 vintage 데이터로 구성</li>
+</ul></li>
+<li><p>모형 평가</p>
+<ul>
+<li>2016년 1분기부터 2021년 4분기까지의 전년동기대비 국내총생산(GDP) 증가율의 일반화(regularized) 예측평균오차(mean absolute error, MAE)를 평가지표로 이용</li>
+<li>즉, 매분기 말일까지 이용가능한 자료를 바탕으로 당분기 GDP 증가율을 예측하고, 이를 실제 공표수치와 비교하여 모형을 평가</li>
+<li>텍스트 데이터를 추가함으로써 얻는 정확도 개선효과와 모형 선택에 따른 정확도 개선효과를 구분하기 위하여, 예측평균오차를 데이터×모형의 크로스테이블로 작성</li>
+</ul></li>
+</ul>
+</section>
+<section id="예측모형의-추정-결과" class="level1">
+<h1>예측모형의 추정 결과</h1>
+<ul>
+<li>선형 및 비선형 모형 모두에서 텍스트 지표를 추가한 경우 예측 정확도가 유의미하게 높아짐</li>
+<li>경기 예측모형으로는 DFM이 CRNN보다 우수한 것으로 나타남</li>
+<li>다만 DFM 모형을 보면 텍스트 지표만을 이용한 경우의 예측 정확도는 공식 통계만 이용한 경우보다 낮게 나타남</li>
+</ul>
+<p><img src="img/tefi_t5.png" width="300"></p>
+<p><img src="img/tefi_t6.png" width="300"></p>
+</section>
+<section id="dfm-모형-해석" class="level1">
+<h1>DFM 모형 해석</h1>
+<ul>
+<li>DFM에 포함된 텍스트 지표의 예측 기여도
+<ul>
+<li>생산(뉴스), 물가전망(뉴스), 채용(뉴스), 정부지출(뉴스), 뉴스심리지수 (뉴스), 경제불확실성지수(뉴스) 등 거시적 지표의 성격을 갖는 텍스트 지표가 선박(뉴스), 반도체(뉴스) 등 미시적 지표 성격의 텍스트 지표에 비해 경기 예측모형에 유용한 것으로 나타남</li>
+</ul></li>
+</ul>
+<p><img src="img/tefi_f8.png" width="800"></p>
+
+
 </section>
 
 </main> <!-- /main -->

@@ -431,21 +431,21 @@
     "href": "posts/nlp/text-based_economic_field_indicators.html",
     "title": "경제부문별 텍스트 지표 (서범석, 2022)",
     "section": "",
-    "text": "서범석(2022)에서 소개한 경제부문별 텍스트 지표를 소개한다. 경기 예측에 대한 내용도 포함한다.\n논문 요약"
+    "text": "서범석(2022)에서 소개한 경제부문별 텍스트 지표를 소개한다. 또한 경기 예측 모형에 대한 내용도 포함한다.\n논문 요약"
   },
   {
     "objectID": "posts/nlp/text-based_economic_field_indicators.html#비선형모형",
     "href": "posts/nlp/text-based_economic_field_indicators.html#비선형모형",
     "title": "경제부문별 텍스트 지표 (서범석, 2022)",
     "section": "비선형모형",
-    "text": "비선형모형\n비선형모형(CRNN)의 구성 - CRNN 구조: - Convolutional Layer: 64개의 필터를 3개월 단위로 적용. - LSTM Layer: 32개 유닛으로 구성된 Long Short-Term Memory (LSTM) 레이어를 사용. - 작동 방식: - Convolutional Layer는 관측변수 간 관계를 추정. - LSTM Layer는 이 관계의 시계열 추세를 모형에 반영.\n자료 처리: - 월 및 분기 단위의 시계열 자료를 분기 단위로 집계하여 혼합주기 시계열 데이터를 CRNN 모형이 처리할 수 있도록 설계."
+    "text": "비선형모형\n비선형모형(CRNN)의 구성\n\nCRNN 구조:\n\nConvolutional Layer: 64개의 필터를 3개월 단위로 적용\nLSTM Layer: 32개 유닛으로 구성된 Long Short-Term Memory (LSTM) 레이어를 사용\n\n작동 방식:\n\nConvolutional Layer는 관측변수 간 관계를 추정\nLSTM Layer는 이 관계의 시계열 추세를 모형에 반영\n\n자료 처리:\n\n월 및 분기 단위의 시계열 자료를 분기 단위로 집계하여 혼합주기 시계열 데이터를 CRNN 모형이 처리할 수 있도록 설계"
   },
   {
     "objectID": "posts/nlp/text-based_economic_field_indicators.html#선형-모형",
     "href": "posts/nlp/text-based_economic_field_indicators.html#선형-모형",
     "title": "경제부문별 텍스트 지표 (서범석, 2022)",
     "section": "선형 모형",
-    "text": "선형 모형\n\nNowcasting에 널리 활용되는 동적인자모형(Dynamic Factor Model, DFM) 사용\n다변량 관측변수들을 소수의 잠재요인(latent factor)으로 추정하여, 고차원 시계열 변수들의 동조적 변동성을 효과적으로 적합\n\n\nDFM의 구성\n\n관측변수에 대한 선형모형: 각 관측변수는 잠재요인과의 선형 관계를 통해 설명됨\n잠재요인에 대한 선형모형: 잠재요인은 시계열적으로 상호 관련되어 있으며, 그 변화를 선형적으로 설명함\n\n\n\nDFM의 활용 장점\n\n복잡한 다변량 시계열 데이터를 간결하게 요약할 수 있음\n경제적 변동성을 설명하는 데 적합하며, Nowcasting 및 경기 예측 모형에서 효과적으로 활용됨\n\n\\[X_t' = \\lambda(L)f_t + e_t\\] \\[f_t = \\psi(L)f_{t-1} + \\eta_t\\] - \\(X_t'\\): \\(t\\)시점의 \\(p\\)개 관측변수 - \\(f_t\\): \\(q\\)개 잠재요인 - \\(e_t\\) 및 \\(\\eta_t\\): \\(t\\)시점의 idiosyncratic disturbance 및 factor innovation - \\(L\\): 시차연산자 - \\(\\lambda(L)\\) 및 \\(\\psi(L)\\): 각각 두 식의 시차 다항행렬식"
+    "text": "선형 모형\n\nNowcasting에 널리 활용되는 동적인자모형(Dynamic Factor Model, DFM) 사용\n다변량 관측변수들을 소수의 잠재요인(latent factor)으로 추정하여, 고차원 시계열 변수들의 동조적 변동성을 효과적으로 적합\n복잡한 다변량 시계열 데이터를 간결하게 요약할 수 있음. 경제적 변동성을 설명하는 데 적합하며, Nowcasting 및 경기 예측 모형에서 효과적으로 활용됨\n\n\nDFM의 구성\n\n관측변수에 대한 선형모형: 각 관측변수는 잠재요인과의 선형 관계를 통해 설명됨\n잠재요인에 대한 선형모형: 잠재요인은 시계열적으로 상호 관련되어 있으며, 그 변화를 선형적으로 설명함\n\n\\[X_t' = \\lambda(L)f_t + e_t\\] \\[f_t = \\psi(L)f_{t-1} + \\eta_t\\]\n\n\\(X_t'\\): \\(t\\)시점의 \\(p\\)개 관측변수\n\\(f_t\\): \\(q\\)개 잠재요인\n\\(e_t\\) 및 \\(\\eta_t\\): \\(t\\)시점의 idiosyncratic disturbance 및 factor innovation\n\\(L\\): 시차연산자\n\\(\\lambda(L)\\) 및 \\(\\psi(L)\\): 각각 두 식의 시차 다항행렬식\n잠재요인 13개\n\n모든 변수 고려한 종합요인 2개\n63개 관측변수를 부문별로 나누어 구성한 부문별요인 11개\n\n시차변수\n\n종합요인은 4기\n부문별요인은 1기\n\n\n\n\n\n\n\n\n\n요인\n관측변수\n\n\n\n\n종합1\n모든 변수\n\n\n종합2\n모든 변수\n\n\n생산\n제조업출하지수, 제조업재고지수, 서비스업생산지수, 광공업생산지수, 전산업매출BSI, 전산업황실적BSI, 제조업수출BSI, 제조업경기동률BSI, 제조업신규수주BSI, 제조업내수판매BSI, 제조업업황실적(SA)BSI, GDP(분기), 생산(뉴스), 선박(뉴스), 자동차(뉴스), 반도체(뉴스)\n\n\n대외\n수출, 수입, GDP수출(분기), 세계교역(뉴스)\n\n\n투자\n설비투자지수, GDP설비투자(분기), GDP건설투자(분기), 설비투자(뉴스), 주택건설(뉴스)\n\n\n고용\n실업률, 고용률, 구인배수, 취업률, 취업자수, 실업(뉴스), 채용(뉴스), 취업(뉴스)\n\n\n소비\n소매판매액지수, 현재경제판단CSI, 소비자심리지수, GDP민간소비(분기), 도소매(뉴스)\n\n\n물가\n수출물가지수, 수입물가지수, 소비자물가지수, 생산자물가지수, 농산물및석유류제외지수, 식료품및에너지제외지수, WTI선물, 금선물, 물가전망(뉴스)\n\n\n주식\n원달러환율, KOSPI, KOSDAQ, VKOSPI, 주가전망(뉴스)\n\n\n부동산\n주택매매가격지수–서울, 주택매매가격지수–전국, 주택전세가격지수–서울, 주택전세가격지수–전국, 주택가격전망(뉴스)\n\n\n금리\n콜금리, CD금리, 국고채3년금리\n\n\n심리\n경제심리지수, 뉴스심리지수(뉴스), 경제불확실성지수(뉴스)\n\n\n정부\n정부지출(뉴스)\n\n\n\n주: 1) 모든 관측변수는 추세적으로 상승하는 경우 전년동기대비 증가율을 사용하였으며, 진한 글씨는 텍스트 지표를 의미"
   },
   {
     "objectID": "posts/nlp/finance_llm_survey.html",
