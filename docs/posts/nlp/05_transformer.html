@@ -30,7 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../posts/nlp/finance_llm_survey.html" rel="next">
+<link href="../../posts/nlp/06_bert.html" rel="next">
 <link href="../../posts/nlp/04_attention.html" rel="prev">
 <link href="../../logo.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
@@ -577,6 +577,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">5. 트랜스포머</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/nlp/06_bert.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. BERT, GPT</span></a>
+  </div>
+</li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
@@ -693,8 +699,10 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="포지셔널-인코딩positional-encoding" class="level1">
 <h1>포지셔널 인코딩(Positional Encoding)</h1>
-<p>트랜스포머는 RNN과 다르게 단어 입력을 순차적으로 받는 방식이 아님</p>
-<p>포지셔널 인코딩: 단어의 위치 정보를 얻기 위해서 각 단어의 임베딩 벡터에 위치 정보들을 더하여 모델의 입력으로 사용</p>
+<p>트랜스포머는 RNN과 다르게 단어 입력을 순차적으로 받는 방식이 아님사용</p>
+<ul>
+<li>포지셔널 인코딩: 단어의 위치 정보를 얻기 위해서 각 단어의 임베딩 벡터에 위치 정보들을 더하여 모델의 입력으로 사용</li>
+</ul>
 <p><img src="img/nlp_05_3.png" width="400"></p>
 <p><img src="img/nlp_05_4.png" width="400"></p>
 <p><img src="img/nlp_05_5.png" width="250"></p>
@@ -708,7 +716,10 @@ ul.task-list li input[type="checkbox"] {
 <li>여기서 Query, Key 등이 같다는 것은 벡터의 값이 같다는 것이 아니라 벡터의 출처가 같다는 의미</li>
 </ul>
 <p><img src="img/nlp_05_7.png" width="500"></p>
-<p>트랜스포머의 아키텍처에서 세 가지 어텐션이 각각 어디에서 이루어지는지를 보여줌 - ‘Multi-head’: 트랜스포머가 어텐션을 병렬적으로 수행</p>
+<ul>
+<li>트랜스포머의 아키텍처에서 세 가지 어텐션이 각각 어디에서 이루어지는지를 보여줌</li>
+<li>‘Multi-head’: 트랜스포머가 어텐션을 병렬적으로 수행</li>
+</ul>
 </section>
 <section id="인코더encoder" class="level1">
 <h1>인코더(Encoder)</h1>
@@ -737,17 +748,29 @@ ul.task-list li input[type="checkbox"] {
 <li>그리고 이를 모든 Q벡터에 대해서 반복</li>
 </ul>
 <p><img src="img/nlp_05_11.png" width="800"></p>
-<p>하지만 굳이 이렇게 각 Q벡터마다 일일히 따로 연산할 필요가 있을까? =&gt; 행렬 연산으로 일괄 처리</p>
+<ul>
+<li>하지만 굳이 이렇게 각 Q벡터마다 일일히 따로 연산할 필요가 있을까? =&gt; 행렬 연산으로 일괄 처리</li>
+</ul>
 <p><strong>행렬 연산</strong></p>
 <p><img src="img/nlp_05_12.png" width="300"></p>
 <p><img src="img/nlp_05_13.png" width="400"></p>
-<p>Q 행렬을 K 행렬을 전치한 행렬과 곱해주면, 각각 단어의 Q 벡터와 K 벡터의 내적이 각 행렬의 원소가 되는 행렬이 결과로 나옴</p>
+<ul>
+<li>Q 행렬을 K 행렬을 전치한 행렬과 곱해주면, 각각 단어의 Q 벡터와 K 벡터의 내적이 각 행렬의 원소가 되는 행렬이 결과로 나옴</li>
+</ul>
 <p><img src="img/nlp_05_14.png" width="400"></p>
-<p>결과 행렬 값에 <span class="math inline">\(\sqrt{𝑑_𝑘}\)</span>를 나눠주면 각 행 열은 어텐션 스코어 값을 가짐. 여기에 어텐션 값을 구할 수 있음</p>
-<p>이 때 패딩을 실행함.</p>
+<ul>
+<li><p>결과 행렬 값에 <span class="math inline">\(\sqrt{𝑑_𝑘}\)</span>를 나눠주면 각 행 열은 어텐션 스코어 값을 가짐. 여기에 어텐션 값을 구할 수 있음</p></li>
+<li><p>이 때 패딩을 실행함.</p></li>
+</ul>
 <p><img src="img/nlp_05_15.png" width="400"></p>
-<p><code>&lt;PAD&gt;</code>는 실질적인 의미를 가진 단어가 아님</p>
-<p>이에 대해 유사도를 구하지 않도록 마스킹(Masking)함 - 매우 작은 음수값을 채움 - 소프트맥스 함수를 지나면 0이 됨</p>
+<ul>
+<li><p><code>&lt;PAD&gt;</code>는 실질적인 의미를 가진 단어가 아님</p></li>
+<li><p>이에 대해 유사도를 구하지 않도록 마스킹(Masking)함</p>
+<ul>
+<li>매우 작은 음수값을 채움</li>
+<li>소프트맥스 함수를 지나면 0이 됨</li>
+</ul></li>
+</ul>
 </section>
 <section id="멀티-헤드-어텐션multi-head-attention" class="level2">
 <h2 class="anchored" data-anchor-id="멀티-헤드-어텐션multi-head-attention">멀티 헤드 어텐션(Multi-head attention)</h2>
@@ -758,7 +781,9 @@ ul.task-list li input[type="checkbox"] {
 <li>각각의 어텐션 값 행렬을 어텐션 헤드라고 부르며, 가중치 행렬 <span class="math inline">\(𝑊^𝑄\)</span>, <span class="math inline">\(𝑊^𝐾\)</span>, <span class="math inline">\(𝑊^𝑉\)</span>의 값은 어텐션 헤드마다 전부 다름</li>
 </ul>
 <p><img src="img/nlp_05_16.png" width="600"></p>
-<p>어텐션을 병렬로 수행하여 다른 시각으로 정보들을 수집</p>
+<ul>
+<li>어텐션을 병렬로 수행하여 다른 시각으로 정보들을 수집</li>
+</ul>
 <p><img src="img/nlp_05_17.png" width="300"></p>
 <ul>
 <li>병렬 어텐션 수행 후 모든 어텐션 헤드를 연결(concatenate)</li>
@@ -826,9 +851,9 @@ ul.task-list li input[type="checkbox"] {
 <li><p>단, 트랜스포머는 문장 행렬로 입력을 한 번에 받으므로 현재 시점의 단어를 예측하고자 할 때, 입력 문장 행렬로부터 미래 시점의 단어까지도 참고할 수 있는 현상이 발생 =&gt; 룩-어헤드 마스크(look-ahead mask)를 도입 =&gt; 첫번째 층인 멀티헤드 셀프어텐션 서브층에 적용 (masked multi-head self-attention)</p></li>
 </ul>
 <p><img src="img/nlp_05_26.png" width="200"></p>
-<p>두번째 서브층인 멀티헤드 어텐션은 다른 경우와 달리 셀프 어텐션이 아님.</p>
 <ul>
-<li>이유는 셀프 어텐션은 Query, Key, Value가 같은 경우를 말하는데, 인코더-디코더 어텐션은 Query가 디코더인 행렬인 반면, Key와 Value는 인코더 행렬이기 때문</li>
+<li><p>두번째 서브층인 멀티헤드 어텐션은 다른 경우와 달리 셀프 어텐션이 아님.</p></li>
+<li><p>이유는 셀프 어텐션은 Query, Key, Value가 같은 경우를 말하는데, 인코더-디코더 어텐션은 Query가 디코더인 행렬인 반면, Key와 Value는 인코더 행렬이기 때문</p></li>
 </ul>
 </section>
 </section>
@@ -1084,8 +1109,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../posts/nlp/finance_llm_survey.html" class="pagination-link">
-        <span class="nav-page-text">금융분야의 LLM (2023)</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../posts/nlp/06_bert.html" class="pagination-link">
+        <span class="nav-page-text">6. BERT, GPT</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

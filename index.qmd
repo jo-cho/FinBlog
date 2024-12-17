@@ -14,4 +14,4 @@ title-block-banner: false
 
 이 블로그의 모든 글은 오직 교육용 목적입니다.
 
-[**About Me**](https://jo-cho.github.io/FinBlog/about.html)
+[**About Me**](/about.html)
