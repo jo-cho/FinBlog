@@ -135,9 +135,9 @@ website:
               text: "5-2. GNN - 일반화된 집계 및 업데이트"
             - href: posts/machine_learning/GRL_05_3.ipynb
               text: "5-3. GNN - 다중관계와 그래프 수준"
-      - section: "자연어 처리"
+      - section: "자연어처리"
         contents:
-          - section: "기초이론"
+          - section: "자연어처리 이론"
             contents:
             - href: posts/nlp/01_tf-idf.ipynb
               text: "1. DTM과 TF-IDF"
@@ -153,16 +153,16 @@ website:
               text: "5. 트랜스포머"
             - href: posts/nlp/06_bert.ipynb
               text: "6. BERT, GPT"
-          - section: "선행연구"
-            contents:
-            - href: posts/nlp/finance_llm_survey.ipynb
-              text: "금융분야의 LLM (2023)"
-            - href: posts/nlp/news_sentiment_index.ipynb
-              text: "뉴스심리지수(NSI) - 한국은행"
-            - href: posts/nlp/text-based_economic_field_indicators.ipynb
-              text: "경제부문별 텍스트 지표"
-            - href: posts/nlp/industry_monitoring_ai_algorithm.ipynb
-              text: "AI 알고리즘 이용 산업 모니터링"
+      - section: "경제 텍스트분석"
+        contents:
+        - href: posts/nlp_econ/finance_llm_survey.ipynb
+          text: "금융분야의 LLM (2023)"
+        - href: posts/nlp_econ/news_sentiment_index.ipynb
+          text: "뉴스심리지수(NSI) - 한국은행"
+        - href: posts/nlp_econ/text-based_economic_field_indicators.ipynb
+          text: "경제부문별 텍스트 지표"
+        - href: posts/nlp_econ/industry_monitoring_ai_algorithm.ipynb
+          text: "AI 알고리즘 이용 산업 모니터링"
 format:
   html:
     theme: flatly

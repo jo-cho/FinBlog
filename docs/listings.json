@@ -2,7 +2,7 @@
   {
     "listing": "/listing.html",
     "items": [
-      "/posts/nlp/text-based_economic_field_indicators.html",
+      "/posts/nlp_econ/text-based_economic_field_indicators.html",
       "/posts/machine_learning/GRL_01.html",
       "/posts/machine_learning/GRL_02_1.html",
       "/posts/machine_learning/GRL_02_2.html",
@@ -13,10 +13,10 @@
       "/posts/machine_learning/GRL_05_1.html",
       "/posts/machine_learning/GRL_05_2.html",
       "/posts/machine_learning/GRL_05_3.html",
-      "/posts/nlp/finance_llm_survey.html",
+      "/posts/nlp_econ/finance_llm_survey.html",
       "/posts/statistics/estimation.html",
       "/posts/statistics/probability_distribution.html",
-      "/posts/nlp/news_sentiment_index.html",
+      "/posts/nlp_econ/news_sentiment_index.html",
       "/posts/anomaly_detection/deep_learning_for_anomaly_detection.html",
       "/posts/ml_trading/0_Introduction.html",
       "/posts/ml_trading/1_Get_Market_Data.html",
@@ -54,7 +54,7 @@
       "/posts/nlp/02_1_word_embedding1.html",
       "/posts/nlp/03_topic_modeling.html",
       "/posts/nlp/05_transformer.html",
-      "/posts/nlp/industry_monitoring_ai_algorithm.html"
+      "/posts/nlp_econ/industry_monitoring_ai_algorithm.html"
     ]
   }
 ]

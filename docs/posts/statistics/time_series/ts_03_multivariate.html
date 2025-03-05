@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.6.40">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Cheonghyo Cho">
 
-<title>Cho’s FinBlog - 시계열 - 다변량 시계열</title>
+<title>시계열 - 다변량 시계열 – Cho’s FinBlog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,7 +23,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -34,7 +34,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -72,17 +72,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-9d50f053c6cb2f91b4fff0beffe54eeb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -91,6 +97,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -98,8 +105,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../../styles.css">
 </head>
@@ -108,61 +142,61 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">Cho’s FinBlog</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="../../../about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="link" data-bs-toggle="dropdown" aria-expanded="false">
       <i class="bi bi-github" role="img">
 </i> 
  <span class="menu-text"></span>
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">    
         <li>
-    <a class="dropdown-item" href="https://github.com/jo-cho/FinBlog/tree/main/docs" rel="" target="">
+    <a class="dropdown-item" href="https://github.com/jo-cho/FinBlog/tree/main/docs">
  <span class="dropdown-text">Source Code</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="https://github.com/jo-cho/FinBlog/issues" rel="" target="">
+    <a class="dropdown-item" href="https://github.com/jo-cho/FinBlog/issues">
  <span class="dropdown-text">Report a Bug</span></a>
   </li>  
     </ul>
   </li>
 </ul>
+          </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
 </div>
-          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../posts/statistics/time_series/ts_01_intro.html">시계열 분석</a></li><li class="breadcrumb-item"><a href="../../../posts/statistics/time_series/ts_03_multivariate.html">3. 다변량 시계열</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../posts/statistics/time_series/ts_01_intro.html">시계열 분석</a></li><li class="breadcrumb-item"><a href="../../../posts/statistics/time_series/ts_03_multivariate.html">3. 다변량 시계열</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
     </div>
   </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto"><div class="quarto-sidebar-header"><div class="sidebar-header-item">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="quarto-sidebar-header"><div class="sidebar-header-item">
 <p>FinBlog</p>
 </div></div>
     <div class="sidebar-menu-container"> 
@@ -181,18 +215,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
  <span class="menu-text">기초통계</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
  <span class="menu-text">확률과 통계</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -215,9 +249,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">시계열 분석</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -268,9 +302,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
  <span class="menu-text">인과추론</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -291,9 +325,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
  <span class="menu-text">금융 데이터 처리</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -308,9 +342,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
  <span class="menu-text">이상탐지</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -325,9 +359,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
  <span class="menu-text">알고리즘 트레이딩</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -384,9 +418,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
  <span class="menu-text">시스템 리스크 분석</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -399,9 +433,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false">
  <span class="menu-text">시스템 리스크 측정</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -446,9 +480,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false">
  <span class="menu-text">시스템 리스크와 머신러닝</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -477,18 +511,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false">
  <span class="menu-text">그래프 머신러닝</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false">
  <span class="menu-text">그래프 머신러닝 이론</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -559,18 +593,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false">
- <span class="menu-text">자연어 처리</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false">
+ <span class="menu-text">자연어처리</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false">
- <span class="menu-text">기초이론</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false">
+ <span class="menu-text">자연어처리 이론</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -619,47 +653,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
-          <li class="sidebar-item sidebar-item-section">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false">
- <span class="menu-text">선행연구</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false">
+ <span class="menu-text">경제 텍스트분석</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/nlp/finance_llm_survey.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/nlp_econ/finance_llm_survey.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">금융분야의 LLM (2023)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/nlp/news_sentiment_index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/nlp_econ/news_sentiment_index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">뉴스심리지수(NSI) - 한국은행</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/nlp/text-based_economic_field_indicators.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/nlp_econ/text-based_economic_field_indicators.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">경제부문별 텍스트 지표</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../posts/nlp/industry_monitoring_ai_algorithm.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../posts/nlp_econ/industry_monitoring_ai_algorithm.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">AI 알고리즘 이용 산업 모니터링</span></a>
   </div>
 </li>
       </ul>
   </li>
-      </ul>
-  </li>
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -677,12 +711,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#vecm" id="toc-vecm" class="nav-link" data-scroll-target="#vecm">VECM</a></li>
   <li><a href="#dtwdynamic-time-warping" id="toc-dtwdynamic-time-warping" class="nav-link" data-scroll-target="#dtwdynamic-time-warping">DTW(Dynamic Time Warping)</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../posts/statistics/time_series/ts_01_intro.html">시계열 분석</a></li><li class="breadcrumb-item"><a href="../../../posts/statistics/time_series/ts_03_multivariate.html">3. 다변량 시계열</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">시계열 - 다변량 시계열</h1>
 <p class="subtitle lead">Time Series - Multivariate time series</p>
@@ -711,7 +745,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <blockquote class="blockquote">
 <p>시계열 분석을 정리하고자 한다. 다변량 자기회귀모형인 VAR모형과 충격반응(impulse response) 분석, Granger 인과관계, 공적분(cointergration) 등에 대해서 알아보자.</p>
@@ -732,14 +768,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><span class="math inline">\(y_t = a_1 + b_{11}y_{t-1} + b_{12}x_{t-1} + u_t\)</span></p>
 <p><span class="math inline">\(x_t = a_2 + b_{21}y_{t-1} + b_{22}x_{t-1} + v_t\)</span></p>
 <p>Matrix Representation</p>
-<p><span class="math inline">\(\begin{bmatrix} y_t \\ x_t \end{bmatrix} = \begin{bmatrix} a_1 \\ a_2 \end{bmatrix} + \begin{bmatrix} b_{11} &amp; b_{12} \\ b_{21} &amp; b_{22} \end{bmatrix} \begin{bmatrix} y_{t-1} \\ x_{t-1} \end{bmatrix} + \begin{bmatrix} u_t \\ v_t \end{bmatrix}\)</span></p>
+<p><span class="math inline">\(\begin{bmatrix}
+y_t \\
+x_t
+\end{bmatrix} =
+\begin{bmatrix}
+a_1 \\
+a_2
+\end{bmatrix} +
+\begin{bmatrix}
+b_{11} &amp; b_{12} \\
+b_{21} &amp; b_{22}
+\end{bmatrix}
+\begin{bmatrix}
+y_{t-1} \\
+x_{t-1}
+\end{bmatrix} +
+\begin{bmatrix}
+u_t \\
+v_t
+\end{bmatrix}\)</span></p>
 <ul>
 <li>다변량 분석: VAR 모형은 여러 시계열이 서로 어떻게 영향을 미치는지를 동시에 분석한다.</li>
 <li>상호 의존성: 각 변수는 다른 변수들의 과거 값에 의해 영향을 받는다.</li>
 <li>충격 반응 분석(impulse response analysis): 한 변수에 대한 충격이 시간에 따라 다른 변수에 미치는 영향을 분석한다.</li>
 <li>분산 분해(variance decomposition): 시계열 변동성이 다른 변수의 충격에 의해 얼마나 설명되는지 분석한다.</li>
 </ul>
-<div class="cell" data-execution_count="6">
+<div id="657a3af0-1077-4657-a1d1-5a353f6e9910" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tsa.api <span class="im">import</span> VAR, SVAR</span>
@@ -837,7 +892,7 @@ realint   -0.039671 -0.928779  1.000000
 <li>모델 추정: 최적의 lag를 선택하고 모델을 추정</li>
 <li>예측 수행: 학습된 모델을 이용해 미래의 값 예측</li>
 </ul>
-<div class="cell" data-execution_count="7">
+<div id="0c04f098-c7c7-471d-bdf6-483cfe1eb428" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 예측 (Forecasting)</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 학습된 모델로부터 다음 5일간의 데이터를 예측합니다.</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>forecast <span class="op">=</span> model_fitted.forecast(model_fitted.endog, steps<span class="op">=</span><span class="dv">5</span>)</span>
@@ -863,7 +918,11 @@ realint   -0.039671 -0.928779  1.000000
 203    5.012108  1.944107   -0.980159</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="ts_03_multivariate_files/figure-html/cell-3-output-2.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="ts_03_multivariate_files/figure-html/cell-3-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -883,7 +942,7 @@ realint   -0.039671 -0.928779  1.000000
 <li>A형 모형: 오차항 분산을 정규화해주어 <span class="math inline">\(B=I\)</span> 인 형태, 변수들 사이의 동시방정식 모델을 식별하기 위해 동시성 제약을 사용</li>
 <li>B형 모형: 피설명변수를 정규화해주어 <span class="math inline">\(A=I\)</span> 인 형태, 주로 충격의 전파 방식을 모델링하는 데 사용</li>
 </ul>
-<div class="cell" data-execution_count="8">
+<div id="4c49b043-bbb5-4e2d-8ac3-9e54d2bab8c6" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#define structural inputs</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.asarray([[<span class="dv">1</span>, <span class="st">'E'</span>, <span class="dv">0</span>],[<span class="st">'E'</span>, <span class="dv">1</span>, <span class="st">'E'</span>],[<span class="dv">0</span>, <span class="st">'E'</span>, <span class="dv">1</span>]])</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>B <span class="op">=</span> np.asarray([[<span class="st">'E'</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>]])</span>
@@ -895,7 +954,7 @@ realint   -0.039671 -0.928779  1.000000
   warnings.warn("Maximum Likelihood optimization failed to "</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="9">
+<div id="7986b65f-8a15-4382-b489-f4e351073d2a" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>res.k_exog_user <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(res.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -988,7 +1047,7 @@ realint   -0.039671 -0.928779  1.000000
 <p>VAR 모델을 떠올려보자.</p>
 <p><span class="math inline">\(Y_t = A_1 Y_{t-1} + A_2 Y_{t-2} + ... + A_p Y_{t-p} + \epsilon_t\)</span></p>
 <p>IRF를 나타내는 데 있어서, 충격 <span class="math inline">\(\epsilon_t\)</span>가 시스템에 미치는 영향을 시간에 걸쳐 추적하는 것이 목적이다. 특정 시점 <span class="math inline">\(t\)</span>에서 <span class="math inline">\(i\)</span>번째 변수에 단위 충격이 가해졌을 때, 이 충격이 시스템에 미치는 영향을 시간 <span class="math inline">\(h\)</span>에 걸쳐 추적하는 IRF는 다음과 같이 표현될 수 있다: <span class="math display">\[IRF_{i,h} = \frac{\partial Y_{t+h}}{\partial \epsilon_{i,t}}\]</span></p>
-<div class="cell" data-execution_count="10">
+<div id="5b22afcb-6903-4f7d-a7c1-e07cf8279331" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>irf <span class="op">=</span> model_fitted.irf(<span class="dv">20</span>) <span class="co">#var result</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>sirf <span class="op">=</span> res.irf(<span class="dv">20</span>) <span class="co">#svar result</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>impulse <span class="op">=</span> [<span class="st">'realint'</span>,<span class="st">'infl'</span>]</span>
@@ -998,13 +1057,25 @@ realint   -0.039671 -0.928779  1.000000
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>sirf.plot_cum_effects(response<span class="op">=</span>response, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>), plot_stderr<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="ts_03_multivariate_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="ts_03_multivariate_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="ts_03_multivariate_files/figure-html/cell-6-output-2.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="ts_03_multivariate_files/figure-html/cell-6-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="ts_03_multivariate_files/figure-html/cell-6-output-3.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="ts_03_multivariate_files/figure-html/cell-6-output-3.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>단, SVAR 모델은 Structural IRF로 측정한다. 이외에도 VAR에서는 Orthogonal IRF(변수 간의 동시 상관관계를 제거한 후 측정), Generalized IRF, Local IRF, Bayesian IRF 등이 있다.</p>
@@ -1024,7 +1095,7 @@ realint   -0.039671 -0.928779  1.000000
 <li><p>모델 추정: 두 모델을 데이터에 적합시킨다.</p></li>
 <li><p>통계적 검정: 두 모델의 적합도를 비교하여, <span class="math inline">\(X\)</span>의 과거 값이 <span class="math inline">\(Y\)</span>의 예측에 유의미하게 기여하는지 검정한다. 이를 위해 보통 F-통계량을 사용한다.</p></li>
 </ul>
-<div class="cell" data-execution_count="11">
+<div id="397c80f5-2a99-45af-b872-55f437ce8375" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> df[[<span class="st">'realgdp'</span>,<span class="st">'infl'</span>]]   </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tsa.stattools <span class="im">import</span> grangercausalitytests</span>
@@ -1053,7 +1124,7 @@ likelihood ratio test: chi2=12.7580 , p=0.0258  , df=5
 parameter F test:         F=2.4878  , p=0.0330  , df_denom=183, df_num=5</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="12">
+<div id="e84c7af9-b0f5-4a34-ab29-16de786e3c55" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> df[[<span class="st">'realgdp'</span>,<span class="st">'realint'</span>]]    </span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>gc_res <span class="op">=</span> grangercausalitytests(data, [<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1080,7 +1151,7 @@ likelihood ratio test: chi2=4.9228  , p=0.4254  , df=5
 parameter F test:         F=0.9406  , p=0.4560  , df_denom=183, df_num=5</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="13">
+<div id="2d27861e-9ed1-4ff2-a919-27dd27d0b1e7" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> df[[<span class="st">'infl'</span>,<span class="st">'realint'</span>]]   </span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>gc_res <span class="op">=</span> grangercausalitytests(data, [<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1120,7 +1191,7 @@ parameter F test:         F=3.2191  , p=0.0082  , df_denom=183, df_num=5</code><
 <p>시계열 데이터의 공적분(Cointegration)은 두 개 이상의 비정상 시계열 변수들이 장기적으로 공통된 추세를 공유하고, 이들 간의 일정한 관계가 시간에 따라 안정적으로 유지되는 현상을 의미한다. 이러한 관계는 단기적으로는 변수들이 서로 다른 패턴을 보일 수 있지만, 장기적으로는 같은 균형 상태로 돌아가려는 성질을 가지고 있다.</p>
 <p>두 시계열 <span class="math inline">\(X_t\)</span>, <span class="math inline">\(Y_t\)</span>가 있을 때, 만약 이들이 각각 비정상이지만, 이들의 선형 조합 <span class="math inline">\(Y_t-\beta X_t = u_t\)</span>가 정상(stationary) 시계열을 이룬다면, <span class="math inline">\(X_t, Y_t\)</span>는 공적분 관계에 있다고 말한다.</p>
 <p>공적분의 존재 여부는 여러 통계적 검정을 통해 결정할 수 있으며, 가장 널리 사용되는 방법 중 하나는 <strong>Johansen 공적분 검정</strong>이다.</p>
-<div class="cell" data-execution_count="14">
+<div id="6040025a-3bf0-4e55-bc17-3616b918af85" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>timesteps <span class="op">=</span> <span class="dv">300</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>common_trend <span class="op">=</span> np.cumsum(np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, timesteps))</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1140,30 +1211,35 @@ parameter F test:         F=3.2191  , p=0.0082  , df_denom=183, df_num=5</code><
 <span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Simulated Price Series'</span>)</span>
 <span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="ts_03_multivariate_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="ts_03_multivariate_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+</figure>
 </div>
 </div>
-<div class="cell" data-execution_count="15">
+</div>
+<div id="39190eaa-16cc-4264-9edb-723547b98139" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>diff <span class="op">=</span> df_prices[<span class="st">'Price1'</span>] <span class="op">-</span> df_prices[<span class="st">'Price2'</span>]</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>diff.plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
-<pre><code>&lt;Axes: &gt;</code></pre>
-</div>
 <div class="cell-output cell-output-display">
-<p><img src="ts_03_multivariate_files/figure-html/cell-11-output-2.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="ts_03_multivariate_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
+</figure>
 </div>
 </div>
-<div class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tsa.vector_ar.vecm <span class="im">import</span> coint_johansen</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Johansen 공적분 검정 수행</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> coint_johansen(df_prices, det_order<span class="op">=</span><span class="dv">0</span>, k_ar_diff<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 검정 결과 출력</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"검정 통계량 (Trace Statistic): </span><span class="sc">{</span>result<span class="sc">.</span>lr1<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"임계값 (Critical Values, 90%, 95%, 99%): </span><span class="sc">{</span>result<span class="sc">.</span>cvt<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"검정 통계량 (Max-Eigen Statistic): </span><span class="sc">{</span>result<span class="sc">.</span>lr2<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"임계값 (Critical Values, 90%, 95%, 99%): </span><span class="sc">{</span>result<span class="sc">.</span>cvm<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="3f9e4fe7-5a1d-4dbf-9860-6bc326bc1611" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tsa.vector_ar.vecm <span class="im">import</span> coint_johansen</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Johansen 공적분 검정 수행</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> coint_johansen(df_prices, det_order<span class="op">=</span><span class="dv">0</span>, k_ar_diff<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 검정 결과 출력</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"검정 통계량 (Trace Statistic): </span><span class="sc">{</span>result<span class="sc">.</span>lr1<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"임계값 (Critical Values, 90%, 95%, 99%): </span><span class="sc">{</span>result<span class="sc">.</span>cvt<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"검정 통계량 (Max-Eigen Statistic): </span><span class="sc">{</span>result<span class="sc">.</span>lr2<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"임계값 (Critical Values, 90%, 95%, 99%): </span><span class="sc">{</span>result<span class="sc">.</span>cvm<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>검정 통계량 (Trace Statistic): [9.41170433 0.65886094]
 임계값 (Critical Values, 90%, 95%, 99%): [[13.4294 15.4943 19.9349]
@@ -1195,15 +1271,15 @@ parameter F test:         F=3.2191  , p=0.0082  , df_denom=183, df_num=5</code><
 <li><p>VECM 추정: 공적분 관계와 단기 동적을 포함하는 VECM을 추정</p></li>
 <li><p>모델 진단: 잔차의 정상성, 자기상관 등을 검토하여 모델의 적합성을 평가</p></li>
 </ul>
-<div class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tsa.vector_ar.vecm <span class="im">import</span> VECM</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># VECM 모델 적합</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>vecm <span class="op">=</span> VECM(df, coint_rank<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>vecm_fit <span class="op">=</span> vecm.fit()</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 결과 요약 출력</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(vecm_fit.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="d7cef3ca-433e-4257-aeed-521d6bda0652" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tsa.vector_ar.vecm <span class="im">import</span> VECM</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># VECM 모델 적합</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>vecm <span class="op">=</span> VECM(df, coint_rank<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>vecm_fit <span class="op">=</span> vecm.fit()</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 결과 요약 출력</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(vecm_fit.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Det. terms outside the coint. relation &amp; lagged endog. parameters for equation realgdp
 ==============================================================================
@@ -1261,15 +1337,15 @@ beta.3        -1.7533      0.244     -7.186      0.000      -2.232      -1.275
 <li><p>최적 경로 찾기: 누적 거리 행렬의 마지막 셀에서 시작하여, 시작 셀로 되돌아가는 최적 경로(즉, 최소 누적 거리를 가지는 경로)를 역추적한다. 이 경로는 두 시계열 사이의 최소 거리 매핑을 나타낸다.</p></li>
 </ul>
 <p><span class="math display">\[D(i,j)=d(x_i,y_j)+\min\{D(i-1,j-1),D(i-1,j),D(i,j-1)\}\]</span></p>
-<div class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> dtw</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> np.arange(<span class="dv">100</span>)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>ts_a <span class="op">=</span> np.sin(time <span class="op">/</span> <span class="dv">8</span>) <span class="op">+</span> np.random.normal(scale<span class="op">=</span><span class="fl">0.2</span>, size<span class="op">=</span><span class="dv">100</span>)</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>ts_b <span class="op">=</span> np.sin(time <span class="op">/</span> <span class="dv">8</span>) <span class="op">+</span> np.random.normal(scale<span class="op">=</span><span class="fl">0.2</span>, size<span class="op">=</span><span class="dv">100</span>) <span class="op">+</span> <span class="fl">0.3</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>dtw.dtw(ts_a, ts_b, keep_internals<span class="op">=</span><span class="va">True</span>).plot(<span class="bu">type</span><span class="op">=</span><span class="st">"twoway"</span>)</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>dtw.dtw(ts_a, ts_b, keep_internals<span class="op">=</span><span class="va">True</span>).distance</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="ce1855e6-24e6-4f2a-ae4b-7a5cb2449d67" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> dtw</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> np.arange(<span class="dv">100</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>ts_a <span class="op">=</span> np.sin(time <span class="op">/</span> <span class="dv">8</span>) <span class="op">+</span> np.random.normal(scale<span class="op">=</span><span class="fl">0.2</span>, size<span class="op">=</span><span class="dv">100</span>)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>ts_b <span class="op">=</span> np.sin(time <span class="op">/</span> <span class="dv">8</span>) <span class="op">+</span> np.random.normal(scale<span class="op">=</span><span class="fl">0.2</span>, size<span class="op">=</span><span class="dv">100</span>) <span class="op">+</span> <span class="fl">0.3</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>dtw.dtw(ts_a, ts_b, keep_internals<span class="op">=</span><span class="va">True</span>).plot(<span class="bu">type</span><span class="op">=</span><span class="st">"twoway"</span>)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>dtw.dtw(ts_a, ts_b, keep_internals<span class="op">=</span><span class="va">True</span>).distance</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Importing the dtw module. When using in academic works please cite:
   T. Giorgino. Computing and Visualizing Dynamic Time Warping Alignments in R: The dtw Package.
@@ -1280,7 +1356,11 @@ beta.3        -1.7533      0.244     -7.186      0.000      -2.232      -1.275
 <pre><code>24.51251354832234</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="ts_03_multivariate_files/figure-html/cell-14-output-3.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="ts_03_multivariate_files/figure-html/cell-14-output-3.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 
@@ -1323,18 +1403,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1366,11 +1435,48 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/jo-cho\.github\.io\/FinBlog\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1380,8 +1486,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1393,7 +1508,129 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1437,6 +1674,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1462,6 +1700,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1523,14 +1787,16 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <script src="https://giscus.app/client.js" data-repo="jo-cho/FinBlog" data-repo-id="R_kgDOJQ80aw" data-category="General" data-category-id="DIC_kwDOJQ80a84CVb8i" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script>
+<input type="hidden" id="giscus-base-theme" value="light">
+<input type="hidden" id="giscus-alt-theme" value="dark">
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../../posts/statistics/time_series/ts_02_arima.html" class="pagination-link">
+      <a href="../../../posts/statistics/time_series/ts_02_arima.html" class="pagination-link" aria-label="2. 선형 모형">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">2. 선형 모형</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../posts/statistics/time_series/ts_04_volatility.html" class="pagination-link">
+      <a href="../../../posts/statistics/time_series/ts_04_volatility.html" class="pagination-link" aria-label="4. 시계열 변동성">
         <span class="nav-page-text">4. 시계열 변동성</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -1539,5 +1805,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<script src="../../../site_libs/quarto-html/zenscroll-min.js"></script>
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer><script src="../../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
