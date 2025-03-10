@@ -8,7 +8,7 @@
 
 <meta name="author" content="Cheonghyo Cho">
 
-<title>자연어처리: BERT, GPT – Cho’s FinBlog</title>
+<title>자연어처리: BERT – Cho’s FinBlog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -71,6 +105,35 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -124,7 +187,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">자연어처리</li><li class="breadcrumb-item"><a href="../../posts/nlp/01_tf-idf.html">자연어처리 이론</a></li><li class="breadcrumb-item"><a href="../../posts/nlp/06_bert.html">6. BERT, GPT</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">자연어처리</li><li class="breadcrumb-item"><a href="../../posts/nlp/01_tf-idf.html">자연어처리 이론</a></li><li class="breadcrumb-item"><a href="../../posts/nlp/06_bert.html">6. BERT</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -585,7 +648,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/nlp/06_bert.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">6. BERT, GPT</span></a>
+ <span class="menu-text">6. BERT</span></a>
   </div>
 </li>
       </ul>
@@ -637,7 +700,20 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">목차</h2>
    
   <ul>
-  <li><a href="#bert" id="toc-bert" class="nav-link active" data-scroll-target="#bert">BERT</a></li>
+  <li><a href="#bert의-크기" id="toc-bert의-크기" class="nav-link active" data-scroll-target="#bert의-크기">BERT의 크기</a>
+  <ul class="collapse">
+  <li><a href="#contextual-embedding" id="toc-contextual-embedding" class="nav-link" data-scroll-target="#contextual-embedding">Contextual Embedding</a></li>
+  <li><a href="#서브워드-토크나이저-wordpiece" id="toc-서브워드-토크나이저-wordpiece" class="nav-link" data-scroll-target="#서브워드-토크나이저-wordpiece">서브워드 토크나이저: WordPiece</a></li>
+  <li><a href="#포지션-임베딩position-embedding" id="toc-포지션-임베딩position-embedding" class="nav-link" data-scroll-target="#포지션-임베딩position-embedding">포지션 임베딩(Position Embedding)</a></li>
+  <li><a href="#사전-훈련pre-training" id="toc-사전-훈련pre-training" class="nav-link" data-scroll-target="#사전-훈련pre-training">사전 훈련(Pre-training)</a></li>
+  <li><a href="#masked-language-model-mlm" id="toc-masked-language-model-mlm" class="nav-link" data-scroll-target="#masked-language-model-mlm">Masked Language Model (MLM)</a></li>
+  <li><a href="#다음-문장-예측-nsp" id="toc-다음-문장-예측-nsp" class="nav-link" data-scroll-target="#다음-문장-예측-nsp">다음 문장 예측 (NSP)</a></li>
+  </ul></li>
+  <li><a href="#세그먼트-임베딩-segment-embedding" id="toc-세그먼트-임베딩-segment-embedding" class="nav-link" data-scroll-target="#세그먼트-임베딩-segment-embedding">세그먼트 임베딩 (Segment Embedding)</a></li>
+  <li><a href="#파인튜닝fine-tuning" id="toc-파인튜닝fine-tuning" class="nav-link" data-scroll-target="#파인튜닝fine-tuning">파인튜닝(Fine-tuning)</a></li>
+  <li><a href="#어텐션-마스크attention-mask" id="toc-어텐션-마스크attention-mask" class="nav-link" data-scroll-target="#어텐션-마스크attention-mask">어텐션 마스크(Attention Mask)</a></li>
+  <li><a href="#기타-참고사항" id="toc-기타-참고사항" class="nav-link" data-scroll-target="#기타-참고사항">기타 참고사항</a></li>
+  <li><a href="#sbertsentence-bert" id="toc-sbertsentence-bert" class="nav-link" data-scroll-target="#sbertsentence-bert">SBERT(Sentence BERT)</a></li>
   <li><a href="#참고자료" id="toc-참고자료" class="nav-link" data-scroll-target="#참고자료">참고자료</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
@@ -645,14 +721,14 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">자연어처리</li><li class="breadcrumb-item"><a href="../../posts/nlp/01_tf-idf.html">자연어처리 이론</a></li><li class="breadcrumb-item"><a href="../../posts/nlp/06_bert.html">6. BERT, GPT</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">자연어처리</li><li class="breadcrumb-item"><a href="../../posts/nlp/01_tf-idf.html">자연어처리 이론</a></li><li class="breadcrumb-item"><a href="../../posts/nlp/06_bert.html">6. BERT</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">자연어처리: BERT, GPT</h1>
-<p class="subtitle lead">BERT and GPT</p>
+<h1 class="title">자연어처리: BERT</h1>
+<p class="subtitle lead">BERT</p>
   <div class="quarto-categories">
     <div class="quarto-category">natural language processing</div>
     <div class="quarto-category">bert</div>
-    <div class="quarto-category">gpt</div>
+    <div class="quarto-category">llm</div>
   </div>
   </div>
 
@@ -677,10 +753,260 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>BERT(Bidirectional Encoder Representations from Transformers)는 2018년에 구글이 공개한 사전 훈련된 모델, 트랜스포머를 이용하여 구현, 위키피디아(25억 단어)와 BooksCorpus(8억 단어)와 같은 레이블이 없는 텍스트 데이터로 사전 훈련된 언어 모델</p>
-<p>..작성중..</p>
-<section id="bert" class="level1">
-<h1>BERT</h1>
-<p><img src="img/nlp_06_1.png" width="400"></p>
+<p><strong>파인튜닝(fine-tuning)</strong> 레이블이 없는 방대한 데이터로 사전 훈련된 모델을 가지고, 레이블이 있는 다른작업(Task)에서 추가 훈련과 함께 하이퍼파라미터를 재조정</p>
+<p>하고 싶은 태스크가 스팸메일 분류라고 하였을 때, 이미 위키피디아 등으로사전학습된 BERT 위에 분류를 위한 신경망을 한층 추가</p>
+<p><img src="img/nlp_06_01.png" width="600"></p>
+<section id="bert의-크기" class="level1">
+<h1>BERT의 크기</h1>
+<p>BERT의 기본 구조: 트랜스포머의 인코더를 쌓아 올린 구조 (Base 버전: 총12개, Large 버전: 총 24개)</p>
+<ul>
+<li>L: 트랜스포머 인코더 층의수</li>
+<li>D: d_model의 크기</li>
+<li>A: 셀프 어텐션 헤드의수</li>
+</ul>
+<p>BERT-Base : L=12, D=768, A=12 : 110M개의 파라미터 BERT-Large : L=24, D=1024, A=16 : 340M개의 파라미터</p>
+<ul>
+<li>Base는 GPT-1과의 비교를 위해 같은 파라미터 크기</li>
+<li>Large는 최대 성능을 보여주기 위한 파라미터 크기</li>
+</ul>
+<p><img src="img/nlp_06_02.png" width="600"></p>
+<section id="contextual-embedding" class="level2">
+<h2 class="anchored" data-anchor-id="contextual-embedding">Contextual Embedding</h2>
+<p>BERT는 ELMo나 GPT-1과 마찬가지로 <strong>문맥을 반영한 임베딩</strong>(<strong>Contextual Embedding</strong>)을 사용</p>
+<p><img src="img/nlp_06_03.png" width="800"></p>
+<p><img src="img/nlp_06_04.png" width="400"></p>
+<p>BERT의 입력은 단순히 임베딩층(embedding layer)를 지난 임베딩 벡터였지만, BERT를 지나고 나서는 [CLS], I, love, you라는 모든 단어 벡터들을 참고한 후에 문맥 정보를 가진 벡터가 됨</p>
+<p><img src="img/nlp_06_05.png" width="600"></p>
+<ul>
+<li>12개의 층을 지난 후에 최종적으로 출력 임베딩을 얻게 됨</li>
+<li>BERT의 첫번째 층의 출력 임베딩은 BERT의 두번째 층에서는 입력 임베딩이 됨</li>
+<li>내부적으로 각 층마다 멀티헤드 셀프어텐션과 포지션-와이즈-피드포워드 신경망을 수행</li>
+</ul>
+</section>
+<section id="서브워드-토크나이저-wordpiece" class="level2">
+<h2 class="anchored" data-anchor-id="서브워드-토크나이저-wordpiece">서브워드 토크나이저: WordPiece</h2>
+<ul>
+<li>BERT는 단어보다 더 작은 단위로 쪼개는 서브워드 토크나이저를 사용</li>
+<li>BERT가 사용한 토크나이저는 WordPiece
+<ul>
+<li>바이트 페어 인코딩(Byte Pair Encoding, BPE)의 유사</li>
+</ul></li>
+<li>글자로부터 서브워드들을 병합해가는 방식으로 최종 단어집합(Vocabulary)을 만듦</li>
+<li>서브워드 토크나이저는 자주 등장하지 않는 단어의 경우에는 더 작은 단위인 서브워드로 분리되어 서브워드들이 단어 집합에 추가. 이 단어 집합을 기반으로 토큰화를 수행.</li>
+</ul>
+<p><img src="img/nlp_06_06.png" width="800"></p>
+<div id="719a7956" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> BertTokenizer</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>tokenzier <span class="op">=</span> BertTokenizer.from_pretrained(<span class="st">"bert-base-uncased"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>c:\.venv\lib\site-packages\tqdm\auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
+  from .autonotebook import tqdm as notebook_tqdm
+c:\.venv\lib\site-packages\huggingface_hub\file_download.py:142: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in C:\Users\master\.cache\huggingface\hub\models--bert-base-uncased. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)</code></pre>
+</div>
+</div>
+<div id="5517ea22" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> tokenzier.tokenize(<span class="st">"Hello, I'm trying to see some examples! undisputed, K-pop swag"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['hello', ',', 'i', "'", 'm', 'trying', 'to', 'see', 'some', 'examples', '!', 'und', '##is', '##puted', ',', 'k', '-', 'pop', 'sw', '##ag']</code></pre>
+</div>
+</div>
+</section>
+<section id="포지션-임베딩position-embedding" class="level2">
+<h2 class="anchored" data-anchor-id="포지션-임베딩position-embedding">포지션 임베딩(Position Embedding)</h2>
+<ul>
+<li>입력(Wordpiece Embedding)에 포지션 임베딩을 통해서 위치 정보를 더해 줌</li>
+<li>위치 정보를 위한 임베딩층(Embedding layer)을 하나 더 사용하는 것</li>
+<li>가령, 문장의 길이가 4라면 4개의 포지션 임베딩 벡터를 학습시키고, BERT의 입력마다 다음과 같이 포지션 임베딩 벡터를 더해줌</li>
+</ul>
+<p><img src="img/nlp_06_07.png" width="800"></p>
+<ul>
+<li>실제 BERT에서는 문장의 최대길이를 512로 하고 있으므로, 총 512개의 포지션 임베딩 벡터가 학습됨</li>
+</ul>
+</section>
+<section id="사전-훈련pre-training" class="level2">
+<h2 class="anchored" data-anchor-id="사전-훈련pre-training">사전 훈련(Pre-training)</h2>
+<p><img src="img/nlp_06_08.png" width="800"></p>
+<ul>
+<li><p>ELMo는 정방향 LSTM과 역방향 LSTM을 각각 훈련시키는 방식의 양방향 언어모델</p></li>
+<li><p>GPT-1은 트랜스포머의 디코더를 이전 단어들로부터 다음 단어를 예측하는 방식의 단방향 언어모델을 BERT는 GPT와 달리 화살표가 양방향으로 뻗어나감.</p></li>
+<li><p>이는 마스크드 언어모델(Masked Language Model)을 통해 양방향성을 얻었기 때문.</p></li>
+<li><p>BERT의 사전 훈련 방법은 크게 두가지</p>
+<ul>
+<li>첫번째는 마스크드 언어모델(Masked Language Model, MLM)</li>
+<li>두번째는 다음 문장 예측(Next sentence prediction, NSP)</li>
+</ul></li>
+</ul>
+</section>
+<section id="masked-language-model-mlm" class="level2">
+<h2 class="anchored" data-anchor-id="masked-language-model-mlm">Masked Language Model (MLM)</h2>
+<ul>
+<li>BERT는 사전 훈련을 위해서 인공 신경망의 입력으로 들어가는 입력 텍스트의 15%의 단어를 랜덤으로 마스킹(Masking)하고 이 단어들을 예측하도록 함.</li>
+<li>단, 전부 [MASK]로 변경하지는 않고, 그 중 80%는 [MASK]로, 10%는 랜덤의 다른 단어로, 10%는 동일하게 놔둠</li>
+</ul>
+<p><img src="img/nlp_06_09.png" width="500"></p>
+<p><img src="img/nlp_06_10.png" width="500"></p>
+<ul>
+<li>‘dog’ 토큰은 [MASK]로 변경</li>
+<li>’he’는 랜덤 단어 ’king’으로 변경</li>
+<li>’play’는 변경되지 않았지만 예측에 사용</li>
+</ul>
+</section>
+<section id="다음-문장-예측-nsp" class="level2">
+<h2 class="anchored" data-anchor-id="다음-문장-예측-nsp">다음 문장 예측 (NSP)</h2>
+<ul>
+<li><p>BERT는 두 개의 문장을 준 후에 이 문장이 이어지는 문장인지 아닌지를 맞추는 방식으로 훈련</p></li>
+<li><p>반은 실제 이어지는 두개의 문장, 반은 랜덤으로 이어붙인 두개의 문장으로 훈련</p></li>
+<li><p>이어지는 문장의 경우</p>
+<ul>
+<li>Sentence A : The man went to the store.</li>
+<li>Sentence B : He bought a gallon of milk.</li>
+<li>Label = IsNextSentence</li>
+</ul></li>
+<li><p>이어지는 문장이 아닌 경우</p>
+<ul>
+<li>Sentence A : The man went to the store.</li>
+<li>Sentence B : dogs are so cute.</li>
+<li>Label = NotNextSentence</li>
+</ul></li>
+</ul>
+<p><img src="img/nlp_06_11.png" width="500"></p>
+<ul>
+<li><p>BERT의 입력으로 넣을 때에는 [SEP]라는 특별 토큰을 사용해서 문장을 구분함.</p></li>
+<li><p>첫 번째 문장의 끝에 [SEP] 토큰을 넣고, 두 번째 문장이 끝나면 역시 [SEP] 토큰을 붙여줌.</p></li>
+<li><p>그리고 이 두 문장이 실제 이어지는 문장인지 아닌지를 [CLS] 토큰(BERT가 분류 문제를 풀기 위해 추가된 특별 토큰)의 위치의 출력층에서 이진 분류 문제를 풀도록 함.</p></li>
+<li><p>MLM과 NSP는 따로 학습하는 것이 아니라 loss를 합하여 학습이 동시에 이루어짐.</p></li>
+</ul>
+</section>
+</section>
+<section id="세그먼트-임베딩-segment-embedding" class="level1">
+<h1>세그먼트 임베딩 (Segment Embedding)</h1>
+<ul>
+<li>BERT는 QA(Question Answering) 같은 두 개의 문장 입력이 필요한 태스크를 풀기도 함.</li>
+<li>이때, 문장 구분을 위해서 BERT는 세그먼트 임베딩이라는 또 다른 임베딩층(Embedding layer)을 사용함.</li>
+<li>첫 번째 문장에는 Sentence 0 임베딩, 두 번째 문장에는 Sentence 1 임베딩을 더해주는 방식임.</li>
+<li>단, 여기서 두 개의 ’문장’이라는 표현에서 실제로 문장은 두 종류의 텍스트, 두 개의 문서일 수도 있음.</li>
+</ul>
+<p><img src="img/nlp_06_12.png" width="500"></p>
+<ul>
+<li><p>두 개의 문장을 입력받을 필요가 없는 경우도 있음.</p></li>
+<li><p>예를 들어, 감성 분류 태스크에서는 한 개의 문서에 대해서만 분류를 하는 것이므로, 이 경우에는 BERT의 전체 입력에 Sentence 0 임베딩만 더함.</p></li>
+<li><p>WordPiece Embedding : 실질적인 입력이 되는 워드 임베딩임. 임베딩 벡터의 종류는 단어 집합의 크기로 30,522개임.</p></li>
+<li><p>Position Embedding : 위치 정보를 학습하기 위한 임베딩임. 임베딩 벡터의 종류는 문장의 최대 길이인 512개임.</p></li>
+<li><p>Segment Embedding : 두 개의 문장을 구분하기 위한 임베딩임. 임베딩 벡터의 종류는 문장의 최대 개수인 2개임.</p></li>
+</ul>
+</section>
+<section id="파인튜닝fine-tuning" class="level1">
+<h1>파인튜닝(Fine-tuning)</h1>
+<p><strong>Single Text Classification</strong></p>
+<p>하나의 문서에 대한 텍스트 분류</p>
+<p><img src="img/nlp_06_13.png" width="400"></p>
+<ul>
+<li>이 유형은 영화 리뷰 감성 분류, 로이터 뉴스 분류 등과 같이 입력된 문서에 대해서 분류를 하는 유형임.</li>
+<li>문서의 시작에 [CLS]라는 토큰을 입력함.</li>
+<li>텍스트 분류 문제를 풀기 위해서 [CLS] 토큰의 위치의 출력층에서 밀집층(Dense layer) 또는 완전 연결층(fully-connected layer) 이라고 불리는 층들을 추가하여 분류에 대한 예측을 수행함.</li>
+</ul>
+<p><strong>Tagging</strong></p>
+<p><img src="img/nlp_06_14.png" width="400"></p>
+<ul>
+<li>문장의 각 단어에 품사를 태깅하는 품사 태깅 작업과, 개체를 태깅하는 개체명 인식 작업이 있음.</li>
+<li>출력층에서는 입력 텍스트의 각 토큰의 위치에 밀집층(Dense layer) 을 사용하여 분류에 대한 예측을 수행함.</li>
+</ul>
+<p><strong>Text Pair Classification or Regression</strong></p>
+<p>텍스트의 쌍을 입력으로 받는 태스크(예: 자연어 추론(natural language inferenece))</p>
+<p><img src="img/nlp_06_15.png" width="500"></p>
+<ul>
+<li>자연어 추론 문제란, 두 문장이 주어졌을 때, 하나의 문장이 다른 문장과 논리적으로 어떤 관계에 있는지를 분류하는 것임.</li>
+<li>유형으로는 모순 관계(contradiction), 함의 관계(entailment), 중립 관계(neutral)가 있음.</li>
+<li>이때 입력 텍스트가 1개가 아니므로, 텍스트 사이에 [SEP] 토큰을 집어넣고, 세그먼트 임베딩을 사용하여 문서를 구분함.</li>
+</ul>
+<p><strong>Question Answering</strong></p>
+<p>질문과 본문이라는 두 개의 텍스트의 쌍을 입력</p>
+<p><img src="img/nlp_06_16.png" width="500"></p>
+<ul>
+<li>질문과 본문을 입력받으면, 본문의 일부분을 추출해서 질문에 답변하는 방식임.</li>
+<li>예시:
+<ul>
+<li>질문: “강우가 떨어지도록 영향을 주는 것은?”</li>
+<li>본문: “기상학에서 강우는 대기 수증기가 응결되어 중력의 영향을 받고 떨어지는 것을 의미합니다…”</li>
+<li>정답: “중력”</li>
+</ul></li>
+</ul>
+</section>
+<section id="어텐션-마스크attention-mask" class="level1">
+<h1>어텐션 마스크(Attention Mask)</h1>
+<ul>
+<li>BERT를 실제로 실습하게 되면 어텐션 마스크(Attention Mask) 라는 시퀀스 입력이 추가로 필요함.</li>
+<li>어텐션 마스크는 BERT가 어텐션 연산을 할 때, 불필요하게 패딩 토큰에 대해 어텐션을 하지 않도록 실제 단어와 패딩 토큰을 구분할 수 있도록 알려주는 입력값임.</li>
+<li>이 값은 0과 1 두 가지 값을 가짐.
+<ul>
+<li>숫자 1 → 해당 토큰은 실제 단어이므로 마스킹을 하지 않는다는 의미.</li>
+<li>숫자 0 → 해당 토큰은 패딩 토큰이므로 마스킹을 한다는 의미.</li>
+</ul></li>
+<li>따라서 실제 단어의 위치에는 1, 패딩 토큰의 위치에는 0의 값을 가지는 시퀀스를 만들어 BERT의 또 다른 입력으로 사용함.</li>
+</ul>
+<p><img src="img/nlp_06_17.png" width="500"></p>
+</section>
+<section id="기타-참고사항" class="level1">
+<h1>기타 참고사항</h1>
+<ul>
+<li>훈련 데이터: 위키피디아(25억 단어) + BooksCorpus(8억 단어) ≈ 총 33억 단어</li>
+<li>토큰화: WordPiece 토크나이저를 사용하여 토큰화를 수행한 후 15% 비율에 대해 마스크드 언어 모델(MLM) 학습 진행</li>
+<li>최대 입력 길이: 두 문장 Sentence A와 B의 합한 길이는 최대 512 토큰으로 제한</li>
+<li>훈련 스텝: 100만 step 훈련 ≈ 총 33억 단어 코퍼스에 대해 40 에포크 학습</li>
+</ul>
+<p>훈련 설정</p>
+<ul>
+<li>옵티마이저: Adam</li>
+<li>학습률 (Learning Rate): 10⁻⁴</li>
+<li>가중치 감소 (Weight Decay): L2 정규화 0.01 적용</li>
+<li>드롭아웃 (Dropout): 모든 레이어에서 0.1 적용</li>
+<li>활성화 함수: ReLU가 아닌 GELU 함수 사용</li>
+<li>배치 크기 (Batch Size): 256</li>
+</ul>
+</section>
+<section id="sbertsentence-bert" class="level1">
+<h1>SBERT(Sentence BERT)</h1>
+<p><img src="img/nlp_06_18.png" width="400"></p>
+<p>문장 벡터를 얻는 방법</p>
+<ul>
+<li>[CLS] 토큰 자체를 입력 문장의 벡터로 간주
+<ul>
+<li>[CLS] 토큰은 BERT에서 문장 전체의 정보를 요약하는 역할을 하므로, 이를 문장 벡터로 사용함.</li>
+</ul></li>
+<li>BERT의 각 단어에 대한 출력 벡터들에 대해서 평균을 냄 (평균 풀링, Mean Pooling)
+<ul>
+<li>문장 내 모든 단어 벡터의 평균을 계산하여 문장 벡터를 생성함.</li>
+</ul></li>
+<li>각 단어의 출력 벡터들에 대해서 평균 풀링 대신 맥스 풀링 (Max Pooling)
+<ul>
+<li>각 차원에서 가장 큰 값을 선택하여 문장 벡터를 생성함.</li>
+</ul></li>
+</ul>
+<p>풀링 방식별 특징</p>
+<ul>
+<li>평균 풀링 (Mean Pooling): 문장 내 모든 단어의 의미를 반영한 벡터를 생성함.</li>
+<li>맥스 풀링 (Max Pooling): 중요한 단어의 의미를 강조하는 벡터를 생성함.</li>
+</ul>
+<p>SBERT (Sentence-BERT) 는 기본적으로 BERT의 문장 임베딩 성능을 개선한 모델임.</p>
+<ul>
+<li>기존 BERT는 문장 간 유사도를 비교하기 어려웠으나, SBERT는 이를 해결하기 위해 문장 임베딩을 더욱 효과적으로 만들도록 설계됨.</li>
+<li>BERT의 문장 임베딩을 응용하여 BERT를 파인튜닝하여 더 나은 문장 표현 벡터를 학습할 수 있도록 함.</li>
+<li>SBERT는 Siamese 네트워크 구조를 사용하여 문장 쌍(Sentence Pair) 데이터를 학습하며, 코사인 유사도(Cosine Similarity) 기반으로 문장 간 유사도를 빠르고 효율적으로 계산할 수 있음.</li>
+</ul>
+<p><strong>문장 쌍 분류 태스크로 파인튜닝</strong></p>
+<p>대표적으로는 NLI(Natural Language Inferencing) 문제</p>
+<ul>
+<li>문장 A, B BERT 입력 → 평균 풀링 or 맥스 풀링 → 문장 임베딩 벡터 <span class="math inline">\((u, v)\)</span> → 벡터 간 차이 <span class="math inline">\((|u - v|)\)</span> → 벡터 연결 <span class="math inline">\(( h = (u; v; |u - v|) )\)</span> → 출력층으로 전달하여 다중 클래스 분류 수행 → 소프트맥스 함수 통과 <span class="math inline">\(o-softmax(W_yh)\)</span> → 레이블과의 오차 줄이며 학습 진행</li>
+</ul>
+<p><strong>문장 쌍 회귀 태스크로 파인튜닝</strong></p>
+<p>대표적으로 STS(Semantic Textual Similarity) 문제 (두 개의 문장으로부터 의미적 유사성을 구하는 문제)</p>
+<ul>
+<li>문장 A, B BERT 입력 → 평균 풀링 or 맥스 풀링 → 문장 임베딩 벡터 <span class="math inline">\(( u, v )\)</span> → 두 벡터의 코사인 유사도 → 해당 유사도와 레이블 유사도 간의 평균 제곱 오차 (Mean Squared Error, MSE) 최소화</li>
+</ul>
 </section>
 <section id="참고자료" class="level1">
 <h1>참고자료</h1>

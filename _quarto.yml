@@ -152,7 +152,7 @@ website:
             - href: posts/nlp/05_transformer.ipynb
               text: "5. 트랜스포머"
             - href: posts/nlp/06_bert.ipynb
-              text: "6. BERT, GPT"
+              text: "6. BERT"
       - section: "경제 텍스트분석"
         contents:
         - href: posts/nlp_econ/finance_llm_survey.ipynb
