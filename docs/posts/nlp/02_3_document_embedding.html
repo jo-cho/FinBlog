@@ -8,7 +8,7 @@
 
 <meta name="author" content="Cheonghyo Cho">
 
-<title>그래프 머신러닝: (2-2) 이웃 중복 감지 – Cho’s FinBlog</title>
+<title>자연어처리: 문서임베딩 - Doc2Vec – Cho’s FinBlog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../posts/machine_learning/GRL_02_3.html" rel="next">
-<link href="../../posts/machine_learning/GRL_02_1.html" rel="prev">
+<link href="../../posts/nlp/03_topic_modeling.html" rel="next">
+<link href="../../posts/nlp/02_2_word_embedding2.html" rel="prev">
 <link href="../../logo.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -105,35 +105,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -187,7 +158,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">그래프 머신러닝</li><li class="breadcrumb-item"><a href="../../posts/machine_learning/GRL_01.html">그래프 머신러닝 이론</a></li><li class="breadcrumb-item"><a href="../../posts/machine_learning/GRL_02_2.html">2-2. 이웃중복 감지</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">자연어처리</li><li class="breadcrumb-item"><a href="../../posts/nlp/01_tf-idf.html">자연어처리 이론</a></li><li class="breadcrumb-item"><a href="../../posts/nlp/02_3_document_embedding.html">2-3. 문서임베딩: Doc2vec</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -511,22 +482,22 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false">
  <span class="menu-text">그래프 머신러닝</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false">
  <span class="menu-text">그래프 머신러닝 이론</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/machine_learning/GRL_01.html" class="sidebar-item-text sidebar-link">
@@ -541,7 +512,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/machine_learning/GRL_02_2.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../posts/machine_learning/GRL_02_2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2-2. 이웃중복 감지</span></a>
   </div>
 </li>
@@ -593,22 +564,22 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="true">
  <span class="menu-text">자연어처리</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true">
  <span class="menu-text">자연어처리 이론</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/nlp/01_tf-idf.html" class="sidebar-item-text sidebar-link">
@@ -629,7 +600,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../posts/nlp/02_3_document_embedding.html" class="sidebar-item-text sidebar-link">
+  <a href="../../posts/nlp/02_3_document_embedding.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">2-3. 문서임베딩: Doc2vec</span></a>
   </div>
 </li>
@@ -706,31 +677,27 @@ window.Quarto = {
     <h2 id="toc-title">목차</h2>
    
   <ul>
-  <li><a href="#이웃-중복-감지-neighborhood-overlap-detection" id="toc-이웃-중복-감지-neighborhood-overlap-detection" class="nav-link active" data-scroll-target="#이웃-중복-감지-neighborhood-overlap-detection">이웃 중복 감지 (Neighborhood Overlap Detection)</a>
+  <li><a href="#문서-임베딩" id="toc-문서-임베딩" class="nav-link active" data-scroll-target="#문서-임베딩">문서 임베딩</a></li>
+  <li><a href="#doc2vec의-주요-개념" id="toc-doc2vec의-주요-개념" class="nav-link" data-scroll-target="#doc2vec의-주요-개념">Doc2Vec의 주요 개념</a></li>
+  <li><a href="#doc2vec의-학습-과정" id="toc-doc2vec의-학습-과정" class="nav-link" data-scroll-target="#doc2vec의-학습-과정">Doc2Vec의 학습 과정</a>
   <ul class="collapse">
-  <li><a href="#local-overlap-measures" id="toc-local-overlap-measures" class="nav-link" data-scroll-target="#local-overlap-measures">Local Overlap Measures</a></li>
-  <li><a href="#global-overlap-measures" id="toc-global-overlap-measures" class="nav-link" data-scroll-target="#global-overlap-measures">Global Overlap Measures</a>
-  <ul class="collapse">
-  <li><a href="#katz-index" id="toc-katz-index" class="nav-link" data-scroll-target="#katz-index">Katz Index</a></li>
-  <li><a href="#leicht-holme-and-newman-lhn-similarity" id="toc-leicht-holme-and-newman-lhn-similarity" class="nav-link" data-scroll-target="#leicht-holme-and-newman-lhn-similarity">Leicht, Holme, and Newman (LHN) Similarity</a></li>
-  <li><a href="#random-walk-methods" id="toc-random-walk-methods" class="nav-link" data-scroll-target="#random-walk-methods">Random Walk Methods</a></li>
+  <li><a href="#pv-dm-distributed-memory-모델" id="toc-pv-dm-distributed-memory-모델" class="nav-link" data-scroll-target="#pv-dm-distributed-memory-모델">PV-DM (Distributed Memory) 모델</a></li>
+  <li><a href="#pv-dbow-distributed-bag-of-words-모델" id="toc-pv-dbow-distributed-bag-of-words-모델" class="nav-link" data-scroll-target="#pv-dbow-distributed-bag-of-words-모델">PV-DBOW (Distributed Bag of Words) 모델</a></li>
   </ul></li>
-  </ul></li>
-  <li><a href="#참고자료" id="toc-참고자료" class="nav-link" data-scroll-target="#참고자료">참고자료</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">그래프 머신러닝</li><li class="breadcrumb-item"><a href="../../posts/machine_learning/GRL_01.html">그래프 머신러닝 이론</a></li><li class="breadcrumb-item"><a href="../../posts/machine_learning/GRL_02_2.html">2-2. 이웃중복 감지</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">자연어처리</li><li class="breadcrumb-item"><a href="../../posts/nlp/01_tf-idf.html">자연어처리 이론</a></li><li class="breadcrumb-item"><a href="../../posts/nlp/02_3_document_embedding.html">2-3. 문서임베딩: Doc2vec</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">그래프 머신러닝: (2-2) 이웃 중복 감지</h1>
-<p class="subtitle lead">(GRL) Background and Traditional Approaches: Neighborhood Overlap Detection</p>
+<h1 class="title">자연어처리: 문서임베딩 - Doc2Vec</h1>
+<p class="subtitle lead">Dec2vec</p>
   <div class="quarto-categories">
-    <div class="quarto-category">graph</div>
-    <div class="quarto-category">network</div>
-    <div class="quarto-category">machine learning</div>
+    <div class="quarto-category">natural language processing</div>
+    <div class="quarto-category">document embedding</div>
+    <div class="quarto-category">doc2vec</div>
   </div>
   </div>
 
@@ -754,231 +721,136 @@ window.Quarto = {
 </header>
 
 
-<p>Hamilton,W.L. <em>Graph Representation Learning</em>. 2020</p>
-<section id="이웃-중복-감지-neighborhood-overlap-detection" class="level1">
-<h1>이웃 중복 감지 (Neighborhood Overlap Detection)</h1>
-<p><a href="https://jo-cho.github.io/FinBlog/posts/machine_learning/GRL_02_1.html">전 포스트</a>에서 소개한 방법은 분류 작업에 유용한 피쳐들이기는 하지만, 노드 간의 관계(<em>relationships</em>)를 정량화하지는 못한다. 따라서 관계예측(relation prediction) 등에서는 유용하지 못하다.</p>
-<p><img src="img/fig2_3.png" width="600"></p>
-<blockquote class="blockquote">
-<p>Figure 2.3 in Hamilton,<em>Graph Representation Learning</em>. 2020: Full graph와 학습을 위한 subsampled graph</p>
-</blockquote>
-<p>이 포스트에서는 두 노드 간의 이웃 중복(overlap)에 대한 다양한 통계 측정을 고려하여 두 노드 간의 관계 정도를 정량화한다. - 예를 들어, 가장 간단한 이웃 중복도 측정은 두 노드가 공유하는 이웃의 수를 계산하는 것이다.</p>
-<p><span class="math display">\[S[u,v] = | \mathcal{N}(u) \cap \mathcal{N}(v) |\]</span></p>
+<section id="문서-임베딩" class="level1">
+<h1>문서 임베딩</h1>
 <ul>
-<li><span class="math inline">\(S[u,v]\)</span>는 노드 <span class="math inline">\(u\)</span>와 <span class="math inline">\(v\)</span> 사이 관계를 정량화한 값을 나타내며, <span class="math inline">\(S \in \mathbb{R}^{|\mathcal{V}| \times |\mathcal{V}|}\)</span>는 모든 쌍별(pairwise) 노드 통계량을 요약하는 유사도 행렬(<em>similarity matrix</em>)이다.</li>
+<li>Doc2Vec(Paragraph Vector)은 문서(단락, 문장 등) 전체를 고정 길이 벡터로 변환하는 기법</li>
+<li>기본 아이디어는 문서 자체를 하나의 벡터로 학습하고, 단어 벡터와 함께 학습된 문서 벡터를 활용하여 단어 예측을 수행</li>
 </ul>
-<div id="2c8b7d5e-2d93-40a4-bff2-7f2965345a06" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample graph 생성</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">5</span>  <span class="co"># 노드 개수</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> <span class="dv">2</span>    <span class="co"># 새로운 노드에 연결되는 엣지 수</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.barabasi_albert_graph(n, m)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 시각화</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>pos <span class="op">=</span> nx.spring_layout(G)  <span class="co"># 그래프 레이아웃 정의</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 노드 및 엣지 그리기</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos, with_labels<span class="op">=</span><span class="va">True</span>, node_size<span class="op">=</span><span class="dv">700</span>, node_color<span class="op">=</span><span class="st">"skyblue"</span>, font_size<span class="op">=</span><span class="dv">12</span>, font_weight<span class="op">=</span><span class="st">"bold"</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Sample Graph"</span>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="GRL_02_2_files/figure-html/cell-2-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>관계 예측(relation prediction)에 사용</p>
+</section>
+<section id="doc2vec의-주요-개념" class="level1">
+<h1>Doc2Vec의 주요 개념</h1>
+<p>Doc2Vec은 두 가지 학습 방식을 사용</p>
 <ul>
-<li><p>이웃 중복도 <span class="math inline">\(S[u,v]\)</span>가 주어졌을 때, 엣지 <span class="math inline">\((u,v)\)</span>의 가능도(likelihood)가 <span class="math inline">\(S[u,v]\)</span>에 단순 비례한다고 가정하고는 한다. <span class="math display">\[P(A[u,v]=1) \propto S[u,v]\]</span></p></li>
-<li><p>따라서, 이웃 중복도는 관계 예측을 할 때 언제 엣지가 존재하는 것으로 예측할지 결정하기 위한 임계값을 설정하는 역할을 한다.</p></li>
-<li><p>관계 예측을 설정할 때에는 일반적으로 실제 엣지의 하위 집합 <span class="math inline">\(\mathcal{E}_{train} \subset \mathcal{E}\)</span>만 알고 있다고 가정하고, 훈련 엣지에서 계산된 노드-노드 유사성 측정이 테스트 엣지의 존재에 대한 정확한 예측으로 이어지는 것이 목표이다.</p></li>
-</ul>
-<section id="local-overlap-measures" class="level2">
-<h2 class="anchored" data-anchor-id="local-overlap-measures">Local Overlap Measures</h2>
-<p>로컬(local) 중복도는 두 노드가 공유하는 공통 이웃의 수의 함수이다.</p>
+<li>Distributed Memory Model of Paragraph Vectors (PV-DM)
 <ul>
-<li><p>예를 들어, Sorensen index는 노드-노드 이웃 중복의 행렬은 공통 이웃 수를 노드 degree의 합으로 정규화한다(큰 degree의 노드에 대한 예측 bias 방지). <span class="math display">\[S_{\text{Sorenson}}[u,v] = \frac{2|\mathcal{N}(u) \cap \mathcal{N}(u)|}{d_u + d_v}\]</span></p></li>
-<li><p>비슷한 방법으로 Salton index, Jaccard overlap가 있다. <span class="math display">\[S_{\text{Salton}}[u,v] = \frac{2|\mathcal{N}(u) \cap \mathcal{N}(u)|}{\sqrt{d_ud_v}}\]</span> <span class="math display">\[S_{\text{Jaccard}}[u,v] = \frac{|\mathcal{N}(u) \cap \mathcal{N}(u)|}{|\mathcal{N}(u) \cup \mathcal{N}(u)|}\]</span></p></li>
-</ul>
-<p>또한, 공통 이웃 수가 아닌 공통 이웃의 중요도를 고려하는 방법도 있다. degree가 낮은 공통 이웃(더 informative할 것이라고 가정)에 가중을 준다.</p>
+<li>문서 벡터 + 단어 벡터를 사용하여 다음 단어를 예측하는 방식</li>
+<li>Word2Vec의 CBOW(Continuous Bag of Words)와 유사</li>
+</ul></li>
+<li>Distributed Bag of Words Model of Paragraph Vectors (PV-DBOW)
 <ul>
-<li><p>Resource allocation(RA) index는 공통 이웃의 역 차수(inverse degree)를 카운트한다. <span class="math display">\[ S_{RA}[v_1,v_2] = \sum_{u \in \mathcal{N}(v_1) \cap \mathcal{N}(v_2)} \frac{1}{d_u} \]</span></p></li>
-<li><p>Adamic-Adar(AA) index는 공통 이웃의 역 로그 차수를 카운트한다. <span class="math display">\[ S_{AA}[v_1,v_2] = \sum_{u \in \mathcal{N}(v_1) \cap \mathcal{N}(v_2)} \frac{1}{\log(d_u)} \]</span></p></li>
+<li>문서 벡터를 사용하여 문서 내에서 임의의 단어를 예측하는 방식</li>
+<li>Word2Vec의 Skip-gram과 유사</li>
+</ul></li>
 </ul>
-<div id="a3d9c564-09e5-4aef-8634-1c80c1f1a982" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 두 노드 간의 Jaccard 유사도 계산</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> jaccard_similarity(G, node1, node2):</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    neighbors1 <span class="op">=</span> <span class="bu">set</span>(G.neighbors(node1))</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    neighbors2 <span class="op">=</span> <span class="bu">set</span>(G.neighbors(node2))</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    intersection <span class="op">=</span> <span class="bu">len</span>(neighbors1.intersection(neighbors2))</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    union <span class="op">=</span> <span class="bu">len</span>(neighbors1.union(neighbors2))</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> union <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> intersection <span class="op">/</span> union</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 유사도 행렬 생성</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>nodes <span class="op">=</span> <span class="bu">list</span>(G.nodes())</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>num_nodes <span class="op">=</span> <span class="bu">len</span>(nodes)</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>similarity_matrix <span class="op">=</span> np.zeros((num_nodes, num_nodes))</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_nodes):</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(num_nodes):</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        similarity_matrix[i, j] <span class="op">=</span> jaccard_similarity(G, nodes[i], nodes[j])</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Jaccard 유사도 행렬:"</span>)</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(similarity_matrix)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="doc2vec의-학습-과정" class="level1">
+<h1>Doc2Vec의 학습 과정</h1>
+<ul>
+<li>Doc2Vec은 주어진 문서에서 각 단어를 예측하는 방식으로 학습</li>
+<li>이를 위해 문서 ID를 나타내는 벡터와 단어 벡터를 함께 학습하는 방식으로 동작</li>
+</ul>
+<section id="pv-dm-distributed-memory-모델" class="level2">
+<h2 class="anchored" data-anchor-id="pv-dm-distributed-memory-모델">PV-DM (Distributed Memory) 모델</h2>
+<ul>
+<li>목표: 문서 벡터와 주변 단어 벡터를 기반으로 다음 단어를 예측</li>
+<li>방법: 특정 윈도우 크기(예: 3~5) 내의 단어들을 입력으로 받아, 다음 단어를 예측</li>
+<li>구성 요소:
+<ul>
+<li>문서 벡터 (D) → 해당 문서의 문맥을 저장하는 역할</li>
+<li>단어 벡터 (W) → 문서 내 등장하는 개별 단어의 의미 저장</li>
+</ul></li>
+<li>학습 과정:
+<ul>
+<li>주어진 문서에서 연속된 여러 단어(컨텍스트 단어)를 선택</li>
+<li>문서 벡터(D)와 선택된 단어 벡터(W)를 결합</li>
+<li>이를 통해 다음 단어를 예측하는 신경망을 학습</li>
+<li>문서 벡터와 단어 벡터를 동시에 업데이트</li>
+</ul></li>
+<li>예제:
+<ul>
+<li>문서: “The cat sat on the mat.”</li>
+<li>컨텍스트: [“The”, “cat”, “sat”]</li>
+<li>다음 단어 예측: “on”</li>
+<li>→ (D + “The” + “cat” + “sat”) → “on” 예측</li>
+</ul></li>
+<li>장점:
+<ul>
+<li>문서 벡터가 문맥을 유지하기 때문에 문서 전체의 의미를 잘 반영</li>
+<li>단어 순서를 일부 반영하여 BoW보다 향상된 표현 학습 가능</li>
+</ul></li>
+</ul>
+</section>
+<section id="pv-dbow-distributed-bag-of-words-모델" class="level2">
+<h2 class="anchored" data-anchor-id="pv-dbow-distributed-bag-of-words-모델">PV-DBOW (Distributed Bag of Words) 모델</h2>
+<ul>
+<li><p>목표: 문서 벡터를 이용해 문서 내 랜덤 단어를 예측</p></li>
+<li><p>방법: 문서 벡터만을 입력으로 사용하고, 문서에 포함된 단어 중 하나를 무작위로 선택하여 예측</p></li>
+<li><p>구성 요소:</p>
+<ul>
+<li>문서 벡터 (D) → 문서의 전체적인 의미 저장</li>
+<li>단어 벡터는 따로 사용하지 않음</li>
+</ul></li>
+<li><p>학습 과정:</p>
+<ul>
+<li>특정 문서에서 하나의 단어를 랜덤하게 선택</li>
+<li>문서 벡터만을 입력으로 사용하여 해당 단어를 예측</li>
+<li>문서 벡터를 업데이트하여 해당 문서의 의미를 반영</li>
+</ul></li>
+<li><p>예제</p>
+<ul>
+<li>문서: “The cat sat on the mat.”</li>
+<li>랜덤 단어: “cat”</li>
+<li>→ (D) → “cat” 예측</li>
+</ul></li>
+<li><p>장점:</p>
+<ul>
+<li>단어 벡터 없이 문서 벡터만을 학습하여 메모리 효율성이 높음</li>
+<li>Word2Vec의 Skip-gram 방식과 유사하며, 강력한 표현력을 가짐</li>
+</ul></li>
+</ul>
+<div id="cell-6" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gensim.models.doc2vec <span class="im">import</span> Doc2Vec, TaggedDocument</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.tokenize <span class="im">import</span> word_tokenize</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 학습 데이터 준비</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>documents <span class="op">=</span> [</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    TaggedDocument(words<span class="op">=</span>word_tokenize(<span class="st">"The cat sat on the mat."</span>), tags<span class="op">=</span>[<span class="st">"DOC_1"</span>]),</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    TaggedDocument(words<span class="op">=</span>word_tokenize(<span class="st">"Dogs are great pets."</span>), tags<span class="op">=</span>[<span class="st">"DOC_2"</span>]),</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    TaggedDocument(words<span class="op">=</span>word_tokenize(<span class="st">"Cats and dogs can be friends."</span>), tags<span class="op">=</span>[<span class="st">"DOC_3"</span>])</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Doc2Vec 모델 학습 (PV-DM 방식)</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Doc2Vec(documents, vector_size<span class="op">=</span><span class="dv">50</span>, window<span class="op">=</span><span class="dv">2</span>, min_count<span class="op">=</span><span class="dv">1</span>, workers<span class="op">=</span><span class="dv">4</span>, dm<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 학습된 문서 벡터 출력</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model.dv[<span class="st">"DOC_1"</span>])  <span class="co"># 첫 번째 문서 벡터</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Jaccard 유사도 행렬:
-[[1.         0.4        0.         0.2        0.2       ]
- [0.4        1.         0.33333333 0.25       0.25      ]
- [0.         0.33333333 1.         0.5        0.5       ]
- [0.2        0.25       0.5        1.         1.        ]
- [0.2        0.25       0.5        1.         1.        ]]</code></pre>
+<pre><code>[-0.01051783 -0.01200203 -0.01984816  0.01716449  0.00712801  0.00053357
+ -0.01982716 -0.01033127 -0.01949057  0.00405696  0.00568871  0.00931222
+ -0.00861875 -0.00632861 -0.00614419 -0.01753384  0.0043392   0.01851678
+ -0.01906662 -0.00693029 -0.00754504  0.00525124 -0.01144489  0.00526968
+  0.01160711 -0.01626217 -0.01673745 -0.01998021  0.0099023  -0.01832683
+  0.01174006  0.01364959 -0.01306674 -0.00905344 -0.00252451  0.00329995
+ -0.00295675 -0.01713611 -0.00724468  0.00345583 -0.00412142 -0.01448993
+  0.0083869  -0.0172424   0.00543042 -0.00923537  0.00130436 -0.00409975
+  0.01087504 -0.01606338]</code></pre>
 </div>
 </div>
-<div id="5045e938-d4c9-4a8c-93ec-e227804faf39" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> adamic_adar_similarity(G, node1, node2):</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    common_neighbors <span class="op">=</span> <span class="bu">list</span>(nx.common_neighbors(G, node1, node2))</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    similarity <span class="op">=</span> <span class="bu">sum</span>(<span class="dv">1</span> <span class="op">/</span> (<span class="bu">len</span>(<span class="bu">list</span>(G.neighbors(neighbor)))) <span class="cf">for</span> neighbor <span class="kw">in</span> common_neighbors <span class="cf">if</span> <span class="bu">len</span>(<span class="bu">list</span>(G.neighbors(neighbor))) <span class="op">&gt;</span> <span class="dv">1</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> similarity</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> adamic_adar_similarity_matrix(G):</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    nodes <span class="op">=</span> <span class="bu">list</span>(G.nodes())</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    num_nodes <span class="op">=</span> <span class="bu">len</span>(nodes)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    similarity_matrix <span class="op">=</span> np.zeros((num_nodes, num_nodes))</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_nodes):</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(num_nodes):</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> i <span class="op">==</span> j:</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>                similarity_matrix[i, j] <span class="op">=</span> <span class="dv">0</span>  <span class="co"># 같은 노드일 경우 유사도는 0</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>                similarity_matrix[i, j] <span class="op">=</span> adamic_adar_similarity(G, nodes[i], nodes[j])</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> similarity_matrix</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Adamic-Adar 유사도 행렬 계산</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>similarity_matrix <span class="op">=</span> adamic_adar_similarity_matrix(G)</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Adamic-Adar 유사도 행렬:"</span>)</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(similarity_matrix)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-7" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 새로운 문서를 벡터화하고 유사 문서 찾기</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>new_doc <span class="op">=</span> word_tokenize(<span class="st">"Dogs are friendly animals."</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>new_vector <span class="op">=</span> model.infer_vector(new_doc)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>similar_docs <span class="op">=</span> model.dv.most_similar([new_vector], topn<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(similar_docs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Adamic-Adar 유사도 행렬:
-[[0.         1.         0.         0.33333333 0.33333333]
- [1.         0.         0.25       0.25       0.25      ]
- [0.         0.25       0.         0.25       0.25      ]
- [0.33333333 0.25       0.25       0.         0.58333333]
- [0.33333333 0.25       0.25       0.58333333 0.        ]]</code></pre>
+<pre><code>[('DOC_2', 0.05467547848820686), ('DOC_1', 0.037136662751436234), ('DOC_3', -0.2144276350736618)]</code></pre>
 </div>
 </div>
-</section>
-<section id="global-overlap-measures" class="level2">
-<h2 class="anchored" data-anchor-id="global-overlap-measures">Global Overlap Measures</h2>
-<p>로컬 중복도는 이름처럼 국소적인 노드 이웃만을 고려하기 때문에, 그래프의 같은 커뮤니티 멤버이더라도 국소적 중복이 없을 때 이를 감지하지 못할 수 있다. 글로벌 중복은 이러한 것을 고려한다.</p>
-<section id="katz-index" class="level3">
-<h3 class="anchored" data-anchor-id="katz-index">Katz Index</h3>
-<p>가장 기본적인 글로벌(global) 중복 통계량으로 노드 쌍 사이 모든 길이(lengths)의 경로의 수를 카운트한다.</p>
-<p><span class="math display">\[S_{\text{Katz}}[u,v] = \sum^{\infty}_{i=1}\beta^iA^i[u,v] \]</span></p>
-<ul>
-<li><p><span class="math inline">\(\beta \in \mathbb{R}^+ (&lt;1)\)</span>는 사용자 설정값으로 길이간 긴 경로에 더 낮은 가중치를 부여한다.</p></li>
-<li><p>Katz index의 해답은 다음과 같이 주어질 수 있다:</p></li>
-</ul>
-<p><span class="math display">\[S_{\text{Katz}} = (I-\beta A)^{-1}-I\]</span></p>
-<ul>
-<li><span class="math inline">\(S_{\text{Katz}} \in \mathbb{R}^{|\mathcal{V}| \times |\mathcal{V}|}\)</span>는 노드-노드 유사도 값의 full 행렬이다.</li>
-</ul>
-</section>
-<section id="leicht-holme-and-newman-lhn-similarity" class="level3">
-<h3 class="anchored" data-anchor-id="leicht-holme-and-newman-lhn-similarity">Leicht, Holme, and Newman (LHN) Similarity</h3>
-<p>Katz Index는 노드 degree에 강하게 편향되어 있다. 이에 Leicht et al.(2006)은 실제 관찰된 경로 수와 두 노드 간 <em>기대 경로 수</em>의 비율을 제시했다. 즉, 두 노드 간 경로의 수를 랜덤모형에서의 경로 수 기대값으로 정규화하는 것이다.</p>
-<p><span class="math display">\[\frac{A^i}{\mathbb{E}[A^i]}\]</span></p>
-<p><span class="math inline">\({\mathbb{E}[A^i]}\)</span>를 계산하기 위해 <em>configuration model</em>을 이용하여 analytical하게 구한다: <span class="math display">\[\mathbb{E}[A[u,v]] = \frac{d_u d_v}{2m}\]</span> - <span class="math inline">\(m=|\mathcal{E}|\)</span>는 그래프의 엣지 전체 수를 의미한다. - 위 식은 랜덤 configuration model에서 엣지의 가능도(likelihood)는 단순히 두 노드 degree의 곱임을 뜻한다. - 또한 <span class="math inline">\(d_u\)</span>개 엣지가 <span class="math inline">\(u\)</span>를 출발하여 <span class="math inline">\(\frac{d_v}{2m}\)</span>의 확률로 <span class="math inline">\(v\)</span>에 도착한다고 볼 수 있다.</p>
-<p>길이 2의 경로의 경우, <span class="math display">\[ \mathbb{E}[A^2[v_1,v_2]] = \frac{d_{v_1} d_{v_2}}{(2m)^{2}} \sum_{u \in \mathcal{V}} (d_u-1) d_u \]</span> 와 같으며, 길이가 3이상일 경우는 처리하기 어려워진다. 단, 근사값으로, <span class="math display">\[ \mathbb{E}[A^i[u,v]] = \frac{d_u d_v \lambda^{i-1}}{2m} \]</span>로 나타낼 수 있다.</p>
-<p>해답을 구하기 위해, 행렬을 표현하면,</p>
-<p><span class="math display">\[S_{LNH}[u,v] = I[u,v]+\frac{2m}{d_u d_v} \sum^{\infty}_{i=0}\beta \lambda_1^{1-i}A^i [u,v]\]</span> <span class="math display">\[S_{LNH}[u,v] = 2\alpha m \lambda_1 D^{-1}(I-\frac{\beta}{\lambda_1}A)^{-1}D^{-1}\]</span></p>
-<ul>
-<li><span class="math inline">\(D\)</span>는 대각에 노드 degree가 있는 행렬을 뜻한다.</li>
-</ul>
-<div id="f49b71bc-05d6-4b46-b531-c5177cee9d70" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> lhn_similarity(G, node1, node2):</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    common_neighbors <span class="op">=</span> <span class="bu">list</span>(nx.common_neighbors(G, node1, node2))</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(common_neighbors) <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="fl">0.0</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        sum_inverse_degree <span class="op">=</span> <span class="bu">sum</span>(<span class="dv">1</span> <span class="op">/</span> G.degree(neighbor) <span class="cf">for</span> neighbor <span class="kw">in</span> common_neighbors)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> sum_inverse_degree <span class="op">/</span> <span class="bu">len</span>(common_neighbors)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> lhn_similarity_matrix(G):</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    num_nodes <span class="op">=</span> <span class="bu">len</span>(G.nodes())</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    similarity_matrix <span class="op">=</span> np.zeros((num_nodes, num_nodes))</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, node1 <span class="kw">in</span> <span class="bu">enumerate</span>(G.nodes()):</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j, node2 <span class="kw">in</span> <span class="bu">enumerate</span>(G.nodes()):</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> i <span class="op">==</span> j:</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>                similarity_matrix[i, j] <span class="op">=</span> <span class="fl">0.0</span>  <span class="co"># 같은 노드의 유사도는 0</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>                similarity_matrix[i, j] <span class="op">=</span> lhn_similarity(G, node1, node2)</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> similarity_matrix</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co"># LHN 유사도 행렬 계산</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>lhn_matrix <span class="op">=</span> lhn_similarity_matrix(G)</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"LHN 유사도 행렬:"</span>)</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lhn_matrix)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>LHN 유사도 행렬:
-[[0.         0.5        0.         0.33333333 0.33333333]
- [0.5        0.         0.25       0.25       0.25      ]
- [0.         0.25       0.         0.25       0.25      ]
- [0.33333333 0.25       0.25       0.         0.29166667]
- [0.33333333 0.25       0.25       0.29166667 0.        ]]</code></pre>
-</div>
-</div>
-</section>
-<section id="random-walk-methods" class="level3">
-<h3 class="anchored" data-anchor-id="random-walk-methods">Random Walk Methods</h3>
-<p>그래프의 정확한 경로의 수를 세는 대신 랜덤워크를 고려하여 유사도를 측정할 수 있다.</p>
-<p>‘Personalized PageRank’ 알고리즘(Leskovec et al., 2020)을 사용하면 확률(stochastic) 행렬 <span class="math inline">\(P=AD^{-1}\)</span>가 있을 때, 랜덤워크가 노드 <span class="math inline">\(u\)</span>에서 <span class="math inline">\(v\)</span>로 가는 확률 <span class="math inline">\(\mathbf{q}_u[v]\)</span>를 다음과 같이 구한다.</p>
-<p><span class="math display">\[\mathbf{q}_u = cP\mathbf{q}_u+(1-c)\mathbf{e}_u\]</span> <span class="math display">\[\mathbf{q}_u = (1-c)(I-cP)^{-1}\mathbf{e}_u\]</span></p>
-<ul>
-<li><span class="math inline">\(\mathbf{e}_u\)</span>는 노드 <span class="math inline">\(u\)</span>에 대한 one-hot indicator 벡터</li>
-<li><span class="math inline">\(c\)</span>는 랜덤워크가 노드 <span class="math inline">\(u\)</span>에서 다시 시작할 확률을 결정</li>
-</ul>
-<p>노드-노드 랜덤워크 유사도 측정:</p>
-<p><span class="math display">\[S_{RW}[u,v]=\mathbf{q}_u[v]+\mathbf{q}_v[u]\]</span></p>
-<div id="f73e0a77-a006-4966-a732-76373264c78d" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Personalized PageRank 계산</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> personalized_pagerank_similarity_matrix(G, alpha<span class="op">=</span><span class="fl">0.85</span>):</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Personalized PageRank 계산</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    pr_matrix <span class="op">=</span> nx.pagerank(G, alpha<span class="op">=</span>alpha)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 유사도 행렬 초기화</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    num_nodes <span class="op">=</span> <span class="bu">len</span>(G.nodes())</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    similarity_matrix <span class="op">=</span> np.zeros((num_nodes, num_nodes))</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 각 노드 쌍 간의 Personalized PageRank 유사도 계산</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, node1 <span class="kw">in</span> <span class="bu">enumerate</span>(G.nodes()):</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j, node2 <span class="kw">in</span> <span class="bu">enumerate</span>(G.nodes()):</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>            similarity_matrix[i, j] <span class="op">=</span> <span class="bu">abs</span>(pr_matrix[node1] <span class="op">-</span> pr_matrix[node2])</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> similarity_matrix</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Personalized PageRank 유사도 행렬 계산</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>ppr_similarity_matrix <span class="op">=</span> personalized_pagerank_similarity_matrix(G)</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Personalized PageRank 유사도 행렬:"</span>)</span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ppr_similarity_matrix)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Personalized PageRank 유사도 행렬:
-[[0.         0.08351986 0.22581248 0.15743786 0.15743786]
- [0.08351986 0.         0.14229262 0.07391799 0.07391799]
- [0.22581248 0.14229262 0.         0.06837463 0.06837463]
- [0.15743786 0.07391799 0.06837463 0.         0.        ]
- [0.15743786 0.07391799 0.06837463 0.         0.        ]]</code></pre>
-</div>
-</div>
-</section>
-</section>
-</section>
-<section id="참고자료" class="level1">
-<h1>참고자료</h1>
-<p>[1] Hamilton, W. L. (2020). <em>Graph Representation Learning.</em> Morgan &amp; Claypool Publishers.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1405,13 +1277,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <input type="hidden" id="giscus-alt-theme" value="dark">
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../posts/machine_learning/GRL_02_1.html" class="pagination-link" aria-label="2-1. 그래프 통계량과 커널">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">2-1. 그래프 통계량과 커널</span>
+      <a href="../../posts/nlp/02_2_word_embedding2.html" class="pagination-link" aria-label="2-2. 워드임베딩: GloVe, FastText">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">2-2. 워드임베딩: GloVe, FastText</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../posts/machine_learning/GRL_02_3.html" class="pagination-link" aria-label="2-3. 라플라시안과 스펙트럼">
-        <span class="nav-page-text">2-3. 라플라시안과 스펙트럼</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../posts/nlp/03_topic_modeling.html" class="pagination-link" aria-label="3. 토픽모델링: LSA, LDA">
+        <span class="nav-page-text">3. 토픽모델링: LSA, LDA</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

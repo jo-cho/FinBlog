@@ -145,6 +145,8 @@ website:
               text: "2-1. 워드임베딩: Word2Vec"
             - href: posts/nlp/02_2_word_embedding2.ipynb
               text: "2-2. 워드임베딩: GloVe, FastText"
+            - href: posts/nlp/02_3_document_embedding.ipynb
+              text: "2-3. 문서임베딩: Doc2vec"
             - href: posts/nlp/03_topic_modeling.ipynb
               text: "3. 토픽모델링: LSA, LDA"
             - href: posts/nlp/04_attention.ipynb
@@ -162,7 +164,7 @@ website:
         - href: posts/nlp_econ/text-based_economic_field_indicators.ipynb
           text: "경제부문별 텍스트 지표"
         - href: posts/nlp_econ/industry_monitoring_ai_algorithm.ipynb
-          text: "AI 알고리즘 이용 산업 모니터링"
+          text: "AI 산업 모니터링"
 format:
   html:
     theme: flatly

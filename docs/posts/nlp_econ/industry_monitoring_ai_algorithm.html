@@ -8,7 +8,7 @@
 
 <meta name="author" content="Cheonghyo Cho">
 
-<title>증권사 리포트 텍스트 분석 – Cho’s FinBlog</title>
+<title>AI 산업 모니터링 – Cho’s FinBlog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -152,7 +152,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../posts/nlp_econ/finance_llm_survey.html">경제 텍스트분석</a></li><li class="breadcrumb-item"><a href="../../posts/nlp_econ/industry_monitoring_ai_algorithm.html">AI 알고리즘 이용 산업 모니터링</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../posts/nlp_econ/finance_llm_survey.html">경제 텍스트분석</a></li><li class="breadcrumb-item"><a href="../../posts/nlp_econ/industry_monitoring_ai_algorithm.html">AI 산업 모니터링</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -594,6 +594,12 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../posts/nlp/02_3_document_embedding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2-3. 문서임베딩: Doc2vec</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../posts/nlp/03_topic_modeling.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3. 토픽모델링: LSA, LDA</span></a>
   </div>
@@ -650,7 +656,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/nlp_econ/industry_monitoring_ai_algorithm.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">AI 알고리즘 이용 산업 모니터링</span></a>
+ <span class="menu-text">AI 산업 모니터링</span></a>
   </div>
 </li>
       </ul>
@@ -678,7 +684,11 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#텍스트-기반-업황-지수text-based-business-confidence-indicator-tbci" id="toc-텍스트-기반-업황-지수text-based-business-confidence-indicator-tbci" class="nav-link" data-scroll-target="#텍스트-기반-업황-지수text-based-business-confidence-indicator-tbci">텍스트 기반 업황 지수(Text-based Business Confidence Indicator, TBCI)</a></li>
   <li><a href="#기업경영환경-변화-요인표-business-condition-factors-bc-factors" id="toc-기업경영환경-변화-요인표-business-condition-factors-bc-factors" class="nav-link" data-scroll-target="#기업경영환경-변화-요인표-business-condition-factors-bc-factors">기업경영환경 변화 요인표 (Business Condition Factors, BC-factors)</a></li>
+  <li><a href="#주요-이벤트의-영향도-text-based-impact-of-an-event-indicator-tiei" id="toc-주요-이벤트의-영향도-text-based-impact-of-an-event-indicator-tiei" class="nav-link" data-scroll-target="#주요-이벤트의-영향도-text-based-impact-of-an-event-indicator-tiei">주요 이벤트의 영향도 (Text-based Impact of an Event Indicator, TIEI)</a></li>
+  <li><a href="#주요-이벤트에-대한-평가-text-based-evaluation-of-an-event-indicator-teei" id="toc-주요-이벤트에-대한-평가-text-based-evaluation-of-an-event-indicator-teei" class="nav-link" data-scroll-target="#주요-이벤트에-대한-평가-text-based-evaluation-of-an-event-indicator-teei">주요 이벤트에 대한 평가 (Text-based Evaluation of an Event Indicator, TEEI)</a></li>
+  <li><a href="#공통요인-기반-산업별-유사도-business-condition-similarity-bc-similarity" id="toc-공통요인-기반-산업별-유사도-business-condition-similarity-bc-similarity" class="nav-link" data-scroll-target="#공통요인-기반-산업별-유사도-business-condition-similarity-bc-similarity">공통요인 기반 산업별 유사도 (Business Condition Similarity, BC-Similarity)</a></li>
   </ul></li>
+  <li><a href="#텍스트-정보의-타당성-검증" id="toc-텍스트-정보의-타당성-검증" class="nav-link" data-scroll-target="#텍스트-정보의-타당성-검증">텍스트 정보의 타당성 검증</a></li>
   <li><a href="#참고문헌" id="toc-참고문헌" class="nav-link" data-scroll-target="#참고문헌">참고문헌</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/jo-cho/FinBlog/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
@@ -686,9 +696,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../posts/nlp_econ/finance_llm_survey.html">경제 텍스트분석</a></li><li class="breadcrumb-item"><a href="../../posts/nlp_econ/industry_monitoring_ai_algorithm.html">AI 알고리즘 이용 산업 모니터링</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../posts/nlp_econ/finance_llm_survey.html">경제 텍스트분석</a></li><li class="breadcrumb-item"><a href="../../posts/nlp_econ/industry_monitoring_ai_algorithm.html">AI 산업 모니터링</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">증권사 리포트 텍스트 분석</h1>
+<h1 class="title">AI 산업 모니터링</h1>
 <p class="subtitle lead">Industry Monitoring using AI algorithm</p>
   <div class="quarto-categories">
     <div class="quarto-category">sentiment</div>
@@ -824,7 +834,7 @@ window.Quarto = {
 </ul></li>
 </ul></li>
 </ul>
-<p><span class="math inline">\(BC\text{-}factors^5_{i,t} = \{ (\omega^{[K]}, \dots, \omega^{[K-4]}) \mid \omega^{[k]} = f(v_{(k)}) \\
+<p><span class="math inline">\(BC\text{-factors}^5_{i,t} = \{ (\omega^{[K]}, \dots, \omega^{[K-4]}) \mid \omega^{[k]} = f(v_{(k)}) \\
 ,  v = m_{U_{i,t} \setminus W}(\omega),
 \\ v_{(k)} \text{ is the } k^\text{th} \text{ order statistic of } v. \}\)</span></p>
 <ul>
@@ -835,6 +845,60 @@ window.Quarto = {
 </ul>
 <p><img src="img/inmo_f3.png" width="800"></p>
 </section>
+<section id="주요-이벤트의-영향도-text-based-impact-of-an-event-indicator-tiei" class="level2">
+<h2 class="anchored" data-anchor-id="주요-이벤트의-영향도-text-based-impact-of-an-event-indicator-tiei">주요 이벤트의 영향도 (Text-based Impact of an Event Indicator, TIEI)</h2>
+<ul>
+<li>TIEI(Text-based Impact of an Event Indicator)는 특정 이벤트(예: 금리 변동, 환율 상승, 전쟁, 코로나 등)가 업종별로 얼마나 중요한 영향을 미치는지를 정량적으로 측정하는 지표</li>
+</ul>
+<p>산출 방법 - 증권사 리포트에서 특정 키워드(이벤트 관련 단어)의 등장 빈도를 측정하여 해당 이벤트가 업종별로 얼마나 언급되는지를 확인 - TIEI는 특정 이벤트 키워드를 포함하는 문장 수를 전체 문장 수로 나눈 값으로 계산</p>
+<p>$$$$</p>
+<p><span class="math inline">\(TIEI_{i,t} = \frac{\sum_{s \in S_{i,t}} I(s \in A_w)}{|S_{i,t}|} \times 100\)</span></p>
+<ul>
+<li><p><span class="math inline">\(A_w\)</span> : 단어군 <span class="math inline">\(w\)</span>를 포함하는 문장의 집합</p></li>
+<li><p>TIEI 값이 클수록 해당 이벤트가 업종 내에서 중요하게 다뤄지고 있음을 의미</p></li>
+</ul>
+<p><img src="img/inmo_f4.png" width="500"></p>
+</section>
+<section id="주요-이벤트에-대한-평가-text-based-evaluation-of-an-event-indicator-teei" class="level2">
+<h2 class="anchored" data-anchor-id="주요-이벤트에-대한-평가-text-based-evaluation-of-an-event-indicator-teei">주요 이벤트에 대한 평가 (Text-based Evaluation of an Event Indicator, TEEI)</h2>
+<ul>
+<li><p>TEEI는 특정 이벤트에 대해 증권사 애널리스트들이 긍정적으로 평가하는지, 부정적으로 평가하는지를 정량적으로 측정하는 지표</p></li>
+<li><p>즉, TIEI가 “이벤트가 얼마나 중요하게 다뤄졌는지”를 측정한다면, TEEI는 특정 이벤트가 업종별로 호재인지 악재인지 판단</p></li>
+</ul>
+<p><span class="math inline">\(TEEI_{i,t}^A = \frac{X_{i,t}-\bar{X}_{i,.}}{s_{i,.}}\times10+100\)</span></p>
+<p>$ X_{i,t} = {<em>{s S</em>{i,t}} } $</p>
+<ul>
+<li>즉, 업종별 평가는 특정 단어를 포함하는 긍·부정 문장 수의 차이를 그 합계로 나누어 추정</li>
+</ul>
+<p><img src="img/inmo_f5.png" width="500"></p>
+</section>
+<section id="공통요인-기반-산업별-유사도-business-condition-similarity-bc-similarity" class="level2">
+<h2 class="anchored" data-anchor-id="공통요인-기반-산업별-유사도-business-condition-similarity-bc-similarity">공통요인 기반 산업별 유사도 (Business Condition Similarity, BC-Similarity)</h2>
+<ul>
+<li>각 산업이 얼마나 유사한 경제적 요인을 공유하는지를 측정하는 지표</li>
+<li>즉, 특정 시점에서 다른 산업들 간의 공통적인 경제 환경 변화 요인(예: 환율, 원자재 가격, 금리, 공급망 차질 등)이 얼마나 많이 겹치는지를 정량적으로 측정</li>
+</ul>
+<p><span class="math inline">\(d_{KL}(P_{i,t} \parallel P_{j,t}) = \sum_{u \in (U_{i,t} \cup U_{j,t}) \setminus W} P_{i,t}(u) \log \left( \frac{P_{i,t}(u)}{P_{j,t}(u)} \right).\)</span></p>
+<p><span class="math inline">\(BC\text{-}similarity_{(i,j),t} = \frac{2}{d_{KL}(P_{i,t} \parallel P_{j,t}) + d_{KL}(P_{j,t} \parallel P_{i,t})}.\)</span></p>
+<ul>
+<li><span class="math inline">\(d_{KL}(P_{i,t} \parallel P_{j,t})\)</span>는 업종 <span class="math inline">\(i\)</span>와 <span class="math inline">\(j\)</span>의 키워드 분포 차이를 측정하는 KL Divergence.</li>
+<li><span class="math inline">\(P_{i,t}(u)\)</span>는 업종 <span class="math inline">\(i\)</span>에서 특정 키워드 <span class="math inline">\(u\)</span>의 출현 확률.</li>
+</ul>
+<p><img src="img/inmo_f6.png" width="500"></p>
+</section>
+</section>
+<section id="텍스트-정보의-타당성-검증" class="level1">
+<h1>텍스트 정보의 타당성 검증</h1>
+<p>업황 지수 <span class="math inline">\(TBCI_{i,t}\)</span>는 주가지수, GDP, BSI 등 금융·경제 지표와의 비교를 통해 선행성과 예측력 등을 평가</p>
+<p><img src="img/inmo_f7.png" width="800"></p>
+<p><img src="img/inmo_t3.png" width="600"></p>
+<ul>
+<li><p>텍스트 업황 지표는 코스피 산업별 지수의 흐름을 잘 추정하며, 상관계수는 0.5~0.9 수준으로 높게 나타남.</p></li>
+<li><p>일부 업종에서는 텍스트 지표가 코스피 산업별 지수보다 선행하는 경향을 보임. 다만, 업종별로 상관성과 선행성에는 차이가 존재함.</p></li>
+<li><p>텍스트 업황 지표는 숫자 정보 없이 텍스트 정보만으로 추정되었음에도 높은 예측력을 보임.</p></li>
+<li><p>1차 차분을 적용하여 트렌드를 제거한 후 상관계수를 계산하면 다소 낮아지는 경향이 나타남.</p></li>
+<li><p>이는 텍스트 업황 지표가 단기 변동보다는 장기적인 트렌드 파악에 더 유용할 가능성을 시사함.</p></li>
+</ul>
 </section>
 <section id="참고문헌" class="level1">
 <h1>참고문헌</h1>

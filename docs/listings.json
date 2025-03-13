@@ -2,6 +2,7 @@
   {
     "listing": "/listing.html",
     "items": [
+      "/posts/nlp_econ/industry_monitoring_ai_algorithm.html",
       "/posts/nlp_econ/text-based_economic_field_indicators.html",
       "/posts/machine_learning/GRL_01.html",
       "/posts/machine_learning/GRL_02_1.html",
@@ -49,12 +50,12 @@
       "/posts/statistics/causal_inference/ci_01_intro.html",
       "/posts/nlp/06_bert.html",
       "/posts/nlp/01_tf-idf.html",
+      "/posts/nlp/02_3_document_embedding.html",
       "/posts/nlp/04_attention.html",
       "/posts/nlp/02_2_word_embedding2.html",
       "/posts/nlp/02_1_word_embedding1.html",
       "/posts/nlp/03_topic_modeling.html",
-      "/posts/nlp/05_transformer.html",
-      "/posts/nlp_econ/industry_monitoring_ai_algorithm.html"
+      "/posts/nlp/05_transformer.html"
     ]
   }
 ]
